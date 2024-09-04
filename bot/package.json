@@ -1,0 +1,24 @@
+{
+  "name": "bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "create-topics": "node create-topics.js",
+    "start": "npm run create-topics && node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@playwright/test": "^1.45.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "kafka-node": "^5.0.0",
+    "multer": "^1.4.5-lts.1",
+    "p-queue": "^8.0.1",
+    "puppeteer": "^22.14.0"
+  }
+}
