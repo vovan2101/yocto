@@ -17,12 +17,12 @@ services:
       - prod_net
   
   bot:
-    image: vovan2101/your-bot-image-name:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-bot:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
     networks:
       - prod_net
   
   app:
-    image: vovan2101/your-app-image-name:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-app:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
     networks:
       - prod_net
   
