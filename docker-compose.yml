@@ -1,7 +1,7 @@
 version: '3.8'
 
 networks:
-  dev:
+  stage_net:  # или используйте stage_net на вашем stage инстансе
 
 services:
   nginx:
@@ -14,19 +14,17 @@ services:
       - bot
       - app
     networks:
-      - dev
+      - stage_net
   
   bot:
-    build:
-      context: ./bot
+    image: vovan2101/your-bot-image-name:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
     networks:
-      - dev
+      - stage_net
   
   app:
-    build:
-      context: ./app
+    image: vovan2101/your-app-image-name:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
     networks:
-      - dev
+      - stage_net
   
   zookeeper:
     image: bitnami/zookeeper:latest
@@ -36,12 +34,10 @@ services:
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     networks:
-      - dev
+      - stage_net
     volumes:
-      - type: tmpfs
-        target: /bitnami/zookeeper/data
-      - type: tmpfs
-        target: /bitnami/zookeeper/logs
+      - ./zookeeper_data:/bitnami/zookeeper/data  # Постоянное хранилище
+      - ./zookeeper_logs:/bitnami/zookeeper/logs  # Постоянное хранилище
 
   kafka:
     image: bitnami/kafka:latest
@@ -55,7 +51,6 @@ services:
     depends_on:
       - zookeeper
     networks:
-      - dev
+      - stage_net
     volumes:
-      - type: tmpfs
-        target: /bitnami/kafka
+      - ./kafka_data:/bitnami/kafka  # Постоянное хранилище
