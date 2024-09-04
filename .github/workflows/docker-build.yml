@@ -1,0 +1,41 @@
+name: Docker Build and Push  # Название workflow
+
+on:
+  push:  # Событие, которое запускает workflow
+    branches:  # Определяем ветки, при пуше в которые будет запускаться workflow
+      - main  # Для production
+      - stage  # Для тестирования (stage)
+
+jobs:
+  build:  # Описание задачи
+    runs-on: ubuntu-latest  # Где будет выполняться задача (на каком окружении)
+
+    steps:
+      # Шаг 1: Клонирование (checkout) репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Встроенное действие для клонирования вашего репозитория
+
+      # Шаг 2: Настройка Docker Buildx (инструмент для сборки Docker)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1  # Встроенное действие для настройки buildx, который поддерживает многоэтапные сборки и кэширование
+
+      # Шаг 3: Логин в Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1  # Используем GitHub Action для логина в Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Переменная для имени пользователя Docker Hub (добавляется в разделе Secrets вашего репозитория)
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Переменная для пароля или токена Docker Hub (также добавляется в Secrets)
+
+      # Шаг 4: Сборка и загрузка образа для ветки 'stage'
+      - name: Build and push (stage)
+        if: github.ref == 'refs/heads/stage'  # Выполняется, если пуш был в ветку 'stage'
+        run: |
+          docker build -t vovan2101/your-image-name:stage .  # Сборка Docker образа с тегом 'stage'
+          docker push vovan2101/your-image-name:stage  # Пуш Docker образа в Docker Hub
+
+      # Шаг 5: Сборка и загрузка образа для ветки 'main'
+      - name: Build and push (prod)
+        if: github.ref == 'refs/heads/main'  # Выполняется, если пуш был в ветку 'main'
+        run: |
+          docker build -t vovan2101/your-image-name:prod .  # Сборка Docker образа с тегом 'prod'
+          docker push vovan2101/your-image-name:prod  # Пуш Docker образа в Docker Hub
