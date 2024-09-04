@@ -17,12 +17,12 @@ services:
       - stage_net
   
   bot:
-    image: vovan2101/your-bot-image-name:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-bot:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
     networks:
       - stage_net
   
   app:
-    image: vovan2101/your-app-image-name:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-app:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
     networks:
       - stage_net
   
