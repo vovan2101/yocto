@@ -49,10 +49,11 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://:9092
-      KAFKA_LOG_DIRS: /bitnami/kafka  # Указание директории для логов
+      KAFKA_LOG_DIRS: /bitnami/kafka/logs  # Указание отдельной директории для логов
     depends_on:
       - zookeeper
     networks:
       - stage_net
     volumes:
-      - ./kafka_data:/bitnami/kafka  # Постоянное хранилище
+      - ./kafka_data:/bitnami/kafka/logs  # Монтируем логи в отдельную директорию
+      - ./kafka_config:/bitnami/kafka/config  # Монтируем конфигурацию в другую директорию
