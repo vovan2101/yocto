@@ -48,6 +48,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LOG_DIRS: /bitnami/kafka  # Указание директории для логов
     depends_on:
       - zookeeper
     networks:
