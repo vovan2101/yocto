@@ -11,8 +11,9 @@ const port = 3002;
 // Настройка CORS
 const corsOptions = {
     origin: 'http://54.212.222.60',  // Укажите URL вашего фронтенда
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    optionsSuccessStatus: 200
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Укажите методы, которые разрешены
+    allowedHeaders: ['Origin', 'Content-Type', 'Accept'],  // Укажите заголовки, которые могут быть переданы
+    optionsSuccessStatus: 200  // Для старых браузеров
 };
 
 app.use(cors(corsOptions));
