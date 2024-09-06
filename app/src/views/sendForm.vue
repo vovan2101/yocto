@@ -2322,7 +2322,7 @@ export default {
           formData.append(key, this.formData[key]);
         }
 
-        const response = await fetch('http://54.185.1.37/api/send-forms', {
+        const response = await fetch('http://54.212.222.60/api/send-forms', {
           method: 'POST',
           body: formData
     });
