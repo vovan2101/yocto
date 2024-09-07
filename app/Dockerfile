@@ -18,8 +18,12 @@ FROM nginx:stable-alpine
 # Copy the built app to the Nginx html directory
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy the custom nginx configuration file
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Remove the default Nginx config to prevent it from being used
+RUN rm /etc/nginx/conf.d/default.conf
+
+
+# Copy the custom nginx configuration file to the main Nginx configuration
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Expose the port the app runs on
 EXPOSE 80
