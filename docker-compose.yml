@@ -59,3 +59,8 @@ services:
     volumes:
       - kafka_data:/bitnami/kafka/logs  # Монтируем логи в отдельную директорию
       - kafka_config:/bitnami/kafka/config  # Монтируем конфигурацию в другую директорию
+volumes:
+  zookeeper_data:  # Объявляем том для данных ZooKeeper
+  zookeeper_logs:  # Объявляем том для логов ZooKeeper
+  kafka_data:      # Объявляем том для данных Kafka
+  kafka_config:    # Объявляем том для конфигураций Kafka
