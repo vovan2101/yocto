@@ -38,8 +38,8 @@ services:
     networks:
       - stage_net
     volumes:
-      - ./zookeeper_data:/bitnami/zookeeper/data  # Постоянное хранилище
-      - ./zookeeper_logs:/bitnami/zookeeper/logs  # Постоянное хранилище
+      - zookeeper_data:/bitnami/zookeeper/data  # Постоянное хранилище
+      - zookeeper_logs:/bitnami/zookeeper/logs  # Постоянное хранилище
 
   kafka:
     image: bitnami/kafka:latest
@@ -57,5 +57,5 @@ services:
     networks:
       - stage_net
     volumes:
-      - ./kafka_data:/bitnami/kafka/logs  # Монтируем логи в отдельную директорию
-      - ./kafka_config:/bitnami/kafka/config  # Монтируем конфигурацию в другую директорию
+      - kafka_data:/bitnami/kafka/logs  # Монтируем логи в отдельную директорию
+      - kafka_config:/bitnami/kafka/config  # Монтируем конфигурацию в другую директорию
