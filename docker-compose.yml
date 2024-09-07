@@ -37,9 +37,6 @@ services:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     networks:
       - prod_net
-    volumes:
-      - zookeeper_data:/bitnami/zookeeper/data  # Используем Docker volume
-      - zookeeper_logs:/bitnami/zookeeper/logs  # Используем Docker volume
 
   kafka:
     image: bitnami/kafka:latest
@@ -56,11 +53,3 @@ services:
       - zookeeper
     networks:
       - prod_net
-    volumes:
-      - kafka_data:/bitnami/kafka/logs  # Используем Docker volume
-      - kafka_config:/bitnami/kafka/config  # Используем Docker volume
-volumes:
-  zookeeper_data:  # Объявляем том для данных ZooKeeper
-  zookeeper_logs:  # Объявляем том для логов ZooKeeper
-  kafka_data:      # Объявляем том для данных Kafka
-  kafka_config:    # Объявляем том для конфигураций Kafka
