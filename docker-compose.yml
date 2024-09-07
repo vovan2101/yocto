@@ -18,6 +18,8 @@ services:
   
   bot:
     image: vovan2101/yocto-bot:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    ports:
+      - "3002:3002"
     networks:
       - prod_net
   
