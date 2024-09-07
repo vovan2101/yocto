@@ -37,9 +37,6 @@ services:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     networks:
       - stage_net
-    volumes:
-      - zookeeper_data:/bitnami/zookeeper/data  # Постоянное хранилище
-      - zookeeper_logs:/bitnami/zookeeper/logs  # Постоянное хранилище
 
   kafka:
     image: bitnami/kafka:latest
@@ -56,11 +53,3 @@ services:
       - zookeeper
     networks:
       - stage_net
-    volumes:
-      - kafka_data:/bitnami/kafka/logs  # Монтируем логи в отдельную директорию
-      - kafka_config:/bitnami/kafka/config  # Монтируем конфигурацию в другую директорию
-volumes:
-  zookeeper_data:  # Объявляем том для данных ZooKeeper
-  zookeeper_logs:  # Объявляем том для логов ZooKeeper
-  kafka_data:      # Объявляем том для данных Kafka
-  kafka_config:    # Объявляем том для конфигураций Kafka
