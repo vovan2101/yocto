@@ -7,9 +7,11 @@ services:
   nginx:
     image: nginx:stable-alpine
     ports:
-      - "80:80"
+      - "80:80"   # HTTP
+      - "443:443" # HTTPS
     volumes:
       - './nginx.conf:/etc/nginx/conf.d/default.conf'
+      - '/etc/letsencrypt:/etc/letsencrypt:ro'  # Монтирование сертификатов
     depends_on:
       - bot
       - app
