@@ -10,7 +10,7 @@ const port = 3002;
 
 // Настройка CORS для локальной разработки
 const corsOptions = {
-    origin: 'http://localhost:8080',  // URL фронтенда для локальной разработки
+    origin: 'http://localhost:3001',  // URL фронтенда для локальной разработки
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'Content-Type', 'Accept'],
     optionsSuccessStatus: 200  // Для старых браузеров
