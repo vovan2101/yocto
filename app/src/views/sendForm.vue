@@ -2322,10 +2322,10 @@ export default {
           formData.append(key, this.formData[key]);
         }
 
-        const response = await fetch('https://www.yocto.vc/api/send-forms', {
+        const response = await fetch('http://localhost:8080/api/send-forms', {  // Используем localhost
           method: 'POST',
           body: formData
-      });
+        });
 
         if (response.ok) {
           this.successMessage = 'Form submitted successfully!';

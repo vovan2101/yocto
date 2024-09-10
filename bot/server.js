@@ -8,11 +8,11 @@ const upload = multer({ dest: 'uploads/' });
 const app = express();
 const port = 3002;
 
-// Настройка CORS
+// Настройка CORS для локальной разработки
 const corsOptions = {
-    origin: 'https://www.yocto.vc',  // Укажите URL вашего фронтенда
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Укажите методы, которые разрешены
-    allowedHeaders: ['Origin', 'Content-Type', 'Accept'],  // Укажите заголовки, которые могут быть переданы
+    origin: 'http://localhost:8080',  // URL фронтенда для локальной разработки
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'Content-Type', 'Accept'],
     optionsSuccessStatus: 200  // Для старых браузеров
 };
 

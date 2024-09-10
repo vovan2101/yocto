@@ -1,37 +1,41 @@
 version: '3.8'
 
 networks:
-  prod_net:  # или используйте stage_net на вашем stage инстансе
+  dev_net:  # создаем сеть для локальной разработки
+    driver: bridge
 
 services:
   nginx:
-    image: nginx:stable-alpine
+    build:  # Сборка локальной версии Nginx
+      context: .
+      dockerfile: ./nginx.Dockerfile # Можете указать путь к Dockerfile для Nginx, если нужно
     ports:
-      - "80:80"   # HTTP
-      - "443:443" # HTTPS
+      - "8080:80"   # Измените порт на 8080 для локальной разработки
     volumes:
-      - './nginx.conf:/etc/nginx/conf.d/default.conf'
-      - type: bind
-        source: /etc/letsencrypt
-        target: /etc/letsencrypt
-        read_only: true
+      - './nginx.dev.conf:/etc/nginx/conf.d/default.conf'  # Используем локальную конфигурацию Nginx
     depends_on:
       - bot
       - app
     networks:
-      - prod_net
+      - dev_net
   
   bot:
-    image: vovan2101/yocto-bot:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    build:  # Для локальной разработки используем сборку
+      context: ./bot
+      dockerfile: ./Dockerfile
     ports:
       - "3002:3002"
     networks:
-      - prod_net
+      - dev_net
   
   app:
-    image: vovan2101/yocto-app:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    build:  # Для локальной разработки используем сборку
+      context: ./app
+      dockerfile: ./Dockerfile
+    ports:
+      - "3001:80"  # Добавим порт для локальной разработки
     networks:
-      - prod_net
+      - dev_net
   
   zookeeper:
     image: bitnami/zookeeper:latest
@@ -41,7 +45,7 @@ services:
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
     networks:
-      - prod_net
+      - dev_net
 
   kafka:
     image: bitnami/kafka:latest
@@ -57,4 +61,4 @@ services:
     depends_on:
       - zookeeper
     networks:
-      - prod_net
+      - dev_net
