@@ -869,11 +869,11 @@ export default {
     }
   },
   metaInfo: {
-    title: 'Character NFT template',
+    title: 'Yocto',
     meta: [
       {
         property: 'og:title',
-        content: 'Character NFT template',
+        content: 'Yocto',
       },
     ],
   },
