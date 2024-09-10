@@ -2322,7 +2322,7 @@ export default {
           formData.append(key, this.formData[key]);
         }
 
-        const response = await fetch('http://www.test.yocto.vc/api/send-forms', {
+        const response = await fetch('http://test.yocto.vc/api/send-forms', {
           method: 'POST',
           body: formData
     });

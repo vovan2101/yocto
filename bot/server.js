@@ -10,7 +10,7 @@ const port = 3002;
 
 // Настройка CORS
 const corsOptions = {
-    origin: 'http://www.test.yocto.vc',  // Укажите URL вашего фронтенда
+    origin: 'http://test.yocto.vc',  // Укажите URL вашего фронтенда
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Укажите методы, которые разрешены
     allowedHeaders: ['Origin', 'Content-Type', 'Accept'],  // Укажите заголовки, которые могут быть переданы
     optionsSuccessStatus: 200  // Для старых браузеров
