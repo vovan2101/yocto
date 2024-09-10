@@ -3,17 +3,21 @@ FROM node:alpine as build
 
 WORKDIR /app
 
+# Copy package.json and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy only the necessary files to avoid rebuilding on code changes
+# Copy all necessary files for building
 COPY . .
 
-# Build the app
+# Build the frontend
 RUN npm run build
 
 # Step 2: Serve the app using Nginx
 FROM nginx:stable-alpine
+
+# Remove any existing frontend files in the Nginx html directory
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built app to the Nginx html directory
 COPY --from=build /app/dist /usr/share/nginx/html
