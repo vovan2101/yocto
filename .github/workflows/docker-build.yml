@@ -3,8 +3,9 @@ name: Docker Build and Push  # Название workflow
 on:
   push:
     branches:
-      - main  # Для production
+      - main   # Для production
       - stage  # Для тестирования (stage)
+      - dev    # Для локальной разработки (dev)
 
 jobs:
   build:
@@ -25,6 +26,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}  # Переменная для имени пользователя Docker Hub
           password: ${{ secrets.DOCKER_PASSWORD }}  # Переменная для пароля Docker Hub
+
+      # Сборка и загрузка образа для 'bot' и 'app' в ветке 'dev'
+      - name: Build and push images for dev
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          docker build -t vovan2101/yocto-bot:dev -f ./bot/Dockerfile ./bot  # Сборка образа bot
+          docker push vovan2101/yocto-bot:dev  # Пуш образа bot в Docker Hub
+          docker build -t vovan2101/yocto-app:dev -f ./app/Dockerfile ./app  # Сборка образа app
+          docker push vovan2101/yocto-app:dev  # Пуш образа app в Docker Hub
 
       # Сборка и загрузка образа для 'bot' и 'app' в ветке 'stage'
       - name: Build and push images for stage
