@@ -290,7 +290,7 @@
 
   .modal {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     left: 0;
     top: 0;
     width: 100%;
@@ -366,5 +366,24 @@
   .button-link-scrollable:hover {
     background-color: #444;
   }
+
+  /* Стили для устройств с разрешением до 1024px */
+@media (max-width: 1024px) {
+  .modal-header {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-header {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    font-size: 20px;
+  }
+}
   </style>
   
