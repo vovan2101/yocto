@@ -26,57 +26,47 @@
       </div>
       <div v-if="currentStep === 2">
           <div class="header-container">
-            <p class="step-indicator">a.</p>
             <h2>What's your first and last name?</h2>
           </div>
-          <div class="button-left-container">
-            <button @click="openModal('first_name')" class="button-scroll">Which investors require this information?</button>
-          </div>
-          <input class="input-field" v-model="formData.first_name" placeholder="John" required />
-          <input class="input-field" v-model="formData.last_name" placeholder="Doe" required />
+          <input class="input-field" v-model="formData.first_name" placeholder="First name" required />
+          <input class="input-field" v-model="formData.last_name" placeholder="Last name" required />
           <div class="button-container">
             <button class="button" @click="nextStep">Next</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
+          <div class="link-left-container">
+            <a @click="openModal('first_name')" class="link-scroll">Which investors require this information?</a>
+          </div>
         </div>
-
         <div v-if="currentStep === 3">
           <div class="header-container">
-            <p class="step-indicator">b.</p>
             <h2>What is your e-mail address?</h2>
-          </div>
-          <div class="button-left-container">
-            <button @click="openModal('email')" class="button-scroll">Which investors require this information?</button>
           </div>
           <input class="input-field" type="email" placeholder="name@example.com" v-model="formData.email" required />
           <div class="button-container">
             <button class="button" @click="nextStep">Next</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
+          <div class="link-left-container">
+            <a @click="openModal('email')" class="link-scroll">Which investors require this information?</a>
+          </div>
         </div>
-
         <div v-if="currentStep === 4">
           <div class="header-container">
-            <p class="step-indicator">b.</p>
             <h2>What is your phone number?</h2>
-          </div>
-          <div class="button-left-container">
-            <button @click="openModal('phone_number')" class="button-scroll">Which investors require this information?</button>
           </div>
           <input class="input-field" type="tel" placeholder="Type your answer here..." v-model="formData.phone_number" required />
           <div class="button-container">
             <button class="button" @click="nextStep">Next</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
+          <div class="link-left-container">
+            <a @click="openModal('phone_number')" class="link-scroll">Which investors require this information?</a>
+          </div>
         </div>
-
         <div v-if="currentStep === 5">
           <div class="header-container">
-            <p class="step-indicator">c.</p>
             <h2>What is your relationship to the company?</h2>
-          </div>
-          <div class="button-left-container">
-            <button @click="openModal('relationship')" class="button-scroll">Which investors require this information?</button>
           </div>
           <div class="radio-group">
             <label class="custom-radio">
@@ -101,15 +91,13 @@
             <button class="button" @click="nextStep">Next</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
+          <div class="link-left-container">
+            <a @click="openModal('relationship')" class="link-scroll">Which investors require this information?</a>
+          </div>
         </div>
-
         <div v-if="currentStep === 6">
           <div class="header-container">
-            <p class="step-indicator">h.</p>
             <h2>Are you working on this full time (40+ hours/week)?</h2>
-          </div>
-          <div class="button-left-container">
-            <button @click="openModal('working_full_time')" class="button-scroll">Which investors require this information?</button>
           </div>
           <div class="radio-group">
             <label class="custom-radio">
@@ -180,6 +168,9 @@
             <button class="button" @click="nextStep">Next</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
+          <div class="link-left-container">
+            <a @click="openModal('working_full_time')" class="link-scroll">Which investors require this information?</a>
+          </div>
         </div>
       <transition name="fade" mode="out-in">
       <div v-if="titleText" key="titleText" class="fixed-title">{{ titleText }}</div>
@@ -205,117 +196,100 @@
     </div>
     <div v-if="currentStep === 8">
             <div class="header-container">
-              <p class="step-indicator">a.</p>
               <h2>What's the name of your company?</h2>
             </div>
             <p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
-            <div class="button-left-container">
-              <button @click="openModal('company_name')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 9 -->
           <div v-if="currentStep === 9">
             <div class="header-container">
-              <p class="step-indicator">b.</p>
               <h2>What's the one-liner description of your company?</h2>
             </div>
             <p>(Keep it simple - eg "We're the Uber for babysitters")</p>
-            <div class="button-left-container">
-              <button @click="openModal('one_line_description')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.one_line_description"></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('one_line_description')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 10 -->
           <div v-if="currentStep === 10">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>In one to two sentences, what is the problem you are trying to solve?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('company_description')" class="button-scroll">Which investors require this information?</button>
             </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.company_description" required></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('company_description')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 11 -->
           <div v-if="currentStep === 11">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>In one to two sentences, what is your solution?</h2>
             </div>
             <p>Tip - tell us what your business does and how you are unique.</p>
-            <div class="button-left-container">
-              <button @click="openModal('company_solution')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.company_solution" required></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('company_solution')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 12 -->
           <div v-if="currentStep === 12">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>In 2-3 sentences, what is the elevator pitch of your company?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('pitch_description')" class="button-scroll">Which investors require this information?</button>
             </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.pitch_description" required></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('pitch_description')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 13 -->
           <div v-if="currentStep === 13">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>Who is your target customer & how are you going to acquire them?</h2>
             </div>
             <p>Pro tip: We're specifically looking for info around how you think about customer acquisition (now and at scale) and revenue.</p>
-            <div class="button-left-container">
-              <button @click="openModal('target_customer')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.target_customer" required></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('target_customer')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 14 -->
           <div v-if="currentStep === 14">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>How do you plan on acquiring your customers?</h2>
             </div>
             <p>Please select the options that apply to your business the most - the fewer the better!</p>
-            <div class="button-left-container">
-              <button @click="openModal('customer_acquisition')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="choices">
               Make between 1 and 3 choices
             </div>
-            
             <!-- Контейнер с прокруткой -->
             <div class="scrollable-content">
               <div class="checkbox-group">
@@ -348,33 +322,29 @@
               <button class="button" @click="prepareCustomerAcquisitionData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('customer_acquisition')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 15 -->
           <div v-if="currentStep === 15">
             <div class="header-container">
-              <p class="step-indicator">d.</p>
               <h2>Date Founded.</h2>
             </div>
             <p>Approximately, when did you start the company?</p>
-            <div class="button-left-container">
-              <button @click="openModal('date_founded')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <input class="input-field" type="date" v-model="formData.date_founded" />
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 16 -->
           <div v-if="currentStep === 16">
             <div class="header-container">
-              <p class="step-indicator">j.</p>
               <h2>What is the status of your product?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('product_status')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="radio-group">
               <label class="custom-radio">
@@ -424,16 +394,14 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('product_status')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 17 -->
           <div v-if="currentStep === 17">
             <div class="header-container">
-              <p class="step-indicator">k.</p>
               <h2>Does your product have active users or customers?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('active_customers')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="radio-group">
               <label class="custom-radio">
@@ -462,19 +430,16 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('active_customers')" class="link-scroll">Which investors require this information?</a>
           </div>
-
-
+          </div>
           <!-- Step 18 -->
           <div v-if="currentStep === 18">
             <div class="header-container">
-              <p class="step-indicator">k.</p>
               <h2>How many users do you have?</h2>
             </div>
             <p>Including wait list if applicable.</p>
-            <div class="button-left-container">
-              <button @click="openModal('how_many_users')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="scrollable-content">
             <div class="radio-group">
               <label class="custom-radio">
@@ -560,17 +525,16 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('how_many_users')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
           <!-- Step 19 -->
           <div v-if="currentStep === 19">
             <div class="header-container">
-              <p class="step-indicator">e.</p>
               <h2>What industry are you in?</h2>
             </div>
             <p>Please select the options that apply to your business the most - the fewer the better!</p>
-            <div class="button-left-container">
-              <button @click="openModal('industry')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="choices">
               Make between 1 and 3 choices
             </div>
@@ -603,17 +567,14 @@
               <button class="button" @click="prepareIndustryData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('industry')" class="link-scroll">Which investors require this information?</a>
           </div>
-
-
+          </div>
           <!-- Step 20 -->
           <div v-if="currentStep === 20">
             <div class="header-container">
-              <p class="step-indicator">e.</p>
               <h2>What industry are you in (Liberty Ventures)?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('liberty_ventures_industry')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="scrollable-content">
             <div class="radio-group">
@@ -635,17 +596,16 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('liberty_ventures_industry')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
           <!-- Step 21 -->
           <div v-if="currentStep === 21">
             <div class="header-container">
-              <p class="step-indicator">f.</p>
               <h2>What is the primary product your company is providing?</h2>
             </div>
             <p>Please select the options that apply to your business the most - the fewer the better!</p>
-            <div class="button-left-container">
-              <button @click="openModal('product')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="choices">
               Make between 1 and 2 choices
             </div>
@@ -678,19 +638,17 @@
               <button class="button" @click="prepareProductData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('product')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 22 -->
           <div v-if="currentStep === 22">
             <div class="header-container">
-              <p class="step-indicator">c.</p>
               <h2>What is your Business Model?</h2>
             </div>
             <p>Please select the options that apply to your business the most - the fewer the better!</p>
             <p>(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
-            <div class="button-left-container">
-              <button @click="openModal('business_model')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="choices">
               You can choose up to 2
             </div>
@@ -724,48 +682,44 @@
               <button class="button" @click="prepareBusinessModelData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('business_model')" class="link-scroll">Which investors require this information?</a>
           </div>
-
+          </div>
           <!-- Step 23 -->
           <div v-if="currentStep === 23">
             <div class="header-container">
-              <p class="step-indicator">f.</p>
               <h2>What is your company website?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('company_website')" class="button-scroll">Which investors require this information?</button>
             </div>
             <input class="input-field" type="url" placeholder="https://website.com" v-model="formData.company_website" />
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+            <a @click="openModal('company_website')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
 
           <!-- Step 24 -->
           <div v-if="currentStep === 24">
             <div class="header-container">
-              <p class="step-indicator">g.</p>
               <h2>Add a link to your pitch deck.</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('pitch_deck')" class="button-scroll">Which investors require this information?</button>
             </div>
             <input class="input-field" type="url" placeholder="https://pitch.com" v-model="formData.pitch_deck" required />
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+              <a @click="openModal('pitch_deck')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
 
           <!-- Step 25 -->
           <div v-if="currentStep === 25">
             <div class="header-container">
-              <p class="step-indicator">h.</p>
               <h2>Add a file to your pitch deck.</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('pitch_deck_file')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="file-upload-container">
               <label class="custom-file-upload">
@@ -778,15 +732,14 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+              <a @click="openModal('pitch_deck_file')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
           <!-- Step 26 -->
           <div v-if="currentStep === 26">
             <div class="header-container">
-              <p class="step-indicator">i.</p>
               <h2>Where is your business incorporated?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('headquartered')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="scrollable-content">
             <div class="radio-group">
@@ -901,16 +854,15 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+              <a @click="openModal('headquartered')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
 
           <!-- Step 27 -->
           <div v-if="currentStep === 27">
             <div class="header-container">
-              <p class="step-indicator">i.</p>
               <h2>Where are your main customers based?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('customers_based')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="scrollable-content">
             <div class="radio-group">
@@ -1027,17 +979,16 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+              <a @click="openModal('customers_based')" class="link-scroll">Which investors require this information?</a>
+          </div>
           </div>
           <!-- Step 28 -->
           <div v-if="currentStep === 28">
             <div class="header-container">
-              <p class="step-indicator">j.</p>
               <h2>Where are you located?</h2>
             </div>
             <p>Hint: if your company is remote, that's totally fine, just pick the geo where you are physically located.</p>
-            <div class="button-left-container">
-              <button @click="openModal('specific_location')" class="button-scroll">Which investors require this information?</button>
-            </div>
             <div class="scrollable-content">
             <div class="radio-group">
               <label class="custom-radio" v-for="(location, index) in locations" :key="index">
@@ -1064,16 +1015,15 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+        <a @click="openModal('specific_location')" class="link-scroll">Which investors require this information?</a>
+    </div>
           </div>
 
           <!-- Step 29 -->
           <div v-if="currentStep === 29">
             <div class="header-container">
-              <p class="step-indicator">k.</p>
               <h2>What is the current or intended legal structure of the company?</h2>
-            </div>
-            <div class="button-left-container">
-              <button @click="openModal('legal_structure')" class="button-scroll">Which investors require this information?</button>
             </div>
             <div class="radio-group">
               <label class="custom-radio">
@@ -1140,6 +1090,9 @@
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
             </div>
+            <div class="link-left-container">
+        <a @click="openModal('legal_structure')" class="link-scroll">Which investors require this information?</a>
+    </div>
           </div>
       <transition name="fade" mode="out-in">
       <div v-if="titleText" key="titleText" class="fixed-title">{{ titleText }}</div>
@@ -1165,11 +1118,7 @@
     </div>
     <div v-if="currentStep === 31">
         <div class="header-container">
-          <p class="step-indicator">a.</p>
           <h2>What round are you raising?</h2>
-        </div>
-        <div class="button-left-container">
-          <button @click="openModal('raising_round')" class="button-scroll">Which investors require this information?</button>
         </div>
         <div class="radio-group">
           <label class="custom-radio">
@@ -1256,30 +1205,28 @@
           <button class="button" @click="nextStep">Next</button>
           <p class="enter-text">press Enter ↵</p>
         </div>
+        <div class="link-left-container">
+        <a @click="openModal('raising_round')" class="link-scroll">Which investors require this information?</a>
+    </div>
       </div>
 
 <div v-if="currentStep === 32">
     <div class="header-container">
-      <p class="step-indicator">b.</p>
       <h2>How much are you raising? (in USD)</h2>
-    </div>
-    <div class="button-left-container">
-      <button @click="openModal('raising_amount')" class="button-scroll">Which investors require this information?</button>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.raising_amount" required />
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
     </div>
+    <div class="link-left-container">
+        <a @click="openModal('raising_amount')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 33">
   <div class="header-container">
-    <p class="step-indicator">k.</p>
     <h2>Is your startup currently earning revenue?</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('earning_revenue')" class="button-scroll">Which investors require this information?</button>
   </div>
   <div class="radio-group">
     <label class="custom-radio">
@@ -1301,16 +1248,15 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('earning_revenue')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 
 <div v-if="currentStep === 34">
   <div class="header-container">
-    <p class="step-indicator">i.</p>
     <h2>Approximately how much revenue are you earning per month (in USD)?</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('earning_amount')" class="button-scroll">Which investors require this information?</button>
   </div>
   <div class="radio-group">
     <label class="custom-radio">
@@ -1346,17 +1292,16 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('earning_amount')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 35">
   <div class="header-container">
-    <p class="step-indicator">k.</p>
     <h2>What do you expect your main source of revenue to be?</h2>
   </div>
   <p>Please use "other" for sources you don't see below or if your business has multiple sources.</p>
-  <div class="button-left-container">
-    <button @click="openModal('source_of_revenue')" class="button-scroll">Which investors require this information?</button>
-  </div>
   <div class="radio-group">
     <label class="custom-radio">
       <input type="radio" value="Ads / Sponsors" v-model="formData.source_of_revenue" @change="handleSourceChange" />
@@ -1408,51 +1353,51 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('source_of_revenue')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 36">
     <div class="header-container">
-      <p class="step-indicator">c.</p>
       <h2>What is your pre-money valuation? (in USD)</h2>
-    </div>
-    <div class="button-left-container">
-      <button @click="openModal('pre_money_valuation')" class="button-scroll">Which investors require this information?</button>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.pre_money_valuation" />
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
     </div>
+    <div class="link-left-container">
+        <a @click="openModal('pre_money_valuation')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 37">
     <div class="header-container">
-      <p class="step-indicator">c.</p>
       <h2>What is your post-money valuation? (in USD)</h2>
-    </div>
-    <div class="button-left-container">
-      <button @click="openModal('post_money_valuation')" class="button-scroll">Which investors require this information?</button>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.post_money_valuation" />
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
     </div>
+    <div class="link-left-container">
+        <a @click="openModal('post_money_valuation')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 38">
     <div class="header-container">
-      <p class="step-indicator">d.</p>
       <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
     </div>
     <p>Please provide the total round size.</p>
-    <div class="button-left-container">
-      <button @click="openModal('capital_to_raise')" class="button-scroll">Which investors require this information?</button>
-    </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.capital_to_raise" />
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
+    </div>
+    <div class="link-left-container">
+        <a @click="openModal('capital_to_raise')" class="link-scroll">Which investors require this information?</a>
     </div>
 </div>
       <transition name="fade" mode="out-in">
@@ -1479,11 +1424,7 @@
     </div>
     <div v-if="currentStep === 40">
   <div class="header-container">
-    <p class="step-indicator">a.</p>
     <h2>What is your previous entrepreneurial experience?</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('prev_experience')" class="button-scroll">Which investors require this information?</button>
   </div>
   <div class="radio-group">
     <label class="custom-radio">
@@ -1519,46 +1460,43 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('prev_experience')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 
 <div v-if="currentStep === 41">
   <div class="header-container">
-    <p class="step-indicator">b.</p>
     <h2>In 2-3 sentences, why you / your team are awesome.</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('team_description')" class="button-scroll">Which investors require this information?</button>
   </div>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.team_description" required></textarea>
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('team_description')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 42">
   <div class="header-container">
-    <p class="step-indicator">c.</p>
     <h2>What's your company's LinkedIn?</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('company_linkedin')" class="button-scroll">Which investors require this information?</button>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.company_linkedin" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('company_linkedin')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 43">
   <div class="header-container">
-    <p class="step-indicator">c.</p>
     <h2>Founder LinkedIn</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('ceo_linkedin')" class="button-scroll">Which investors require this information?</button>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.ceo_linkedin" />
 
@@ -1576,60 +1514,56 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('ceo_linkedin')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 44">
   <div class="header-container">
-    <p class="step-indicator">d.</p>
     <h2>CTO LinkedIn</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('cto_linkedin')" class="button-scroll">Which investors require this information?</button>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.cto_linkedin" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('cto_linkedin')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 45">
   <div class="header-container">
-    <p class="step-indicator">e.</p>
     <h2>Your team's LinkedIn profiles.</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('linkedin_profiles')" class="button-scroll">Which investors require this information?</button>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.linkedin_profiles" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('linkedin_profiles')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 46">
   <div class="header-container">
-    <p class="step-indicator">f.</p>
     <h2>Founder video URL</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('founder_video_url')" class="button-scroll">Which investors require this information?</button>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder_video_url" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('founder_video_url')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 47">
   <div class="header-container">
-    <p class="step-indicator">g.</p>
     <h2>Upload short video about team and the company.</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('team_video_upload')" class="button-scroll">Which investors require this information?</button>
   </div>
   <div class="file-upload-container">
     <label class="custom-file-upload">
@@ -1642,36 +1576,34 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('team_video_upload')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 48">
   <div class="header-container">
-    <p class="step-indicator">h.</p>
     <h2>Vision</h2>
   </div>
   <p>In 5-7 years, what is the world dominating vision for your company? </p>
-  <div class="button-left-container">
-    <button @click="openModal('vision')" class="button-scroll">Which investors require this information?</button>
-  </div>
   <input class="input-field" type="input-field" placeholder="Type your answer here..." v-model="formData.vision" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('vision')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 49">
   <div class="header-container">
-    <p class="step-indicator">k.</p>
     <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
   </div>
   <ul>
     <li>- This would involve asking you a series of questions about your business</li>
     <li>- Then walking the audience through our decision-making process</li>
   </ul>
-  <div class="button-left-container">
-    <button @click="openModal('pitching_live')" class="button-scroll">Which investors require this information?</button>
-  </div>
   <div class="radio-group">
     <label class="custom-radio">
       <input type="radio" value="yes" v-model="formData.pitching_live" />
@@ -1692,17 +1624,16 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('pitching_live')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 50">
   <div class="header-container">
-    <p class="step-indicator">k.</p>
     <h2>Would you like us to share your submission with other companies?</h2>
   </div>
   <p>Sometimes we meet companies that aren't a fit for us, but may be a fit for other venture firms we work with.</p>
-  <div class="button-left-container">
-    <button @click="openModal('share_submission')" class="button-scroll">Which investors require this information?</button>
-  </div>
   <div class="radio-group">
     <label class="custom-radio">
       <input type="radio" value="Yes" v-model="formData.share_submission" />
@@ -1723,52 +1654,52 @@
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('share_submission')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 51">
   <div class="header-container">
-    <p class="step-indicator">b.</p>
     <h2>Investors participating in the current round (if any).</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('investors_participating')" class="button-scroll">Which investors require this information?</button>
   </div>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.investors_participating" required></textarea>
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('investors_participating')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 52">
   <div class="header-container">
-    <p class="step-indicator">b.</p>
     <h2>Anything else you want investors to know?</h2>
-  </div>
-  <div class="button-left-container">
-    <button @click="openModal('want_us_to_know')" class="button-scroll">Which investors require this information?</button>
   </div>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.want_us_to_know" required></textarea>
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('want_us_to_know')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
 
 <div v-if="currentStep === 53">
   <div class="header-container">
-    <p class="step-indicator">b.</p>
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
   </div>
   <p>Check their website for more information on their values: https://libertyventures.xyz/values</p>
-  <div class="button-left-container">
-    <button @click="openModal('value_of_team')" class="button-scroll">Which investors require this information?</button>
-  </div>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.value_of_team" required></textarea>
   <div class="button-container">
     <button class="button" @click="submitForm">Submit</button>
     <p class="enter-text">press Enter ↵</p>
   </div>
+  <div class="link-left-container">
+        <a @click="openModal('value_of_team')" class="link-scroll">Which investors require this information?</a>
+    </div>
 </div>
       <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -2393,7 +2324,7 @@ body {
 }
 h2 {
   color: #ffffff;
-  font-size: 2.5em; /* Увеличим размер шрифта заголовков */
+  font-size: 2.7em; /* Увеличим размер шрифта заголовков */
   margin-bottom: 20px;
   font-family: Inter;
 }
@@ -2419,7 +2350,7 @@ h3 {
 
 p {
   color: #e0e0e0;
-  font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
   margin-bottom: 20px;
   line-height: 1.5;
 }
@@ -2522,7 +2453,7 @@ p {
 ul {
   color: #e0e0e0;
   list-style-type: none;
-  font-size: 1.3em;
+  font-size: 1.6em;
   margin-bottom: 35px;
 }
 
@@ -2706,46 +2637,21 @@ button:focus {
   margin-top: 15px; /* Добавляем отступ сверху, чтобы поле не прилипало к радио-кнопкам */
 }
 
-.button-left-container {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px; /* Добавляет немного отступа снизу */
+.link-left-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px; /* Отступ сверху */
 }
 
-.button-left-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 10px; /* Добавляем немного отступа сверху */
-  margin-bottom: 10px; /* Добавляем немного отступа снизу */
+.link-scroll {
+    color: white; /* Белый цвет для ссылки */
+    cursor: pointer;
+    text-decoration: underline; /* Подчёркивание для ссылки */
 }
 
-.button-scroll {
-  color: var(--dl-color-gray-black);
-  cursor: pointer;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  font-size: 18px;
-  box-shadow: 5px 6px 0px 0px #000000;
-  font-style: normal;
-  transition: 0.3s;
-  font-weight: 500;
-  border-color: var(--dl-color-gray-black);
-  border-width: 1px;
-  border-radius: 0px;
-  background-color: #ff538c;
-  margin-left: 0; /* Перемещаем кнопку в левую часть */
-  outline: none; /* Убираем стандартное выделение */
-}
 
-.button-scroll:active,
-.button-scroll:focus {
-  outline: none; /* Убираем стандартное выделение */
-  border-color: var(--dl-color-gray-black); /* Убираем изменение цвета рамки */
-}
-
-.button-scroll:hover {
-  opacity: 0.5;
+.link-scroll:hover {
+    text-decoration: none; /* Убирает подчёркивание при наведении */
 }
 
 .file-upload-container {
@@ -2866,15 +2772,9 @@ ul {
   position: absolute;
 }
 
-.button-left-container {
-  max-width: 75%; 
-  margin: 0 auto; /* Центрируем контейнер по горизонтали */
-  text-align: center; /* Центрируем текст внутри контейнера */
-  display: flex; /* Используем Flexbox для центрирования */
-  justify-content: center; /* Центрируем элементы внутри контейнера по горизонтали */
-  align-items: center; /* Центрируем элементы внутри контейнера по вертикали */
-  flex-direction: column; /* Обеспечиваем, чтобы элементы внутри контейнера располагались вертикально */
-}
+.link-left-container {
+        justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
+    }
 
 .custom-file-upload {
   padding: 10px 20px;
@@ -2984,15 +2884,9 @@ ul {
   position: absolute;
 }
 
-.button-left-container {
-  max-width: 75%; 
-  margin: 0 auto; /* Центрируем контейнер по горизонтали */
-  text-align: center; /* Центрируем текст внутри контейнера */
-  display: flex; /* Используем Flexbox для центрирования */
-  justify-content: center; /* Центрируем элементы внутри контейнера по горизонтали */
-  align-items: center; /* Центрируем элементы внутри контейнера по вертикали */
-  flex-direction: column; /* Обеспечиваем, чтобы элементы внутри контейнера располагались вертикально */
-}
+.link-left-container {
+        justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
+    }
 
 .custom-file-upload {
   padding: 8px 16px;
@@ -3104,11 +2998,9 @@ ul {
     position: absolute; /* Убедитесь, что логотип всё ещё в абсолютном позиционировании */
 }
 
-.button-left-container {
-    max-width: 75%; /* Ограничиваем максимальную ширину до 75% только на телефонах */
-    margin: 0 auto; /* Центрируем контейнер по горизонтали */
-    text-align: center; /* Центрируем текст внутри контейнера */
-}
+.link-left-container {
+        justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
+    }
 
   .custom-file-upload {
     padding: 6px 12px;
