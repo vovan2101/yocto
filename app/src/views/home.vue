@@ -100,17 +100,17 @@
       <span class="close" @click="closeModal">&times;</span>
       <h2 class="modal-header">Investors List</h2>
       <ul class="investor-list">
-      <li><a href="https://precursorvc.com/" target="_blank" class="button-link-scrollable">Precursor Ventures</a></li>
-      <li><a href="https://www.path.vc/" target="_blank" class="button-link-scrollable">Path Ventures</a></li>
-      <li><a href="https://www.2048.vc/" target="_blank" class="button-link-scrollable">2048 Ventures</a></li>
-      <li><a href="https://www.boost.vc/" target="_blank" class="button-link-scrollable">Boost Ventures</a></li>
-      <li><a href="https://everywhere.vc/" target="_blank" class="button-link-scrollable">Everywhere Ventures</a></li>
-      <li><a href="https://www.wischoff.com/" target="_blank" class="button-link-scrollable">Wischoff Ventures</a></li>
-      <li><a href="https://incisive.vc/" target="_blank" class="button-link-scrollable">Incisive Ventures</a></li>
-      <li><a href="https://www.hustlefund.vc/" target="_blank" class="button-link-scrollable">Hustle Fund</a></li>
-      <li><a href="https://libertyventures.xyz/" target="_blank" class="button-link-scrollable">Liberty Ventures</a></li>
-      <li><a href="https://www.spatial.capital/" target="_blank" class="button-link-scrollable">Spatial Capital</a></li>
-      </ul>
+    <li><a href="https://www.2048.vc/" target="_blank" class="button-link-scrollable">1. 2048 Ventures</a></li>
+    <li><a href="https://www.boost.vc/" target="_blank" class="button-link-scrollable">2. Boost Ventures</a></li>
+    <li><a href="https://everywhere.vc/" target="_blank" class="button-link-scrollable">3. Everywhere Ventures</a></li>
+    <li><a href="https://www.hustlefund.vc/" target="_blank" class="button-link-scrollable">4. Hustle Fund</a></li>
+    <li><a href="https://incisive.vc/" target="_blank" class="button-link-scrollable">5. Incisive Ventures</a></li>
+    <li><a href="https://libertyventures.xyz/" target="_blank" class="button-link-scrollable">6. Liberty Ventures</a></li>
+    <li><a href="https://www.path.vc/" target="_blank" class="button-link-scrollable">7. Path Ventures</a></li>
+    <li><a href="https://precursorvc.com/" target="_blank" class="button-link-scrollable">8. Precursor Ventures</a></li>
+    <li><a href="https://www.spatial.capital/" target="_blank" class="button-link-scrollable">9. Spatial Capital</a></li>
+    <li><a href="https://www.wischoff.com/" target="_blank" class="button-link-scrollable">10. Wischoff Ventures</a></li>
+  </ul>
     </div>
   </div>
     <section class="home-description">
