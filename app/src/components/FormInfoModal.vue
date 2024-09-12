@@ -6,7 +6,7 @@
         <ul class="form-list">
           <li v-for="form in formInfo[field]" :key="form.name"
               :class="{'status-required': form.status === 'Required', 'status-optional': form.status === 'Optional'}">
-            <a :href="form.url" class="button-link-scrollable">{{ form.name }} - <span class="status-text">{{ form.status }}</span></a>
+            <a :href="form.url" target="_blank" class="button-link-scrollable">{{ form.name }} - <span class="status-text">{{ form.status }}</span></a>
           </li>
         </ul>
       </div>
