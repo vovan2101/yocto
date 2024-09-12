@@ -2630,7 +2630,7 @@ button:focus {
   font-style: normal;
   font-weight: 600;
   text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
-  z-index: 2; /* Этот элемент будет выше других элементов на странице */
+  z-index: 1; /* Этот элемент будет выше других элементов на странице */
 }
 
 .other-relationship-input {
@@ -2771,6 +2771,7 @@ ul {
   transform: translateX(-50%);
   position: absolute;
 }
+
 
 .link-left-container {
         justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
