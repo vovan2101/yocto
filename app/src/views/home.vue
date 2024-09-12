@@ -2818,6 +2818,10 @@ export default {
     padding: var(--dl-space-space-unit);
     flex-direction: row;
   }
+  .modal-header {
+  font-size: 35px;
+}
+
   .home-row {
     flex-direction: column;
   }
@@ -2899,6 +2903,10 @@ export default {
   .home-heading {
     gap: var(--dl-space-space-unit);
   }
+
+  .modal-header {
+  font-size: 30px;
+}
   .home-header01 {
     font-size: 36px;
     max-width: 70%;
@@ -3364,6 +3372,9 @@ export default {
   .home-mobile-menu {
     padding: 16px;
   }
+  .modal-header {
+  font-size: 25px;
+}
   .home-main3 {
     grid-template-columns: repeat(1, 1fr);
   }
