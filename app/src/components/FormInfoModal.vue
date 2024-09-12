@@ -29,238 +29,239 @@
     data() {
       return {
         formInfo: {
-        first_name: [
-          { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-          { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-          { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-          { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-          { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
-          { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-          { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-          { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-          { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-        ],
-        email: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-        { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-      ],
-      phone_number: [
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-      ],
-      relationship: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-      ],
-      working_full_time: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      company_name: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-      ],
-      one_line_description: [
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-      ],
-      company_description: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      company_solution: [
-        { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      pitch_description: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-      ],
-      target_customer: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      customer_acquisition: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      date_founded: [
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-      ],
-      product_status: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      active_customers: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      how_many_users: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      industry: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      liberty_ventures_industry: [
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-      ],
-      product: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      business_model: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      company_website: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-      ],
-      pitch_deck: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Optional', url: 'https://www.boost.vc/' },
-        { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-        { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-      ],
-      pitch_deck_file: [
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-      ],
-      headquartered: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      customers_based: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      specific_location: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-        { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
-      ],
-      legal_structure: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-      ],
-      raising_round: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      raising_amount: [
-        { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-      ],
-      earning_revenue: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      earning_amount: [
-        { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      source_of_revenue: [
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      pre_money_valuation: [
-        { name: 'Precursor Ventures', status: 'Optional', url: 'https://precursorvc.com/' },
-      ],
-      post_money_valuation: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      capital_to_raise: [
-        { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-      ],
-      prev_experience: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-      ],
-      team_description: [
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-      ],
-      company_linkedin: [
-        { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-      ],
-      ceo_linkedin: [
-        { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-        { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-      ],
-      linkedin_profiles: [
-        { name: 'Ventures 2048', status: 'Optional', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-        { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
-      ],
-      founder_video_url: [
-        { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-      ],
-      team_video_upload: [
-        { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-      ],
-      vision: [
-        { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-      ],
-      pitching_live: [
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-      ],
-      share_submission: [
-        { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-      ],
-      investors_participating: [
-        { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-      ],
-      want_us_to_know: [
-        { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-        { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
-      ],
-      value_of_team: [
-        { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-
-      ],
-      },
+  first_name: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+  ],
+  email: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  phone_number: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+  relationship: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  working_full_time: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  company_name: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  one_line_description: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+  ],
+  company_description: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  company_solution: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  pitch_description: [
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  target_customer: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  customer_acquisition: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  date_founded: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  product_status: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  active_customers: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  how_many_users: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  industry: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  liberty_ventures_industry: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+  product: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  business_model: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  company_website: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  pitch_deck: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Optional', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  pitch_deck_file: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  headquartered: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  customers_based: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  specific_location: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  legal_structure: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  raising_round: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  raising_amount: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  earning_revenue: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  earning_amount: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  source_of_revenue: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  pre_money_valuation: [
+    { name: 'Precursor Ventures', status: 'Optional', url: 'https://precursorvc.com/' },
+  ],
+  post_money_valuation: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  capital_to_raise: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  prev_experience: [
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  team_description: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+  ],
+  company_linkedin: [
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  ceo_linkedin: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  cto_linkedin: [
+    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  linkedin_profiles: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Ventures 2048', status: 'Optional', url: 'https://www.2048.vc/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+  ],
+  founder_video_url: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
+  ],
+  team_video_upload: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+  ],
+  vision: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  pitching_live: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+  ],
+  share_submission: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  investors_participating: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  want_us_to_know: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  value_of_team: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+},
       };
     },
     methods: {
