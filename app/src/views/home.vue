@@ -895,7 +895,7 @@ export default {
 
 .modal-content {
   background-color: #282828; /* Темный фон для модального окна */
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 2px solid #888;
   width: 80%;
