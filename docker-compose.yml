@@ -25,11 +25,17 @@ services:
     image: vovan2101/yocto-bot:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
     ports:
       - "3002:3002"
+    environment:
+      - YAHOO_EMAIL=${YAHOO_EMAIL}
+      - YAHOO_APP_PASSWORD=${YAHOO_APP_PASSWORD}
     networks:
       - prod_net
   
   app:
     image: vovan2101/yocto-app:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    environment:
+      - YAHOO_EMAIL=${YAHOO_EMAIL}
+      - YAHOO_APP_PASSWORD=${YAHOO_APP_PASSWORD}
     networks:
       - prod_net
   

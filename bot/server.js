@@ -37,6 +37,39 @@ app.post('/send-forms', upload.fields([
     res.send('Forms submitted successfully');
 });
 
+// Маршрут для отправки формы на email
+app.post('/send-email', (req, res) => {
+    const { email, formData } = req.body;
+
+    // Настройка транспорта для отправки email через Yahoo с использованием nodemailer
+    const transporter = nodemailer.createTransport({
+        service: 'Yahoo',
+        auth: {
+            user: process.env.YAHOO_EMAIL, // Замените на свой Yahoo email
+            pass: process.env.YAHOO_APP_PASSWORD
+        }
+    });
+
+    const formattedFormData = formatFormData(formData);
+
+    // Формируем тело email с данными формы
+    const mailOptions = {
+        from: process.env.YAHOO_EMAIL,
+        to: email,
+        subject: 'Your Form Submission',
+        text: `Here are your form answers:\n\n${formattedFormData}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+          return res.status(500).send('Error sending email');
+        }
+        console.log('Email sent: ' + info.response);
+        res.send('Email sent successfully');
+      });
+    });
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
     consumer;
