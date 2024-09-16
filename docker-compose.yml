@@ -1,7 +1,7 @@
 version: '3.8'
 
 networks:
-  stage_net:  # или используйте stage_net на вашем stage инстансе
+  stage_net:
 
 services:
   nginx:
@@ -17,14 +17,20 @@ services:
       - stage_net
   
   bot:
-    image: vovan2101/yocto-bot:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-bot:stage
     ports:
       - "3002:3002"
+    environment:
+      - YAHOO_EMAIL=${YAHOO_EMAIL}
+      - YAHOO_APP_PASSWORD=${YAHOO_APP_PASSWORD}
     networks:
       - stage_net
   
   app:
-    image: vovan2101/yocto-app:stage  # Для stage-инстанса, используйте :stage на stage-инстансе
+    image: vovan2101/yocto-app:stage
+    environment:
+      - YAHOO_EMAIL=${YAHOO_EMAIL}
+      - YAHOO_APP_PASSWORD=${YAHOO_APP_PASSWORD}
     networks:
       - stage_net
   
@@ -48,7 +54,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_LISTENERS: PLAINTEXT://:9092
-      KAFKA_LOG_DIRS: /bitnami/kafka/logs  # Указание отдельной директории для логов
+      KAFKA_LOG_DIRS: /bitnami/kafka/logs
     depends_on:
       - zookeeper
     networks:

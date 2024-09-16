@@ -75,14 +75,18 @@ jobs:
             echo "SSH_USER=${{ secrets.SERVER_USER }}" >> $GITHUB_ENV
           fi
 
-      # Шаг 4: Деплой с использованием docker-compose
-      - name: Deploy with docker-compose
+      # Шаг 4: Деплой с использованием docker-compose и переменных окружения
+      - name: Deploy with docker-compose and environment variables
         run: |
           ssh -o StrictHostKeyChecking=no $SSH_USER@$HOST << 'EOF'
             cd ~/yocto # Укажите правильный путь к проекту на сервере
             git pull origin ${{ github.ref_name }}  # Обновить код
 
-            # Обновить образы и перезапустить сервисы
+            # Экспортируем переменные окружения из GitHub Secrets
+            export YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }}
+            export YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }}
+
+            # Обновить образы и перезапустить сервисы с переменными окружения
             docker-compose pull  # Подтянуть последние версии образов
             docker-compose up -d --remove-orphans  # Перезапустить контейнеры
           EOF
