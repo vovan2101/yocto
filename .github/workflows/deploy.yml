@@ -1,0 +1,61 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main   # Production
+      - stage  # Test stage
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Клонирование репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Шаг 2: Настройка SSH для деплоя
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          # Настройка SSH-ключей в зависимости от ветки
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_STAGE }}
+
+      # Шаг 3: Установка хоста и пользователя для каждой ветки
+      - name: Set environment based on branch
+        id: set-env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "HOST=${{ secrets.SERVER_HOST_MAIN }}" >> $GITHUB_ENV
+            echo "SSH_USER=${{ secrets.SERVER_USER }}" >> $GITHUB_ENV
+            echo "SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY_MAIN }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/stage" ]; then
+            echo "HOST=${{ secrets.SERVER_HOST_STAGE }}" >> $GITHUB_ENV
+            echo "SSH_USER=${{ secrets.SERVER_USER }}" >> $GITHUB_ENV
+            echo "SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY_STAGE }}" >> $GITHUB_ENV
+          fi
+
+      # Шаг 4: SSH подключение и деплой контейнеров (frontend и backend)
+      - name: Deploy both containers (yocto-app and yocto-bot)
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$HOST << 'EOF'
+            # Обновление контейнера backend (yocto-bot)
+            docker pull vovan2101/yocto-bot:${{ github.ref_name }}  # Пулит образ bot для текущей ветки
+            docker stop yocto-bot || true  # Остановить контейнер bot, если он существует
+            docker rm yocto-bot || true    # Удалить контейнер bot, если он существует
+            docker run -d --name yocto-bot \
+              -e YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }} \
+              -e YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }} \
+              vovan2101/yocto-bot:${{ github.ref_name }}  # Запуск контейнера bot
+
+            # Обновление контейнера frontend (yocto-app)
+            docker pull vovan2101/yocto-app:${{ github.ref_name }}  # Пулит образ app для текущей ветки
+            docker stop yocto-app || true  # Остановить контейнер app, если он существует
+            docker rm yocto-app || true    # Удалить контейнер app, если он существует
+            docker run -d --name yocto-app \
+              -e YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }} \
+              -e YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }} \
+              -p 80:80 \
+              vovan2101/yocto-app:${{ github.ref_name }}  # Запуск контейнера app
+          EOF
