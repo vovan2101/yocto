@@ -8,6 +8,9 @@ const nodemailer = require('nodemailer'); // Импорт nodemailer
 const formatFormData = require('./formatFormData'); // Импортируем функцию
 require('dotenv').config(); // Загружаем переменные окружения из .env
 
+console.log('YAHOO_EMAIL:', process.env.YAHOO_EMAIL);
+console.log('YAHOO_APP_PASSWORD:', process.env.YAHOO_APP_PASSWORD);
+
 const app = express();
 const port = 3002;
 
