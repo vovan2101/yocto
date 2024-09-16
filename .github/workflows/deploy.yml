@@ -79,18 +79,18 @@ jobs:
       - name: Deploy both containers (yocto-app and yocto-bot)
         run: |
           ssh -o StrictHostKeyChecking=no $SSH_USER@$HOST << 'EOF'
-            docker pull vovan2101/yocto-bot:${{ github.ref_name }}
-            docker stop yocto-bot || true
-            docker rm yocto-bot || true
-            docker run -d --name yocto-bot \
+            sudo docker pull vovan2101/yocto-bot:${{ github.ref_name }}
+            sudo docker stop yocto-bot || true
+            sudo docker rm yocto-bot || true
+            sudo docker run -d --name yocto-bot \
               -e YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }} \
               -e YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }} \
               vovan2101/yocto-bot:${{ github.ref_name }}
 
-            docker pull vovan2101/yocto-app:${{ github.ref_name }}
-            docker stop yocto-app || true
-            docker rm yocto-app || true
-            docker run -d --name yocto-app \
+            sudo docker pull vovan2101/yocto-app:${{ github.ref_name }}
+            sudo docker stop yocto-app || true
+            sudo docker rm yocto-app || true
+            sudo docker run -d --name yocto-app \
               -e YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }} \
               -e YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }} \
               -p 80:80 \
