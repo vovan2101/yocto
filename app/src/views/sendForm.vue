@@ -1694,12 +1694,16 @@
   <p>Check their website for more information on their values: https://libertyventures.xyz/values</p>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.value_of_team" required></textarea>
   <div class="button-container">
-    <button class="button" @click="submitForm">Submit</button>
-    <p class="enter-text">press Enter ↵</p>
+    <button class="button" @click="submitForm">Submit The Form</button>
+      <!-- Кнопка для открытия модального окна -->
+    <button class="button" @click="openReviewModal">Review Your Answers</button>
+    <button class="email-button" @click="openEmailModal">Send Form to Your Email</button>
   </div>
   <div class="link-left-container">
         <a @click="openModal('value_of_team')" class="link-scroll">Which investors require this information?</a>
     </div>
+    <ReviewModal :formData="formData" :isOpen="isReviewModalOpen" @close="closeReviewModal" />
+    <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
       <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -1724,10 +1728,15 @@
 </template>
 
 <script>
+import EmailModal from '../components/EmailModal.vue';
 import FormInfoModal from '../components/FormInfoModal.vue';
+import ReviewModal from '../components/ReviewModal.vue'; // Импортируем модальное окно
 export default {
   components: {
-    FormInfoModal  // Регистрация компонента
+    FormInfoModal,  // Регистрация компонента
+    ReviewModal,
+    EmailModal,
+
   },
   data() {
     return {
@@ -2081,10 +2090,25 @@ export default {
         value_of_team: '',
       },
       successMessage: '',
-      errorMessage: ''
+      errorMessage: '',
+      isReviewModalOpen: false, // Управляем состоянием модального окна
+      isEmailModalOpen: false, // Управляет отображением окна email
+      isReviewModalOpen: false, // Управляет отображением окна обзора
     };
   },
   methods: {
+    openEmailModal() {
+      this.isEmailModalOpen = true; // Открыть окно email
+    },
+    closeEmailModal() {
+      this.isEmailModalOpen = false; // Закрыть окно email
+    },
+    openReviewModal() {
+      this.isReviewModalOpen = true;
+    },
+    closeReviewModal() {
+      this.isReviewModalOpen = false;
+    },
     handleCustomersBasedChange() {
     // Если значение 'Other' не выбрано, сбрасываем значение поля other_customers_based
     if (this.formData.customers_based !== 'Other') {
@@ -2337,6 +2361,34 @@ h3 {
   margin-top: 20px;
 }
 
+.email-button {
+  color: var(--dl-color-gray-black); /* Сохраняем цвет текста */
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  box-shadow: 5px 6px 0px 0px #000000; /* Тень для кнопки */
+  font-style: normal;
+  transition: 0.3s;
+  font-weight: 500;
+  padding-top: var(--dl-space-space-unit);
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  padding-left: var(--dl-space-space-oneandhalfunits);
+  border-radius: 0px;
+  padding-right: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-unit);
+  background-color: #ff538c; /* Розовый цвет фона */
+}
+
+.email-button:hover {
+  background-color: #c43d6e; /* Более светлый розовый при наведении */
+}
+
+.email-button:focus {
+  outline: none; /* Убираем рамку при нажатии */
+}
+
 .header-container {
   display: flex;
   align-items: center;
@@ -2394,7 +2446,7 @@ p {
 .nav-buttons-left {
   position: fixed;
   bottom: 20px;
-  left: 20px; /* Исправлено с right на left */
+  left: 20px;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -2647,6 +2699,7 @@ button:focus {
     color: white; /* Белый цвет для ссылки */
     cursor: pointer;
     text-decoration: underline; /* Подчёркивание для ссылки */
+    margin-top: 15px;
 }
 
 
@@ -2718,7 +2771,7 @@ p {
 }
 
 .fixed-title {
-    font-size: 1.4em; /* Уменьшаем размер шрифта */
+    font-size: 1.3em; /* Уменьшаем размер шрифта */
     padding: 5px 10px; /* Уменьшаем отступы */
   }
 
@@ -2736,6 +2789,11 @@ p {
   margin-top: 20px;
   text-align: center;
 }
+
+.button, .email-button {
+    font-size: 16px; /* Уменьшаем размер текста */
+    padding: 0.4rem 0.8rem; /* Уменьшаем отступы */
+  }
 
 .input-field {
   width: 65%; 
@@ -2831,8 +2889,8 @@ p {
 }
 
 .fixed-title {
-    font-size: 1.3em; /* Уменьшаем размер шрифта */
-    padding: 5px 10px; /* Уменьшаем отступы */
+    font-size: 1.2em; /* Уменьшаем размер шрифта */
+    padding: 3px 7px; /* Уменьшаем отступы */
   }
 
 
@@ -2938,13 +2996,18 @@ ul {
     display: none;
   }
 
+  .button, .email-button {
+    font-size: 14px; /* Ещё больше уменьшаем размер текста */
+    padding: 0.3rem 0.6rem; /* Ещё больше уменьшаем отступы */
+  }
+
   p {
     font-size: 0.9em;
     text-align: center;
   }
 
   .fixed-title {
-    font-size: 1.2em; /* Уменьшаем размер шрифта */
+    font-size: 1.1em; /* Уменьшаем размер шрифта */
     padding: 5px 10px; /* Уменьшаем отступы */
   }
 
