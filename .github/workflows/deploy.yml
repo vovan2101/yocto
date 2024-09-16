@@ -7,7 +7,7 @@ on:
       - stage
 
 jobs:
-  # Job 1 Сборка Docker образа
+  # Job 1 сборка Docker образа
   build:
     runs-on: ubuntu-latest
 
