@@ -57,5 +57,5 @@ jobs:
               -e YAHOO_EMAIL=${{ secrets.YAHOO_EMAIL }} \
               -e YAHOO_APP_PASSWORD=${{ secrets.YAHOO_APP_PASSWORD }} \
               -p 80:80 \
-              vovan2101/yocto-app:${{ github.ref_name }}  # Запуск контейнера app
+              vovan2101/yocto-app:${{ github.ref_name }}
           EOF
