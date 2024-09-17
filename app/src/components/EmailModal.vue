@@ -70,7 +70,7 @@
         }
   
         try {
-          const response = await fetch('http://www.yocto.vc/api/send-email', {
+          const response = await fetch('https://www.yocto.vc/api/send-email', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
