@@ -2742,10 +2742,9 @@ button:focus {
 
 /* Медиазапросы для адаптации под мобильные устройства */
 
-/* Стили для устройств с разрешением до 1024px */
-@media (max-width: 1024px) {
-
-.header-container {
+/* Стили для устройств с разрешением до 1440px (для широкоформатных ноутбуков и мониторов) */
+@media (max-width: 1440px) {
+  .header-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2753,6 +2752,113 @@ button:focus {
 
 h2 {
   font-size: 2.2em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.9em;
+  text-align: center;
+}
+
+.step-indicator {
+  display: none;
+}
+
+p {
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.fixed-title {
+  font-size: 1.2em; /* Уменьшаем размер шрифта */
+    padding: 10px 15px; /* Уменьшаем отступы */
+  }
+
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.choices {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.input-field {
+  width: 70%; 
+  font-size: 1.2em;
+  margin: 20px auto 0;
+  display: block;
+  text-align: left;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1.5vh;
+  text-align: center;
+}
+
+.nav-button {
+  font-size: 20px;
+  padding: 0.5rem 0.9rem;
+}
+
+ul {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.link-left-container {
+        justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
+    }
+
+.custom-file-upload {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.file-name {
+  font-size: 12px;
+}
+
+.radio-group,
+.checkbox-group {
+  max-width: 75%;
+  max-height: none;
+  margin: 25px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scrollable-content {
+  max-height: 34vh; 
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.home-logo {
+  font-size: 35px;
+}
+}
+
+@media (max-width: 1200px) {
+  .header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  font-size: 1.9em;
   text-align: center;
 }
 
@@ -2767,6 +2873,115 @@ h3 {
 
 p {
   font-size: 1.2em;
+  text-align: center;
+}
+
+.fixed-title {
+  font-size: 1.3em; /* Уменьшаем размер шрифта */
+    padding: 5px 10px; /* Уменьшаем отступы */
+  }
+
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.choices {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.input-field {
+  width: 70%; 
+  font-size: 1.2em;
+  margin: 20px auto 0;
+  display: block;
+  text-align: left;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1.5vh;
+  text-align: center;
+}
+
+.nav-button {
+  font-size: 16px;
+  padding: 0.4rem 0.8rem;
+}
+
+ul {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.link-left-container {
+        justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
+    }
+
+.custom-file-upload {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.file-name {
+  font-size: 12px;
+}
+
+.radio-group,
+.checkbox-group {
+  max-width: 75%;
+  max-height: none;
+  margin: 25px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scrollable-content {
+  max-height: 34vh; 
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.home-logo {
+  font-size: 30px;
+}
+}
+
+/* Стили для устройств с разрешением до 1024px */
+@media (max-width: 1024px) {
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  font-size: 1.8em;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.6em;
+  text-align: center;
+}
+
+.step-indicator {
+  display: none;
+}
+
+p {
+  font-size: 1.1em;
   text-align: center;
 }
 
@@ -2822,15 +3037,6 @@ ul {
   text-align: center;
 }
 
-.home-logo {
-  font-size: 45px;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  position: absolute;
-}
-
-
 .link-left-container {
         justify-content: center; /* Выравниваем ссылку по центру на маленьких экранах */
     }
@@ -2855,9 +3061,13 @@ ul {
 }
 
 .scrollable-content {
-  max-height: 40vh; 
+  max-height: 33vh; 
   overflow-y: auto;
   margin-top: 10px;
+}
+
+.home-logo {
+  font-size: 30px;
 }
 }
 
