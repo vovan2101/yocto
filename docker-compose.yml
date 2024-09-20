@@ -21,14 +21,12 @@ services:
     ports:
       - "3002:3002"
     env_file: 
-      - .env  # Подключаем файл .env для переменных окружения
+      - ./bot/.env  # Подключаем файл .env для переменных окружения
     networks:
       - stage_net
   
   app:
     image: vovan2101/yocto-app:stage
-    env_file: 
-      - .env  # Подключаем файл .env для переменных окружения
     networks:
       - stage_net
   
