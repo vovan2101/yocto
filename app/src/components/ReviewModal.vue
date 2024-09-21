@@ -3,6 +3,9 @@
     <div class="modal-content" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
       <h2 class="modal-header">Review Your Answers</h2>
+      <p class="info-text">
+        You can click on a question to move directly to that answer and make changes.
+      </p>
       <ul class="form-list">
         <!-- Список вопросов и ответов -->
         <!-- First and Last Name -->
@@ -407,6 +410,13 @@ export default {
 </script>
 
 <style scoped>
+.info-text {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #ffffff; /* Цвет текста для информативного сообщения */
+  text-align: center;
+}
+
 .send-email-button {
   background-color: #ff538c;
   color: white;
