@@ -4,7 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <h2 class="modal-header">Review Your Answers</h2>
       <p class="info-text">
-        You can click on a question to move directly to that answer and make changes.
+        You can click on a question to move directly to it and make changes.
       </p>
       <ul class="form-list">
         <!-- Список вопросов и ответов -->

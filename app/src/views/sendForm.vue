@@ -1727,6 +1727,7 @@
     </div>
     <div class="nav-buttons-left">
   <button class="nav-button" @click="goToFirstStep">Back to Start</button> <!-- Кнопка для перехода к первому шагу -->
+  <button v-if="hasReachedEnd" class="nav-button" @click="goToEnd">Go to End</button>
     </div>
     <div class="nav-buttons-right">
       <button class="nav-button" :disabled="currentStep === 1" @click="prevStep">←</button>
@@ -1756,6 +1757,7 @@ export default {
   data() {
     return {
       currentStep: 1,
+      hasReachedEnd: false,
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
       currentField: '',   // Поле, для которого будет показана информация
@@ -2315,11 +2317,18 @@ export default {
       if (this.currentStep < 53) {
         this.currentStep++;
         this.scrollToCurrentStep();
+        if (this.currentStep === 53) {
+        this.hasReachedEnd = true; // Устанавливаем флаг, если пользователь дошел до конца
+      }
         if (this.currentStep !== 1) {
           this.showTitle = true;
         }
       }
     },
+    goToEnd() {
+    this.currentStep = 53; // Переводим пользователя на последний шаг
+    this.scrollToCurrentStep();
+  },
     prevStep() {
       if (this.currentStep > 1) {
         this.currentStep--;
