@@ -24,192 +24,201 @@
           <p class="enter-text">press Enter ↵</p>
         </div>
       </div>
-      <div v-if="currentStep === 2">
-          <div class="header-container">
-            <h2>What's your first and last name?</h2>
-          </div>
-          <input class="input-field" v-model="formData.first_name" placeholder="First name" required />
-          <input class="input-field" v-model="formData.last_name" placeholder="Last name" required />
-          <div class="button-container">
-            <button class="button" @click="nextStep">Next</button>
-            <p class="enter-text">press Enter ↵</p>
-          </div>
-          <div class="link-left-container">
-            <a @click="openModal('first_name')" class="link-scroll">Which investors require this information?</a>
-          </div>
-        </div>
-        <div v-if="currentStep === 3">
-          <div class="header-container">
-            <h2>What is your e-mail address?</h2>
-          </div>
-          <input class="input-field" type="email" placeholder="name@example.com" v-model="formData.email" required />
-          <div class="button-container">
-            <button class="button" @click="nextStep">Next</button>
-            <p class="enter-text">press Enter ↵</p>
-          </div>
-          <div class="link-left-container">
-            <a @click="openModal('email')" class="link-scroll">Which investors require this information?</a>
-          </div>
-        </div>
-        <div v-if="currentStep === 4">
-          <div class="header-container">
-            <h2>What is your phone number?</h2>
-          </div>
-          <input class="input-field" type="tel" placeholder="Type your answer here..." v-model="formData.phone_number" required />
-          <div class="button-container">
-            <button class="button" @click="nextStep">Next</button>
-            <p class="enter-text">press Enter ↵</p>
-          </div>
-          <div class="link-left-container">
-            <a @click="openModal('phone_number')" class="link-scroll">Which investors require this information?</a>
-          </div>
-        </div>
-        <div v-if="currentStep === 5">
-          <div class="header-container">
-            <h2>What is your relationship to the company?</h2>
-          </div>
-          <div class="radio-group">
-            <label class="custom-radio">
-              <input type="radio" id="founder" value="Founder" v-model="formData.relationship" required @change="checkOtherRelationship" />
-              <span class="radio-button">
-                <span class="radio-key">A</span> Founder
-                <span class="checkmark">&#10003;</span>
-              </span>
-            </label>
-            <label class="custom-radio">
-              <input type="radio" id="other" value="Other" v-model="formData.relationship" required @change="checkOtherRelationship" />
-              <span class="radio-button">
-                <span class="radio-key">B</span> Other
-                <span class="checkmark">&#10003;</span>
-              </span>
-            </label>
-          </div>
-          <div v-if="formData.relationship === 'Other'" class="other-relationship-input">
-            <input class="input-field" v-model="formData.other_relationship" placeholder="Please specify" required />
-          </div>
-          <div class="button-container">
-            <button class="button" @click="nextStep">Next</button>
-            <p class="enter-text">press Enter ↵</p>
-          </div>
-          <div class="link-left-container">
-            <a @click="openModal('relationship')" class="link-scroll">Which investors require this information?</a>
-          </div>
-        </div>
-        <div v-if="currentStep === 6">
-          <div class="header-container">
-            <h2>Are you working on this full time (40+ hours/week)?</h2>
-          </div>
-          <div class="radio-group">
-            <label class="custom-radio">
-              <input type="radio" name="full_time" value="Yes" v-model="formData.working_full_time" @change="showAdditionalQuestion">
-              <span class="radio-button">
-                <span class="radio-key">A</span> Yes
-                <span class="checkmark">&#10003;</span>
-              </span>
-            </label>
-            <label class="custom-radio">
-              <input type="radio" name="full_time" value="No" v-model="formData.working_full_time" @change="hideAdditionalQuestion">
-              <span class="radio-button">
-                <span class="radio-key">B</span> No
-                <span class="checkmark">&#10003;</span>
-              </span>
-            </label>
-          </div>
-          <div v-if="showFullTimeDuration">
-            <div class="header-container">
-              <h3>How long have you been working on this full-time?</h3>
-            </div>
-            <div class="radio-group">
-              <label class="custom-radio">
-                <input type="radio" value="0-6 Months" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">A</span> 0-6 Months
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="6-12 Months" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">B</span> 6-12 Months
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="12-18 Months" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">C</span> 12-18 Months
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="18-24 Months" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">D</span> 18-24 Months
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="24-36 Months" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">E</span> 24-36 Months
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="36 Months or More" v-model="formData.full_time_duration" required>
-                <span class="radio-button">
-                  <span class="radio-key">F</span> 36 Months or More
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-            </div>
-          </div>
-          <div class="button-container">
-            <button class="button" @click="nextStep">Next</button>
-            <p class="enter-text">press Enter ↵</p>
-          </div>
-          <div class="link-left-container">
-            <a @click="openModal('working_full_time')" class="link-scroll">Which investors require this information?</a>
-          </div>
-        </div>
-      <transition name="fade" mode="out-in">
-      <div v-if="titleText" key="titleText" class="fixed-title">{{ titleText }}</div>
-    </transition>
-        <div :key="currentStep">
-      <div v-if="currentStep === 7">
-        <div class="header-container">
-          <p class="step-indicator">2 →</p>
-          <h2>Tell us more about your company</h2>
-        </div>
-        <p>We will ask for:</p>
-        <ul>
-          <li>- Your company name & company website</li>
-          <li>- Company description & pitch deck & founder video</li>
-          <li>- What country you operating in & what is your curent location</li>
-          <li>- what industry & legal structure is your company in</li>
-        </ul>
-        <div class="button-container">
-          <button class="button" @click="nextStep">Continue</button>
-          <p class="enter-text">press Enter ↵</p>
-        </div>
+    <!-- Step 2: First and Last Name -->
+    <div v-if="currentStep === 2" id="first_name">
+      <div class="header-container">
+        <h2>What's your first and last name?</h2>
+      </div>
+      <input class="input-field" v-model="formData.first_name" placeholder="First name" required />
+      <input class="input-field" v-model="formData.last_name" placeholder="Last name" required />
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('first_name')" class="link-scroll">Which investors require this information?</a>
       </div>
     </div>
-    <div v-if="currentStep === 8">
-            <div class="header-container">
-              <h2>What's the name of your company?</h2>
-            </div>
-            <p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
-            <input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-            <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
+
+    <!-- Step 3: Email -->
+    <div v-if="currentStep === 3" id="email">
+      <div class="header-container">
+        <h2>What is your e-mail address?</h2>
+      </div>
+      <input class="input-field" type="email" placeholder="name@example.com" v-model="formData.email" required />
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('email')" class="link-scroll">Which investors require this information?</a>
+      </div>
+    </div>
+
+    <!-- Step 4: Phone Number -->
+    <div v-if="currentStep === 4" id="phone_number">
+      <div class="header-container">
+        <h2>What is your phone number?</h2>
+      </div>
+      <input class="input-field" type="tel" placeholder="Type your answer here..." v-model="formData.phone_number" required />
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('phone_number')" class="link-scroll">Which investors require this information?</a>
+      </div>
+    </div>
+
+    <!-- Step 5: Relationship -->
+    <div v-if="currentStep === 5" id="relationship">
+      <div class="header-container">
+        <h2>What is your relationship to the company?</h2>
+      </div>
+      <div class="radio-group">
+        <label class="custom-radio">
+          <input type="radio" value="Founder" v-model="formData.relationship" required @change="checkOtherRelationship" />
+          <span class="radio-button">
+            <span class="radio-key">A</span> Founder
+            <span class="checkmark">&#10003;</span>
+          </span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" value="Other" v-model="formData.relationship" required @change="checkOtherRelationship" />
+          <span class="radio-button">
+            <span class="radio-key">B</span> Other
+            <span class="checkmark">&#10003;</span>
+          </span>
+        </label>
+      </div>
+      <div v-if="formData.relationship === 'Other'" class="other-relationship-input">
+        <input class="input-field" v-model="formData.other_relationship" placeholder="Please specify" required />
+      </div>
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('relationship')" class="link-scroll">Which investors require this information?</a>
+      </div>
+    </div>
+
+    <!-- Step 6: Full Time Work -->
+    <div v-if="currentStep === 6" id="working_full_time">
+      <div class="header-container">
+        <h2>Are you working on this full time (40+ hours/week)?</h2>
+      </div>
+      <div class="radio-group">
+        <label class="custom-radio">
+          <input type="radio" name="full_time" value="Yes" v-model="formData.working_full_time" @change="showAdditionalQuestion">
+          <span class="radio-button">
+            <span class="radio-key">A</span> Yes
+            <span class="checkmark">&#10003;</span>
+          </span>
+        </label>
+        <label class="custom-radio">
+          <input type="radio" name="full_time" value="No" v-model="formData.working_full_time" @change="hideAdditionalQuestion">
+          <span class="radio-button">
+            <span class="radio-key">B</span> No
+            <span class="checkmark">&#10003;</span>
+          </span>
+        </label>
+      </div>
+      <div v-if="showFullTimeDuration">
+        <div class="header-container">
+          <h3>How long have you been working on this full-time?</h3>
+        </div>
+        <div class="radio-group">
+          <label class="custom-radio">
+            <input type="radio" value="0-6 Months" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">A</span> 0-6 Months
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" value="6-12 Months" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">B</span> 6-12 Months
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" value="12-18 Months" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">C</span> 12-18 Months
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" value="18-24 Months" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">D</span> 18-24 Months
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" value="24-36 Months" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">E</span> 24-36 Months
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+          <label class="custom-radio">
+            <input type="radio" value="36 Months or More" v-model="formData.full_time_duration" required>
+            <span class="radio-button">
+              <span class="radio-key">F</span> 36 Months or More
+              <span class="checkmark">&#10003;</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('working_full_time')" class="link-scroll">Which investors require this information?</a>
+      </div>
+    </div>
+
+    <!-- Step 7: Company Overview -->
+    <div v-if="currentStep === 7" id="company_overview">
+      <div class="header-container">
+        <p class="step-indicator">2 →</p>
+        <h2>Tell us more about your company</h2>
+      </div>
+      <p>We will ask for:</p>
+      <ul>
+        <li>- Your company name & company website</li>
+        <li>- Company description & pitch deck & founder video</li>
+        <li>- What country you operating in & what is your curent location</li>
+        <li>- what industry & legal structure is your company in</li>
+      </ul>
+      <div class="button-container">
+        <button class="button" @click="nextStep">Continue</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+    </div>
+
+    <!-- Step 8: Company Name -->
+    <div v-if="currentStep === 8" id="company_name">
+      <div class="header-container">
+        <h2>What's the name of your company?</h2>
+      </div>
+      <p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
+      <input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
+      <div class="button-container">
+        <button class="button" @click="nextStep">Next</button>
+        <p class="enter-text">press Enter ↵</p>
+      </div>
+      <div class="link-left-container">
+        <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
+      </div>
+    </div>
+
           <!-- Step 9 -->
-          <div v-if="currentStep === 9">
+          <div v-if="currentStep === 9" id="one_line_description">
             <div class="header-container">
               <h2>What's the one-liner description of your company?</h2>
             </div>
@@ -224,7 +233,7 @@
           </div>
           </div>
           <!-- Step 10 -->
-          <div v-if="currentStep === 10">
+          <div v-if="currentStep === 10" id="company_description">
             <div class="header-container">
               <h2>In one to two sentences, what is the problem you are trying to solve?</h2>
             </div>
@@ -238,7 +247,7 @@
           </div>
           </div>
           <!-- Step 11 -->
-          <div v-if="currentStep === 11">
+          <div v-if="currentStep === 11" id="company_solution">
             <div class="header-container">
               <h2>In one to two sentences, what is your solution?</h2>
             </div>
@@ -253,7 +262,7 @@
           </div>
           </div>
           <!-- Step 12 -->
-          <div v-if="currentStep === 12">
+          <div v-if="currentStep === 12" id="pitch_description">
             <div class="header-container">
               <h2>In 2-3 sentences, what is the elevator pitch of your company?</h2>
             </div>
@@ -267,7 +276,7 @@
           </div>
           </div>
           <!-- Step 13 -->
-          <div v-if="currentStep === 13">
+          <div v-if="currentStep === 13" id="target_customer">
             <div class="header-container">
               <h2>Who is your target customer & how are you going to acquire them?</h2>
             </div>
@@ -282,7 +291,7 @@
           </div>
           </div>
           <!-- Step 14 -->
-          <div v-if="currentStep === 14">
+          <div v-if="currentStep === 14" id="customer_acquisition">
             <div class="header-container">
               <h2>How do you plan on acquiring your customers?</h2>
             </div>
@@ -327,7 +336,7 @@
           </div>
           </div>
           <!-- Step 15 -->
-          <div v-if="currentStep === 15">
+          <div v-if="currentStep === 15" id="date_founded">
             <div class="header-container">
               <h2>Date Founded.</h2>
             </div>
@@ -342,7 +351,7 @@
           </div>
           </div>
           <!-- Step 16 -->
-          <div v-if="currentStep === 16">
+          <div v-if="currentStep === 16" id="product_status">
             <div class="header-container">
               <h2>What is the status of your product?</h2>
             </div>
@@ -399,7 +408,7 @@
           </div>
           </div>
           <!-- Step 17 -->
-          <div v-if="currentStep === 17">
+          <div v-if="currentStep === 17" id="active_customers">
             <div class="header-container">
               <h2>Does your product have active users or customers?</h2>
             </div>
@@ -435,7 +444,7 @@
           </div>
           </div>
           <!-- Step 18 -->
-          <div v-if="currentStep === 18">
+          <div v-if="currentStep === 18" id="how_many_users">
             <div class="header-container">
               <h2>How many users do you have?</h2>
             </div>
@@ -530,7 +539,7 @@
           </div>
           </div>
           <!-- Step 19 -->
-          <div v-if="currentStep === 19">
+          <div v-if="currentStep === 19" id="industry_selection">
             <div class="header-container">
               <h2>What industry are you in?</h2>
             </div>
@@ -572,7 +581,7 @@
           </div>
           </div>
           <!-- Step 20 -->
-          <div v-if="currentStep === 20">
+          <div v-if="currentStep === 20" id="liberty_ventures_industry">
             <div class="header-container">
               <h2>What industry are you in (Liberty Ventures)?</h2>
             </div>
@@ -601,7 +610,7 @@
           </div>
           </div>
           <!-- Step 21 -->
-          <div v-if="currentStep === 21">
+          <div v-if="currentStep === 21" id="product_selection">
             <div class="header-container">
               <h2>What is the primary product your company is providing?</h2>
             </div>
@@ -643,7 +652,7 @@
           </div>
           </div>
           <!-- Step 22 -->
-          <div v-if="currentStep === 22">
+          <div v-if="currentStep === 22" id="business_model">
             <div class="header-container">
               <h2>What is your Business Model?</h2>
             </div>
@@ -687,7 +696,7 @@
           </div>
           </div>
           <!-- Step 23 -->
-          <div v-if="currentStep === 23">
+          <div v-if="currentStep === 23" id="company_website">
             <div class="header-container">
               <h2>What is your company website?</h2>
             </div>
@@ -702,7 +711,7 @@
           </div>
 
           <!-- Step 24 -->
-          <div v-if="currentStep === 24">
+          <div v-if="currentStep === 24" id="pitch_deck">
             <div class="header-container">
               <h2>Add a link to your pitch deck.</h2>
             </div>
@@ -717,7 +726,7 @@
           </div>
 
           <!-- Step 25 -->
-          <div v-if="currentStep === 25">
+          <div v-if="currentStep === 25" id="pitch_deck_file">
             <div class="header-container">
               <h2>Add a file to your pitch deck.</h2>
             </div>
@@ -737,7 +746,7 @@
           </div>
           </div>
           <!-- Step 26 -->
-          <div v-if="currentStep === 26">
+          <div v-if="currentStep === 26" id="headquartered">
             <div class="header-container">
               <h2>Where is your business incorporated?</h2>
             </div>
@@ -860,7 +869,7 @@
           </div>
 
           <!-- Step 27 -->
-          <div v-if="currentStep === 27">
+          <div v-if="currentStep === 27" id="customers_based">
             <div class="header-container">
               <h2>Where are your main customers based?</h2>
             </div>
@@ -984,7 +993,7 @@
           </div>
           </div>
           <!-- Step 28 -->
-          <div v-if="currentStep === 28">
+          <div v-if="currentStep === 28" id="specific_location">
             <div class="header-container">
               <h2>Where are you located?</h2>
             </div>
@@ -1021,7 +1030,7 @@
           </div>
 
           <!-- Step 29 -->
-          <div v-if="currentStep === 29">
+          <div v-if="currentStep === 29" id="legal_structure">
             <div class="header-container">
               <h2>What is the current or intended legal structure of the company?</h2>
             </div>
@@ -1098,7 +1107,7 @@
       <div v-if="titleText" key="titleText" class="fixed-title">{{ titleText }}</div>
     </transition>
         <div :key="currentStep">
-      <div v-if="currentStep === 30">
+      <div v-if="currentStep === 30" id="financing_info">
         <div class="header-container">
           <p class="step-indicator">3 →</p>
           <h2>Tell us more about your financing</h2>
@@ -1116,7 +1125,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentStep === 31">
+    <div v-if="currentStep === 31" id="raising_round">
         <div class="header-container">
           <h2>What round are you raising?</h2>
         </div>
@@ -1210,7 +1219,7 @@
     </div>
       </div>
 
-<div v-if="currentStep === 32">
+<div v-if="currentStep === 32" id="raising_amount">
     <div class="header-container">
       <h2>How much are you raising? (in USD)</h2>
     </div>
@@ -1224,7 +1233,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 33">
+<div v-if="currentStep === 33" id="earning_revenue">
   <div class="header-container">
     <h2>Is your startup currently earning revenue?</h2>
   </div>
@@ -1254,7 +1263,7 @@
 </div>
 
 
-<div v-if="currentStep === 34">
+<div v-if="currentStep === 34" id="earning_amount">
   <div class="header-container">
     <h2>Approximately how much revenue are you earning per month (in USD)?</h2>
   </div>
@@ -1297,7 +1306,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 35">
+<div v-if="currentStep === 35" id="source_of_revenue">
   <div class="header-container">
     <h2>What do you expect your main source of revenue to be?</h2>
   </div>
@@ -1358,7 +1367,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 36">
+<div v-if="currentStep === 36" id="pre_money_valuation">
     <div class="header-container">
       <h2>What is your pre-money valuation? (in USD)</h2>
     </div>
@@ -1372,7 +1381,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 37">
+<div v-if="currentStep === 37" id="post_money_valuation">
     <div class="header-container">
       <h2>What is your post-money valuation? (in USD)</h2>
     </div>
@@ -1386,7 +1395,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 38">
+<div v-if="currentStep === 38" id="capital_to_raise">
     <div class="header-container">
       <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
     </div>
@@ -1404,7 +1413,7 @@
       <div v-if="titleText" key="titleText" class="fixed-title">{{ titleText }}</div>
     </transition>
         <div :key="currentStep">
-      <div v-if="currentStep === 39">
+      <div v-if="currentStep === 39" id="team_intro">
         <div class="header-container">
           <p class="step-indicator">4 →</p>
           <h2>Tell us more about you and your team</h2>
@@ -1422,7 +1431,7 @@
         </div>
       </div>
     </div>
-    <div v-if="currentStep === 40">
+    <div v-if="currentStep === 40" id="prev_experience">
   <div class="header-container">
     <h2>What is your previous entrepreneurial experience?</h2>
   </div>
@@ -1466,7 +1475,7 @@
 </div>
 
 
-<div v-if="currentStep === 41">
+<div v-if="currentStep === 41" id="team_description">
   <div class="header-container">
     <h2>In 2-3 sentences, why you / your team are awesome.</h2>
   </div>
@@ -1480,7 +1489,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 42">
+<div v-if="currentStep === 42" id="company_linkedin">
   <div class="header-container">
     <h2>What's your company's LinkedIn?</h2>
   </div>
@@ -1494,7 +1503,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 43">
+<div v-if="currentStep === 43" id="ceo_linkedin">
   <div class="header-container">
     <h2>Founder LinkedIn</h2>
   </div>
@@ -1519,7 +1528,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 44">
+<div v-if="currentStep === 44" id="cto_linkedin">
   <div class="header-container">
     <h2>CTO LinkedIn</h2>
   </div>
@@ -1533,7 +1542,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 45">
+<div v-if="currentStep === 45" id="linkedin_profiles">
   <div class="header-container">
     <h2>Your team's LinkedIn profiles.</h2>
   </div>
@@ -1547,7 +1556,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 46">
+<div v-if="currentStep === 46" id="founder_video_url">
   <div class="header-container">
     <h2>Founder video URL</h2>
   </div>
@@ -1561,7 +1570,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 47">
+<div v-if="currentStep === 47" id="team_video_upload">
   <div class="header-container">
     <h2>Upload short video about team and the company.</h2>
   </div>
@@ -1581,7 +1590,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 48">
+<div v-if="currentStep === 48" id="vision">
   <div class="header-container">
     <h2>Vision</h2>
   </div>
@@ -1596,7 +1605,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 49">
+<div v-if="currentStep === 49" id="pitching_live">
   <div class="header-container">
     <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
   </div>
@@ -1629,7 +1638,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 50">
+<div v-if="currentStep === 50" id="share_submission">
   <div class="header-container">
     <h2>Would you like us to share your submission with other companies?</h2>
   </div>
@@ -1659,7 +1668,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 51">
+<div v-if="currentStep === 51" id="investors_participating">
   <div class="header-container">
     <h2>Investors participating in the current round (if any).</h2>
   </div>
@@ -1673,7 +1682,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 52">
+<div v-if="currentStep === 52" id="want_us_to_know">
   <div class="header-container">
     <h2>Anything else you want investors to know?</h2>
   </div>
@@ -1687,7 +1696,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 53">
+<div v-if="currentStep === 53" id="value_of_team">
   <div class="header-container">
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
   </div>
@@ -1702,7 +1711,13 @@
   <div class="link-left-container">
         <a @click="openModal('value_of_team')" class="link-scroll">Which investors require this information?</a>
     </div>
-    <ReviewModal :formData="formData" :isOpen="isReviewModalOpen" @close="closeReviewModal" />
+        <!-- Ваша форма и шаги -->
+        <ReviewModal 
+      :formData="formData" 
+      :isOpen="isReviewModalOpen" 
+      @close="closeReviewModal" 
+      @go-to-step="goToStep"
+    />
     <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
       <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
@@ -2097,6 +2112,76 @@ export default {
     };
   },
   methods: {
+    getStepId(stepNumber) {
+  const stepIds = {
+    2: 'first_name',
+    3: 'email',
+    4: 'phone_number',
+    5: 'relationship',
+    6: 'working_full_time',
+    7: 'company_overview',
+    8: 'company_name',
+    9: 'one_line_description',
+    10: 'company_description',
+    11: 'company_solution',
+    12: 'pitch_description',
+    13: 'target_customer',
+    14: 'customer_acquisition',
+    15: 'date_founded',
+    16: 'product_status',
+    17: 'active_customers',
+    18: 'how_many_users',
+    19: 'industry_selection',
+    20: 'liberty_ventures_industry',
+    21: 'product_selection',
+    22: 'business_model',
+    23: 'company_website',
+    24: 'pitch_deck',
+    25: 'pitch_deck_file',
+    26: 'headquartered',
+    27: 'customers_based',
+    28: 'specific_location',
+    29: 'legal_structure',
+    30: 'financing_info',
+    31: 'raising_round',
+    32: 'raising_amount',
+    33: 'earning_revenue',
+    34: 'earning_amount',
+    35: 'source_of_revenue',
+    36: 'pre_money_valuation',
+    37: 'post_money_valuation',
+    38: 'capital_to_raise',
+    39: 'team_intro',
+    40: 'prev_experience',
+    41: 'team_description',
+    42: 'company_linkedin',
+    43: 'ceo_linkedin',
+    44: 'cto_linkedin',
+    45: 'linkedin_profiles',
+    46: 'founder_video_url',
+    47: 'team_video_upload',
+    48: 'vision',
+    49: 'pitching_live',
+    50: 'share_submission',
+    51: 'investors_participating',
+    52: 'want_us_to_know',
+    53: 'value_of_team'
+  };
+
+  return stepIds[stepNumber];
+},
+    goToStep(stepNumber) {
+    this.currentStep = stepNumber; // Изменяем текущий шаг
+
+    // После изменения шага прокручиваем страницу к соответствующему элементу
+    this.$nextTick(() => {
+      const targetElement = document.getElementById(this.getStepId(stepNumber));
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  },
+  
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
     },
