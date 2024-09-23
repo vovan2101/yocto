@@ -7,25 +7,10 @@
     <div ref="steps">
       <transition name="fade" mode="out-in">
         <div :key="currentStep">
-      <div v-if="currentStep === 1">
-        <div class="header-container">
-          <p class="step-indicator">1 →</p>
-          <h2>First let's start with the basics</h2>
-        </div>
-        <p>We will ask for:</p>
-        <ul>
-          <li>- Your name & e-mail address</li>
-          <li>- Your companie's name & if this is the first time you have submitted</li>
-          <li>- Where your company is based</li>
-          <li>- If you are working on this full-time</li>
-        </ul>
-        <div class="button-container">
-          <button class="button" @click="nextStep">Continue</button>
-          <p class="enter-text">press Enter ↵</p>
-        </div>
-      </div>
+            <!-- Шаг 1: Выбор форм -->
+          <FormSelector v-if="currentStep === 1" @forms-selected="handleFormSelection" />
     <!-- Step 2: First and Last Name -->
-    <div v-if="currentStep === 2" id="first_name">
+    <div v-if="currentStep === 2 && hasQuestionsForStep(2)" id="first_name">
       <div class="header-container">
         <h2>What's your first and last name?</h2>
       </div>
@@ -41,7 +26,8 @@
     </div>
 
     <!-- Step 3: Email -->
-    <div v-if="currentStep === 3" id="email">
+    <div v-if="currentStep === 3 && hasQuestionsForStep(3)" id="email">
+
       <div class="header-container">
         <h2>What is your e-mail address?</h2>
       </div>
@@ -56,7 +42,8 @@
     </div>
 
     <!-- Step 4: Phone Number -->
-    <div v-if="currentStep === 4" id="phone_number">
+    <div v-if="currentStep === 4 && hasQuestionsForStep(4)" id="phone_number">
+
       <div class="header-container">
         <h2>What is your phone number?</h2>
       </div>
@@ -71,7 +58,7 @@
     </div>
 
     <!-- Step 5: Relationship -->
-    <div v-if="currentStep === 5" id="relationship">
+    <div v-if="currentStep === 5 && hasQuestionsForStep(5)" id="relationship">
       <div class="header-container">
         <h2>What is your relationship to the company?</h2>
       </div>
@@ -104,7 +91,8 @@
     </div>
 
     <!-- Step 6: Full Time Work -->
-    <div v-if="currentStep === 6" id="working_full_time">
+    <div v-if="currentStep === 6 && hasQuestionsForStep(6)" id="working_full_time">
+
       <div class="header-container">
         <h2>Are you working on this full time (40+ hours/week)?</h2>
       </div>
@@ -183,7 +171,7 @@
     </div>
 
     <!-- Step 7: Company Overview -->
-    <div v-if="currentStep === 7" id="company_overview">
+    <div v-if="currentStep === 7 && hasQuestionsForStep(7)" id="company_overview">
       <div class="header-container">
         <p class="step-indicator">2 →</p>
         <h2>Tell us more about your company</h2>
@@ -202,7 +190,8 @@
     </div>
 
     <!-- Step 8: Company Name -->
-    <div v-if="currentStep === 8" id="company_name">
+    <div v-if="currentStep === 8 && hasQuestionsForStep(8)" id="company_name">
+
       <div class="header-container">
         <h2>What's the name of your company?</h2>
       </div>
@@ -218,7 +207,8 @@
     </div>
 
           <!-- Step 9 -->
-          <div v-if="currentStep === 9" id="one_line_description">
+          <div v-if="currentStep === 9 && hasQuestionsForStep(9)" id="one_line_description">
+
             <div class="header-container">
               <h2>What's the one-liner description of your company?</h2>
             </div>
@@ -233,7 +223,8 @@
           </div>
           </div>
           <!-- Step 10 -->
-          <div v-if="currentStep === 10" id="company_description">
+          <div v-if="currentStep === 10 && hasQuestionsForStep(10)" id="company_description">
+
             <div class="header-container">
               <h2>In one to two sentences, what is the problem you are trying to solve?</h2>
             </div>
@@ -247,7 +238,8 @@
           </div>
           </div>
           <!-- Step 11 -->
-          <div v-if="currentStep === 11" id="company_solution">
+          <div v-if="currentStep === 11 && hasQuestionsForStep(11)" id="company_solution">
+
             <div class="header-container">
               <h2>In one to two sentences, what is your solution?</h2>
             </div>
@@ -262,7 +254,8 @@
           </div>
           </div>
           <!-- Step 12 -->
-          <div v-if="currentStep === 12" id="pitch_description">
+          <div v-if="currentStep === 12 && hasQuestionsForStep(12)" id="pitch_description">
+
             <div class="header-container">
               <h2>In 2-3 sentences, what is the elevator pitch of your company?</h2>
             </div>
@@ -276,7 +269,8 @@
           </div>
           </div>
           <!-- Step 13 -->
-          <div v-if="currentStep === 13" id="target_customer">
+          <div v-if="currentStep === 13 && hasQuestionsForStep(13)" id="target_customer">
+
             <div class="header-container">
               <h2>Who is your target customer & how are you going to acquire them?</h2>
             </div>
@@ -291,7 +285,8 @@
           </div>
           </div>
           <!-- Step 14 -->
-          <div v-if="currentStep === 14" id="customer_acquisition">
+          <div v-if="currentStep === 14 && hasQuestionsForStep(14)" id="customer_acquisition">
+
             <div class="header-container">
               <h2>How do you plan on acquiring your customers?</h2>
             </div>
@@ -336,7 +331,8 @@
           </div>
           </div>
           <!-- Step 15 -->
-          <div v-if="currentStep === 15" id="date_founded">
+          <div v-if="currentStep === 15 && hasQuestionsForStep(15)" id="date_founded">
+
             <div class="header-container">
               <h2>Date Founded.</h2>
             </div>
@@ -351,7 +347,8 @@
           </div>
           </div>
           <!-- Step 16 -->
-          <div v-if="currentStep === 16" id="product_status">
+          <div v-if="currentStep === 16 && hasQuestionsForStep(16)" id="product_status">
+
             <div class="header-container">
               <h2>What is the status of your product?</h2>
             </div>
@@ -408,7 +405,8 @@
           </div>
           </div>
           <!-- Step 17 -->
-          <div v-if="currentStep === 17" id="active_customers">
+          <div v-if="currentStep === 17 && hasQuestionsForStep(17)" id="active_customers">
+
             <div class="header-container">
               <h2>Does your product have active users or customers?</h2>
             </div>
@@ -444,7 +442,8 @@
           </div>
           </div>
           <!-- Step 18 -->
-          <div v-if="currentStep === 18" id="how_many_users">
+          <div v-if="currentStep === 18 && hasQuestionsForStep(18)" id="how_many_users">
+
             <div class="header-container">
               <h2>How many users do you have?</h2>
             </div>
@@ -539,7 +538,8 @@
           </div>
           </div>
           <!-- Step 19 -->
-          <div v-if="currentStep === 19" id="industry_selection">
+          <div v-if="currentStep === 19 && hasQuestionsForStep(19)" id="industry_selection">
+
             <div class="header-container">
               <h2>What industry are you in?</h2>
             </div>
@@ -581,7 +581,8 @@
           </div>
           </div>
           <!-- Step 20 -->
-          <div v-if="currentStep === 20" id="liberty_ventures_industry">
+          <div v-if="currentStep === 20 && hasQuestionsForStep(20)" id="liberty_ventures_industry">
+
             <div class="header-container">
               <h2>What industry are you in (Liberty Ventures)?</h2>
             </div>
@@ -610,7 +611,8 @@
           </div>
           </div>
           <!-- Step 21 -->
-          <div v-if="currentStep === 21" id="product_selection">
+          <div v-if="currentStep === 21 && hasQuestionsForStep(21)" id="product_selection">
+
             <div class="header-container">
               <h2>What is the primary product your company is providing?</h2>
             </div>
@@ -652,7 +654,8 @@
           </div>
           </div>
           <!-- Step 22 -->
-          <div v-if="currentStep === 22" id="business_model">
+          <div v-if="currentStep === 22 && hasQuestionsForStep(22)" id="business_model">
+
             <div class="header-container">
               <h2>What is your Business Model?</h2>
             </div>
@@ -696,7 +699,8 @@
           </div>
           </div>
           <!-- Step 23 -->
-          <div v-if="currentStep === 23" id="company_website">
+          <div v-if="currentStep === 23 && hasQuestionsForStep(23)" id="company_website">
+
             <div class="header-container">
               <h2>What is your company website?</h2>
             </div>
@@ -711,7 +715,8 @@
           </div>
 
           <!-- Step 24 -->
-          <div v-if="currentStep === 24" id="pitch_deck">
+          <div v-if="currentStep === 24 && hasQuestionsForStep(24)" id="pitch_deck">
+
             <div class="header-container">
               <h2>Add a link to your pitch deck.</h2>
             </div>
@@ -726,7 +731,8 @@
           </div>
 
           <!-- Step 25 -->
-          <div v-if="currentStep === 25" id="pitch_deck_file">
+          <div v-if="currentStep === 25 && hasQuestionsForStep(25)" id="pitch_deck_file">
+
             <div class="header-container">
               <h2>Add a file to your pitch deck.</h2>
             </div>
@@ -746,7 +752,8 @@
           </div>
           </div>
           <!-- Step 26 -->
-          <div v-if="currentStep === 26" id="headquartered">
+          <div v-if="currentStep === 26 && hasQuestionsForStep(26)" id="headquartered">
+
             <div class="header-container">
               <h2>Where is your business incorporated?</h2>
             </div>
@@ -869,7 +876,8 @@
           </div>
 
           <!-- Step 27 -->
-          <div v-if="currentStep === 27" id="customers_based">
+          <div v-if="currentStep === 27 && hasQuestionsForStep(27)" id="customers_based">
+
             <div class="header-container">
               <h2>Where are your main customers based?</h2>
             </div>
@@ -993,7 +1001,8 @@
           </div>
           </div>
           <!-- Step 28 -->
-          <div v-if="currentStep === 28" id="specific_location">
+          <div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="specific_location">
+
             <div class="header-container">
               <h2>Where are you located?</h2>
             </div>
@@ -1030,7 +1039,8 @@
           </div>
 
           <!-- Step 29 -->
-          <div v-if="currentStep === 29" id="legal_structure">
+          <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="legal_structure">
+
             <div class="header-container">
               <h2>What is the current or intended legal structure of the company?</h2>
             </div>
@@ -1125,7 +1135,8 @@
         </div>
       </div>
     </div>
-    <div v-if="currentStep === 31" id="raising_round">
+    <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_round">
+
         <div class="header-container">
           <h2>What round are you raising?</h2>
         </div>
@@ -1219,7 +1230,8 @@
     </div>
       </div>
 
-<div v-if="currentStep === 32" id="raising_amount">
+      <div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="raising_amount">
+
     <div class="header-container">
       <h2>How much are you raising? (in USD)</h2>
     </div>
@@ -1233,7 +1245,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 33" id="earning_revenue">
+<div v-if="currentStep === 33 && hasQuestionsForStep(33)" id="earning_revenue">
+
   <div class="header-container">
     <h2>Is your startup currently earning revenue?</h2>
   </div>
@@ -1263,7 +1276,8 @@
 </div>
 
 
-<div v-if="currentStep === 34" id="earning_amount">
+<div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_amount">
+
   <div class="header-container">
     <h2>Approximately how much revenue are you earning per month (in USD)?</h2>
   </div>
@@ -1306,7 +1320,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 35" id="source_of_revenue">
+<div v-if="currentStep === 35 && hasQuestionsForStep(35)" id="source_of_revenue">
+
   <div class="header-container">
     <h2>What do you expect your main source of revenue to be?</h2>
   </div>
@@ -1367,7 +1382,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 36" id="pre_money_valuation">
+<div v-if="currentStep === 36 && hasQuestionsForStep(36)" id="pre_money_valuation">
+
     <div class="header-container">
       <h2>What is your pre-money valuation? (in USD)</h2>
     </div>
@@ -1381,7 +1397,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 37" id="post_money_valuation">
+<div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="post_money_valuation">
+
     <div class="header-container">
       <h2>What is your post-money valuation? (in USD)</h2>
     </div>
@@ -1395,7 +1412,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 38" id="capital_to_raise">
+<div v-if="currentStep === 38 && hasQuestionsForStep(38)" id="capital_to_raise">
+
     <div class="header-container">
       <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
     </div>
@@ -1431,7 +1449,8 @@
         </div>
       </div>
     </div>
-    <div v-if="currentStep === 40" id="prev_experience">
+    <div v-if="currentStep === 40 && hasQuestionsForStep(40)" id="prev_experience">
+
   <div class="header-container">
     <h2>What is your previous entrepreneurial experience?</h2>
   </div>
@@ -1475,7 +1494,8 @@
 </div>
 
 
-<div v-if="currentStep === 41" id="team_description">
+<div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="team_description">
+
   <div class="header-container">
     <h2>In 2-3 sentences, why you / your team are awesome.</h2>
   </div>
@@ -1489,7 +1509,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 42" id="company_linkedin">
+<div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="company_linkedin">
+
   <div class="header-container">
     <h2>What's your company's LinkedIn?</h2>
   </div>
@@ -1503,7 +1524,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 43" id="ceo_linkedin">
+<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="ceo_linkedin">
+
   <div class="header-container">
     <h2>Founder LinkedIn</h2>
   </div>
@@ -1528,7 +1550,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 44" id="cto_linkedin">
+<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="cto_linkedin">
+
   <div class="header-container">
     <h2>CTO LinkedIn</h2>
   </div>
@@ -1542,7 +1565,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 45" id="linkedin_profiles">
+<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="linkedin_profiles">
+
   <div class="header-container">
     <h2>Your team's LinkedIn profiles.</h2>
   </div>
@@ -1556,7 +1580,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 46" id="founder_video_url">
+<div v-if="currentStep === 46 && hasQuestionsForStep(46)" id="founder_video_url">
+
   <div class="header-container">
     <h2>Founder video URL</h2>
   </div>
@@ -1570,7 +1595,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 47" id="team_video_upload">
+<div v-if="currentStep === 47 && hasQuestionsForStep(47)" id="team_video_upload">
+
   <div class="header-container">
     <h2>Upload short video about team and the company.</h2>
   </div>
@@ -1590,7 +1616,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 48" id="vision">
+<div v-if="currentStep === 48 && hasQuestionsForStep(48)" id="vision">
+
   <div class="header-container">
     <h2>Vision</h2>
   </div>
@@ -1605,7 +1632,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 49" id="pitching_live">
+<div v-if="currentStep === 49 && hasQuestionsForStep(49)" id="pitching_live">
+
   <div class="header-container">
     <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
   </div>
@@ -1638,7 +1666,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 50" id="share_submission">
+<div v-if="currentStep === 50 && hasQuestionsForStep(50)" id="share_submission">
+
   <div class="header-container">
     <h2>Would you like us to share your submission with other companies?</h2>
   </div>
@@ -1668,7 +1697,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 51" id="investors_participating">
+<div v-if="currentStep === 51 && hasQuestionsForStep(51)" id="investors_participating">
+
   <div class="header-container">
     <h2>Investors participating in the current round (if any).</h2>
   </div>
@@ -1682,7 +1712,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 52" id="want_us_to_know">
+<div v-if="currentStep === 52 && hasQuestionsForStep(52)" id="want_us_to_know">
+
   <div class="header-container">
     <h2>Anything else you want investors to know?</h2>
   </div>
@@ -1696,7 +1727,8 @@
     </div>
 </div>
 
-<div v-if="currentStep === 53" id="value_of_team">
+<div v-if="currentStep === 53 && hasQuestionsForStep(53)" id="value_of_team">
+
   <div class="header-container">
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
   </div>
@@ -1730,8 +1762,25 @@
   <button v-if="hasReachedEnd" class="nav-button" @click="goToEnd">Go to End</button>
     </div>
     <div class="nav-buttons-right">
-      <button class="nav-button" :disabled="currentStep === 1" @click="prevStep">←</button>
-      <button class="nav-button" @click="nextStep">→</button>
+    <!-- Кнопка "назад" неактивна на первом шаге -->
+    <button
+      class="nav-button"
+      :disabled="currentStep === 1"
+      @click="prevStep"
+      v-if="currentStep !== 1"
+    >
+      ←
+    </button>
+
+    <!-- Кнопка "вперед" отключена, если нет выбранных форм на первом шаге -->
+    <button
+      class="nav-button"
+      :disabled="currentStep === 1"
+      @click="nextStep"
+      v-if="currentStep !== 53"
+    >
+      →
+    </button>
     </div>
         <!-- Модальное окно -->
         <FormInfoModal
@@ -1746,18 +1795,21 @@
 <script>
 import EmailModal from '../components/EmailModal.vue';
 import FormInfoModal from '../components/FormInfoModal.vue';
-import ReviewModal from '../components/ReviewModal.vue'; // Импортируем модальное окно
+import ReviewModal from '../components/ReviewModal.vue';
+import FormSelector from '../components/FormSelector.vue';
 export default {
   components: {
     FormInfoModal,  // Регистрация компонента
     ReviewModal,
     EmailModal,
+    FormSelector,
 
   },
   data() {
     return {
       currentStep: 1,
       hasReachedEnd: false,
+      selectedForms: [],
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
       currentField: '',   // Поле, для которого будет показана информация
@@ -2172,6 +2224,9 @@ export default {
 
   return stepIds[stepNumber];
 },
+  handleFormSelection(forms) {
+      this.selectedForms = forms.map(form => form.name); // Сохраняем выбранные формы
+    },
     goToStep(stepNumber) {
     this.currentStep = stepNumber; // Изменяем текущий шаг
 
@@ -2182,6 +2237,66 @@ export default {
         targetElement.scrollIntoView({ behavior: 'smooth' });
       }
     });
+  },
+
+  hasQuestionsForStep(stepNumber) {
+    const stepInvestors = {
+      2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      4: ['Liberty Ventures'],
+      5: ['Precursor Ventures'],
+      6: ['Hustle Fund'],
+      7: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      8: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      9: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
+      10: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
+      11: ['Hustle Fund', 'Incisive Ventures'],
+      12: ['Incisive Ventures'],
+      13: ['Hustle Fund'],
+      14: ['Hustle Fund'],
+      15: ['2048 Ventures'],
+      16: ['Hustle Fund', 'Incisive Ventures'],
+      17: ['Hustle Fund'],
+      18: ['Hustle Fund'],
+      19: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      20: ['Liberty Ventures'],
+      21: ['Hustle Fund', 'Incisive Ventures'],
+      22: ['Hustle Fund'],
+      23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures'],
+      24: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      25: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      27: ['Hustle Fund'],
+      28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
+      29: ['Precursor Ventures'],
+      30: ['Hustle Fund'],
+      31: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      32: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      33: ['Hustle Fund'],
+      34: ['Hustle Fund', 'Incisive Ventures'],
+      35: ['Hustle Fund'],
+      36: ['Precursor Ventures'],
+      37: ['Hustle Fund', 'Incisive Ventures'],
+      38: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
+      39: ['Incisive Ventures'],
+      40: ['Boost Ventures'],
+      41: ['Boost Ventures'],
+      42: ['Spatial Capital'],
+      43: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+      44: ['2048 Ventures'],
+      45: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
+      46: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
+      47: ['Boost Ventures'],
+      48: ['2048 Ventures'],
+      49: ['Hustle Fund'],
+      50: ['Hustle Fund', 'Incisive Ventures'],
+      51: ['Hustle Fund', 'Incisive Ventures'],
+      52: ['Hustle Fund', 'Incisive Ventures'],
+      53: ['Liberty Ventures']
+    };
+
+    // Проверяем, есть ли инвесторы для текущего шага
+    return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
   
     openEmailModal() {
@@ -2314,27 +2429,39 @@ export default {
       this.formData.pitch_deck_file = file;
     },
     nextStep() {
-      if (this.currentStep < 53) {
-        this.currentStep++;
+      let nextValidStep = this.currentStep + 1;
+
+      // Проверяем и пропускаем шаги, для которых нет вопросов
+      while (nextValidStep <= 53 && !this.hasQuestionsForStep(nextValidStep)) {
+        nextValidStep++;
+      }
+
+      if (nextValidStep <= 53) {
+        this.currentStep = nextValidStep;
         this.scrollToCurrentStep();
         if (this.currentStep === 53) {
-        this.hasReachedEnd = true; // Устанавливаем флаг, если пользователь дошел до конца
-      }
-        if (this.currentStep !== 1) {
-          this.showTitle = true;
+          this.hasReachedEnd = true;
         }
+        this.showTitle = this.currentStep !== 1;
       }
     },
     goToEnd() {
     this.currentStep = 53; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
   },
-    prevStep() {
-      if (this.currentStep > 1) {
-        this.currentStep--;
-        this.scrollToCurrentStep();
-      }
-    },
+  prevStep() {
+    let prevValidStep = this.currentStep - 1;
+
+    // Проверяем и пропускаем шаги, для которых нет вопросов
+    while (prevValidStep > 1 && !this.hasQuestionsForStep(prevValidStep)) {
+      prevValidStep--;
+    }
+
+    if (prevValidStep >= 1) {
+      this.currentStep = prevValidStep;
+      this.scrollToCurrentStep();
+    }
+  },
     scrollToCurrentStep() {
       this.$nextTick(() => {
         const stepElement = this.$refs.steps;
@@ -2476,7 +2603,7 @@ h3 {
 }
 
 .email-button:hover {
-  background-color: #c43d6e; /* Более светлый розовый при наведении */
+  background-color: #c43d6e;
 }
 
 .email-button:focus {
