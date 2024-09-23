@@ -101,19 +101,32 @@
   
   <style scoped>
 
+html, body {
+  height: 100%; /* Гарантируем, что высота страницы занимает 100% экрана */
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Включаем вертикальную прокрутку, если контент превышает высоту экрана */
+}
+
 .select-clear-buttons {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Центрируем кнопки */
 }
 
 .total {
     margin-top: 5px;
 }
 
-  .form-selector {
-  margin: 20px;
+.form-selector {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Высота на 100% экрана */
+  overflow-y: auto; /* Позволяет прокручивать содержимое, если оно выходит за пределы */
+  margin-top: 0; /* Убираем лишние отступы */
+  padding: 20px;
+  padding-top: 13vh;
 }
-
 h2 {
   color: #ffffff;
   font-size: 2.7em;
@@ -129,10 +142,13 @@ p {
 }
 
 .form-container {
-  border: 2px solid #e0e0e0; /* Толщина и цвет рамки */
-  border-radius: 2px; /* Скругление углов рамки */
-  padding: 20px; /* Внутренний отступ, чтобы текст не прижимался к краям */
-  margin-top: 5px; /* Отступ сверху */
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #e0e0e0; 
+  border-radius: 2px;
+  padding: 20px;
+  margin-top: 5px;
+  overflow-y: auto; /* Включаем прокрутку внутри контейнера, если контент не помещается */
 }
 
 .form-header {
@@ -161,11 +177,12 @@ p {
 }
 
 .form-options-scroll {
-  max-height: 300px;
-  overflow-y: auto;
+  max-height: 30vh; /* Ограничиваем высоту до 60% высоты экрана */
+  overflow-y: auto; /* Включаем прокрутку */
   margin-bottom: 20px;
-  padding-right: 35px; /* Добавляем отступ для ползунка */
+  padding-right: 35px;
 }
+
 
 .form-options::-webkit-scrollbar {
   width: 6px;
