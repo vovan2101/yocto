@@ -1737,19 +1737,20 @@
     <!-- Кнопка "назад" неактивна на первом шаге -->
     <button
   class="nav-button"
-  :disabled="currentStep === findSecondValidStep()"
+  :disabled="currentStep === 1"
   @click="prevStep"
-  v-if="currentStep > findSecondValidStep()"
+  v-if="currentStep > 1"
 >
   ←
 </button>
+
 
     <!-- Кнопка "вперед" отключена, если нет выбранных форм на первом шаге -->
     <button
       class="nav-button"
       :disabled="currentStep === 1"
       @click="nextStep"
-      v-if="currentStep < 54"
+      v-if="currentStep > 1 && currentStep < 51"
     >
       →
     </button>
@@ -2442,19 +2443,29 @@ export default {
     return secondStep; // Возвращаем второй валидный шаг
   },
   prevStep() {
-    let prevValidStep = this.currentStep - 1;
+  let prevValidStep = this.currentStep - 1;
 
+  // Если текущий шаг больше второго, продолжаем проверку шагов
+  if (this.currentStep > 2) {
     // Проверяем и пропускаем шаги, для которых нет вопросов
     while (prevValidStep >= 2 && !this.hasQuestionsForStep(prevValidStep)) {
       prevValidStep--;
     }
+  }
 
-    // Переход на предыдущий валидный шаг, если он существует
-    if (prevValidStep >= 2) {
-      this.currentStep = prevValidStep;
-      this.scrollToCurrentStep();
-    }
-  },
+  // Если после проверки шагов мы находимся на шаге 2, либо шаг 2 пропускается для инвестора, просто переходим на шаг 1 (выбор формы)
+  if (prevValidStep === 1 || this.currentStep === 2) {
+    this.currentStep = 1; // Возвращаемся на шаг выбора форм
+    this.scrollToCurrentStep();
+    return;
+  }
+
+  // Переход на предыдущий валидный шаг, если он существует
+  if (prevValidStep >= 2) {
+    this.currentStep = prevValidStep;
+    this.scrollToCurrentStep();
+  }
+},
     scrollToCurrentStep() {
       this.$nextTick(() => {
         const stepElement = this.$refs.steps;

@@ -76,14 +76,14 @@
         let nextValidStep = this.$parent.currentStep + 1;
   
         // Проверяем и пропускаем шаги, для которых нет вопросов
-        while (nextValidStep <= 54 && !this.$parent.hasQuestionsForStep(nextValidStep)) {
+        while (nextValidStep <= 51 && !this.$parent.hasQuestionsForStep(nextValidStep)) {
           nextValidStep++;
         }
   
-        if (nextValidStep <= 54) {
+        if (nextValidStep <= 51) {
           this.$parent.currentStep = nextValidStep;
           this.$parent.scrollToCurrentStep();
-          if (this.$parent.currentStep === 54) {
+          if (this.$parent.currentStep === 51) {
             this.$parent.hasReachedEnd = true; // Устанавливаем флаг, если пользователь дошел до конца
           }
           this.$parent.showTitle = this.$parent.currentStep !== 1;
