@@ -4,6 +4,22 @@
     <div ref="steps">
       <transition name="fade" mode="out-in">
         <div :key="currentStep">
+
+          <!-- Step 0: Introduction -->
+          <div v-if="currentStep === 0" class="intro-container">
+          <div class="header-container">
+            <h2>Welcome to Yocto!</h2>
+          </div>
+          <p>- You'll select the investors you want to submit your form to.</p>
+          <p>- Choose all or a few based on the time you have. Each investor has unique questions.</p>
+          <p>- For best results, select all investors to maximize your form’s reach.</p>
+          <p>- After filling out the form, you can review and edit your answers before submitting.</p>
+          <p><strong>Let’s begin!</strong></p>
+          <div class="button-container">
+            <button class="button" @click="nextStep">Get Started</button>
+            <p class="enter-text">press Enter ↵</p>
+          </div>
+        </div>
             <!-- Шаг 1: Выбор форм -->
           <FormSelector v-if="currentStep === 1" @forms-selected="handleFormSelection" />
     <!-- Step 2: First and Last Name -->
@@ -1780,7 +1796,7 @@ export default {
   },
   data() {
     return {
-      currentStep: 1,
+      currentStep: 0,
       hasReachedEnd: false,
       selectedForms: [],
       showTitle: false,
@@ -2290,7 +2306,7 @@ export default {
   let firstStep = 2; // Начнем с шага 2, так как 1-й шаг — это выбор форм
   
   // Проходим по шагам, начиная со 2-го, чтобы найти первый валидный шаг
-  for (let step = 2; step <= 54; step++) {
+  for (let step = 2; step <= 51; step++) {
     if (this.hasQuestionsForStep(step)) {
       firstStep = step; // Как только найден шаг с вопросами, назначаем его как первый
       break; // Прерываем цикл, так как нашли нужный шаг
@@ -2409,22 +2425,30 @@ export default {
       this.formData.pitch_deck_file = file;
     },
     nextStep() {
-      let nextValidStep = this.currentStep + 1;
+  // Если мы на шаге 0, всегда переходим на шаг 1
+  if (this.currentStep === 0) {
+    this.currentStep = 1;
+    this.scrollToCurrentStep();
+    return;
+  }
 
-      // Проверяем и пропускаем шаги, для которых нет вопросов
-      while (nextValidStep <= 51 && !this.hasQuestionsForStep(nextValidStep)) {
-        nextValidStep++;
-      }
+  // Иначе выполняем стандартную логику для пропуска шагов без вопросов
+  let nextValidStep = this.currentStep + 1;
 
-      if (nextValidStep <= 51) {
-        this.currentStep = nextValidStep;
-        this.scrollToCurrentStep();
-        if (this.currentStep === 51) {
-          this.hasReachedEnd = true;
-        }
-        this.showTitle = this.currentStep !== 1;
-      }
-    },
+  // Проверяем и пропускаем шаги, для которых нет вопросов
+  while (nextValidStep <= 51 && !this.hasQuestionsForStep(nextValidStep)) {
+    nextValidStep++;
+  }
+
+  if (nextValidStep <= 51) {
+    this.currentStep = nextValidStep;
+    this.scrollToCurrentStep();
+    if (this.currentStep === 51) {
+      this.hasReachedEnd = true;
+    }
+    this.showTitle = this.currentStep !== 1;
+  }
+},
     goToEnd() {
     this.currentStep = 51; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
