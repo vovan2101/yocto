@@ -94,25 +94,45 @@
     </div>
   </section>
 
-  <!-- Модальное окно -->
-  <div v-if="isModalOpen" class="modal" @click="outsideClick">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <h2 class="modal-header">Investors List</h2>
-      <ul class="investor-list">
-    <li><a href="https://www.2048.vc/" target="_blank" class="button-link-scrollable">1. 2048 Ventures</a></li>
-    <li><a href="https://www.boost.vc/" target="_blank" class="button-link-scrollable">2. Boost Ventures</a></li>
-    <li><a href="https://everywhere.vc/" target="_blank" class="button-link-scrollable">3. Everywhere Ventures</a></li>
-    <li><a href="https://www.hustlefund.vc/" target="_blank" class="button-link-scrollable">4. Hustle Fund</a></li>
-    <li><a href="https://incisive.vc/" target="_blank" class="button-link-scrollable">5. Incisive Ventures</a></li>
-    <li><a href="https://libertyventures.xyz/" target="_blank" class="button-link-scrollable">6. Liberty Ventures</a></li>
-    <li><a href="https://www.path.vc/" target="_blank" class="button-link-scrollable">7. Path Ventures</a></li>
-    <li><a href="https://precursorvc.com/" target="_blank" class="button-link-scrollable">8. Precursor Ventures</a></li>
-    <li><a href="https://www.spatial.capital/" target="_blank" class="button-link-scrollable">9. Spatial Capital</a></li>
-    <li><a href="https://www.wischoff.com/" target="_blank" class="button-link-scrollable">10. Wischoff Ventures</a></li>
-  </ul>
+<!-- Модальное окно -->
+<div v-if="isModalOpen" class="modal" @click="outsideClick">
+  <div class="modal-content">
+    <span class="close" @click="closeModal">&times;</span>
+    <h2 class="modal-header">Investors List</h2>
+
+    <!-- Таблица с тремя колонками: Название инвестора, Время (минуты) и Количество вопросов -->
+    <table class="investor-table">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Investor Name</th>
+          <th>Time (min)</th>
+          <th>Questions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(form, index) in forms" :key="index">
+          <td>
+            <label class="custom-checkbox-container">
+              <input type="checkbox" v-model="selectedForms" :value="form" />
+              <span class="custom-checkbox"></span>
+            </label>
+          </td>
+          <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
+          <td>{{ form.estimatedTime }}</td>
+          <td>{{ form.questions }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Отображение общего времени и количества вопросов -->
+    <div class="total-info">
+      <p><strong>Total Estimated Time:</strong> {{ totalEstimatedTime }} minutes</p>
+      <p><strong>Total Questions:</strong> {{ totalQuestions }} questions</p>
     </div>
   </div>
+</div>
+
     <section class="home-description">
       <img alt="image" src="/hero-divider-1500w.png" class="home-divider-image" />
       <!-- <div class="home-container3">
@@ -853,7 +873,30 @@ export default {
       rawwvf2: ' ',
       rawo84v: ' ',
       isModalOpen: false, // для управления состоянием модального окна
+      forms: [
+        { name: "2048 Ventures", estimatedTime: 10, questions: 15, url: "https://www.2048.vc/" },
+        { name: "Boost Ventures", estimatedTime: 15, questions: 20, url: "https://www.boost.vc/" },
+        { name: "Everywhere Ventures", estimatedTime: 20, questions: 25, url: "https://everywhere.vc/" },
+        { name: "Hustle Fund", estimatedTime: 12, questions: 18, url: "https://www.hustlefund.vc/" },
+        { name: "Incisive Ventures", estimatedTime: 18, questions: 22, url: "https://incisive.vc/" },
+        { name: "Liberty Ventures", estimatedTime: 14, questions: 19, url: "https://libertyventures.xyz/" },
+        { name: "Path Ventures", estimatedTime: 16, questions: 21, url: "https://www.path.vc/" },
+        { name: "Precursor Ventures", estimatedTime: 10, questions: 13, url: "https://precursorvc.com/" },
+        { name: "Spatial Capital", estimatedTime: 22, questions: 30, url: "https://www.spatial.capital/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" }
+      ],
+      selectedForms: [],
     }
+  },
+  computed: {
+    // Подсчет общего времени для выбранных инвесторов
+    totalEstimatedTime() {
+      return this.selectedForms.reduce((total, form) => total + form.estimatedTime, 0);
+    },
+    // Подсчет общего количества вопросов для выбранных инвесторов
+    totalQuestions() {
+      return this.selectedForms.reduce((total, form) => total + form.questions, 0);
+    },
   },
   methods: {
     openModal() {
@@ -891,24 +934,32 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Центрирование модального окна */
 }
 
 .modal-content {
   background-color: #282828; /* Темный фон для модального окна */
-  margin: 10% auto;
-  padding: 20px;
+  padding: 20px 20px 0 20px; /* Убираем отступ снизу, оставляем 20px сверху, справа и слева */
   border: 2px solid #888;
   width: 80%;
   max-width: 600px;
   color: #fff;
   border-radius: 8px;
   position: relative;
-  overflow: hidden; /* Добавлено для прокрутки */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень для объема */
+  overflow-y: auto; /* Прокрутка для содержимого */
+  max-height: 80vh; /* Ограничение высоты окна */
+  display: flex;
+  flex-direction: column; /* Располагаем элементы столбиком */
 }
 
 .close {
   color: #fff;
-  float: right;
+  position: absolute;
+  top: 10px;
+  right: 20px;
   font-size: 28px;
   font-weight: bold;
   transition: color 0.3s ease; /* Плавный переход цвета за 0.3 секунды */
@@ -924,31 +975,117 @@ export default {
 /* Новый стиль для заголовка, аналогичный логотипу */
 .modal-header {
   color: #ff538c;
-  font-size: 40px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
+  text-shadow: 1px 1px 0 #000;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.investor-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  max-height: 300px; /* Ограничиваем высоту списка */
-  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+/* Таблица инвесторов */
+.investor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  flex-grow: 1; /* Растягиваем таблицу, чтобы она занимала все доступное пространство */
 }
 
-.investor-list li {
-  padding: 6px 0;
-  border-bottom: 1px solid #444;
+.investor-table th,
+.investor-table td {
+  border: 1px solid #444; /* Более темная рамка */
+  padding: 10px;
+  text-align: left;
+  color: #ddd; /* Светлый текст */
 }
 
-.investor-list li:last-child {
-  border-bottom: none;
+.investor-table th {
+  background-color: #444; /* Темный фон для заголовков */
+  font-weight: bold;
+  color: #fff; /* Белый цвет текста */
 }
 
+.investor-table td a {
+  color: rgb(255, 207, 119);
+  text-decoration: none;
+}
+
+.investor-table td a:hover {
+  text-decoration: underline;
+}
+
+.investor-table tr:hover {
+  background-color: #333; /* Темный фон при наведении */
+}
+
+.total-info {
+  position: sticky;
+  bottom: 0;
+  background-color: #282828;
+  border-top: 1px solid #444;
+  text-align: center;
+}
+
+.total-info p {
+  margin: 5px 0;
+  color: #fff;
+}
+
+/* Стили для чекбоксов */
+.custom-checkbox-container {
+  display: inline-flex; /* Flexbox для правильного выравнивания */
+  align-items: center; /* Центрирование по вертикали */
+  justify-content: center; /* Центрирование по горизонтали */
+  padding-left: 0; /* Убираем лишний отступ */
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+.custom-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox {
+  position: relative;
+  height: 30px; /* Увеличиваем размер чекбокса */
+  width: 30px;  /* Увеличиваем размер чекбокса */
+  background-color: #eee;
+  border: 2px solid #ccc;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* При наведении меняем цвет рамки */
+.custom-checkbox-container:hover input ~ .custom-checkbox {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+.custom-checkbox:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg); /* Центрируем галочку */
+  width: 10px;
+  height: 18px;
+  border: solid #fff; /* Белая галочка */
+  border-width: 0 3px 3px 0;
+}
+
+.custom-checkbox-container input:checked ~ .custom-checkbox {
+  background-color: #ff538c; /* Розовый цвет для фона */
+  border-color: #000000;
+}
+
+.custom-checkbox-container input:checked ~ .custom-checkbox:after {
+  display: block;
+}
 
 /* Стили для кнопок-ссылок */
 .button-link-scrollable {
@@ -2821,6 +2958,16 @@ export default {
   .modal-header {
   font-size: 35px;
 }
+.modal-content {
+    width: 90%;
+    max-width: 550px;
+  }
+
+  .investor-table th,
+  .investor-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
 
   .home-row {
     flex-direction: column;
@@ -2903,10 +3050,31 @@ export default {
   .home-heading {
     gap: var(--dl-space-space-unit);
   }
+  .modal-content {
+    width: 95%;
+    max-width: 500px;
+  }
 
   .modal-header {
   font-size: 30px;
 }
+.investor-table th,
+  .investor-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  /* Уменьшаем размер чекбоксов для мобильных устройств */
+  .custom-checkbox {
+    height: 25px;
+    width: 25px;
+  }
+
+  .custom-checkbox:after {
+    width: 8px;
+    height: 14px;
+  }
+
   .home-header01 {
     font-size: 36px;
     max-width: 70%;
@@ -3372,9 +3540,30 @@ export default {
   .home-mobile-menu {
     padding: 16px;
   }
+
+  .modal-content {
+    width: 100%;
+    max-width: 450px;
+  }
   .modal-header {
   font-size: 25px;
 }
+.investor-table th,
+  .investor-table td {
+    padding: 5px;
+    font-size: 11px;
+  }
+
+  /* Делаем чекбокс еще меньше для мобильных */
+  .custom-checkbox {
+    height: 20px;
+    width: 20px;
+  }
+
+  .custom-checkbox:after {
+    width: 6px;
+    height: 10px;
+  }
   .home-main3 {
     grid-template-columns: repeat(1, 1fr);
   }
