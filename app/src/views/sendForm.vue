@@ -1708,13 +1708,13 @@
 
   <div class="button-container">
     <!-- Кнопка для отправки формы -->
-    <button class="button" @click="submitForm">Submit The Form</button>
+    <button class="pink-button" @click="submitForm">Submit The Form</button>
     
     <!-- Кнопка для открытия модального окна с проверкой ответов -->
-    <button class="button" @click="openReviewModal">Review Your Answers</button>
+    <button class="link-scroll" @click="openReviewModal">Review My Answers</button>
     
     <!-- Кнопка для отправки формы на email -->
-    <button class="email-button" @click="openEmailModal">Send Form to Your Email</button>
+    <button class="link-scroll" @click="openEmailModal">Send Form to My Email</button>
   </div>
 
   <!-- Модальные окна для проверки ответов и отправки email -->
@@ -2596,7 +2596,7 @@ h3 {
   margin-top: 20px;
 }
 
-.email-button {
+.pink-button {
   color: var(--dl-color-gray-black); /* Сохраняем цвет текста */
   cursor: pointer;
   display: inline-block;
@@ -2616,11 +2616,11 @@ h3 {
   background-color: #ff538c; /* Розовый цвет фона */
 }
 
-.email-button:hover {
+.pink-button:hover {
   background-color: #c43d6e;
 }
 
-.email-button:focus {
+.pink-button:focus {
   outline: none; /* Убираем рамку при нажатии */
 }
 
@@ -2940,6 +2940,10 @@ button:focus {
 
 .link-scroll:hover {
     text-decoration: none; /* Убирает подчёркивание при наведении */
+}
+
+.link-scroll:focus {
+  outline: none; /* Убираем рамку при нажатии */
 }
 
 .file-upload-container {
