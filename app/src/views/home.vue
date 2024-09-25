@@ -883,7 +883,17 @@ export default {
         { name: "Path Ventures", estimatedTime: 16, questions: 21, url: "https://www.path.vc/" },
         { name: "Precursor Ventures", estimatedTime: 10, questions: 13, url: "https://precursorvc.com/" },
         { name: "Spatial Capital", estimatedTime: 22, questions: 30, url: "https://www.spatial.capital/" },
-        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" }
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
       ],
       selectedForms: [],
     }
@@ -950,7 +960,7 @@ export default {
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень для объема */
   overflow-y: auto; /* Прокрутка для содержимого */
-  max-height: 80vh; /* Ограничение высоты окна */
+  max-height: 50vh; /* Ограничение высоты окна */
   display: flex;
   flex-direction: column; /* Располагаем элементы столбиком */
 }
@@ -3061,7 +3071,7 @@ export default {
 .investor-table th,
   .investor-table td {
     padding: 6px;
-    font-size: 12px;
+    font-size: 16px;
   }
 
   /* Уменьшаем размер чекбоксов для мобильных устройств */
@@ -3551,7 +3561,7 @@ export default {
 .investor-table th,
   .investor-table td {
     padding: 5px;
-    font-size: 11px;
+    font-size: 16px;
   }
 
   /* Делаем чекбокс еще меньше для мобильных */
