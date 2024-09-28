@@ -1717,13 +1717,14 @@
     <button class="link-scroll" @click="openEmailModal">Send Form to My Email</button>
   </div>
 
-  <!-- Модальные окна для проверки ответов и отправки email -->
+  <!-- Модальные окна для проверки ответов -->
   <ReviewModal 
-    :formData="formData" 
-    :isOpen="isReviewModalOpen" 
-    @close="closeReviewModal" 
-    @go-to-step="goToStep"
-  />
+  :formData="formData" 
+  :isOpen="isReviewModalOpen" 
+  :selectedForms="selectedForms"
+  @close="closeReviewModal" 
+  @go-to-step="goToStep"
+/>
   <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
 
@@ -2149,7 +2150,6 @@ export default {
       },
       successMessage: '',
       errorMessage: '',
-      isReviewModalOpen: false, // Управляем состоянием модального окна
       isEmailModalOpen: false, // Управляет отображением окна email
       isReviewModalOpen: false, // Управляет отображением окна обзора
     };
@@ -2213,18 +2213,22 @@ export default {
 },
   handleFormSelection(forms) {
       this.selectedForms = forms.map(form => form.name); // Сохраняем выбранные формы
+      console.log('Selected forms in parent:', this.selectedForms);
     },
     goToStep(stepNumber) {
-    this.currentStep = stepNumber; // Изменяем текущий шаг
+  console.log(`Navigating to step: ${stepNumber}`);
+  this.currentStep = stepNumber;
 
-    // После изменения шага прокручиваем страницу к соответствующему элементу
-    this.$nextTick(() => {
-      const targetElement = document.getElementById(this.getStepId(stepNumber));
+  this.$nextTick(() => {
+    setTimeout(() => {
+      const stepId = this.getStepId(stepNumber);
+      const targetElement = document.getElementById(stepId);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  },
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } 
+    }, 300);
+  });
+},
 
   hasQuestionsForStep(stepNumber) {
     const stepInvestors = {
@@ -2442,7 +2446,9 @@ export default {
 
   if (nextValidStep <= 51) {
     this.currentStep = nextValidStep;
-    this.scrollToCurrentStep();
+    setTimeout(() => {
+      this.scrollToCurrentStep();
+    }, 500); // Задержка в 500 мс для гарантированного рендеринга
     if (this.currentStep === 51) {
       this.hasReachedEnd = true;
     }
@@ -2490,17 +2496,17 @@ export default {
     this.scrollToCurrentStep();
   }
 },
-    scrollToCurrentStep() {
-      this.$nextTick(() => {
-        const stepElement = this.$refs.steps;
-        if (stepElement) {
-          stepElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    },
+scrollToCurrentStep() {
+  this.$nextTick(() => {
+    setTimeout(() => {
+      const stepId = this.getStepId(this.currentStep);
+      const targetElement = document.getElementById(stepId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300); // 300 мс задержка
+  });
+},
     async submitForm() {
       if (this.formData.relationship === 'Other' && !this.formData.other_relationship) {
         this.errorMessage = 'Please specify your relationship to the company.';

@@ -67,11 +67,16 @@
     },
     methods: {
       submitSelection() {
-        if (this.selectedForms.length > 0) {
-          this.$emit('forms-selected', this.selectedForms); // Передаем выбранные формы родительскому компоненту
-          this.nextStep(); // Переход на следующий шаг
-        }
-      },
+  if (this.selectedForms.length > 0) {
+    console.log('Selected forms:', this.selectedForms);
+    this.$emit('forms-selected', this.selectedForms); // Передаем выбранные формы родительскому компоненту
+
+    // Ждем обновления состояния в родительском компоненте перед переходом на следующий шаг
+    this.$nextTick(() => {
+      this.nextStep(); // Переход на следующий шаг
+    });
+  }
+},
       nextStep() {
         let nextValidStep = this.$parent.currentStep + 1;
   
