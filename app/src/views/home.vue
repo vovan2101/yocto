@@ -94,44 +94,44 @@
     </div>
   </section>
 
-<!-- Модальное окно -->
-<div v-if="isModalOpen" class="modal" @click="outsideClick">
-  <div class="modal-content">
-    <span class="close" @click="closeModal">&times;</span>
-    <h2 class="modal-header">Investors List</h2>
+  <!-- Модальное окно -->
+  <div v-if="isModalOpen" class="modal" @click="outsideClick">
+    <div class="modal-content">
+      <span class="close" @click="closeModal">&times;</span>
+      <h2 class="modal-header">Investors List</h2>
 
-    <!-- Таблица с тремя колонками: Название инвестора, Время (минуты) и Количество вопросов -->
-    <table class="investor-table">
-      <thead>
-        <tr>
-          <th>Select</th>
-          <th>Investor Name</th>
-          <th>Time (min)</th>
-          <th>Questions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(form, index) in forms" :key="index">
-          <td>
-            <label class="custom-checkbox-container">
-              <input type="checkbox" v-model="selectedForms" :value="form" />
-              <span class="custom-checkbox"></span>
-            </label>
-          </td>
-          <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
-          <td>{{ form.estimatedTime }}</td>
-          <td>{{ form.questions }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Таблица с тремя колонками: Название инвестора, Время (минуты) и Количество вопросов -->
+      <table class="investor-table">
+        <thead>
+          <tr>
+            <th>Select</th>
+            <th>Investor Name</th>
+            <th>Time (min)</th>
+            <th>Questions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(form, index) in forms" :key="index">
+            <td>
+              <label class="custom-checkbox-container">
+                <input type="checkbox" v-model="selectedForms" :value="form" />
+                <span class="custom-checkbox"></span>
+              </label>
+            </td>
+            <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
+            <td>{{ form.estimatedTime }}</td>
+            <td>{{ form.questions }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- Отображение общего времени и количества вопросов -->
-    <div class="total-info">
-      <p><strong>Total Estimated Time:</strong> {{ totalEstimatedTime }} minutes</p>
-      <p><strong>Total Questions:</strong> {{ totalQuestions }} questions</p>
+      <!-- Отображение общего времени и количества вопросов для выбранных форм -->
+      <div class="total-info">
+        <p><strong>Total Estimated Time:</strong> {{ totalEstimatedTime }} minutes</p>
+        <p><strong>Total Questions:</strong> {{ totalQuestions }} questions</p>
+      </div>
     </div>
   </div>
-</div>
 
     <section class="home-description">
       <img alt="image" src="/hero-divider-1500w.png" class="home-divider-image" />
@@ -858,7 +858,6 @@ import DangerousHTML from 'dangerous-html/vue'
 
 export default {
   name: 'Home',
-  props: {},
   components: {
     DangerousHTML,
   },
@@ -874,31 +873,154 @@ export default {
       rawo84v: ' ',
       isModalOpen: false, // для управления состоянием модального окна
       forms: [
-        { name: "2048 Ventures", estimatedTime: 10, questions: 15, url: "https://www.2048.vc/" },
-        { name: "Boost Ventures", estimatedTime: 15, questions: 20, url: "https://www.boost.vc/" },
-        { name: "Everywhere Ventures", estimatedTime: 20, questions: 25, url: "https://everywhere.vc/" },
-        { name: "Hustle Fund", estimatedTime: 12, questions: 18, url: "https://www.hustlefund.vc/" },
-        { name: "Incisive Ventures", estimatedTime: 18, questions: 22, url: "https://incisive.vc/" },
-        { name: "Liberty Ventures", estimatedTime: 14, questions: 19, url: "https://libertyventures.xyz/" },
-        { name: "Path Ventures", estimatedTime: 16, questions: 21, url: "https://www.path.vc/" },
-        { name: "Precursor Ventures", estimatedTime: 10, questions: 13, url: "https://precursorvc.com/" },
-        { name: "Spatial Capital", estimatedTime: 22, questions: 30, url: "https://www.spatial.capital/" },
-        { name: "Wischoff Ventures", estimatedTime: 8, questions: 12, url: "https://www.wischoff.com/" },
+        { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
+        { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
+        { name: "Everywhere Ventures", estimatedTime: 4, questions: 9, url: "https://everywhere.vc/" },
+        { name: "Hustle Fund", estimatedTime: 15, questions: 31, url: "https://www.hustlefund.vc/" },
+        { name: "Incisive Ventures", estimatedTime: 11, questions: 23, url: "https://incisive.vc/" },
+        { name: "Liberty Ventures", estimatedTime: 5, questions: 8, url: "https://libertyventures.xyz/" },
+        { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/" },
+        { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/" },
+        { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/" },
+        { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://www.wischoff.com/" },
       ],
       selectedForms: [],
+      stepInvestors: {
+        2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        4: ['Liberty Ventures'],
+        5: ['Precursor Ventures'],
+        6: ['Hustle Fund'],
+        7: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        8: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
+        9: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
+        10: ['Hustle Fund', 'Incisive Ventures'],
+        11: ['Incisive Ventures'],
+        12: ['Hustle Fund'],
+        13: ['Hustle Fund'],
+        14: ['2048 Ventures'],
+        15: ['Hustle Fund', 'Incisive Ventures'],
+        16: ['Hustle Fund'],
+        17: ['Hustle Fund'],
+        18: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        19: ['Liberty Ventures'],
+        20: ['Hustle Fund', 'Incisive Ventures'],
+        21: ['Hustle Fund'],
+        22: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures'],
+        23: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        24: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+        25: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        26: ['Hustle Fund'],
+        27: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
+        28: ['Precursor Ventures'],
+        29: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        30: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        31: ['Hustle Fund'],
+        32: ['Hustle Fund', 'Incisive Ventures'],
+        33: ['Hustle Fund'],
+        34: ['Precursor Ventures'],
+        35: ['Hustle Fund', 'Incisive Ventures'],
+        36: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
+        37: ['Incisive Ventures'],
+        38: ['Boost Ventures'],
+        39: ['Spatial Capital'],
+        40: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+        41: ['2048 Ventures'],
+        42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
+        43: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
+        44: ['Boost Ventures'],
+        45: ['2048 Ventures'],
+        46: ['Hustle Fund'],
+        47: ['Hustle Fund', 'Incisive Ventures'],
+        48: ['Hustle Fund', 'Incisive Ventures'],
+        49: ['Hustle Fund', 'Incisive Ventures'],
+        50: ['Liberty Ventures'],
+        51: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures']
+      },
+      stepIds: {
+        2: 'first_name',
+        3: 'email',
+        4: 'phone_number',
+        5: 'relationship',
+        6: 'working_full_time',
+        7: 'company_name',
+        8: 'one_line_description',
+        9: 'company_description',
+        10: 'company_solution',
+        11: 'pitch_description',
+        12: 'target_customer',
+        13: 'customer_acquisition',
+        14: 'date_founded',
+        15: 'product_status',
+        16: 'active_customers',
+        17: 'how_many_users',
+        18: 'industry_selection',
+        19: 'liberty_ventures_industry',
+        20: 'product_selection',
+        21: 'business_model',
+        22: 'company_website',
+        23: 'pitch_deck',
+        24: 'pitch_deck_file',
+        25: 'headquartered',
+        26: 'customers_based',
+        27: 'specific_location',
+        28: 'legal_structure',
+        29: 'raising_round',
+        30: 'raising_amount',
+        31: 'earning_revenue',
+        32: 'earning_amount',
+        33: 'source_of_revenue',
+        34: 'pre_money_valuation',
+        35: 'post_money_valuation',
+        36: 'capital_to_raise',
+        37: 'prev_experience',
+        38: 'team_description',
+        39: 'company_linkedin',
+        40: 'ceo_linkedin',
+        41: 'cto_linkedin',
+        42: 'linkedin_profiles',
+        43: 'founder_video_url',
+        44: 'team_video_upload',
+        45: 'vision',
+        46: 'pitching_live',
+        47: 'share_submission',
+        48: 'investors_participating',
+        49: 'want_us_to_know',
+        50: 'value_of_team',
+        51: 'final_step'
+      }
+    };
+  },
+  created() {
+  // Устанавливаем все формы по умолчанию при загрузке компонента
+  this.selectedForms = [...this.forms];
+},
+computed: {
+    totalEstimatedTime() {
+      const uniqueSteps = this.getUniqueStepsForSelectedForms();
+      // 1 вопрос = 0.5 минут (30 секунд)
+      return Math.floor(uniqueSteps.length * 0.5);
+    },
+    totalQuestions() {
+      const uniqueSteps = this.getUniqueStepsForSelectedForms();
+      return uniqueSteps.length;
     }
   },
-  computed: {
-    // Подсчет общего времени для выбранных инвесторов
-    totalEstimatedTime() {
-      return this.selectedForms.reduce((total, form) => total + form.estimatedTime, 0);
-    },
-    // Подсчет общего количества вопросов для выбранных инвесторов
-    totalQuestions() {
-      return this.selectedForms.reduce((total, form) => total + form.questions, 0);
-    },
-  },
   methods: {
+    getUniqueStepsForSelectedForms() {
+      const uniqueSteps = new Set();
+
+      // Собираем уникальные шаги для выбранных форм
+      Object.keys(this.stepInvestors).forEach(step => {
+        this.selectedForms.forEach(form => {
+          if (this.stepInvestors[step] && this.stepInvestors[step].includes(form.name)) {
+            uniqueSteps.add(step);
+          }
+        });
+      });
+
+      return Array.from(uniqueSteps);
+    },
     openModal() {
       this.isModalOpen = true;
     },
@@ -911,6 +1033,9 @@ export default {
       }
     }
   },
+  updateSelectedForms(newSelectedForms) {
+      this.selectedForms = [...newSelectedForms]; // Сохраняем изменения
+    },
   metaInfo: {
     title: 'Yocto',
     meta: [
