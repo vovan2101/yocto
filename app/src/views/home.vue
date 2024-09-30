@@ -134,7 +134,7 @@
   </div>
 
     <section class="home-description">
-      <img alt="image" src="/hero-divider-1500w.png" class="home-divider-image" />
+      <img alt="image" src="/nftpeople.png" class="home-divider-image" />
       <!-- <div class="home-container3">
         <div class="home-description01"> -->
           <!-- <div class="home-content">
@@ -794,62 +794,6 @@
       </div>
       <span class="home-copyright">© 2024 Yocto. All Rights Reserved.</span>
     </footer> -->
-    <div>
-      <div class="home-container5">
-        <DangerousHTML
-          html="<script>
-   /*
-    Accordion - Code Embed
-    */
-    const accordionContainers = document.querySelectorAll('[data-role='accordion-container']'); // All accordion containers
-    const accordionContents = document.querySelectorAll('[data-role='accordion-content']'); // All accordion content
-    const accordionIconsClosed = document.querySelectorAll('[data-role='accordion-icon-closed']'); // All accordion closed icons
-    const accordionIconsOpen = document.querySelectorAll('[data-role='accordion-icon-open']'); // All accordion open icons
-  
-    accordionContents.forEach((accordionContent) => {
-        accordionContent.style.display = 'none'; //Hides all accordion contents
-    });
-  
-    accordionIconsClosed.forEach((icon) => {
-      icon.style.display = 'flex'
-    })
-  
-    accordionIconsOpen.forEach((icon) => {
-      icon.style.display = 'none'
-    })
-  
-    accordionContainers.forEach((accordionContainer, index) => {
-        accordionContainer.addEventListener('click', () => {
-            if (accordionContents[index].style.display === 'flex') {
-                // If the accordion is already open, close it
-                accordionContents[index].style.display = 'none';
-                accordionIconsClosed[index].style.display = 'flex';
-                accordionIconsOpen[index].style.display = 'none'
-            } else {
-                // If the accordion is closed, open it
-                accordionContents.forEach((accordionContent) => {
-                    accordionContent.style.display = 'none'; //Hides all accordion contents
-                });
-  
-                accordionIconsClosed.forEach((accordionIcon) => {
-                    accordionIcon.style.display = 'flex'; // Resets all icon transforms to 0deg (default)
-                });
-  
-                accordionIconsOpen.forEach((accordionIcon) => {
-                  accordionIcon.style.display = 'none';
-                })
-                
-                accordionContents[index].style.display = 'flex'; // Shows accordion content
-                accordionIconsClosed[index].style.display = 'none'; // Rotates accordion icon 180deg
-                accordionIconsOpen[index].style.display = 'flex';
-            }
-        });
-    });
-  </script>
-  "
-        ></DangerousHTML>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -1477,7 +1421,6 @@ computed: {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-bottom: var(--dl-space-space-fiveunits);
 }
 .home-divider-image {
   width: 100%;
@@ -3213,7 +3156,6 @@ computed: {
   }
   .home-description {
     gap: var(--dl-space-space-threeunits);
-    padding-bottom: 0px;
   }
   .home-description01 {
     gap: var(--dl-space-space-threeunits);
