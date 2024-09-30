@@ -106,8 +106,8 @@
           <tr>
             <th>Select</th>
             <th>Investor Name</th>
-            <th>Time (min)</th>
             <th>Questions</th>
+            <th>Time</th>
           </tr>
         </thead>
         <tbody>
@@ -119,16 +119,16 @@
               </label>
             </td>
             <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
-            <td>{{ form.estimatedTime }}</td>
             <td>{{ form.questions }}</td>
+            <td>{{ form.estimatedTime }} minutes</td>
           </tr>
         </tbody>
       </table>
 
       <!-- Отображение общего времени и количества вопросов для выбранных форм -->
       <div class="total-info">
-        <p><strong>Total Estimated Time:</strong> {{ totalEstimatedTime }} minutes</p>
-        <p><strong>Total Questions:</strong> {{ totalQuestions }} questions</p>
+        <p><strong>Question Count:</strong> {{ totalQuestions }} questions</p>
+        <p><strong>Time to Complete:</strong> {{ totalEstimatedTime }} minutes</p>
       </div>
     </div>
   </div>
