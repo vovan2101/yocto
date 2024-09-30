@@ -21,7 +21,11 @@
           </div>
         </div>
             <!-- Шаг 1: Выбор форм -->
-          <FormSelector v-if="currentStep === 1" @forms-selected="handleFormSelection" />
+            <FormSelector 
+      v-if="currentStep === 1" 
+      :initial-selected-forms="selectedForms" 
+      @forms-selected="handleFormSelection" 
+    />
     <!-- Step 2: First and Last Name -->
     <div v-if="currentStep === 2 && hasQuestionsForStep(2)" id="first_name">
       <div class="header-container">
