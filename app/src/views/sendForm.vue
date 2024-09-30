@@ -2236,6 +2236,7 @@ export default {
 
   hasQuestionsForStep(stepNumber) {
     const stepInvestors = {
+      1: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
       2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
       3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
       4: ['Liberty Ventures'],
@@ -2311,10 +2312,10 @@ export default {
     }
   },
   goToFirstStep() {
-  let firstStep = 2; // Начнем с шага 2, так как 1-й шаг — это выбор форм
+  let firstStep = 1; // Начнем с шага 2, так как 1-й шаг — это выбор форм
   
   // Проходим по шагам, начиная со 2-го, чтобы найти первый валидный шаг
-  for (let step = 2; step <= 51; step++) {
+  for (let step = 1; step <= 51; step++) {
     if (this.hasQuestionsForStep(step)) {
       firstStep = step; // Как только найден шаг с вопросами, назначаем его как первый
       break; // Прерываем цикл, так как нашли нужный шаг
