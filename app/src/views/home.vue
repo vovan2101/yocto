@@ -3117,6 +3117,11 @@ computed: {
     padding-right: var(--dl-space-space-oneandhalfunits);
     padding-bottom: var(--dl-space-space-twounits);
   }
+
+  .home-divider-image {
+    height: 40vh; /* Устанавливаем высоту в процентах от высоты экрана */
+  }
+
   .home-heading {
     gap: var(--dl-space-space-unit);
   }
