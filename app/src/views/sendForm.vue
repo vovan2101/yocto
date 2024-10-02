@@ -3418,7 +3418,7 @@ ul {
 
 .home-logo {
   font-size: 40px;
-  top: 40px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
@@ -3537,7 +3537,7 @@ ul {
 
   .home-logo {
     font-size: 35px;
-    top: 40px;
+    top: 20px;
     left: 50%; /* Сместить логотип на середину экрана */
     transform: translateX(-50%); /* Смещение на половину ширины логотипа, чтобы он был по центру */
     position: absolute; /* Убедитесь, что логотип всё ещё в абсолютном позиционировании */
