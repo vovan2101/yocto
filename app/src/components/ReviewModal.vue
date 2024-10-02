@@ -2,7 +2,7 @@
   <div v-if="isOpen" class="modal" @click="closeModal">
     <div class="modal-content" @click.stop>
       <span class="close" @click="closeModal">&times;</span>
-      <h2 class="modal-header">Review Your Answers</h2>
+      <h2 class="modal-header">Review My Answers</h2>
       <p class="info-text">
         You can click on a question to move directly to it and make changes.
       </p>
@@ -537,12 +537,12 @@ export default {
 
 .modal-header {
   color: #ff538c;
-  font-size: 35px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 600;
-  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
+  text-shadow: 1px 1px 0 #000;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-list {

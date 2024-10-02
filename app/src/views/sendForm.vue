@@ -2760,21 +2760,23 @@ button:focus {
 }
 
 .checkbox-group {
+  max-width: 75%;
+  max-height: 45vh;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 300px;
-  overflow-y: auto; /* Добавляем прокрутку, если элементы не помещаются */
-  max-height: 60vh; /* Ограничиваем высоту группы чекбоксов, чтобы они не вытесняли заголовок */
+  overflow-y: auto; /* Добавляем прокрутку при переполнении */
 }
 
 .radio-group {
+  max-width: 75%;
+  max-height: 45vh;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 300px;
-  overflow-y: auto; /* Добавляем прокрутку, если элементы не помещаются */
-  max-height: 60vh; /* Ограничиваем высоту группы радио-кнопок, чтобы они не вытесняли заголовок */
+  overflow-y: auto; /* Добавляем прокрутку при переполнении */
 }
 
 .custom-radio {
@@ -2921,7 +2923,7 @@ button:focus {
 
 .home-logo {
   position: absolute; /* Или fixed, если хотите, чтобы текст был зафиксирован на экране */
-  top: 40px; /* Задайте отступ от верхней части после фиксированного заголовка */
+  top: 25px; /* Задайте отступ от верхней части после фиксированного заголовка */
   left: 20px; /* Отступ от левой части экрана */
   color: #ff538c;
   font-size: 52px;
