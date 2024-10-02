@@ -3559,7 +3559,7 @@ ul {
   .radio-group,
   .checkbox-group {
     max-width: 75%;
-    max-height: none;
+    max-height: 20vh;
     margin: 20px auto 0; /* Центрирование по горизонтали */
     display: flex;
     flex-direction: column;
