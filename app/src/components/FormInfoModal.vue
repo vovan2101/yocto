@@ -328,12 +328,12 @@
   
   .modal-header {
     color: #ff538c;
-    font-size: 35px;
+    font-size: 32px;
     font-style: normal;
     font-weight: 600;
-    text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
+    text-shadow: 1px 1px 0 #000;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   
   .form-list {
