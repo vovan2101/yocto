@@ -1719,6 +1719,15 @@
     
     <!-- Кнопка для отправки формы на email -->
     <button class="link-scroll" @click="openEmailModal">Send Form to My Email</button>
+        <!-- Кнопка для отображения тестовой формы -->
+      <button class="link-scroll" @click="openTestForm">View Yocto.vc Form</button>
+
+<!-- Тестовая форма -->
+<TestForm 
+  :isOpen="isTestFormOpen" 
+  :formData="formData" 
+  @close="closeTestForm" 
+/>
   </div>
 
   <!-- Модальные окна для проверки ответов -->
@@ -1791,12 +1800,14 @@ import EmailModal from '../components/EmailModal.vue';
 import FormInfoModal from '../components/FormInfoModal.vue';
 import ReviewModal from '../components/ReviewModal.vue';
 import FormSelector from '../components/FormSelector.vue';
+import TestForm from '../components/TestForm.vue';
 export default {
   components: {
     FormInfoModal,  // Регистрация компонента
     ReviewModal,
     EmailModal,
     FormSelector,
+    TestForm,
 
   },
   data() {
@@ -1806,6 +1817,7 @@ export default {
       selectedForms: [],
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
+      isTestFormOpen: false,
       currentField: '',   // Поле, для которого будет показана информация
       snapshotIndustryOptions: [
           { key: 'A', value: 'Accounting', label: 'Accounting' },
@@ -2292,6 +2304,13 @@ export default {
     // Проверяем, есть ли инвесторы для текущего шага
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
+
+  openTestForm() {
+      this.isTestFormOpen = true;
+    },
+    closeTestForm() {
+      this.isTestFormOpen = false;
+    },
   
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
