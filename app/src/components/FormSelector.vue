@@ -691,10 +691,13 @@ p {
   }
 
 p {
-  font-size: 1.1em;
+  font-size: 1.0em;
 }
 
-
+.modal-header {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 
   h2 {
     font-size: 1.3em;
@@ -719,8 +722,19 @@ p {
   .investor-table {
     width: 100%; /* Заставляем таблицу занимать всю ширину контейнера */
     table-layout: fixed; /* Фиксированное расположение таблицы для равномерного распределения столбцов */
-    word-wrap: break-word; /* Переносим длинные слова или текст на следующую строку */
+    font-size: 14px;
   }
+
+
+.investor-table th,
+.investor-table td {
+  padding: 2px;
+  text-align: center;
+}
+
+.button {
+  font-size: 13px;
+}
 
 }
   </style>

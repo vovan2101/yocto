@@ -3682,5 +3682,8 @@ computed: {
   .home-row2 {
     height: 350px;
   }
+  .button {
+  font-size: 13px;
+}
 }
 </style>
