@@ -44,7 +44,8 @@
       <p><strong>Question Count:</strong> {{ totalQuestions }} questions</p>
       <p><strong>Time to Complete:</strong> {{ totalEstimatedTime }} minutes</p>
       <div class="continue-button">
-      <button class="button" :disabled="selectedForms.length === 0" @click="submitSelection">Continue</button>
+      <button class="button" @click="submitSelection">Continue</button>
+      <p v-if="showWarning" class="warning-text">Please select at least one investor.</p>
     </div>
     </div>
 
@@ -63,6 +64,7 @@
     data() {
       return {
         selectedForms: [],
+        showWarning: false,
         forms: [
         { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
         { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
@@ -217,17 +219,23 @@ computed: {
 
       return Array.from(uniqueSteps);
     },
-      submitSelection() {
-  if (this.selectedForms.length > 0) {
-    console.log('Selected forms:', this.selectedForms);
-    this.$emit('forms-selected', this.selectedForms); // Передаем выбранные формы родительскому компоненту
+    submitSelection() {
+    if (this.selectedForms.length > 0) {
+      console.log('Selected forms:', this.selectedForms);
+      this.$emit('forms-selected', this.selectedForms); // Передаем выбранные формы родительскому компоненту
 
-    // Ждем обновления состояния в родительском компоненте перед переходом на следующий шаг
-    this.$nextTick(() => {
-      this.nextStep(); // Переход на следующий шаг
-    });
-  }
-},
+      // Ждем обновления состояния в родительском компоненте перед переходом на следующий шаг
+      this.$nextTick(() => {
+        this.nextStep(); // Переход на следующий шаг
+      });
+    } else {
+      // Если нет выбранных форм, показываем предупреждение
+      this.showWarning = true;
+      setTimeout(() => {
+        this.showWarning = false; // Скрываем предупреждение через 3 секунды
+      }, 4000);
+    }
+  },
       nextStep() {
         let nextValidStep = this.$parent.currentStep + 1;
   
@@ -540,6 +548,11 @@ p {
   color: rgb(218, 177, 101);
 }
 
+p.warning-text {
+  color: #f44336;
+  margin-top: 10px;
+  font-size: 1.6em;
+}
 /* @media (max-width: 1440px) */
 @media (max-width: 1440px) {
 
@@ -649,6 +662,10 @@ p {
   margin-bottom: 0; /* Убираем любые внешние отступы */
 }
 
+p.warning-text {
+  font-size: 1.3em;
+}
+
 p {
   font-size: 1.2em;
 }
@@ -735,6 +752,11 @@ p {
 .button {
   font-size: 13px;
 }
+
+p.warning-text {
+  font-size: 1em;
+}
+
 
 }
   </style>
