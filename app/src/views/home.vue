@@ -3618,6 +3618,7 @@ computed: {
   .modal-content {
     width: 100%;
     max-width: 450px;
+    padding: 20px 0 0 0;
   }
   .modal-header {
   font-size: 25px;
@@ -3683,7 +3684,7 @@ computed: {
     height: 350px;
   }
   .button {
-  font-size: 13px;
+  font-size: 12px;
 }
 }
 </style>
