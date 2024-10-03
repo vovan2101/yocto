@@ -3464,12 +3464,12 @@ ul {
 }
 
   h2 {
-    font-size: 1.8em;
+    font-size: 1.3em;
     text-align: center;
   }
 
   h3 {
-    font-size: 1.2em;
+    font-size: 1.1em;
     text-align: center;
   }
 
@@ -3564,6 +3564,22 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center; /* Выровнять элементы внутри групп по центру */
+}
+
+.custom-checkbox {
+  padding: 1px 2px;
+  border: 1px solid transparent; /* Убираем рамку */
+}
+
+.custom-radio {
+  padding: 1px 2px;
+  border: 1px solid transparent; /* Убираем рамку */
+}
+
+
+
+.enter-text {
+  font-size: 1.1em; /* Увеличим размер шрифта */
 }
 
 .scrollable-content {
