@@ -10,10 +10,11 @@
           <div class="header-container">
             <h2>Welcome to Yocto!</h2>
           </div>
-          <p>- You'll select the investors you want to submit your form to.</p>
-          <p>- Choose all or a few based on the time you have. Each investor has unique questions.</p>
-          <p>- For best results, select all investors to maximize your form’s reach.</p>
-          <p>- After filling out the form, you can review and edit your answers before submitting.</p>
+          <p>- We've preconfigured the applications for 10 top pre-seed investors (more coming soon).</p>
+          <p>- Please select the investors you would like to submit an application to based on the time you have.</p>
+          <p>- Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
+          <p>- Certain investors have unique questions and/or may request additional information.</p>
+          <p>- At the end, you can review and edit your answers before submitting.</p>
           <p><strong>Let’s begin!</strong></p>
           <div class="button-container">
             <button class="button" @click="nextStep">Get Started</button>
@@ -1701,13 +1702,13 @@
 <!-- Step 54: Final Step -->
 <div v-if="currentStep === 51 && hasQuestionsForStep(51)" id="final_step">
   <div class="header-container">
-    <h2>Congratulations! You've completed the form</h2>
+    <h2>Congratulations! All of the information requested has been completed.</h2>
   </div>
-  <p>You have successfully filled out all the necessary fields. You can now:</p>
+  <p>You may now review and edit your responses before submitting.</p>
   <ul>
-    <li>Review your answers by clicking the "Review Your Answers" button</li>
-    <li>Send a copy of your form to your email by clicking the "Send Form to Your Email" button</li>
-    <li>Submit the form by clicking the "Submit The Form" button</li>
+    <li>To review your answers, select "Review Your Answers"</li>
+    <li>To receive a copy of your responses via email, select "Send to my Email"</li>
+    <li>To submit your responses, select "Submit The Form"</li>
   </ul>
 
   <div class="button-container">
