@@ -16,7 +16,7 @@
             <th>Select</th>
             <th>Investor Name</th>
             <th>Questions</th>
-            <th>Time</th>
+            <th>Time to Complete</th>
           </tr>
         </thead>
         <tbody>
@@ -66,16 +66,16 @@
         selectedForms: [],
         showWarning: false,
         forms: [
-        { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
-        { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
+        { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://airtable.com/appV89PYGo3zN47f9/shr2lijl8JHhvxghK?prefill_Introd+By+Type=Direct&hide_Introd+By+Type=true" },
+        { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://forms.fillout.com/t/mGaHtv8gfcus" },
         { name: "Everywhere Ventures", estimatedTime: 4, questions: 9, url: "https://everywhere.vc/" },
-        { name: "Hustle Fund", estimatedTime: 15, questions: 31, url: "https://www.hustlefund.vc/" },
-        { name: "Incisive Ventures", estimatedTime: 11, questions: 23, url: "https://incisive.vc/" },
-        { name: "Liberty Ventures", estimatedTime: 5, questions: 5, url: "https://libertyventures.xyz/" },
-        { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/" },
-        { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/" },
-        { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/" },
-        { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://www.wischoff.com/" }
+        { name: "Hustle Fund", estimatedTime: 15, questions: 31, url: "https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc" },
+        { name: "Incisive Ventures", estimatedTime: 11, questions: 23, url: "https://airtable.com/appAMCFupamv6Euf8/shrKq915ChZNzweep" },
+        { name: "Liberty Ventures", estimatedTime: 5, questions: 5, url: "https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9" },
+        { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/form" },
+        { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/startup/" },
+        { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/application" },
+        { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU" }
       ],
       stepInvestors: {
         2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
