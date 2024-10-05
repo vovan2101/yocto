@@ -10,301 +10,297 @@
         <!-- Список вопросов и ответов -->
         <!-- First and Last Name -->
         <li v-if="shouldDisplayQuestion(2, 'first_name') || shouldDisplayQuestion(2, 'last_name')">
-          <strong><a @click="goToStep(2)">What's your first and last name?:</a></strong>
-          <span class="answer">{{ formData.first_name }} {{ formData.last_name }}</span>
-        </li>
+    <strong><a @click="goToStep(2)">What's your first and last name?:</a></strong>
+    <span class="answer">{{ formData.first_name }} {{ formData.last_name }}</span>
+  </li>
 
-        <!-- Email -->
-        <li v-if="shouldDisplayQuestion(3, 'email')">
-          <strong><a @click="goToStep(3)">What is your e-mail address?:</a></strong>
-          <span class="answer">{{ formData.email }}</span>
-        </li>
+  <!-- Email -->
+  <li v-if="shouldDisplayQuestion(3, 'email')">
+    <strong><a @click="goToStep(3)">What is your e-mail address?:</a></strong>
+    <span class="answer">{{ formData.email }}</span>
+  </li>
 
-        <!-- Phone Number -->
-        <li v-if="shouldDisplayQuestion(4, 'phone_number')">
-          <strong><a @click="goToStep(4)">What is your phone number?:</a></strong>
-          <span class="answer">{{ formData.phone_number }}</span>
-        </li>
+  <!-- Phone Number -->
+  <li v-if="shouldDisplayQuestion(4, 'phone_number')">
+    <strong><a @click="goToStep(4)">What is your phone number?:</a></strong>
+    <span class="answer">{{ formData.phone_number }}</span>
+  </li>
 
-        <!-- Relationship -->
-        <li v-if="shouldDisplayQuestion(5, 'relationship')">
-          <strong><a @click="goToStep(5)">What is your relationship to the company?:</a></strong>
-          <span class="answer">{{ formData.relationship }}</span>
-        </li>
+  <!-- Specific Location -->
+  <li v-if="shouldDisplayQuestion(5, 'specific_location')">
+    <strong><a @click="goToStep(5)">Where are you located?:</a></strong>
+    <span class="answer">{{ formData.specific_location }}</span>
+  </li>
 
-        <!-- Working Full Time -->
-        <li v-if="shouldDisplayQuestion(6, 'working_full_time')">
-          <strong><a @click="goToStep(6)">Are you working on this full time (40+ hours/week)?:</a></strong>
-          <span class="answer">{{ formData.working_full_time }}</span>
-        </li>
+  <!-- Company Name -->
+  <li v-if="shouldDisplayQuestion(6, 'company_name')">
+    <strong><a @click="goToStep(6)">What's the name of your company?:</a></strong>
+    <span class="answer">{{ formData.company_name }}</span>
+  </li>
 
-        <!-- Company Name -->
-        <li v-if="shouldDisplayQuestion(7, 'company_name')">
-          <strong><a @click="goToStep(7)">What's the name of your company?:</a></strong>
-          <span class="answer">{{ formData.company_name }}</span>
-        </li>
+  <!-- Date Founded -->
+  <li v-if="shouldDisplayQuestion(7, 'date_founded')">
+    <strong><a @click="goToStep(7)">Date Founded:</a></strong>
+    <span class="answer">{{ formData.date_founded }}</span>
+  </li>
 
-        <!-- One-Liner Description -->
-        <li v-if="shouldDisplayQuestion(8, 'one_line_description')">
-          <strong><a @click="goToStep(8)">What's the one-liner description of your company?:</a></strong>
-          <span class="answer">{{ formData.one_line_description }}</span>
-        </li>
+  <!-- Relationship -->
+  <li v-if="shouldDisplayQuestion(8, 'relationship')">
+    <strong><a @click="goToStep(8)">What is your relationship to the company?:</a></strong>
+    <span class="answer">{{ formData.relationship }}</span>
+  </li>
 
-        <!-- Problem Description -->
-        <li v-if="shouldDisplayQuestion(9, 'company_description')">
-          <strong><a @click="goToStep(9)">In one to two sentences, what is the problem you are trying to solve?:</a></strong>
-          <span class="answer">{{ formData.company_description }}</span>
-        </li>
+  <!-- Working Full Time -->
+  <li v-if="shouldDisplayQuestion(9, 'working_full_time')">
+    <strong><a @click="goToStep(9)">Are you working on this full time (40+ hours/week)?:</a></strong>
+    <span class="answer">{{ formData.working_full_time }}</span>
+  </li>
 
-        <!-- Solution -->
-        <li v-if="shouldDisplayQuestion(10, 'company_solution')">
-          <strong><a @click="goToStep(10)">In one to two sentences, what is your solution?:</a></strong>
-          <span class="answer">{{ formData.company_solution }}</span>
-        </li>
+  <!-- One-Liner Description -->
+  <li v-if="shouldDisplayQuestion(10, 'one_line_description')">
+    <strong><a @click="goToStep(10)">What's the one-liner description of your company?:</a></strong>
+    <span class="answer">{{ formData.one_line_description }}</span>
+  </li>
 
-        <!-- Elevator Pitch -->
-        <li v-if="shouldDisplayQuestion(11, 'pitch_description')">
-          <strong><a @click="goToStep(11)">In 2-3 sentences, what is the elevator pitch of your company?:</a></strong>
-          <span class="answer">{{ formData.pitch_description }}</span>
-        </li>
+  <!-- Problem Description -->
+  <li v-if="shouldDisplayQuestion(11, 'company_description')">
+    <strong><a @click="goToStep(11)">In one to two sentences, what is the problem you are trying to solve?:</a></strong>
+    <span class="answer">{{ formData.company_description }}</span>
+  </li>
 
-        <!-- Target Customer -->
-        <li v-if="shouldDisplayQuestion(12, 'target_customer')">
-          <strong><a @click="goToStep(12)">Who is your target customer?:</a></strong>
-          <span class="answer">{{ formData.target_customer }}</span>
-        </li>
+  <!-- Solution -->
+  <li v-if="shouldDisplayQuestion(12, 'company_solution')">
+    <strong><a @click="goToStep(12)">In one to two sentences, what is your solution?:</a></strong>
+    <span class="answer">{{ formData.company_solution }}</span>
+  </li>
 
-        <!-- Customer Acquisition -->
-        <li v-if="shouldDisplayQuestion(13, 'customer_acquisition') && formData.customer_acquisition.length">
-          <strong><a @click="goToStep(13)">How do you plan on acquiring your customers?:</a></strong>
-          <span class="answer">{{ formData.customer_acquisition.join(', ') }}</span>
-        </li>
+  <!-- Elevator Pitch -->
+  <li v-if="shouldDisplayQuestion(13, 'pitch_description')">
+    <strong><a @click="goToStep(13)">In 2-3 sentences, what is the elevator pitch of your company?:</a></strong>
+    <span class="answer">{{ formData.pitch_description }}</span>
+  </li>
 
-        <!-- Date Founded -->
-        <li v-if="shouldDisplayQuestion(14, 'date_founded')">
-          <strong><a @click="goToStep(14)">Date Founded:</a></strong>
-          <span class="answer">{{ formData.date_founded }}</span>
-        </li>
+  <!-- Target Customer -->
+  <li v-if="shouldDisplayQuestion(14, 'target_customer')">
+    <strong><a @click="goToStep(14)">Who is your target customer?:</a></strong>
+    <span class="answer">{{ formData.target_customer }}</span>
+  </li>
 
-        <!-- Product Status -->
-        <li v-if="shouldDisplayQuestion(15, 'product_status')">
-          <strong><a @click="goToStep(15)">What is the status of your product?:</a></strong>
-          <span class="answer">{{ formData.product_status }}</span>
-        </li>
+  <!-- Customer Acquisition -->
+  <li v-if="shouldDisplayQuestion(15, 'customer_acquisition') && formData.customer_acquisition.length">
+    <strong><a @click="goToStep(15)">How do you plan on acquiring your customers?:</a></strong>
+    <span class="answer">{{ formData.customer_acquisition.join(', ') }}</span>
+  </li>
 
-        <!-- Active Customers -->
-        <li v-if="shouldDisplayQuestion(16, 'active_customers')">
-          <strong><a @click="goToStep(16)">Does your product have active users or customers?:</a></strong>
-          <span class="answer">{{ formData.active_customers }}</span>
-        </li>
+  <!-- Product Selection -->
+  <li v-if="shouldDisplayQuestion(16, 'product_selection')">
+    <strong><a @click="goToStep(16)">What is the primary product your company is providing?:</a></strong>
+    <span class="answer">{{ formData.product.join(', ') }}</span>
+  </li>
 
-        <!-- Number of Users -->
-        <li v-if="shouldDisplayQuestion(17, 'how_many_users')">
-          <strong><a @click="goToStep(17)">How many users do you have?:</a></strong>
-          <span class="answer">{{ formData.how_many_users }}</span>
-        </li>
+  <!-- Product Status -->
+  <li v-if="shouldDisplayQuestion(17, 'product_status')">
+    <strong><a @click="goToStep(17)">What is the status of your product?:</a></strong>
+    <span class="answer">{{ formData.product_status }}</span>
+  </li>
 
-        <!-- Industry -->
-        <li v-if="shouldDisplayQuestion(18, 'industry') && formData.industry.length">
-          <strong><a @click="goToStep(18)">What industry are you in?:</a></strong>
-          <span class="answer">{{ formData.industry.join(', ') }}</span>
-        </li>
+  <!-- Active Customers -->
+  <li v-if="shouldDisplayQuestion(18, 'active_customers')">
+    <strong><a @click="goToStep(18)">Does your product have active users or customers?:</a></strong>
+    <span class="answer">{{ formData.active_customers }}</span>
+  </li>
 
-        <!-- Liberty Ventures Industry -->
-        <li v-if="shouldDisplayQuestion(19, 'liberty_ventures_industry')">
-          <strong><a @click="goToStep(19)">What industry are you in (Liberty Ventures)?:</a></strong>
-          <span class="answer">{{ formData.liberty_ventures_industry }}</span>
-        </li>
+  <!-- Number of Users -->
+  <li v-if="shouldDisplayQuestion(19, 'how_many_users')">
+    <strong><a @click="goToStep(19)">How many users do you have?:</a></strong>
+    <span class="answer">{{ formData.how_many_users }}</span>
+  </li>
 
-        <!-- Product -->
-        <li v-if="shouldDisplayQuestion(20, 'product') && formData.product.length">
-          <strong><a @click="goToStep(20)">What is the primary product your company is providing?:</a></strong>
-          <span class="answer">{{ formData.product.join(', ') }}</span>
-        </li>
+  <!-- Business Model -->
+  <li v-if="shouldDisplayQuestion(20, 'business_model') && formData.business_model.length">
+    <strong><a @click="goToStep(20)">What is your Business Model?:</a></strong>
+    <span class="answer">{{ formData.business_model.join(', ') }}</span>
+  </li>
 
-        <!-- Business Model -->
-        <li v-if="shouldDisplayQuestion(21, 'business_model') && formData.business_model.length">
-          <strong><a @click="goToStep(21)">What is your Business Model?:</a></strong>
-          <span class="answer">{{ formData.business_model.join(', ') }}</span>
-        </li>
+  <!-- Customers Based -->
+  <li v-if="shouldDisplayQuestion(21, 'customers_based')">
+    <strong><a @click="goToStep(21)">Where are your main customers based?:</a></strong>
+    <span class="answer">{{ formData.customers_based }}</span>
+  </li>
 
-        <!-- Company Website -->
-        <li v-if="shouldDisplayQuestion(22, 'company_website')">
-          <strong><a @click="goToStep(22)">What is your company website?:</a></strong>
-          <span class="answer">{{ formData.company_website }}</span>
-        </li>
+  <!-- Vision -->
+  <li v-if="shouldDisplayQuestion(22, 'vision')">
+    <strong><a @click="goToStep(22)">What is your big vision for the company?:</a></strong>
+    <span class="answer">{{ formData.vision }}</span>
+  </li>
 
-        <!-- Pitch Deck URL -->
-        <li v-if="shouldDisplayQuestion(23, 'pitch_deck')">
-          <strong><a @click="goToStep(23)">If you have a pitch deck to share, provide the link here:</a></strong>
-          <span class="answer">{{ formData.pitch_deck }}</span>
-        </li>
+  <!-- Company Website -->
+  <li v-if="shouldDisplayQuestion(23, 'company_website')">
+    <strong><a @click="goToStep(23)">What is your company website?:</a></strong>
+    <span class="answer">{{ formData.company_website }}</span>
+  </li>
 
-        <!-- Pitch Deck File -->
-        <li v-if="shouldDisplayQuestion(24, 'pitch_deck_file')">
-          <strong><a @click="goToStep(24)">If you have a pitch deck to share as an attachment, attach it here:</a></strong>
-          <span class="answer">{{ formData.pitch_deck_file.name }}</span>
-        </li>
+  <!-- Industry Selection -->
+  <li v-if="shouldDisplayQuestion(24, 'industry_selection') && formData.industry.length">
+    <strong><a @click="goToStep(24)">What industry are you in?:</a></strong>
+    <span class="answer">{{ formData.industry.join(', ') }}</span>
+  </li>
 
-        <!-- Headquartered -->
-        <li v-if="shouldDisplayQuestion(25, 'headquartered')">
-          <strong><a @click="goToStep(25)">Where is your business incorporated?:</a></strong>
-          <span class="answer">{{ formData.headquartered }}</span>
-        </li>
+  <!-- Liberty Ventures Industry -->
+  <li v-if="shouldDisplayQuestion(25, 'liberty_ventures_industry')">
+    <strong><a @click="goToStep(25)">What industry are you in (Liberty Ventures)?:</a></strong>
+    <span class="answer">{{ formData.liberty_ventures_industry }}</span>
+  </li>
 
-        <!-- Customers Based -->
-        <li v-if="shouldDisplayQuestion(26, 'customers_based')">
-          <strong><a @click="goToStep(26)">Where are your main customers based?:</a></strong>
-          <span class="answer">{{ formData.customers_based }}</span>
-        </li>
+  <!-- Headquartered -->
+  <li v-if="shouldDisplayQuestion(26, 'headquartered')">
+    <strong><a @click="goToStep(26)">Where is your business incorporated?:</a></strong>
+    <span class="answer">{{ formData.headquartered }}</span>
+  </li>
 
-        <!-- Specific Location -->
-        <li v-if="shouldDisplayQuestion(27, 'specific_location')">
-          <strong><a @click="goToStep(27)">Where are you located?:</a></strong>
-          <span class="answer">{{ formData.specific_location }}</span>
-        </li>
+  <!-- Legal Structure -->
+  <li v-if="shouldDisplayQuestion(27, 'legal_structure')">
+    <strong><a @click="goToStep(27)">What is the current or intended legal structure of the company?:</a></strong>
+    <span class="answer">{{ formData.legal_structure }}</span>
+  </li>
 
-        <!-- Legal Structure -->
-        <li v-if="shouldDisplayQuestion(28, 'legal_structure')">
-          <strong><a @click="goToStep(28)">What is the current or intended legal structure of the company?:</a></strong>
-          <span class="answer">{{ formData.legal_structure }}</span>
-        </li>
+  <!-- Pitch Deck URL -->
+  <li v-if="shouldDisplayQuestion(28, 'pitch_deck')">
+    <strong><a @click="goToStep(28)">If you have a pitch deck to share, provide the link here:</a></strong>
+    <span class="answer">{{ formData.pitch_deck }}</span>
+  </li>
 
-        <!-- Raising Round -->
-        <li v-if="shouldDisplayQuestion(29, 'raising_round')">
-          <strong><a @click="goToStep(29)">What round are you raising?:</a></strong>
-          <span class="answer">{{ formData.raising_round }}</span>
-        </li>
+  <!-- Pitch Deck File -->
+  <li v-if="shouldDisplayQuestion(29, 'pitch_deck_file')">
+    <strong><a @click="goToStep(29)">If you have a pitch deck to share as an attachment, attach it here:</a></strong>
+    <span class="answer">{{ formData.pitch_deck_file.name }}</span>
+  </li>
 
-        <!-- Raising Amount -->
-        <li v-if="shouldDisplayQuestion(30, 'raising_amount')">
-          <strong><a @click="goToStep(30)">How much are you raising (in USD)?:</a></strong>
-          <span class="answer">{{ formData.raising_amount }}</span>
-        </li>
+  <!-- Raising Round -->
+  <li v-if="shouldDisplayQuestion(30, 'raising_round')">
+    <strong><a @click="goToStep(30)">What round are you raising?:</a></strong>
+    <span class="answer">{{ formData.raising_round }}</span>
+  </li>
 
-        <!-- Earning Revenue -->
-        <li v-if="shouldDisplayQuestion(31, 'earning_revenue')">
-          <strong><a @click="goToStep(31)">Is your startup earning revenue?:</a></strong>
-          <span class="answer">{{ formData.earning_revenue }}</span>
-        </li>
+  <!-- Raising Amount -->
+  <li v-if="shouldDisplayQuestion(31, 'raising_amount')">
+    <strong><a @click="goToStep(31)">How much are you raising (in USD)?:</a></strong>
+    <span class="answer">{{ formData.raising_amount }}</span>
+  </li>
 
-        <!-- Earning Amount -->
-        <li v-if="shouldDisplayQuestion(32, 'earning_amount')">
-          <strong><a @click="goToStep(32)">How much revenue are you earning per month (USD)?:</a></strong>
-          <span class="answer">{{ formData.earning_amount }}</span>
-        </li>
+  <!-- Capital to Raise -->
+  <li v-if="shouldDisplayQuestion(32, 'capital_to_raise')">
+    <strong><a @click="goToStep(32)">What is the amount you are raising in your current round (USD)?:</a></strong>
+    <span class="answer">{{ formData.capital_to_raise }}</span>
+  </li>
 
-        <!-- Source of Revenue -->
-        <li v-if="shouldDisplayQuestion(33, 'source_of_revenue')">
-          <strong><a @click="goToStep(33)">What do you expect your main source of revenue to be?:</a></strong>
-          <span class="answer">{{ formData.source_of_revenue }}</span>
-        </li>
+  <!-- Earning Revenue -->
+  <li v-if="shouldDisplayQuestion(33, 'earning_revenue')">
+    <strong><a @click="goToStep(33)">Is your startup earning revenue?:</a></strong>
+    <span class="answer">{{ formData.earning_revenue }}</span>
+  </li>
 
-        <!-- Pre-money Valuation -->
-        <li v-if="shouldDisplayQuestion(34, 'pre_money_valuation')">
-          <strong><a @click="goToStep(34)">What is your pre-money valuation (USD)?:</a></strong>
-          <span class="answer">{{ formData.pre_money_valuation }}</span>
-        </li>
+  <!-- Earning Amount -->
+  <li v-if="shouldDisplayQuestion(34, 'earning_amount')">
+    <strong><a @click="goToStep(34)">How much revenue are you earning per month (USD)?:</a></strong>
+    <span class="answer">{{ formData.earning_amount }}</span>
+  </li>
 
-        <!-- Post-money Valuation -->
-        <li v-if="shouldDisplayQuestion(35, 'post_money_valuation')">
-          <strong><a @click="goToStep(35)">What is your post-money valuation (USD)?:</a></strong>
-          <span class="answer">{{ formData.post_money_valuation }}</span>
-        </li>
+  <!-- Source of Revenue -->
+  <li v-if="shouldDisplayQuestion(35, 'source_of_revenue')">
+    <strong><a @click="goToStep(35)">What do you expect your main source of revenue to be?:</a></strong>
+    <span class="answer">{{ formData.source_of_revenue }}</span>
+  </li>
 
-        <!-- Capital to Raise -->
-        <li v-if="shouldDisplayQuestion(36, 'capital_to_raise')">
-          <strong><a @click="goToStep(36)">What is the amount you are raising in your current round (USD)?:</a></strong>
-          <span class="answer">{{ formData.capital_to_raise }}</span>
-        </li>
+  <!-- Pre-money Valuation -->
+  <li v-if="shouldDisplayQuestion(36, 'pre_money_valuation')">
+    <strong><a @click="goToStep(36)">What is your pre-money valuation (USD)?:</a></strong>
+    <span class="answer">{{ formData.pre_money_valuation }}</span>
+  </li>
 
+  <!-- Post-money Valuation -->
+  <li v-if="shouldDisplayQuestion(37, 'post_money_valuation')">
+    <strong><a @click="goToStep(37)">What is your post-money valuation (USD)?:</a></strong>
+    <span class="answer">{{ formData.post_money_valuation }}</span>
+  </li>
 
-        <!-- Previous Experience -->
-        <li v-if="shouldDisplayQuestion(37, 'prev_experience')">
-          <strong><a @click="goToStep(37)">What is your previous entrepreneurial experience?:</a></strong>
-          <span class="answer">{{ formData.prev_experience }}</span>
-        </li>
+  <!-- Previous Experience -->
+  <li v-if="shouldDisplayQuestion(38, 'prev_experience')">
+    <strong><a @click="goToStep(38)">What is your previous entrepreneurial experience?:</a></strong>
+    <span class="answer">{{ formData.prev_experience }}</span>
+  </li>
 
+  <!-- Team Description -->
+  <li v-if="shouldDisplayQuestion(39, 'team_description')">
+    <strong><a @click="goToStep(39)">Tell us about you and your team:</a></strong>
+    <span class="answer">{{ formData.team_description }}</span>
+  </li>
 
-          <!-- Team Description -->
-          <li v-if="shouldDisplayQuestion(38, 'team_description')">
-          <strong><a @click="goToStep(38)">Tell us about you and your team:</a></strong>
-          <span class="answer">{{ formData.team_description }}</span>
-        </li>
+  <!-- Company LinkedIn -->
+  <li v-if="shouldDisplayQuestion(40, 'company_linkedin')">
+    <strong><a @click="goToStep(40)">What's your company's LinkedIn?:</a></strong>
+    <span class="answer">{{ formData.company_linkedin }}</span>
+  </li>
 
-          <!-- Company LinkedIn -->
-          <li v-if="shouldDisplayQuestion(39, 'company_linkedin')">
-          <strong><a @click="goToStep(39)">What's your company's LinkedIn?:</a></strong>
-          <span class="answer">{{ formData.company_linkedin }}</span>
-        </li>
+  <!-- CEO LinkedIn -->
+  <li v-if="shouldDisplayQuestion(41, 'ceo_linkedin')">
+    <strong><a @click="goToStep(41)">Founder LinkedIn:</a></strong>
+    <span class="answer">{{ formData.ceo_linkedin }}</span>
+  </li>
 
-          <!-- CEO LinkedIn -->
-          <li v-if="shouldDisplayQuestion(40, 'ceo_linkedin')">
-          <strong><a @click="goToStep(40)">Founder LinkedIn:</a></strong>
-          <span class="answer">{{ formData.ceo_linkedin }}</span>
-        </li>
+  <!-- CTO LinkedIn -->
+  <li v-if="shouldDisplayQuestion(42, 'cto_linkedin')">
+    <strong><a @click="goToStep(42)">CTO Linkedin:</a></strong>
+    <span class="answer">{{ formData.cto_linkedin }}</span>
+  </li>
 
-          <!-- CTO LinkedIn -->
-          <li v-if="shouldDisplayQuestion(41, 'cto_linkedin')">
-          <strong><a @click="goToStep(41)">CTO Linkedin:</a></strong>
-          <span class="answer">{{ formData.cto_linkedin }}</span>
-        </li>
+  <!-- LinkedIn Profiles -->
+  <li v-if="shouldDisplayQuestion(43, 'linkedin_profiles')">
+    <strong><a @click="goToStep(43)">Your team's LinkedIn profiles:</a></strong>
+    <span class="answer">{{ formData.linkedin_profiles }}</span>
+  </li>
 
-          <!-- LinkedIn Profiles -->
-          <li v-if="shouldDisplayQuestion(42, 'linkedin_profiles')">
-          <strong><a @click="goToStep(42)">Your team's LinkedIn profiles:</a></strong>
-          <span class="answer">{{ formData.linkedin_profiles }}</span>
-        </li>
+  <!-- Founder Video URL -->
+  <li v-if="shouldDisplayQuestion(44, 'founder_video_url')">
+    <strong><a @click="goToStep(44)">Founder video URL:</a></strong>
+    <span class="answer">{{ formData.founder_video_url }}</span>
+  </li>
 
-        
-        <!-- Founder Video URL -->
-        <li v-if="shouldDisplayQuestion(43, 'founder_video_url')">
-          <strong><a @click="goToStep(43)">Founder video URL:</a></strong>
-          <span class="answer">{{ formData.founder_video_url }}</span>
-        </li>
+  <!-- Team Video Upload -->
+  <li v-if="shouldDisplayQuestion(45, 'team_video_upload')">
+    <strong><a @click="goToStep(45)">Upload video about the team and company:</a></strong>
+    <span class="answer">{{ formData.team_video_upload.name }}</span>
+  </li>
 
-        <!-- Team Video Upload -->
-        <li v-if="shouldDisplayQuestion(44, 'team_video_upload')">
-          <strong><a @click="goToStep(44)">Upload video about the team and company:</a></strong>
-          <span class="answer">{{ formData.team_video_upload.name }}</span>
-        </li>
+  <!-- Pitching Live -->
+  <li v-if="shouldDisplayQuestion(46, 'pitching_live')">
+    <strong><a @click="goToStep(46)">Are you interested in pitching live in front of a virtual audience?:</a></strong>
+    <span class="answer">{{ formData.pitching_live }}</span>
+  </li>
 
-          <!-- Vision -->
-          <li v-if="shouldDisplayQuestion(45, 'vision')">
-          <strong><a @click="goToStep(45)">What is your vision?:</a></strong>
-          <span class="answer">{{ formData.vision }}</span>
-        </li>
+  <!-- Share Submission -->
+  <li v-if="shouldDisplayQuestion(47, 'share_submission')">
+    <strong><a @click="goToStep(47)">Would you like us to share your submission with other companies?:</a></strong>
+    <span class="answer">{{ formData.share_submission }}</span>
+  </li>
 
-        <!-- Pitching Live -->
-        <li v-if="shouldDisplayQuestion(46, 'pitching_live')">
-          <strong><a @click="goToStep(46)">Are you interested in pitching live in front of a virtual audience?:</a></strong>
-          <span class="answer">{{ formData.pitching_live }}</span>
-        </li>
+  <!-- Investors Participating -->
+  <li v-if="shouldDisplayQuestion(48, 'investors_participating')">
+    <strong><a @click="goToStep(48)">Investors participating in the current round (if any):</a></strong>
+    <span class="answer">{{ formData.investors_participating }}</span>
+  </li>
 
-        <!-- Share Submission -->
-        <li v-if="shouldDisplayQuestion(47, 'share_submission')">
-          <strong><a @click="goToStep(47)">Would you like us to share your submission with other companies?:</a></strong>
-          <span class="answer">{{ formData.share_submission }}</span>
-        </li>
+  <!-- Anything Else -->
+  <li v-if="shouldDisplayQuestion(49, 'want_us_to_know')">
+    <strong><a @click="goToStep(49)">Anything else you'd like investors to know?:</a></strong>
+    <span class="answer">{{ formData.want_us_to_know }}</span>
+  </li>
 
-        
-        <!-- Investors Participating -->
-        <li v-if="shouldDisplayQuestion(48, 'investors_participating')">
-          <strong><a @click="goToStep(48)">Investors participating in the current round (if any):</a></strong>
-          <span class="answer">{{ formData.investors_participating }}</span>
-        </li>
-
-        <!-- Anything Else -->
-        <li v-if="shouldDisplayQuestion(49, 'want_us_to_know')">
-          <strong><a @click="goToStep(49)">Anything else you'd like investors to know?:</a></strong>
-          <span class="answer">{{ formData.want_us_to_know }}</span>
-        </li>
-
-        <!-- Value of Team -->
-        <li v-if="shouldDisplayQuestion(50, 'value_of_team')">
-          <strong><a @click="goToStep(50)">How do the values of your team align with Liberty Ventures?:</a></strong>
-          <span class="answer">{{ formData.value_of_team }}</span>
-        </li>
+  <!-- Value of Team -->
+  <li v-if="shouldDisplayQuestion(50, 'value_of_team')">
+    <strong><a @click="goToStep(50)">How do the values of your team align with Liberty Ventures?:</a></strong>
+    <span class="answer">{{ formData.value_of_team }}</span>
+  </li>
       </ul>
     </div>
   </div>
