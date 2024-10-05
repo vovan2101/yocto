@@ -75,8 +75,77 @@
       </div>
     </div>
 
+    <div v-if="currentStep === 5 && hasQuestionsForStep(5)" id="specific_location">
+
+<div class="header-container">
+  <h2>Where are you located?</h2>
+</div>
+<p>Hint: if your company is remote, that's totally fine, just pick the geo where you are physically located.</p>
+<div class="scrollable-content">
+<div class="radio-group">
+  <label class="custom-radio" v-for="(location, index) in locations" :key="index">
+    <input 
+      type="radio" 
+      :id="location.value" 
+      :value="location.value" 
+      v-model="formData.specific_location" 
+      @change="checkOtherLocation" 
+      required
+    />
+    <span class="radio-button">
+      <span class="radio-key">{{ location.key }}</span> {{ location.label }}
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+</div>
+</div>
+<div v-if="['US - Other', 'Canada - Other', 'Asia - Other', 'Asia - India', 'Latin America', 'Europe', 'Africa'].includes(formData.specific_location)" class="other-location-input">
+  <p>Please specify your location? (City, State, Country)</p>
+  <input class="input-field" v-model="formData.other_specific_location" placeholder="Please specify" required />
+</div>
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('specific_location')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 6 && hasQuestionsForStep(6)" id="company_name">
+
+<div class="header-container">
+  <h2>What's the name of your company?</h2>
+</div>
+<p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
+<input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+  <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 7 && hasQuestionsForStep(7)" id="date_founded">
+
+<div class="header-container">
+  <h2>Date Founded.</h2>
+</div>
+<p>Approximately, when did you start the company?</p>
+<input class="input-field" type="date" v-model="formData.date_founded" />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
     <!-- Step 5: Relationship -->
-    <div v-if="currentStep === 5 && hasQuestionsForStep(5)" id="relationship">
+    <div v-if="currentStep === 8 && hasQuestionsForStep(8)" id="relationship">
       <div class="header-container">
         <h2>What is your relationship to the company?</h2>
       </div>
@@ -109,7 +178,7 @@
     </div>
 
     <!-- Step 6: Full Time Work -->
-    <div v-if="currentStep === 6 && hasQuestionsForStep(6)" id="working_full_time">
+    <div v-if="currentStep === 9 && hasQuestionsForStep(9)" id="working_full_time">
 
       <div class="header-container">
         <h2>Are you working on this full time (40+ hours/week)?</h2>
@@ -189,28 +258,11 @@
     </div>
 
 
-    <!-- Step 7: Company Name -->
-    <div v-if="currentStep === 7 && hasQuestionsForStep(7)" id="company_name">
-
-      <div class="header-container">
-        <h2>What's the name of your company?</h2>
-      </div>
-      <p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
-      <input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
-      <div class="button-container">
-        <button class="button" @click="nextStep">Next</button>
-        <p class="enter-text">press Enter ↵</p>
-      </div>
-      <div class="link-left-container">
-        <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
-      </div>
-    </div>
-
           <!-- Step 8 -->
-          <div v-if="currentStep === 8 && hasQuestionsForStep(8)" id="one_line_description">
+          <div v-if="currentStep === 10 && hasQuestionsForStep(10)" id="one_line_description">
 
             <div class="header-container">
-              <h2>What's the one-liner description of your company?</h2>
+              <h2>What's the one-line description of your company?</h2>
             </div>
             <p>(Keep it simple - eg "We're the Uber for babysitters")</p>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.one_line_description"></textarea>
@@ -223,7 +275,7 @@
           </div>
           </div>
           <!-- Step 9 -->
-          <div v-if="currentStep === 9 && hasQuestionsForStep(9)" id="company_description">
+          <div v-if="currentStep === 11 && hasQuestionsForStep(11)" id="company_description">
 
             <div class="header-container">
               <h2>In one to two sentences, what is the problem you are trying to solve?</h2>
@@ -238,7 +290,7 @@
           </div>
           </div>
           <!-- Step 10 -->
-          <div v-if="currentStep === 10 && hasQuestionsForStep(10)" id="company_solution">
+          <div v-if="currentStep === 12 && hasQuestionsForStep(12)" id="company_solution">
 
             <div class="header-container">
               <h2>In one to two sentences, what is your solution?</h2>
@@ -254,7 +306,7 @@
           </div>
           </div>
           <!-- Step 11 -->
-          <div v-if="currentStep === 11 && hasQuestionsForStep(11)" id="pitch_description">
+          <div v-if="currentStep === 13 && hasQuestionsForStep(13)" id="pitch_description">
 
             <div class="header-container">
               <h2>In 2-3 sentences, what is the elevator pitch of your company?</h2>
@@ -269,7 +321,7 @@
           </div>
           </div>
           <!-- Step 12 -->
-          <div v-if="currentStep === 12 && hasQuestionsForStep(12)" id="target_customer">
+          <div v-if="currentStep === 14 && hasQuestionsForStep(14)" id="target_customer">
 
             <div class="header-container">
               <h2>Who is your target customer & how are you going to acquire them?</h2>
@@ -285,7 +337,7 @@
           </div>
           </div>
           <!-- Step 13 -->
-          <div v-if="currentStep === 13 && hasQuestionsForStep(13)" id="customer_acquisition">
+          <div v-if="currentStep === 15 && hasQuestionsForStep(15)" id="customer_acquisition">
 
             <div class="header-container">
               <h2>How do you plan on acquiring your customers?</h2>
@@ -330,24 +382,52 @@
             <a @click="openModal('customer_acquisition')" class="link-scroll">Which investors require this information?</a>
           </div>
           </div>
-          <!-- Step 14 -->
-          <div v-if="currentStep === 14 && hasQuestionsForStep(14)" id="date_founded">
 
-            <div class="header-container">
-              <h2>Date Founded.</h2>
-            </div>
-            <p>Approximately, when did you start the company?</p>
-            <input class="input-field" type="date" v-model="formData.date_founded" />
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-            <a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
+          <div v-if="currentStep === 16 && hasQuestionsForStep(16)" id="product_selection">
+
+<div class="header-container">
+  <h2>What is the primary product your company is providing?</h2>
+</div>
+<p>Please select the options that apply to your business the most - the fewer the better!</p>
+<div class="choices">
+  Make between 1 and 2 choices
+</div>
+<div class="scrollable-content">
+<div class="checkbox-group">
+  <label class="custom-checkbox" v-for="option in productOptions" :key="option.value">
+    <input 
+      type="checkbox" 
+      :value="option.value" 
+      v-model="formData.product" 
+      :disabled="isDisabled(option.value, formData.product)"
+      @change="handleProductChange"
+    />
+    <span class="checkbox-button">
+      <span class="checkbox-key">{{ option.key }}</span> {{ option.label }}
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+</div>
+</div>
+<div v-if="formData.product.includes('Other')" class="other-product-input">
+  <input 
+    class="input-field" 
+    v-model="formData.other_product" 
+    placeholder="Please specify" 
+    required 
+  />
+</div>
+<div class="button-container">
+  <button class="button" @click="prepareProductData(); nextStep()">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('product')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
           <!-- Step 15 -->
-          <div v-if="currentStep === 15 && hasQuestionsForStep(15)" id="product_status">
+          <div v-if="currentStep === 17 && hasQuestionsForStep(17)" id="product_status">
 
             <div class="header-container">
               <h2>What is the status of your product?</h2>
@@ -405,7 +485,7 @@
           </div>
           </div>
           <!-- Step 16 -->
-          <div v-if="currentStep === 16 && hasQuestionsForStep(16)" id="active_customers">
+          <div v-if="currentStep === 18 && hasQuestionsForStep(18)" id="active_customers">
 
             <div class="header-container">
               <h2>Does your product have active users or customers?</h2>
@@ -442,7 +522,7 @@
           </div>
           </div>
           <!-- Step 17 -->
-          <div v-if="currentStep === 17 && hasQuestionsForStep(17)" id="how_many_users">
+          <div v-if="currentStep === 19 && hasQuestionsForStep(19)" id="how_many_users">
 
             <div class="header-container">
               <h2>How many users do you have?</h2>
@@ -537,8 +617,207 @@
             <a @click="openModal('how_many_users')" class="link-scroll">Which investors require this information?</a>
           </div>
           </div>
-          <!-- Step 18 -->
-          <div v-if="currentStep === 18 && hasQuestionsForStep(18)" id="industry_selection">
+          <div v-if="currentStep === 20 && hasQuestionsForStep(20)" id="business_model">
+
+<div class="header-container">
+  <h2>What is your Business Model?</h2>
+</div>
+<p>Please select the options that apply to your business the most - the fewer the better!</p>
+<p>(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
+<div class="choices">
+  You can choose up to 2
+</div>
+<div class="scrollable-content">
+<div class="checkbox-group">
+  <label class="custom-checkbox" v-for="model in businessModelOptions" :key="model.value">
+    <input 
+      type="checkbox" 
+      :value="model.value" 
+      v-model="formData.business_model" 
+      :disabled="isDisabled(model.value, formData.business_model)"
+      @change="handleBusinessModelChange" 
+      required
+    />
+    <span class="checkbox-button">
+      <span class="checkbox-key">{{ model.key }}</span> {{ model.label }}
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+</div>
+</div>
+<div v-if="formData.business_model.includes('Other')" class="other-business-model-input">
+  <input 
+    class="input-field" 
+    v-model="formData.other_business_model" 
+    placeholder="Please specify" 
+    required 
+  />
+</div>
+<div class="button-container">
+  <button class="button" @click="prepareBusinessModelData(); nextStep()">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('business_model')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 21 && hasQuestionsForStep(21)" id="customers_based">
+
+<div class="header-container">
+  <h2>Where are your main customers based?</h2>
+</div>
+<div class="scrollable-content">
+<div class="radio-group">
+  <label class="custom-radio">
+    <input type="radio" value="US" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">A</span> US
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Canada" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">B</span> Canada
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Mexico" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">C</span> Mexico
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - East" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">D</span> Asia - East
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - Central" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">E</span> Asia - Central
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">F</span> Asia - India / Pakistan / Bangladesh
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - Southeast Asia" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">G</span> Asia - Southeast Asia
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Australia / New Zealand" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">H</span> Australia / New Zealand
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Europe" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">I</span> Europe
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Latin America" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">J</span> Latin America
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Middle East" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">K</span> Middle East
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Africa" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">L</span> Africa
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Global" v-model="formData.customers_based" />
+    <span class="radio-button">
+      <span class="radio-key">M</span> Global
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+<input type="radio" value="Other" v-model="formData.customers_based" @change="handleCustomersBasedChange" />
+<span class="radio-button">
+<span class="radio-key">N</span> Other
+<span class="checkmark">&#10003;</span>
+</span>
+</label>
+</div>
+</div>
+<!-- Появляется поле для ввода, если выбрано 'Other' -->
+<div v-if="formData.customers_based === 'Other'" class="other-product-input">
+<input 
+class="input-field" 
+v-model="formData.other_customers_based" 
+placeholder="Please specify" 
+required 
+/>
+</div>
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+  <a @click="openModal('customers_based')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 22 && hasQuestionsForStep(22)" id="vision">
+
+<div class="header-container">
+  <h2>What is your big vision for the company?</h2>
+</div>
+<p>In 5-7 years, what is the world dominating vision for your company? </p>
+<input class="input-field" type="input-field" placeholder="Type your answer here..." v-model="formData.vision" />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+      <a @click="openModal('vision')" class="link-scroll">Which investors require this information?</a>
+  </div>
+</div>
+
+<div v-if="currentStep === 23 && hasQuestionsForStep(23)" id="company_website">
+
+<div class="header-container">
+  <h2>What is your company website?</h2>
+</div>
+<input class="input-field" type="url" placeholder="https://website.com" v-model="formData.company_website" />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('company_website')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+          <div v-if="currentStep === 24 && hasQuestionsForStep(24)" id="industry_selection">
 
             <div class="header-container">
               <h2>What industry are you in?</h2>
@@ -581,7 +860,7 @@
           </div>
           </div>
           <!-- Step 19 -->
-          <div v-if="currentStep === 19 && hasQuestionsForStep(19)" id="liberty_ventures_industry">
+          <div v-if="currentStep === 25 && hasQuestionsForStep(25)" id="liberty_ventures_industry">
 
             <div class="header-container">
               <h2>What industry are you in (Liberty Ventures)?</h2>
@@ -610,115 +889,210 @@
             <a @click="openModal('liberty_ventures_industry')" class="link-scroll">Which investors require this information?</a>
           </div>
           </div>
-          <!-- Step 20 -->
-          <div v-if="currentStep === 20 && hasQuestionsForStep(20)" id="product_selection">
 
-            <div class="header-container">
-              <h2>What is the primary product your company is providing?</h2>
-            </div>
-            <p>Please select the options that apply to your business the most - the fewer the better!</p>
-            <div class="choices">
-              Make between 1 and 2 choices
-            </div>
-            <div class="scrollable-content">
-            <div class="checkbox-group">
-              <label class="custom-checkbox" v-for="option in productOptions" :key="option.value">
-                <input 
-                  type="checkbox" 
-                  :value="option.value" 
-                  v-model="formData.product" 
-                  :disabled="isDisabled(option.value, formData.product)"
-                  @change="handleProductChange"
-                />
-                <span class="checkbox-button">
-                  <span class="checkbox-key">{{ option.key }}</span> {{ option.label }}
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-            </div>
-            </div>
-            <div v-if="formData.product.includes('Other')" class="other-product-input">
-              <input 
-                class="input-field" 
-                v-model="formData.other_product" 
-                placeholder="Please specify" 
-                required 
-              />
-            </div>
-            <div class="button-container">
-              <button class="button" @click="prepareProductData(); nextStep()">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-            <a @click="openModal('product')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
-          <!-- Step 21 -->
-          <div v-if="currentStep === 21 && hasQuestionsForStep(21)" id="business_model">
+          <div v-if="currentStep === 26 && hasQuestionsForStep(26)" id="headquartered">
 
-            <div class="header-container">
-              <h2>What is your Business Model?</h2>
-            </div>
-            <p>Please select the options that apply to your business the most - the fewer the better!</p>
-            <p>(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
-            <div class="choices">
-              You can choose up to 2
-            </div>
-            <div class="scrollable-content">
-            <div class="checkbox-group">
-              <label class="custom-checkbox" v-for="model in businessModelOptions" :key="model.value">
-                <input 
-                  type="checkbox" 
-                  :value="model.value" 
-                  v-model="formData.business_model" 
-                  :disabled="isDisabled(model.value, formData.business_model)"
-                  @change="handleBusinessModelChange" 
-                  required
-                />
-                <span class="checkbox-button">
-                  <span class="checkbox-key">{{ model.key }}</span> {{ model.label }}
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-            </div>
-            </div>
-            <div v-if="formData.business_model.includes('Other')" class="other-business-model-input">
-              <input 
-                class="input-field" 
-                v-model="formData.other_business_model" 
-                placeholder="Please specify" 
-                required 
-              />
-            </div>
-            <div class="button-container">
-              <button class="button" @click="prepareBusinessModelData(); nextStep()">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-            <a @click="openModal('business_model')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
-          <!-- Step 22 -->
-          <div v-if="currentStep === 22 && hasQuestionsForStep(22)" id="company_website">
+<div class="header-container">
+  <h2>Where is your business incorporated?</h2>
+</div>
+<div class="scrollable-content">
+<div class="radio-group">
+  <label class="custom-radio">
+    <input type="radio" value="US" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">A</span> US
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Canada" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">B</span> Canada
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Mexico" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">C</span> Mexico
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - East" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">D</span> Asia - East
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">E</span> Asia - India / Pakistan / Bangladesh
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Asia - Southeast Asia" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">F</span> Asia - Southeast Asia
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Australia / New Zealand" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">G</span> Australia / New Zealand
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Europe" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">H</span> Europe
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Latin America" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">I</span> Latin America
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Middle East" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">J</span> Middle East
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Africa" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">K</span> Africa
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Other" v-model="formData.headquartered" />
+    <span class="radio-button">
+      <span class="radio-key">L</span> Other
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+</div>
+</div>
 
-            <div class="header-container">
-              <h2>What is your company website?</h2>
-            </div>
-            <input class="input-field" type="url" placeholder="https://website.com" v-model="formData.company_website" />
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-            <a @click="openModal('company_website')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
+<div v-if="formData.headquartered === 'US'" class="additional-question">
+  <h3>Are you a Delaware C Corp?</h3>
+  <div class="radio-group">
+    <label class="custom-radio">
+      <input type="radio" value="Yes" v-model="formData.is_delaware_corp" />
+      <span class="radio-button">
+        <span class="radio-key">A</span> Yes
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+    <label class="custom-radio">
+      <input type="radio" value="No" v-model="formData.is_delaware_corp" />
+      <span class="radio-button">
+        <span class="radio-key">B</span> No
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+  </div>
+</div>
+
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+  <a @click="openModal('headquartered')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 27 && hasQuestionsForStep(27)" id="legal_structure">
+
+<div class="header-container">
+  <h2>What is the current or intended legal structure of the company?</h2>
+</div>
+<div class="radio-group">
+  <label class="custom-radio">
+    <input type="radio" id="delaware_c_corp" value="Delaware C-Corp" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">A</span> Delaware C-Corp
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="canadian_company" value="Canadian company" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">B</span> Canadian company
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="b_corp" value="B-Corp" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">C</span> B-Corp
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="pbc" value="Public Benefit Corporation (PBC)" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">D</span> Public Benefit Corporation (PBC)
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="llc" value="LLC" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">E</span> LLC
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="s_corp" value="S-Corp" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">F</span> S-Corp
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="non_profit" value="Non-profit" v-model="formData.legal_structure" />
+    <span class="radio-button">
+      <span class="radio-key">G</span> Non-profit
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" id="other" value="Other" v-model="formData.legal_structure" @change="checkOtherLegalStructure"/>
+    <span class="radio-button">
+      <span class="radio-key">H</span> Other
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <div v-if="formData.legal_structure === 'Other'">
+    <input class="input-field" v-model="formData.other_legal_structure" placeholder="Please specify" />
+  </div>
+</div>
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('legal_structure')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
 
           <!-- Step 23 -->
-          <div v-if="currentStep === 23 && hasQuestionsForStep(23)" id="pitch_deck">
+          <div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="pitch_deck">
 
             <div class="header-container">
-              <h2>Add a link to your pitch deck.</h2>
+              <h2>If you have a pitch deck that you would like to share as a link, please share it here!</h2>
             </div>
             <input class="input-field" type="url" placeholder="https://pitch.com" v-model="formData.pitch_deck" required />
             <div class="button-container">
@@ -731,10 +1105,10 @@
           </div>
 
           <!-- Step 24 -->
-          <div v-if="currentStep === 24 && hasQuestionsForStep(24)" id="pitch_deck_file">
+          <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="pitch_deck_file">
 
             <div class="header-container">
-              <h2>Add a file to your pitch deck.</h2>
+              <h2>If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
             </div>
             <div class="file-upload-container">
               <label class="custom-file-upload">
@@ -751,370 +1125,8 @@
               <a @click="openModal('pitch_deck_file')" class="link-scroll">Which investors require this information?</a>
           </div>
           </div>
-          <!-- Step 25 -->
-          <div v-if="currentStep === 25 && hasQuestionsForStep(25)" id="headquartered">
 
-            <div class="header-container">
-              <h2>Where is your business incorporated?</h2>
-            </div>
-            <div class="scrollable-content">
-            <div class="radio-group">
-              <label class="custom-radio">
-                <input type="radio" value="US" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">A</span> US
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Canada" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">B</span> Canada
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Mexico" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">C</span> Mexico
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - East" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">D</span> Asia - East
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">E</span> Asia - India / Pakistan / Bangladesh
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - Southeast Asia" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">F</span> Asia - Southeast Asia
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Australia / New Zealand" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">G</span> Australia / New Zealand
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Europe" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">H</span> Europe
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Latin America" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">I</span> Latin America
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Middle East" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">J</span> Middle East
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Africa" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">K</span> Africa
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Other" v-model="formData.headquartered" />
-                <span class="radio-button">
-                  <span class="radio-key">L</span> Other
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-            </div>
-            </div>
-
-            <div v-if="formData.headquartered === 'US'" class="additional-question">
-              <h3>Are you a Delaware C Corp?</h3>
-              <div class="radio-group">
-                <label class="custom-radio">
-                  <input type="radio" value="Yes" v-model="formData.is_delaware_corp" />
-                  <span class="radio-button">
-                    <span class="radio-key">A</span> Yes
-                    <span class="checkmark">&#10003;</span>
-                  </span>
-                </label>
-                <label class="custom-radio">
-                  <input type="radio" value="No" v-model="formData.is_delaware_corp" />
-                  <span class="radio-button">
-                    <span class="radio-key">B</span> No
-                    <span class="checkmark">&#10003;</span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-              <a @click="openModal('headquartered')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
-
-          <!-- Step 26 -->
-          <div v-if="currentStep === 26 && hasQuestionsForStep(26)" id="customers_based">
-
-            <div class="header-container">
-              <h2>Where are your main customers based?</h2>
-            </div>
-            <div class="scrollable-content">
-            <div class="radio-group">
-              <label class="custom-radio">
-                <input type="radio" value="US" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">A</span> US
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Canada" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">B</span> Canada
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Mexico" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">C</span> Mexico
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - East" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">D</span> Asia - East
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - Central" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">E</span> Asia - Central
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">F</span> Asia - India / Pakistan / Bangladesh
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Asia - Southeast Asia" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">G</span> Asia - Southeast Asia
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Australia / New Zealand" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">H</span> Australia / New Zealand
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Europe" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">I</span> Europe
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Latin America" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">J</span> Latin America
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Middle East" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">K</span> Middle East
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Africa" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">L</span> Africa
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" value="Global" v-model="formData.customers_based" />
-                <span class="radio-button">
-                  <span class="radio-key">M</span> Global
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-        <input type="radio" value="Other" v-model="formData.customers_based" @change="handleCustomersBasedChange" />
-        <span class="radio-button">
-          <span class="radio-key">N</span> Other
-          <span class="checkmark">&#10003;</span>
-        </span>
-      </label>
-    </div>
-  </div>
-  <!-- Появляется поле для ввода, если выбрано 'Other' -->
-  <div v-if="formData.customers_based === 'Other'" class="other-product-input">
-    <input 
-      class="input-field" 
-      v-model="formData.other_customers_based" 
-      placeholder="Please specify" 
-      required 
-    />
-  </div>
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-              <a @click="openModal('customers_based')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
-          <!-- Step 27 -->
-          <div v-if="currentStep === 27 && hasQuestionsForStep(27)" id="specific_location">
-
-            <div class="header-container">
-              <h2>Where are you located?</h2>
-            </div>
-            <p>Hint: if your company is remote, that's totally fine, just pick the geo where you are physically located.</p>
-            <div class="scrollable-content">
-            <div class="radio-group">
-              <label class="custom-radio" v-for="(location, index) in locations" :key="index">
-                <input 
-                  type="radio" 
-                  :id="location.value" 
-                  :value="location.value" 
-                  v-model="formData.specific_location" 
-                  @change="checkOtherLocation" 
-                  required
-                />
-                <span class="radio-button">
-                  <span class="radio-key">{{ location.key }}</span> {{ location.label }}
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-            </div>
-            </div>
-            <div v-if="['US - Other', 'Canada - Other', 'Asia - Other', 'Asia - India', 'Latin America', 'Europe', 'Africa'].includes(formData.specific_location)" class="other-location-input">
-              <p>Please specify your location? (City, State, Country)</p>
-              <input class="input-field" v-model="formData.other_specific_location" placeholder="Please specify" required />
-            </div>
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-        <a @click="openModal('specific_location')" class="link-scroll">Which investors require this information?</a>
-    </div>
-          </div>
-
-          <!-- Step 28 -->
-          <div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="legal_structure">
-
-            <div class="header-container">
-              <h2>What is the current or intended legal structure of the company?</h2>
-            </div>
-            <div class="radio-group">
-              <label class="custom-radio">
-                <input type="radio" id="delaware_c_corp" value="Delaware C-Corp" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">A</span> Delaware C-Corp
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="canadian_company" value="Canadian company" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">B</span> Canadian company
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="b_corp" value="B-Corp" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">C</span> B-Corp
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="pbc" value="Public Benefit Corporation (PBC)" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">D</span> Public Benefit Corporation (PBC)
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="llc" value="LLC" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">E</span> LLC
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="s_corp" value="S-Corp" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">F</span> S-Corp
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="non_profit" value="Non-profit" v-model="formData.legal_structure" />
-                <span class="radio-button">
-                  <span class="radio-key">G</span> Non-profit
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <label class="custom-radio">
-                <input type="radio" id="other" value="Other" v-model="formData.legal_structure" @change="checkOtherLegalStructure"/>
-                <span class="radio-button">
-                  <span class="radio-key">H</span> Other
-                  <span class="checkmark">&#10003;</span>
-                </span>
-              </label>
-              <div v-if="formData.legal_structure === 'Other'">
-                <input class="input-field" v-model="formData.other_legal_structure" placeholder="Please specify" />
-              </div>
-            </div>
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-        <a @click="openModal('legal_structure')" class="link-scroll">Which investors require this information?</a>
-    </div>
-          </div>
-
-    <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="raising_round">
+    <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="raising_round">
 
         <div class="header-container">
           <h2>What round are you raising?</h2>
@@ -1209,22 +1221,38 @@
     </div>
       </div>
 
-      <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="raising_amount">
+      <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_amount">
 
-    <div class="header-container">
-      <h2>How much are you raising? (in USD)</h2>
-    </div>
-    <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.raising_amount" required />
-    <div class="button-container">
-      <button class="button" @click="nextStep">Next</button>
-      <p class="enter-text">press Enter ↵</p>
-    </div>
-    <div class="link-left-container">
-        <a @click="openModal('raising_amount')" class="link-scroll">Which investors require this information?</a>
-    </div>
+<div class="header-container">
+  <h2>How much capital have you raised in prior rounds? (in USD)</h2>
+</div>
+<input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.raising_amount" required />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+    <a @click="openModal('raising_amount')" class="link-scroll">Which investors require this information?</a>
+</div>
 </div>
 
-<div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="earning_revenue">
+      <div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="capital_to_raise">
+
+<div class="header-container">
+  <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
+</div>
+<p>Please provide the total round size.</p>
+<input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.capital_to_raise" />
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+    <a @click="openModal('capital_to_raise')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+<div v-if="currentStep === 33 && hasQuestionsForStep(33)" id="earning_revenue">
 
   <div class="header-container">
     <h2>Is your startup currently earning revenue?</h2>
@@ -1255,7 +1283,7 @@
 </div>
 
 
-<div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="earning_amount">
+<div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_amount">
 
   <div class="header-container">
     <h2>Approximately how much revenue are you earning per month (in USD)?</h2>
@@ -1299,7 +1327,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 33 && hasQuestionsForStep(33)" id="source_of_revenue">
+<div v-if="currentStep === 35 && hasQuestionsForStep(35)" id="source_of_revenue">
 
   <div class="header-container">
     <h2>What do you expect your main source of revenue to be?</h2>
@@ -1361,7 +1389,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="pre_money_valuation">
+<div v-if="currentStep === 36 && hasQuestionsForStep(36)" id="pre_money_valuation">
 
     <div class="header-container">
       <h2>What is your pre-money valuation? (in USD)</h2>
@@ -1376,10 +1404,10 @@
     </div>
 </div>
 
-<div v-if="currentStep === 35 && hasQuestionsForStep(35)" id="post_money_valuation">
+<div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="post_money_valuation">
 
     <div class="header-container">
-      <h2>What is your post-money valuation? (in USD)</h2>
+      <h2>What is your post-money valuation you are looking for in your current round? (in USD)</h2>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.post_money_valuation" />
     <div class="button-container">
@@ -1391,67 +1419,51 @@
     </div>
 </div>
 
-<div v-if="currentStep === 36 && hasQuestionsForStep(36)" id="capital_to_raise">
+<div v-if="currentStep === 38 && hasQuestionsForStep(38)" id="prev_experience">
 
-    <div class="header-container">
-      <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
-    </div>
-    <p>Please provide the total round size.</p>
-    <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.capital_to_raise" />
-    <div class="button-container">
-      <button class="button" @click="nextStep">Next</button>
-      <p class="enter-text">press Enter ↵</p>
-    </div>
-    <div class="link-left-container">
-        <a @click="openModal('capital_to_raise')" class="link-scroll">Which investors require this information?</a>
-    </div>
+<div class="header-container">
+  <h2>What is your previous entrepreneurial experience?</h2>
 </div>
-    <div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="prev_experience">
-
-  <div class="header-container">
-    <h2>What is your previous entrepreneurial experience?</h2>
+<div class="radio-group">
+  <label class="custom-radio">
+    <input type="radio" value="First startup" v-model="formData.prev_experience" />
+    <span class="radio-button">
+      <span class="radio-key">A</span> First company
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Second startup" v-model="formData.prev_experience" />
+    <span class="radio-button">
+      <span class="radio-key">B</span> Second company
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Third startup" v-model="formData.prev_experience" />
+    <span class="radio-button">
+      <span class="radio-key">C</span> Third company
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+  <label class="custom-radio">
+    <input type="radio" value="Created more than 3 startups" v-model="formData.prev_experience" />
+    <span class="radio-button">
+      <span class="radio-key">D</span> Created more than 3 companies
+      <span class="checkmark">&#10003;</span>
+    </span>
+  </label>
+</div>
+<div class="button-container">
+  <button class="button" @click="nextStep">Next</button>
+  <p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+      <a @click="openModal('prev_experience')" class="link-scroll">Which investors require this information?</a>
   </div>
-  <div class="radio-group">
-    <label class="custom-radio">
-      <input type="radio" value="First startup" v-model="formData.prev_experience" />
-      <span class="radio-button">
-        <span class="radio-key">A</span> First company
-        <span class="checkmark">&#10003;</span>
-      </span>
-    </label>
-    <label class="custom-radio">
-      <input type="radio" value="Second startup" v-model="formData.prev_experience" />
-      <span class="radio-button">
-        <span class="radio-key">B</span> Second company
-        <span class="checkmark">&#10003;</span>
-      </span>
-    </label>
-    <label class="custom-radio">
-      <input type="radio" value="Third startup" v-model="formData.prev_experience" />
-      <span class="radio-button">
-        <span class="radio-key">C</span> Third company
-        <span class="checkmark">&#10003;</span>
-      </span>
-    </label>
-    <label class="custom-radio">
-      <input type="radio" value="Created more than 3 startups" v-model="formData.prev_experience" />
-      <span class="radio-button">
-        <span class="radio-key">D</span> Created more than 3 companies
-        <span class="checkmark">&#10003;</span>
-      </span>
-    </label>
-  </div>
-  <div class="button-container">
-    <button class="button" @click="nextStep">Next</button>
-    <p class="enter-text">press Enter ↵</p>
-  </div>
-  <div class="link-left-container">
-        <a @click="openModal('prev_experience')" class="link-scroll">Which investors require this information?</a>
-    </div>
 </div>
 
-
-<div v-if="currentStep === 38 && hasQuestionsForStep(38)" id="team_description">
+<div v-if="currentStep === 39 && hasQuestionsForStep(39)" id="team_description">
 
   <div class="header-container">
     <h2>In 2-3 sentences, why you / your team are awesome.</h2>
@@ -1466,7 +1478,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 39 && hasQuestionsForStep(39)" id="company_linkedin">
+<div v-if="currentStep === 40 && hasQuestionsForStep(40)" id="company_linkedin">
 
   <div class="header-container">
     <h2>What's your company's LinkedIn?</h2>
@@ -1481,7 +1493,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 40 && hasQuestionsForStep(40)" id="ceo_linkedin">
+<div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="ceo_linkedin">
 
   <div class="header-container">
     <h2>Founder LinkedIn</h2>
@@ -1507,7 +1519,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="cto_linkedin">
+<div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="cto_linkedin">
 
   <div class="header-container">
     <h2>CTO LinkedIn</h2>
@@ -1522,7 +1534,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="linkedin_profiles">
+<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="linkedin_profiles">
 
   <div class="header-container">
     <h2>Your team's LinkedIn profiles.</h2>
@@ -1537,7 +1549,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="founder_video_url">
+<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="founder_video_url">
 
   <div class="header-container">
     <h2>Founder video URL</h2>
@@ -1552,7 +1564,7 @@
     </div>
 </div>
 
-<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="team_video_upload">
+<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="team_video_upload">
 
   <div class="header-container">
     <h2>Upload short video about team and the company.</h2>
@@ -1570,22 +1582,6 @@
   </div>
   <div class="link-left-container">
         <a @click="openModal('team_video_upload')" class="link-scroll">Which investors require this information?</a>
-    </div>
-</div>
-
-<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="vision">
-
-  <div class="header-container">
-    <h2>Vision</h2>
-  </div>
-  <p>In 5-7 years, what is the world dominating vision for your company? </p>
-  <input class="input-field" type="input-field" placeholder="Type your answer here..." v-model="formData.vision" />
-  <div class="button-container">
-    <button class="button" @click="nextStep">Next</button>
-    <p class="enter-text">press Enter ↵</p>
-  </div>
-  <div class="link-left-container">
-        <a @click="openModal('vision')" class="link-scroll">Which investors require this information?</a>
     </div>
 </div>
 
@@ -2165,47 +2161,47 @@ export default {
     2: 'first_name',
     3: 'email',
     4: 'phone_number',
-    5: 'relationship',
-    6: 'working_full_time',
-    7: 'company_name',
-    8: 'one_line_description',
-    9: 'company_description',
-    10: 'company_solution',
-    11: 'pitch_description',
-    12: 'target_customer',
-    13: 'customer_acquisition',
-    14: 'date_founded',
-    15: 'product_status',
-    16: 'active_customers',
-    17: 'how_many_users',
-    18: 'industry_selection',
-    19: 'liberty_ventures_industry',
-    20: 'product_selection',
-    21: 'business_model',
-    22: 'company_website',
-    23: 'pitch_deck',
-    24: 'pitch_deck_file',
-    25: 'headquartered',
-    26: 'customers_based',
-    27: 'specific_location',
-    28: 'legal_structure',
-    29: 'raising_round',
-    30: 'raising_amount',
-    31: 'earning_revenue',
-    32: 'earning_amount',
-    33: 'source_of_revenue',
-    34: 'pre_money_valuation',
-    35: 'post_money_valuation',
-    36: 'capital_to_raise',
-    37: 'prev_experience',
-    38: 'team_description',
-    39: 'company_linkedin',
-    40: 'ceo_linkedin',
-    41: 'cto_linkedin',
-    42: 'linkedin_profiles',
-    43: 'founder_video_url',
-    44: 'team_video_upload',
-    45: 'vision',
+    5: 'specific_location',
+    6: 'company_name',
+    7: 'date_founded',
+    8: 'relationship',
+    9: 'working_full_time',
+    10: 'one_line_description',
+    11: 'company_description',
+    12: 'company_solution',
+    13: 'pitch_description',
+    14: 'target_customer',
+    15: 'customer_acquisition',
+    16: 'product_selection',
+    17: 'product_status',
+    18: 'active_customers',
+    19: 'how_many_users',
+    20: 'business_model',
+    21: 'customers_based',
+    22: 'vision',
+    23: 'company_website',
+    24: 'industry_selection',
+    25: 'liberty_ventures_industry',
+    26: 'headquartered',
+    27: 'legal_structure',
+    28: 'pitch_deck',
+    29: 'pitch_deck_file',
+    30: 'raising_round',
+    31: 'raising_amount',
+    32: 'capital_to_raise',
+    33: 'earning_revenue',
+    34: 'earning_amount',
+    35: 'source_of_revenue',
+    36: 'pre_money_valuation',
+    37: 'post_money_valuation',
+    38: 'prev_experience',
+    39: 'team_description',
+    40: 'company_linkedin',
+    41: 'ceo_linkedin',
+    42: 'cto_linkedin',
+    43: 'linkedin_profiles',
+    44: 'founder_video_url',
+    45: 'team_video_upload',
     46: 'pitching_live',
     47: 'share_submission',
     48: 'investors_participating',
@@ -2241,47 +2237,47 @@ export default {
       2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
       3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
       4: ['Liberty Ventures'],
-      5: ['Precursor Ventures'],
-      6: ['Hustle Fund'],
-      7: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-      8: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
-      9: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
-      10: ['Hustle Fund', 'Incisive Ventures'],
-      11: ['Incisive Ventures'],
-      12: ['Hustle Fund'],
-      13: ['Hustle Fund'],
-      14: ['2048 Ventures'],
-      15: ['Hustle Fund', 'Incisive Ventures'],
-      16: ['Hustle Fund'],
-      17: ['Hustle Fund'],
-      18: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-      19: ['Liberty Ventures'],
-      20: ['Hustle Fund', 'Incisive Ventures'],
+      5: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
+      6: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      7: ['2048 Ventures'],
+      8: ['Precursor Ventures'],
+      9: ['Hustle Fund'],
+      10: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
+      11: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
+      12: ['Hustle Fund', 'Incisive Ventures'],
+      13: ['Incisive Ventures'],
+      14: ['Hustle Fund'],
+      15: ['Hustle Fund'],
+      16: ['Hustle Fund', 'Incisive Ventures'],
+      17: ['Hustle Fund', 'Incisive Ventures'],
+      18: ['Hustle Fund'],
+      19: ['Hustle Fund'],
+      20: ['Hustle Fund'],
       21: ['Hustle Fund'],
-      22: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures'],
-      23: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-      24: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-      25: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-      26: ['Hustle Fund'],
-      27: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
-      28: ['Precursor Ventures'],
-      29: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-      30: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-      31: ['Hustle Fund'],
-      32: ['Hustle Fund', 'Incisive Ventures'],
+      22: ['2048 Ventures'],
+      23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      24: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      25: ['Liberty Ventures'],
+      26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      27: ['Precursor Ventures'],
+      28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      29: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      30: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      31: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      32: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
       33: ['Hustle Fund'],
-      34: ['Precursor Ventures'],
-      35: ['Hustle Fund', 'Incisive Ventures'],
-      36: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-      37: ['Incisive Ventures'],
-      38: ['Boost Ventures'],
-      39: ['Spatial Capital'],
-      40: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-      41: ['2048 Ventures'],
-      42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
-      43: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
-      44: ['Boost Ventures'],
-      45: ['2048 Ventures'],
+      34: ['Hustle Fund', 'Incisive Ventures'],
+      35: ['Hustle Fund'],
+      36: ['Precursor Ventures'],
+      37: ['Hustle Fund', 'Incisive Ventures'],
+      38: ['Incisive Ventures'],
+      39: ['Boost Ventures'],
+      40: ['Spatial Capital'],
+      41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+      42: ['2048 Ventures'],
+      43: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
+      44: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
+      45: ['Boost Ventures'],
       46: ['Hustle Fund'],
       47: ['Hustle Fund', 'Incisive Ventures'],
       48: ['Hustle Fund', 'Incisive Ventures'],
