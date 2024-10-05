@@ -200,7 +200,7 @@
   capital_to_raise: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
   ],
   prev_experience: [
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
@@ -216,19 +216,19 @@
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
     { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   cto_linkedin: [
-    { name: 'Ventures 2048', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
   ],
   linkedin_profiles: [
     { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-    { name: 'Ventures 2048', status: 'Optional', url: 'https://www.2048.vc/' },
+    { name: '2048 Ventures', status: 'Optional', url: 'https://www.2048.vc/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
     { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
   ],
