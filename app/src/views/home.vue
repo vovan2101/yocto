@@ -96,42 +96,20 @@
 
   <!-- Модальное окно -->
   <div v-if="isModalOpen" class="modal" @click="outsideClick">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <h2 class="modal-header">Investors List</h2>
+  <div class="modal-content">
+    <span class="close" @click="closeModal">&times;</span>
+    <h2 class="modal-header">Investor List</h2>
 
-      <!-- Таблица с тремя колонками: Название инвестора, Время (минуты) и Количество вопросов -->
-      <table class="investor-table">
-        <thead>
-          <tr>
-            <th>Select</th>
-            <th>Investor Name</th>
-            <th>Questions</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(form, index) in forms" :key="index">
-            <td>
-              <label class="custom-checkbox-container">
-                <input type="checkbox" v-model="selectedForms" :value="form" />
-                <span class="custom-checkbox"></span>
-              </label>
-            </td>
-            <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
-            <td>{{ form.questions }}</td>
-            <td>{{ form.estimatedTime }} minutes</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Отображение общего времени и количества вопросов для выбранных форм -->
-      <div class="total-info">
-        <p><strong>Question Count:</strong> {{ totalQuestions }} questions</p>
-        <p><strong>Time to Complete:</strong> {{ totalEstimatedTime }} minutes</p>
-      </div>
-    </div>
+    <!-- Таблица только с названиями инвесторов -->
+    <table class="investor-table">
+      <tbody>
+        <tr v-for="(form, index) in forms" :key="index">
+          <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>
 
     <section class="home-description">
       <img alt="image" src="/nftpeople.png" class="home-divider-image" />
@@ -967,13 +945,15 @@ computed: {
     },
     openModal() {
       this.isModalOpen = true;
+      document.body.classList.add('modal-open');
     },
     closeModal() {
       this.isModalOpen = false;
+      document.body.classList.remove('modal-open');
     },
     outsideClick(event) {
-      if (event.target.classList.contains('modal')) {
-        this.isModalOpen = false;
+    if (event.target === event.currentTarget) {
+      this.closeModal();
       }
     }
   },
@@ -1008,9 +988,16 @@ computed: {
   align-items: center; /* Центрирование модального окна */
 }
 
+.modal-open {
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
+}
+
 .modal-content {
   background-color: #282828; /* Темный фон для модального окна */
-  padding: 20px 20px 0 20px; /* Убираем отступ снизу, оставляем 20px сверху, справа и слева */
   border: 2px solid #888;
   width: 80%;
   max-width: 600px;
@@ -1019,7 +1006,7 @@ computed: {
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Тень для объема */
   overflow-y: auto; /* Прокрутка для содержимого */
-  max-height: 80vh; /* Ограничиваем максимальную высоту до 80% высоты экрана */
+  max-height: 60vh; /* Ограничиваем максимальную высоту до 80% высоты экрана */
   min-height: 50vh; /* Устанавливаем минимальную высоту на 50% высоты экрана */
   height: auto; /* Автоматическая высота, зависит от содержимого */
   display: flex;
@@ -1065,7 +1052,7 @@ computed: {
 .investor-table th,
 .investor-table td {
   border: 1px solid #444; /* Более темная рамка */
-  padding: 10px;
+  padding: 20px;
   text-align: left;
   color: #ddd; /* Светлый текст */
 }
@@ -3035,7 +3022,7 @@ computed: {
 
   .investor-table th,
   .investor-table td {
-    padding: 8px;
+    padding: 20px;
     font-size: 14px;
   }
 
@@ -3135,7 +3122,7 @@ computed: {
 }
 .investor-table th,
   .investor-table td {
-    padding: 6px;
+    padding: 20px;
     font-size: 16px;
   }
 
@@ -3618,14 +3605,13 @@ computed: {
   .modal-content {
     width: 100%;
     max-width: 450px;
-    padding: 20px 0 0 0;
   }
   .modal-header {
   font-size: 25px;
 }
 .investor-table th,
   .investor-table td {
-    padding: 5px;
+    padding: 20px;
     font-size: 16px;
   }
 
