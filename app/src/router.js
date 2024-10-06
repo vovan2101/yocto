@@ -7,6 +7,7 @@ import NotFound from './views/not-found'
 import './style.css'
 // import FindInvestors from './views/FindInvestors.vue';
 import sendForm from './views/sendForm.vue'
+import ComingSoon from './views/ComingSoon.vue'
 
 Vue.use(Router)
 Vue.use(Meta)
@@ -14,25 +15,30 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      name: 'Home',
-      path: '/',
-      component: Home,
+      path: '*',
+      name: 'ComingSoon',
+      component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
     },
+    // {
+    //   name: 'Home',
+    //   path: '/',
+    //   component: Home,
+    // },
     // {
     //   path: '/find-investors',
     //   name: 'FindInvestors',
     //   component: FindInvestors
     // },
-    {
-      path: '/send-form',
-      name: 'sendForm',
-      component: sendForm,
-    },
-    {
-      name: '404 - Not Found',
-      path: '**',
-      component: NotFound,
-      fallback: true,
-    },
+    // {
+    //   path: '/send-form',
+    //   name: 'sendForm',
+    //   component: sendForm,
+    // },
+    // {
+    //   name: '404 - Not Found',
+    //   path: '**',
+    //   component: NotFound,
+    //   fallback: true,
+    // },
   ],
 })
