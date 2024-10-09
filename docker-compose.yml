@@ -22,6 +22,12 @@ services:
       - "3002:3002"
     networks:
       - dev_net
+    environment:
+      - POSTGRES_USER=${LOCAL_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${LOCAL_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${LOCAL_POSTGRES_DB}
+      - POSTGRES_HOST=${LOCAL_POSTGRES_HOST}
+      - POSTGRES_PORT=${LOCAL_POSTGRES_PORT}
   
   app:
     build:
@@ -31,7 +37,15 @@ services:
       - "3001:80"
     networks:
       - dev_net
-      
+    environment:
+      - POSTGRES_USER=${LOCAL_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${LOCAL_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${LOCAL_POSTGRES_DB}
+      - POSTGRES_HOST=${LOCAL_POSTGRES_HOST}
+      - POSTGRES_PORT=${LOCAL_POSTGRES_PORT}
+    depends_on:
+      - postgres
+
   zookeeper:
     image: bitnami/zookeeper:latest
     container_name: zookeeper
@@ -57,3 +71,20 @@ services:
       - zookeeper
     networks:
       - dev_net
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${LOCAL_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${LOCAL_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${LOCAL_POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - dev_net
+
+volumes:
+  postgres_data:

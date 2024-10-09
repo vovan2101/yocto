@@ -2302,6 +2302,31 @@ export default {
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
 
+      // Метод для сохранения текущего поля формы
+      async saveField(fieldName, fieldValue) {
+  const formData = {
+    device_id: localStorage.getItem('device_id'), // Используем только device_id
+    [fieldName]: fieldValue, // Сохраняем только указанное поле
+  };
+
+  try {
+    const response = await fetch('http://localhost:3002/form-response', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || 'Failed to save form field');
+    }
+  } catch (error) {
+    console.error('Error saving form field:', error);
+  }
+},
+
   openTestForm() {
       this.isTestFormOpen = true;
     },
@@ -2457,6 +2482,162 @@ export default {
     return;
   }
 
+    // Сохраняем данные текущего шага перед переходом на следующий шаг
+  // Сохраняем данные текущего шага перед переходом на следующий шаг
+  if (this.currentStep === 2) {
+    // Step 2: Сохранение имени и фамилии
+    this.saveField('first_name', this.formData.first_name);
+    this.saveField('last_name', this.formData.last_name);
+  } else if (this.currentStep === 3) {
+    // Step 3: Сохранение email
+    this.saveField('email', this.formData.email);
+  } else if (this.currentStep === 4) {
+    // Step 4: Сохранение номера телефона
+    this.saveField('phone_number', this.formData.phone_number);
+  } else if (this.currentStep === 5) {
+    // Step 5: Сохранение местоположения
+    this.saveField('specific_location', this.formData.specific_location);
+    if (this.formData.specific_location === 'Other') {
+      this.saveField('other_specific_location', this.formData.other_specific_location);
+    }
+  } else if (this.currentStep === 6) {
+    // Step 6: Сохранение имени компании
+    this.saveField('company_name', this.formData.company_name);
+  } else if (this.currentStep === 7) {
+    // Step 7: Сохранение даты основания компании
+    this.saveField('date_founded', this.formData.date_founded);
+  } else if (this.currentStep === 8) {
+    // Step 8: Сохранение отношения к компании
+    this.saveField('relationship', this.formData.relationship);
+    if (this.formData.relationship === 'Other') {
+      this.saveField('other_relationship', this.formData.other_relationship);
+    }
+  } else if (this.currentStep === 9) {
+    // Step 9: Полная занятость
+    this.saveField('working_full_time', this.formData.working_full_time);
+    if (this.formData.working_full_time === 'Yes') {
+      this.saveField('full_time_duration', this.formData.full_time_duration);
+    }
+  } else if (this.currentStep === 10) {
+    // Step 10: Однострочное описание компании
+    this.saveField('one_line_description', this.formData.one_line_description);
+  } else if (this.currentStep === 11) {
+    // Step 11: Описание проблемы
+    this.saveField('company_description', this.formData.company_description);
+  } else if (this.currentStep === 12) {
+    // Step 12: Описание решения
+    this.saveField('company_solution', this.formData.company_solution);
+  } else if (this.currentStep === 13) {
+    this.saveField('pitch_description', this.formData.pitch_description);
+  } else if (this.currentStep === 14) {
+    this.saveField('target_customer', this.formData.target_customer);
+  } else if (this.currentStep === 15) {
+    this.prepareCustomerAcquisitionData();
+    this.saveField('customer_acquisition', this.formData.customer_acquisition);
+    if (this.formData.customer_acquisition.includes('Other')) {
+      this.saveField('other_customer_acquisition', this.formData.other_customer_acquisition);
+    }
+  } else if (this.currentStep === 16) {
+    this.prepareProductData();
+    this.saveField('product', this.formData.product);
+    if (this.formData.product.includes('Other')) {
+      this.saveField('other_product', this.formData.other_product);
+    }
+  } else if (this.currentStep === 17) {
+    this.saveField('product_status', this.formData.product_status);
+  } else if (this.currentStep === 18) {
+    this.saveField('active_customers', this.formData.active_customers);
+  } else if (this.currentStep === 19) {
+    this.saveField('how_many_users', this.formData.how_many_users);
+  } else if (this.currentStep === 20) {
+    this.prepareBusinessModelData();
+    this.saveField('business_model', this.formData.business_model);
+    if (this.formData.business_model.includes('Other')) {
+      this.saveField('other_business_model', this.formData.other_business_model);
+    }
+  } else if (this.currentStep === 21) {
+    this.saveField('customers_based', this.formData.customers_based);
+    if (this.formData.customers_based === 'Other') {
+      this.saveField('other_customers_based', this.formData.other_customers_based);
+    }
+  } else if (this.currentStep === 22) {
+    this.saveField('vision', this.formData.vision);
+  } else if (this.currentStep === 23) {
+    this.saveField('company_website', this.formData.company_website);
+  } else if (this.currentStep === 24) {
+    this.prepareIndustryData();
+    this.saveField('industry', this.formData.industry);
+    if (this.formData.industry.includes('Other')) {
+      this.saveField('other_industry', this.formData.other_industry);
+    }
+  } else if (this.currentStep === 25) {
+    this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
+  } else if (this.currentStep === 26) {
+    this.saveField('headquartered', this.formData.headquartered);
+    if (this.formData.headquartered === 'US') {
+      this.saveField('is_delaware_corp', this.formData.is_delaware_corp);
+    }
+  } else if (this.currentStep === 27) {
+    this.saveField('legal_structure', this.formData.legal_structure);
+    if (this.formData.legal_structure === 'Other') {
+      this.saveField('other_legal_structure', this.formData.other_legal_structure);
+    }
+  } else if (this.currentStep === 28) {
+    this.saveField('pitch_deck', this.formData.pitch_deck);
+  } else if (this.currentStep === 29) {
+    this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
+  } else if (this.currentStep === 30) {
+    this.saveField('raising_round', this.formData.raising_round);
+    if (this.formData.raising_round === 'Beyond Series A') {
+      this.saveField('beyond_series_a_round', this.formData.beyond_series_a_round);
+    }
+  } else if (this.currentStep === 31) {
+    this.saveField('raising_amount', this.formData.raising_amount);
+  } else if (this.currentStep === 32) {
+    this.saveField('capital_to_raise', this.formData.capital_to_raise);
+  } else if (this.currentStep === 33) {
+    this.saveField('earning_revenue', this.formData.earning_revenue);
+  } else if (this.currentStep === 34) {
+    this.saveField('earning_amount', this.formData.earning_amount);
+  } else if (this.currentStep === 35) {
+    this.saveField('source_of_revenue', this.formData.source_of_revenue);
+    if (this.formData.source_of_revenue === 'Other') {
+      this.saveField('other_source_of_revenue', this.formData.other_source_of_revenue);
+    }
+  } else if (this.currentStep === 36) {
+    this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
+  } else if (this.currentStep === 37) {
+    this.saveField('post_money_valuation', this.formData.post_money_valuation);
+  } else if (this.currentStep === 38) {
+    this.saveField('prev_experience', this.formData.prev_experience);
+  } else if (this.currentStep === 39) {
+    this.saveField('team_description', this.formData.team_description);
+  } else if (this.currentStep === 40) {
+    this.saveField('company_linkedin', this.formData.company_linkedin);
+  } else if (this.currentStep === 41) {
+    this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
+    this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
+    this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
+  } else if (this.currentStep === 42) {
+    this.saveField('cto_linkedin', this.formData.cto_linkedin);
+  } else if (this.currentStep === 43) {
+    this.saveField('linkedin_profiles', this.formData.linkedin_profiles);
+  } else if (this.currentStep === 44) {
+    this.saveField('founder_video_url', this.formData.founder_video_url);
+  } else if (this.currentStep === 45) {
+    this.saveField('founder_video_file', this.formData.founder_video_file);
+  } else if (this.currentStep === 46) {
+    this.saveField('pitching_live', this.formData.pitching_live);
+  } else if (this.currentStep === 47) {
+    this.saveField('share_submission', this.formData.share_submission);
+  } else if (this.currentStep === 48) {
+    this.saveField('investors_participating', this.formData.investors_participating);
+  } else if (this.currentStep === 49) {
+    this.saveField('want_us_to_know', this.formData.want_us_to_know);
+  } else if (this.currentStep === 50) {
+    this.saveField('value_of_team', this.formData.value_of_team);
+  }
+
   // Иначе выполняем стандартную логику для пропуска шагов без вопросов
   let nextValidStep = this.currentStep + 1;
 
@@ -2476,6 +2657,41 @@ export default {
     this.showTitle = this.currentStep !== 1;
   }
 },
+
+  
+    // Метод для загрузки данных формы из базы данных
+    async loadFormData(device_id) {
+  try {
+    const response = await fetch(`http://localhost:3002/form-response/${device_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to load form data');
+    }
+    const result = await response.json();
+    if (result) {
+      this.formData = { ...this.formData, ...result }; // Восстанавливаем данные формы
+    }
+  } catch (error) {
+    console.error('Error loading form data:', error);
+  }
+},
+
+        // Проверка на наличие пользователя в базе данных
+        checkUserExists() {
+      const id = localStorage.getItem('device_id') || this.user_id;
+      if (id) {
+        this.loadFormData(id); // Если ID найден, загружаем данные формы
+      } else {
+        // Генерация нового device_id, если пользователя нет
+        const newDeviceId = `device_${Date.now()}`;
+        localStorage.setItem('device_id', newDeviceId);
+      }
+    },
+
     goToEnd() {
     this.currentStep = 51; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
@@ -2577,6 +2793,13 @@ scrollToCurrentStep() {
     }
   },
   mounted() {
+    this.checkUserExists(); // Проверка наличия пользователя при загрузке страницы
+  if (!localStorage.getItem('device_id')) {
+    const newDeviceId = crypto.randomUUID(); // Генерация нового UUID
+  localStorage.setItem('device_id', newDeviceId);
+  }
+  this.loadFormData(localStorage.getItem('device_id')); // Загружаем данные формы, если они существуют
+
     setTimeout(() => {
       this.showTitle = true;
     }, 500); // Задержка для плавного появления заголовка
