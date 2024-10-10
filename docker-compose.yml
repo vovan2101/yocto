@@ -22,11 +22,26 @@ services:
       - "3002:3002"
     env_file: 
       - ./bot/.env  # Подключаем файл .env для переменных окружения
+    depends_on:
+      - postgres
     networks:
       - stage_net
   
   app:
     image: vovan2101/yocto-app:stage
+    depends_on:
+      - postgres
+    networks:
+      - stage_net
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${STAGE_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${STAGE_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${STAGE_POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - stage_net
   
@@ -55,3 +70,6 @@ services:
       - zookeeper
     networks:
       - stage_net
+
+volumes:
+  postgres_data:
