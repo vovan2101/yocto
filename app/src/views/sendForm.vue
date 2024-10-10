@@ -2473,7 +2473,7 @@ export default {
       const file = event.target.files[0];
       this.formData.pitch_deck_file = file;
     },
-    nextStep() {
+   async nextStep() {
   // Если мы на шаге 0, всегда переходим на шаг 1
   if (this.currentStep === 0) {
     this.currentStep = 1;
