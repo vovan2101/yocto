@@ -36,6 +36,8 @@ services:
 
   postgres:
     image: postgres:13
+    env_file:
+    - .env
     environment:
       POSTGRES_USER: ${STAGE_POSTGRES_USER}
       POSTGRES_PASSWORD: ${STAGE_POSTGRES_PASSWORD}
