@@ -48,6 +48,8 @@ services:
 
   postgres:
     image: postgres:13
+    ports:
+      - "5432:5432"
     environment:
       - STAGE_POSTGRES_USER=${STAGE_POSTGRES_USER}
       - STAGE_POSTGRES_PASSWORD=${STAGE_POSTGRES_PASSWORD}
