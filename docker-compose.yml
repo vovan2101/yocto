@@ -26,18 +26,28 @@ services:
       - postgres
     networks:
       - stage_net
+    environment:
+      - POSTGRES_USER=${STAGE_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${STAGE_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${STAGE_POSTGRES_DB}
+      - POSTGRES_HOST=${STAGE_POSTGRES_HOST}
+      - POSTGRES_PORT=${STAGE_POSTGRES_PORT}
   
   app:
     image: vovan2101/yocto-app:stage
     depends_on:
       - postgres
+    environment:
+      - POSTGRES_USER=${STAGE_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${STAGE_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${STAGE_POSTGRES_DB}
+      - POSTGRES_HOST=${STAGE_POSTGRES_HOST}
+      - POSTGRES_PORT=${STAGE_POSTGRES_PORT}
     networks:
       - stage_net
 
   postgres:
     image: postgres:13
-    env_file:
-    - .env
     environment:
       POSTGRES_USER: ${STAGE_POSTGRES_USER}
       POSTGRES_PASSWORD: ${STAGE_POSTGRES_PASSWORD}
