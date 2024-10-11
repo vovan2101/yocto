@@ -41,6 +41,16 @@ const getFormResponse = async (req, res) => {
       return res.status(404).json({ message: 'Response not found' });
     }
 
+    if (response.customer_acquisition === null) {
+        response.customer_acquisition = [];
+    }
+    if (response.product === null) {
+    response.product = [];
+    }
+    if (response.business_model === null) {
+    response.business_model = [];
+    }
+
     return res.json(response);
   } catch (error) {
     return res.status(500).json({ message: error.message });

@@ -83,7 +83,7 @@ module.exports = new EntitySchema({
       nullable: true,
     },
     customer_acquisition: {
-      type: 'text',
+      type: 'simple-array',
       nullable: true,
     },
     other_customer_acquisition: {
@@ -91,7 +91,7 @@ module.exports = new EntitySchema({
       nullable: true,
     },
     product: {
-      type: 'text',
+      type: 'simple-array',
       nullable: true,
     },
     other_product: {
@@ -111,7 +111,7 @@ module.exports = new EntitySchema({
       nullable: true,
     },
     business_model: {
-      type: 'text',
+      type: 'simple-array',
       nullable: true,
     },
     other_business_model: {
@@ -135,7 +135,7 @@ module.exports = new EntitySchema({
       nullable: true,
     },
     industry: {
-      type: 'text',
+      type: 'simple-array',
       nullable: true,
     },
     other_industry: {
