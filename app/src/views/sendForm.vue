@@ -2689,21 +2689,6 @@ if (this.currentStep === 2) {
   }
 },
 
-        // Проверка на наличие пользователя в базе данных
-        checkUserExists() {
-  const id = localStorage.getItem('device_id') || this.user_id;
-  console.log('Проверка существования пользователя с device_id:', id);
-
-  if (id) {
-    this.loadFormData(id); // Если ID найден, загружаем данные формы
-  } else {
-    // Генерация нового device_id, если пользователя нет
-    const newDeviceId = `device_${Date.now()}`;
-    localStorage.setItem('device_id', newDeviceId);
-    console.log('Создан новый device_id:', newDeviceId);
-  }
-},
-
     goToEnd() {
     this.currentStep = 51; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
@@ -2805,16 +2790,21 @@ scrollToCurrentStep() {
     }
   },
   mounted() {
-  console.log('Компонент смонтирован. Проверка пользователя.');
-  this.checkUserExists(); // Проверка наличия пользователя при загрузке страницы
+  console.log('Компонент смонтирован. Проверка наличия device_id.');
 
+  // Проверяем, существует ли device_id в localStorage
   if (!localStorage.getItem('device_id')) {
+    // Если device_id не существует, генерируем новый уникальный UUID
     const newDeviceId = crypto.randomUUID(); // Генерация нового UUID
     localStorage.setItem('device_id', newDeviceId);
-    console.log('Генерация нового UUID для device_id:', newDeviceId);
+    console.log('Создан новый device_id:', newDeviceId);
+  } else {
+    console.log('Существующий device_id найден:', localStorage.getItem('device_id'));
   }
 
-  this.loadFormData(localStorage.getItem('device_id')); // Загружаем данные формы, если они существуют
+  // Загружаем данные формы для текущего device_id
+  const currentDeviceId = localStorage.getItem('device_id');
+  this.loadFormData(currentDeviceId);
 
     setTimeout(() => {
       this.showTitle = true;
