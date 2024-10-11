@@ -2308,6 +2308,8 @@ export default {
     [fieldName]: fieldValue, // Сохраняем только указанное поле
   };
 
+  console.log('Сохранение поля формы:', { fieldName, fieldValue, formData });
+
   try {
     const response = await fetch('http://test.yocto.vc/api/form-response', {
       method: 'POST',
@@ -2319,10 +2321,13 @@ export default {
     const result = await response.json();
 
     if (!response.ok) {
+      console.error('Ошибка при сохранении поля формы:', result.message);
       throw new Error(result.message || 'Failed to save form field');
     }
+
+    console.log('Поле формы успешно сохранено:', result);
   } catch (error) {
-    console.error('Error saving form field:', error);
+    console.error('Ошибка при сохранении поля формы:', error);
   }
 },
 
@@ -2659,6 +2664,8 @@ if (this.currentStep === 2) {
 
     // Метод для загрузки данных формы из базы данных
     async loadFormData(device_id) {
+  console.log('Загрузка данных формы для device_id:', device_id);
+
   try {
     const response = await fetch(`http://test.yocto.vc/api/form-response/${device_id}`, {
       method: 'GET',
@@ -2667,28 +2674,35 @@ if (this.currentStep === 2) {
       },
     });
     if (!response.ok) {
+      console.error('Ошибка при загрузке данных формы:', response.status);
       throw new Error('Failed to load form data');
     }
     const result = await response.json();
+
+    console.log('Данные формы, полученные с сервера:', result);
+
     if (result) {
       this.formData = { ...this.formData, ...result }; // Восстанавливаем данные формы
     }
   } catch (error) {
-    console.error('Error loading form data:', error);
+    console.error('Ошибка при загрузке данных формы:', error);
   }
 },
 
         // Проверка на наличие пользователя в базе данных
         checkUserExists() {
-      const id = localStorage.getItem('device_id') || this.user_id;
-      if (id) {
-        this.loadFormData(id); // Если ID найден, загружаем данные формы
-      } else {
-        // Генерация нового device_id, если пользователя нет
-        const newDeviceId = `device_${Date.now()}`;
-        localStorage.setItem('device_id', newDeviceId);
-      }
-    },
+  const id = localStorage.getItem('device_id') || this.user_id;
+  console.log('Проверка существования пользователя с device_id:', id);
+
+  if (id) {
+    this.loadFormData(id); // Если ID найден, загружаем данные формы
+  } else {
+    // Генерация нового device_id, если пользователя нет
+    const newDeviceId = `device_${Date.now()}`;
+    localStorage.setItem('device_id', newDeviceId);
+    console.log('Создан новый device_id:', newDeviceId);
+  }
+},
 
     goToEnd() {
     this.currentStep = 51; // Переводим пользователя на последний шаг
@@ -2791,12 +2805,15 @@ scrollToCurrentStep() {
     }
   },
   mounted() {
-
+  console.log('Компонент смонтирован. Проверка пользователя.');
   this.checkUserExists(); // Проверка наличия пользователя при загрузке страницы
+
   if (!localStorage.getItem('device_id')) {
     const newDeviceId = crypto.randomUUID(); // Генерация нового UUID
-  localStorage.setItem('device_id', newDeviceId);
+    localStorage.setItem('device_id', newDeviceId);
+    console.log('Генерация нового UUID для device_id:', newDeviceId);
   }
+
   this.loadFormData(localStorage.getItem('device_id')); // Загружаем данные формы, если они существуют
 
     setTimeout(() => {
