@@ -2298,7 +2298,7 @@ export default {
   console.log('Сохранение поля формы:', { fieldName, fieldValue, formData });
 
   try {
-    const response = await fetch('http://www.yocto.vc/api/form-response', {
+    const response = await fetch('https://www.yocto.vc/api/form-response', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -2652,7 +2652,7 @@ if (this.currentStep === 2) {
   }
 
   try {
-    const response = await fetch(`http://www.yocto.vc/api/form-response/device/${device_id}`, {
+    const response = await fetch(`https://www.yocto.vc/api/form-response/device/${device_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -2758,7 +2758,7 @@ scrollToCurrentStep() {
           formData.append(key, this.formData[key]);
         }
 
-        const response = await fetch('http://www.yocto.vc/api/send-forms', {
+        const response = await fetch('https://www.yocto.vc/api/send-forms', {
           method: 'POST',
           body: formData
     });

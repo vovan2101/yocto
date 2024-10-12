@@ -15,7 +15,7 @@ export default new Router({
   mode: 'history',
   routes: [
     // {
-    //   path: '/test',
+    //   path: '*',
     //   name: 'ComingSoon',
     //   component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
     // },
