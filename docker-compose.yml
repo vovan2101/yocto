@@ -27,11 +27,42 @@ services:
       - "3002:3002"
     env_file:
       - ./bot/.env
+    depends_on:
+      - postgres
+    environment:
+      - PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
+      - PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
+      - PROD_POSTGRES_DB=${PROD_POSTGRES_DB}
+      - PROD_POSTGRES_HOST=${PROD_POSTGRES_HOST}
+      - PROD_POSTGRES_PORT=${PROD_POSTGRES_PORT}
     networks:
       - prod_net
   
   app:
     image: vovan2101/yocto-app:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
+    depends_on:
+      - postgres
+    environment:
+      - PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
+      - PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
+      - PROD_POSTGRES_DB=${PROD_POSTGRES_DB}
+      - PROD_POSTGRES_HOST=${PROD_POSTGRES_HOST}
+      - PROD_POSTGRES_PORT=${PROD_POSTGRES_PORT}
+    networks:
+      - prod_net
+
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
+      - PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
+      - PROD_POSTGRES_DB=${PROD_POSTGRES_DB}
+      - PROD_POSTGRES_HOST=${PROD_POSTGRES_HOST}
+      - PROD_POSTGRES_PORT=${PROD_POSTGRES_PORT}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - prod_net
   
@@ -60,3 +91,6 @@ services:
       - zookeeper
     networks:
       - prod_net
+
+volumes:
+  postgres_data:

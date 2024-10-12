@@ -1788,12 +1788,14 @@ import EmailModal from '../components/EmailModal.vue';
 import FormInfoModal from '../components/FormInfoModal.vue';
 import ReviewModal from '../components/ReviewModal.vue';
 import FormSelector from '../components/FormSelector.vue';
+import TestForm from '../components/TestForm.vue';
 export default {
   components: {
     FormInfoModal,  // Регистрация компонента
     ReviewModal,
     EmailModal,
     FormSelector,
+    TestForm,
 
   },
   data() {
@@ -1803,6 +1805,7 @@ export default {
       selectedForms: [],
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
+      isTestFormOpen: false,
       currentField: '',   // Поле, для которого будет показана информация
       snapshotIndustryOptions: [
           { key: 'A', value: 'Accounting', label: 'Accounting' },
@@ -2289,6 +2292,42 @@ export default {
     // Проверяем, есть ли инвесторы для текущего шага
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
+
+  async saveField(fieldName, fieldValue) {
+  const formData = {
+    device_id: localStorage.getItem('device_id'), // Используем только device_id
+    [fieldName]: fieldValue, // Сохраняем только указанное поле
+  };
+
+  console.log('Сохранение поля формы:', { fieldName, fieldValue, formData });
+
+  try {
+    const response = await fetch('http://www.yocto.vc/api/form-response', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error('Ошибка при сохранении поля формы:', result.message);
+      throw new Error(result.message || 'Failed to save form field');
+    }
+
+    console.log('Поле формы успешно сохранено:', result);
+  } catch (error) {
+    console.error('Ошибка при сохранении поля формы:', error);
+  }
+},
+
+  openTestForm() {
+      this.isTestFormOpen = true;
+    },
+    closeTestForm() {
+      this.isTestFormOpen = false;
+    },
   
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
@@ -2430,13 +2469,169 @@ export default {
       const file = event.target.files[0];
       this.formData.pitch_deck_file = file;
     },
-    nextStep() {
+   async nextStep() {
   // Если мы на шаге 0, всегда переходим на шаг 1
   if (this.currentStep === 0) {
     this.currentStep = 1;
     this.scrollToCurrentStep();
     return;
   }
+
+// Сохраняем данные текущего шага перед переходом на следующий шаг
+if (this.currentStep === 2) {
+  // Step 2: Сохранение имени и фамилии
+  await this.saveField('first_name', this.formData.first_name);
+  await this.saveField('last_name', this.formData.last_name);
+} else if (this.currentStep === 3) {
+  // Step 3: Сохранение email
+  await this.saveField('email', this.formData.email);
+} else if (this.currentStep === 4) {
+  // Step 4: Сохранение номера телефона
+  await this.saveField('phone_number', this.formData.phone_number);
+} else if (this.currentStep === 5) {
+  // Step 5: Сохранение местоположения
+  await this.saveField('specific_location', this.formData.specific_location);
+  if (this.formData.specific_location === 'Other') {
+    await this.saveField('other_specific_location', this.formData.other_specific_location);
+  }
+} else if (this.currentStep === 6) {
+  // Step 6: Сохранение имени компании
+  await this.saveField('company_name', this.formData.company_name);
+} else if (this.currentStep === 7) {
+  // Step 7: Сохранение даты основания компании
+  await this.saveField('date_founded', this.formData.date_founded);
+} else if (this.currentStep === 8) {
+  // Step 8: Сохранение отношения к компании
+  await this.saveField('relationship', this.formData.relationship);
+  if (this.formData.relationship === 'Other') {
+    await this.saveField('other_relationship', this.formData.other_relationship);
+  }
+} else if (this.currentStep === 9) {
+  // Step 9: Полная занятость
+  await this.saveField('working_full_time', this.formData.working_full_time);
+  if (this.formData.working_full_time === 'Yes') {
+    await this.saveField('full_time_duration', this.formData.full_time_duration);
+  }
+} else if (this.currentStep === 10) {
+  // Step 10: Однострочное описание компании
+  await this.saveField('one_line_description', this.formData.one_line_description);
+} else if (this.currentStep === 11) {
+  // Step 11: Описание проблемы
+  await this.saveField('company_description', this.formData.company_description);
+} else if (this.currentStep === 12) {
+  // Step 12: Описание решения
+  await this.saveField('company_solution', this.formData.company_solution);
+} else if (this.currentStep === 13) {
+  await this.saveField('pitch_description', this.formData.pitch_description);
+} else if (this.currentStep === 14) {
+  await this.saveField('target_customer', this.formData.target_customer);
+} else if (this.currentStep === 15) {
+  this.prepareCustomerAcquisitionData();
+  await this.saveField('customer_acquisition', this.formData.customer_acquisition);
+  if (this.formData.customer_acquisition.includes('Other')) {
+    await this.saveField('other_customer_acquisition', this.formData.other_customer_acquisition);
+  }
+} else if (this.currentStep === 16) {
+  this.prepareProductData();
+  await this.saveField('product', this.formData.product);
+  if (this.formData.product.includes('Other')) {
+    await this.saveField('other_product', this.formData.other_product);
+  }
+} else if (this.currentStep === 17) {
+  await this.saveField('product_status', this.formData.product_status);
+} else if (this.currentStep === 18) {
+  await this.saveField('active_customers', this.formData.active_customers);
+} else if (this.currentStep === 19) {
+  await this.saveField('how_many_users', this.formData.how_many_users);
+} else if (this.currentStep === 20) {
+  this.prepareBusinessModelData();
+  await this.saveField('business_model', this.formData.business_model);
+  if (this.formData.business_model.includes('Other')) {
+    await this.saveField('other_business_model', this.formData.other_business_model);
+  }
+} else if (this.currentStep === 21) {
+  await this.saveField('customers_based', this.formData.customers_based);
+  if (this.formData.customers_based === 'Other') {
+    await this.saveField('other_customers_based', this.formData.other_customers_based);
+  }
+} else if (this.currentStep === 22) {
+  await this.saveField('vision', this.formData.vision);
+} else if (this.currentStep === 23) {
+  await this.saveField('company_website', this.formData.company_website);
+} else if (this.currentStep === 24) {
+  this.prepareIndustryData();
+  await this.saveField('industry', this.formData.industry);
+  if (this.formData.industry.includes('Other')) {
+    await this.saveField('other_industry', this.formData.other_industry);
+  }
+} else if (this.currentStep === 25) {
+  await this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
+} else if (this.currentStep === 26) {
+  await this.saveField('headquartered', this.formData.headquartered);
+  if (this.formData.headquartered === 'US') {
+    await this.saveField('is_delaware_corp', this.formData.is_delaware_corp);
+  }
+} else if (this.currentStep === 27) {
+  await this.saveField('legal_structure', this.formData.legal_structure);
+  if (this.formData.legal_structure === 'Other') {
+    await this.saveField('other_legal_structure', this.formData.other_legal_structure);
+  }
+} else if (this.currentStep === 28) {
+  await this.saveField('pitch_deck', this.formData.pitch_deck);
+} else if (this.currentStep === 29) {
+  await this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
+} else if (this.currentStep === 30) {
+  await this.saveField('raising_round', this.formData.raising_round);
+  if (this.formData.raising_round === 'Beyond Series A') {
+    await this.saveField('beyond_series_a_round', this.formData.beyond_series_a_round);
+  }
+} else if (this.currentStep === 31) {
+  await this.saveField('raising_amount', this.formData.raising_amount);
+} else if (this.currentStep === 32) {
+  await this.saveField('capital_to_raise', this.formData.capital_to_raise);
+} else if (this.currentStep === 33) {
+  await this.saveField('earning_revenue', this.formData.earning_revenue);
+} else if (this.currentStep === 34) {
+  await this.saveField('earning_amount', this.formData.earning_amount);
+} else if (this.currentStep === 35) {
+  await this.saveField('source_of_revenue', this.formData.source_of_revenue);
+  if (this.formData.source_of_revenue === 'Other') {
+    await this.saveField('other_source_of_revenue', this.formData.other_source_of_revenue);
+  }
+} else if (this.currentStep === 36) {
+  await this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
+} else if (this.currentStep === 37) {
+  await this.saveField('post_money_valuation', this.formData.post_money_valuation);
+} else if (this.currentStep === 38) {
+  await this.saveField('prev_experience', this.formData.prev_experience);
+} else if (this.currentStep === 39) {
+  await this.saveField('team_description', this.formData.team_description);
+} else if (this.currentStep === 40) {
+  await this.saveField('company_linkedin', this.formData.company_linkedin);
+} else if (this.currentStep === 41) {
+  await this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
+  await this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
+  await this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
+} else if (this.currentStep === 42) {
+  await this.saveField('cto_linkedin', this.formData.cto_linkedin);
+} else if (this.currentStep === 43) {
+  await this.saveField('linkedin_profiles', this.formData.linkedin_profiles);
+} else if (this.currentStep === 44) {
+  await this.saveField('founder_video_url', this.formData.founder_video_url);
+} else if (this.currentStep === 45) {
+  await this.saveField('founder_video_file', this.formData.founder_video_file);
+} else if (this.currentStep === 46) {
+  await this.saveField('pitching_live', this.formData.pitching_live);
+} else if (this.currentStep === 47) {
+  await this.saveField('share_submission', this.formData.share_submission);
+} else if (this.currentStep === 48) {
+  await this.saveField('investors_participating', this.formData.investors_participating);
+} else if (this.currentStep === 49) {
+  await this.saveField('want_us_to_know', this.formData.want_us_to_know);
+} else if (this.currentStep === 50) {
+  await this.saveField('value_of_team', this.formData.value_of_team);
+}
+
 
   // Иначе выполняем стандартную логику для пропуска шагов без вопросов
   let nextValidStep = this.currentStep + 1;
@@ -2457,6 +2652,46 @@ export default {
     this.showTitle = this.currentStep !== 1;
   }
 },
+
+    // Метод для загрузки данных формы из базы данных
+    async loadFormData(device_id) {
+  console.log('Загрузка данных формы для device_id:', device_id);
+
+  if (!device_id) {
+    console.error('device_id не передан в loadFormData.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://www.yocto.vc/api/form-response/device/${device_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.status === 404) {
+      console.log('Данные для device_id не найдены, начинаем с пустой формы.');
+      return;
+    }
+
+    if (!response.ok) {
+      console.error('Ошибка при загрузке данных формы:', response.status);
+      throw new Error('Failed to load form data');
+    }
+
+    const result = await response.json();
+
+    console.log('Данные формы, полученные с сервера:', result);
+
+    if (result) {
+      this.formData = { ...this.formData, ...result }; // Восстанавливаем данные формы
+    }
+  } catch (error) {
+    console.error('Ошибка при загрузке данных формы:', error);
+  }
+},
+
     goToEnd() {
     this.currentStep = 51; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
@@ -2516,7 +2751,7 @@ scrollToCurrentStep() {
         return;
       }
 
-      if (this.formData.business_model === 'Other' && !this.formData.other_business_model) {
+      if (this.formData.business_model.includes('Other') && !this.formData.other_business_model) {
         this.errorMessage = 'Please specify your business model.';
         this.successMessage = '';
         return;
@@ -2534,10 +2769,10 @@ scrollToCurrentStep() {
           formData.append(key, this.formData[key]);
         }
 
-        const response = await fetch('https://www.yocto.vc/api/send-forms', {
+        const response = await fetch('http://www.yocto.vc/api/send-forms', {
           method: 'POST',
           body: formData
-      });
+    });
 
         if (response.ok) {
           this.successMessage = 'Form submitted successfully!';
@@ -2558,6 +2793,27 @@ scrollToCurrentStep() {
     }
   },
   mounted() {
+  console.log('Компонент смонтирован. Проверка наличия device_id.');
+
+  let deviceId = localStorage.getItem('device_id');
+
+  if (!deviceId) {
+    // Если device_id не существует, генерируем новый уникальный UUID
+    deviceId = crypto.randomUUID(); // Генерация нового UUID
+    localStorage.setItem('device_id', deviceId);
+    console.log('Создан новый device_id:', deviceId);
+  } else {
+    console.log('Существующий device_id найден:', deviceId);
+  }
+
+   // Проверяем, что deviceId не равен null или undefined
+   if (deviceId) {
+    console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
+    this.loadFormData(deviceId);
+  } else {
+    console.error('device_id не найден после проверки localStorage.');
+  }
+  
     setTimeout(() => {
       this.showTitle = true;
     }, 500); // Задержка для плавного появления заголовка
