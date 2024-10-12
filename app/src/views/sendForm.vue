@@ -2667,6 +2667,11 @@ if (this.currentStep === 2) {
     async loadFormData(device_id) {
   console.log('Загрузка данных формы для device_id:', device_id);
 
+  if (!device_id) {
+    console.error('device_id не передан в loadFormData.');
+    return;
+  }
+
   try {
     const response = await fetch(`http://localhost:3002/form-response/${device_id}`, {
       method: 'GET',
@@ -2676,7 +2681,6 @@ if (this.currentStep === 2) {
     });
 
     if (response.status === 404) {
-      // Если сервер вернул 404, данных для данного device_id нет
       console.log('Данные для device_id не найдены, начинаем с пустой формы.');
       return;
     }
@@ -2685,6 +2689,7 @@ if (this.currentStep === 2) {
       console.error('Ошибка при загрузке данных формы:', response.status);
       throw new Error('Failed to load form data');
     }
+
     const result = await response.json();
 
     console.log('Данные формы, полученные с сервера:', result);
@@ -2811,9 +2816,13 @@ scrollToCurrentStep() {
     console.log('Существующий device_id найден:', deviceId);
   }
 
-  // Загружаем данные формы для текущего device_id
-  console.log('Текущий device_id:', deviceId);
-  this.loadFormData(deviceId);
+   // Проверяем, что deviceId не равен null или undefined
+   if (deviceId) {
+    console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
+    this.loadFormData(deviceId);
+  } else {
+    console.error('device_id не найден после проверки localStorage.');
+  }
   
     setTimeout(() => {
       this.showTitle = true;
