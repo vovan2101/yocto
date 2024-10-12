@@ -2798,14 +2798,22 @@ scrollToCurrentStep() {
     const newDeviceId = crypto.randomUUID(); // Генерация нового UUID
     localStorage.setItem('device_id', newDeviceId);
     console.log('Создан новый device_id:', newDeviceId);
+
+    // Проверяем, успешно ли сохранен device_id в localStorage
+    if (localStorage.getItem('device_id') === newDeviceId) {
+      console.log('device_id успешно сохранен:', newDeviceId);
+    } else {
+      console.error('Ошибка при сохранении device_id в localStorage');
+    }
   } else {
     console.log('Существующий device_id найден:', localStorage.getItem('device_id'));
   }
 
   // Загружаем данные формы для текущего device_id
   const currentDeviceId = localStorage.getItem('device_id');
+  console.log('Текущий device_id:', currentDeviceId);
   this.loadFormData(currentDeviceId);
-
+  
     setTimeout(() => {
       this.showTitle = true;
     }, 500); // Задержка для плавного появления заголовка
