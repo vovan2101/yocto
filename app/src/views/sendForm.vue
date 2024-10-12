@@ -1788,15 +1788,12 @@ import EmailModal from '../components/EmailModal.vue';
 import FormInfoModal from '../components/FormInfoModal.vue';
 import ReviewModal from '../components/ReviewModal.vue';
 import FormSelector from '../components/FormSelector.vue';
-import TestForm from '../components/TestForm.vue';
 export default {
   components: {
     FormInfoModal,  // Регистрация компонента
     ReviewModal,
     EmailModal,
     FormSelector,
-    TestForm,
-
   },
   data() {
     return {
@@ -1805,7 +1802,6 @@ export default {
       selectedForms: [],
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
-      isTestFormOpen: false,
       currentField: '',   // Поле, для которого будет показана информация
       snapshotIndustryOptions: [
           { key: 'A', value: 'Accounting', label: 'Accounting' },
@@ -2322,13 +2318,6 @@ export default {
   }
 },
 
-  openTestForm() {
-      this.isTestFormOpen = true;
-    },
-    closeTestForm() {
-      this.isTestFormOpen = false;
-    },
-  
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
     },
