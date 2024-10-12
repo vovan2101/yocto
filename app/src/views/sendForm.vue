@@ -2672,7 +2672,7 @@ if (this.currentStep === 2) {
   }
 
   try {
-    const response = await fetch(`http://test.yocto.vc/api/form-response/${device_id}`, {
+    const response = await fetch(`http://test.yocto.vc/api/form-response/device/${device_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
