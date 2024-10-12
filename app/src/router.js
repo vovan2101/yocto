@@ -14,11 +14,11 @@ Vue.use(Meta)
 export default new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '*',
-    //   name: 'ComingSoon',
-    //   component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
-    // },
+    {
+      path: '/test',
+      name: 'ComingSoon',
+      component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
+    },
     {
       name: 'Home',
       path: '/',
