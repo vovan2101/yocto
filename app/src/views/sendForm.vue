@@ -2674,6 +2674,13 @@ if (this.currentStep === 2) {
         'Content-Type': 'application/json',
       },
     });
+
+    if (response.status === 404) {
+      // Если сервер вернул 404, данных для данного device_id нет
+      console.log('Данные для device_id не найдены, начинаем с пустой формы.');
+      return;
+    }
+
     if (!response.ok) {
       console.error('Ошибка при загрузке данных формы:', response.status);
       throw new Error('Failed to load form data');
@@ -2793,27 +2800,20 @@ scrollToCurrentStep() {
   mounted() {
   console.log('Компонент смонтирован. Проверка наличия device_id.');
 
-  // Проверяем, существует ли device_id в localStorage
-  if (!localStorage.getItem('device_id')) {
-    // Если device_id не существует, генерируем новый уникальный UUID
-    const newDeviceId = crypto.randomUUID(); // Генерация нового UUID
-    localStorage.setItem('device_id', newDeviceId);
-    console.log('Создан новый device_id:', newDeviceId);
+  let deviceId = localStorage.getItem('device_id');
 
-    // Проверяем, успешно ли сохранен device_id в localStorage
-    if (localStorage.getItem('device_id') === newDeviceId) {
-      console.log('device_id успешно сохранен:', newDeviceId);
-    } else {
-      console.error('Ошибка при сохранении device_id в localStorage');
-    }
+  if (!deviceId) {
+    // Если device_id не существует, генерируем новый уникальный UUID
+    deviceId = crypto.randomUUID(); // Генерация нового UUID
+    localStorage.setItem('device_id', deviceId);
+    console.log('Создан новый device_id:', deviceId);
   } else {
-    console.log('Существующий device_id найден:', localStorage.getItem('device_id'));
+    console.log('Существующий device_id найден:', deviceId);
   }
 
   // Загружаем данные формы для текущего device_id
-  const currentDeviceId = localStorage.getItem('device_id');
-  console.log('Текущий device_id:', currentDeviceId);
-  this.loadFormData(currentDeviceId);
+  console.log('Текущий device_id:', deviceId);
+  this.loadFormData(deviceId);
   
     setTimeout(() => {
       this.showTitle = true;
