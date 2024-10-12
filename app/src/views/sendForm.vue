@@ -2761,7 +2761,7 @@ scrollToCurrentStep() {
         return;
       }
 
-      if (this.formData.business_model === 'Other' && !this.formData.other_business_model) {
+      if (this.formData.business_model.includes('Other') && !this.formData.other_business_model) {
         this.errorMessage = 'Please specify your business model.';
         this.successMessage = '';
         return;
