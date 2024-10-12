@@ -11,7 +11,7 @@ module.exports = new EntitySchema({
     },
     device_id: {
       type: 'text',
-      nullable: true,
+      nullable: false,
       unique: true,
     },
     first_name: {
