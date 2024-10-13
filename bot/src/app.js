@@ -52,21 +52,27 @@ app.post('/send-email', (req, res) => {
   const { email, formData } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.GMAIL_EMAIL,
-      pass: process.env.GMAIL_APP_PASSWORD
-    }
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
   });
 
   const formattedFormData = formatFormData(formData);
 
   const mailOptions = {
-    from: process.env.GMAIL_EMAIL,
+    from: process.env.FROM_GMAIL_EMAIL,
     to: [email, 'pete@hundy.com'], // Отправляем на оба адреса
     subject: 'Your Form Submission',
     text: `Here are your form answers:\n\n${formattedFormData}`
   };
+
+  console.log('GMAIL_EMAIL:', process.env.GMAIL_EMAIL);
+  console.log('GMAIL_APP_PASSWORD is set:', !!process.env.GMAIL_APP_PASSWORD);
+
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

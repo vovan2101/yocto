@@ -22,12 +22,17 @@ services:
       - "3002:3002"
     networks:
       - dev_net
+    env_file:
+      - ./.env
     environment:
       - LOCAL_POSTGRES_USER=${LOCAL_POSTGRES_USER}
       - LOCAL_POSTGRES_PASSWORD=${LOCAL_POSTGRES_PASSWORD}
       - LOCAL_POSTGRES_DB=${LOCAL_POSTGRES_DB}
       - LOCAL_POSTGRES_HOST=${LOCAL_POSTGRES_HOST}
       - LOCAL_POSTGRES_PORT=${LOCAL_POSTGRES_PORT}
+      - FROM_GMAIL_EMAIL=${FROM_GMAIL_EMAIL}
+      - GMAIL_EMAIL=${GMAIL_EMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     depends_on:
       - postgres
       
@@ -39,6 +44,8 @@ services:
       - "3001:80"
     networks:
       - dev_net
+    env_file:
+      - ./.env
     environment:
       - LOCAL_POSTGRES_USER=${LOCAL_POSTGRES_USER}
       - LOCAL_POSTGRES_PASSWORD=${LOCAL_POSTGRES_PASSWORD}
