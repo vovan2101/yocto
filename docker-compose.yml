@@ -35,6 +35,9 @@ services:
       - PROD_POSTGRES_DB=${PROD_POSTGRES_DB}
       - PROD_POSTGRES_HOST=${PROD_POSTGRES_HOST}
       - PROD_POSTGRES_PORT=${PROD_POSTGRES_PORT}
+      - FROM_GMAIL_EMAIL=${FROM_GMAIL_EMAIL}
+      - GMAIL_EMAIL=${GMAIL_EMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     networks:
       - prod_net
   
@@ -42,12 +45,17 @@ services:
     image: vovan2101/yocto-app:prod  # Для prod-инстанса, используйте :stage на stage-инстансе
     depends_on:
       - postgres
+    env_file:
+      - ./.env
     environment:
       - PROD_POSTGRES_USER=${PROD_POSTGRES_USER}
       - PROD_POSTGRES_PASSWORD=${PROD_POSTGRES_PASSWORD}
       - PROD_POSTGRES_DB=${PROD_POSTGRES_DB}
       - PROD_POSTGRES_HOST=${PROD_POSTGRES_HOST}
       - PROD_POSTGRES_PORT=${PROD_POSTGRES_PORT}
+      - FROM_GMAIL_EMAIL=${FROM_GMAIL_EMAIL}
+      - GMAIL_EMAIL=${GMAIL_EMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     networks:
       - prod_net
 
