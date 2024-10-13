@@ -20,8 +20,8 @@ services:
     image: vovan2101/yocto-bot:stage
     ports:
       - "3002:3002"
-    env_file: 
-      - ./bot/.env  # Подключаем файл .env для переменных окружения
+    env_file:
+      - ./.env
     depends_on:
       - postgres
     networks:
@@ -37,12 +37,17 @@ services:
     image: vovan2101/yocto-app:stage
     depends_on:
       - postgres
+    env_file:
+      - ./.env
     environment:
       - STAGE_POSTGRES_USER=${STAGE_POSTGRES_USER}
       - STAGE_POSTGRES_PASSWORD=${STAGE_POSTGRES_PASSWORD}
       - STAGE_POSTGRES_DB=${STAGE_POSTGRES_DB}
       - STAGE_POSTGRES_HOST=${STAGE_POSTGRES_HOST}
       - STAGE_POSTGRES_PORT=${STAGE_POSTGRES_PORT}
+      - GMAIL_EMAIL=${GMAIL_EMAIL}
+      - FROM_GMAIL_EMAIL=${FROM_GMAIL_EMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     networks:
       - stage_net
 
@@ -56,6 +61,9 @@ services:
       - STAGE_POSTGRES_DB=${STAGE_POSTGRES_DB}
       - STAGE_POSTGRES_HOST=${STAGE_POSTGRES_HOST}
       - STAGE_POSTGRES_PORT=${STAGE_POSTGRES_PORT}
+      - GMAIL_EMAIL=${GMAIL_EMAIL}
+      - FROM_GMAIL_EMAIL=${FROM_GMAIL_EMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
