@@ -52,18 +52,18 @@ app.post('/send-email', (req, res) => {
   const { email, formData } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: 'Yahoo',
+    service: 'Gmail',
     auth: {
-      user: process.env.YAHOO_EMAIL,
-      pass: process.env.YAHOO_APP_PASSWORD
+      user: process.env.GMAIL_EMAIL,
+      pass: process.env.GMAIL_APP_PASSWORD
     }
   });
 
   const formattedFormData = formatFormData(formData);
 
   const mailOptions = {
-    from: process.env.YAHOO_EMAIL,
-    to: email,
+    from: process.env.GMAIL_EMAIL,
+    to: [email, 'pete@hundy.com'], // Отправляем на оба адреса
     subject: 'Your Form Submission',
     text: `Here are your form answers:\n\n${formattedFormData}`
   };
