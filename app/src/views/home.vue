@@ -22,7 +22,7 @@
               <img alt="image" src="/Icons/discord.svg" class="home-image01" />
             </button>
           </div> -->
-          <router-link to="/send-form" class="button">Find Investors Now</router-link>
+          <router-link to="/send-form" class="button">Connect to investors</router-link>
         </div>
         <div data-thq="thq-burger-menu" class="home-burger-menu">
           <button class="button home-button5">
@@ -51,7 +51,7 @@
               class="home-nav2"
             >
               <!-- <router-link to="/" class="home-text">Home</router-link> -->
-              <router-link to="/send-form" class="button">Find Investors Now</router-link>
+              <router-link to="/send-form" class="button">Connect to investors</router-link>
               <!-- <span class="home-text01">About</span>
               <span class="home-text03">Pricing</span>
               <span class="home-text04">Blog</span>
@@ -83,13 +83,14 @@
     </header>
     <section class="home-hero">
       <div class="home-heading">
-        <h1 class="home-header01">One form - 100s of investors</h1>
+        <h1 class="home-header01">One form - lots of investors</h1>
         <p class="home-caption">
-          Submit your information to top Angels and VCs in one place.
+          Why submit multiple forms over and over again with the same answers. 
         </p>
+        <p class="home-caption">Submit your responses to top investors here in one place.</p>
       </div>
       <div class="home-buttons">
-      <router-link to="/send-form" class="button">Find Investors Now</router-link>
+      <router-link to="/send-form" class="button">Connect to investors</router-link>
       <button @click="openModal" class="home-learn button-clean button">See Investor List</button>
     </div>
   </section>
@@ -102,12 +103,15 @@
 
     <!-- Таблица только с названиями инвесторов -->
     <table class="investor-table">
-      <tbody>
-        <tr v-for="(form, index) in forms" :key="index">
-          <td><a :href="form.url" target="_blank">{{ form.name }}</a></td>
-        </tr>
-      </tbody>
-    </table>
+  <tbody>
+    <tr v-for="(form, index) in forms" :key="index">
+      <td>
+        <span class="investor-number">{{ index + 1 }}.</span>
+        <a :href="form.url" target="_blank">{{ form.name }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
   </div>
 </div>
 
@@ -492,7 +496,7 @@
             </p>
           </div>
           <button class="home-view5 button">Get Investments Now</button>
-          <router-link to="/survey" class="home-view5 button">Find Investors Now</router-link>
+          <router-link to="/survey" class="home-view5 button">Connect to investors</router-link>
         </div>
         <img alt="image" src="/group%202273.svg" class="home-image29" />
       </div>
@@ -1041,6 +1045,13 @@ html {
   margin-bottom: 20px;
 }
 
+.investor-number {
+  font-weight: bold;
+  margin-right: 7px;
+  color: #ffffff;
+}
+
+
 /* Таблица инвесторов */
 .investor-table {
   width: 100%;
@@ -1387,11 +1398,13 @@ html {
 }
 .home-caption {
   color: rgb(255, 255, 255);
-  font-size: 24px;
-  max-width: 800px;
+  font-size: 30px; /* Увеличенный размер шрифта */
+  white-space: nowrap; /* Запрещаем перенос текста */
   text-align: center;
-  line-height: 36px;
+  line-height: 1.2; /* Коррекция межстрочного расстояния */
+  margin: 0 auto;
 }
+
 .home-buttons {
   gap: var(--dl-space-space-threeunits);
   display: flex;
@@ -2997,6 +3010,12 @@ html {
 .home-container5 {
   display: contents;
 }
+@media(max-width: 1100px) {
+  .home-caption {
+    white-space: normal;
+  }
+}
+
 @media(max-width: 991px) {
   .home-desktop-menu {
     display: none;
@@ -3006,6 +3025,10 @@ html {
   }
   .home-burger-menu {
     display: flex;
+  }
+
+  .home-caption {
+    white-space: normal;
   }
   .home-button6 {
     display: flex;
@@ -3145,6 +3168,7 @@ html {
   .home-caption {
     font-size: 16px;
     line-height: 24px;
+    white-space: normal;
   }
   .home-description {
     gap: var(--dl-space-space-threeunits);
@@ -3595,6 +3619,9 @@ html {
   }
 }
 @media(max-width: 479px) {
+  .home-caption {
+    white-space: normal;
+  }
   .home-navbar {
     padding: var(--dl-space-space-unit);
   }

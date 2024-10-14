@@ -1,11 +1,18 @@
 <template>
   <div class="form-selector">
-    <h2 class="modal-header">Select the forms you'd like to fill out</h2>
-    <p>Please select one or more forms:</p>
+    <h2 class="modal-header">Select the investors you'd like to respond to</h2>
 
-    <div class="select-clear-buttons">
-      <p class="select-all-text" @click="selectAllForms">Select all investors</p>
-      <p class="clear-text" @click="clearAllForms">Clear selected</p>
+       <!-- Отображение общего времени и количества вопросов -->
+       <div class="total-info">
+      <p><strong>Question Count:</strong> {{ totalQuestions }} questions</p>
+      <p><strong>Time to Complete:</strong> {{ totalEstimatedTime }} minutes</p>
+    </div>
+
+    <div class="table-header-container">
+      <div class="select-clear-buttons">
+        <p class="select-all-text" @click="selectAllForms">Select all investors</p>
+        <p class="clear-text" @click="clearAllForms">Clear selected</p>
+      </div>
     </div>
 
     <!-- Таблица с инвесторами -->
@@ -40,18 +47,13 @@
     </div>
 
     <!-- Отображение общего времени и количества вопросов -->
-    <div class="total-info">
-      <p><strong>Question Count:</strong> {{ totalQuestions }} questions</p>
-      <p><strong>Time to Complete:</strong> {{ totalEstimatedTime }} minutes</p>
       <div class="continue-button">
       <button class="button" @click="submitSelection">Continue</button>
       <p v-if="showWarning" class="warning-text">Please select at least one investor.</p>
     </div>
-    </div>
 
   </div>
 </template>
-  
   
   <script>
   export default {
@@ -275,14 +277,29 @@ html, body {
   overflow-y: auto; /* Включаем вертикальную прокрутку, если контент превышает высоту экрана */
 }
 
-.select-clear-buttons {
+.table-header-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between; /* Центрируем кнопки */
+  justify-content: flex-start; /* Выравнивание по левому краю */
+  margin-bottom: 10px; /* Отступ между кнопками и таблицей */
 }
 
+
+.select-clear-buttons {
+  display: flex;
+  gap: 20px; /* Промежуток между "Select all" и "Clear" */
+}
 .total {
     margin-top: 5px;
+}
+
+.continue-button {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.button {
+  font-size: 15px;
 }
 
 /* Header styling */
@@ -296,24 +313,27 @@ html, body {
 }
 
 .table-container {
-  max-height: 70vh; /* Ограничиваем высоту контейнера до 70% высоты видимой области экрана */
-  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+  flex-grow: 1; /* Заставляем таблицу расти и занимать доступное пространство */
+  overflow-y: auto; /* Прокрутка будет включена, только если таблица не помещается */
+  max-height: calc(100vh - 250px); /* Подстраиваем высоту под экран */
+  width: 100%;
 }
 
 /* Investor Table */
 .investor-table {
-  width: 100%;
+  width: 100%; /* Таблица будет занимать всю доступную ширину */
   border-collapse: collapse;
   margin-top: 10px;
-  display: table; /* Устанавливаем обычное поведение таблицы */
+  display: table;
 }
 
 .investor-table th,
 .investor-table td {
   border: 1px solid #444;
-  padding: 10px;
+  padding: 5px;
   text-align: left;
   color: #ddd;
+  font-size: 14px;
 }
 
 .investor-table th {
@@ -338,11 +358,10 @@ html, body {
 
 /* Total info section */
 .total-info {
-  position: sticky;
-  bottom: 0;
   background-color: #282828;
   text-align: center;
-  padding-bottom: 10px;
+  padding: 2px 0; /* Добавляем отступы сверху и снизу */
+  color: #fff;
 }
 
 .total-info p {
@@ -372,8 +391,8 @@ html, body {
 
 .custom-checkbox {
   position: relative;
-  height: 30px; /* Увеличиваем размер чекбокса */
-  width: 30px;  /* Увеличиваем размер чекбокса */
+  height: 25px; /* Увеличиваем размер чекбокса */
+  width: 25px;  /* Увеличиваем размер чекбокса */
   background-color: #eee;
   border: 2px solid #ccc;
   transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -389,10 +408,10 @@ html, body {
   position: absolute;
   display: none;
   left: 50%;
-  top: 50%;
+  top: 45%;
   transform: translate(-50%, -50%) rotate(45deg); /* Центрируем галочку */
-  width: 10px;
-  height: 18px;
+  width: 8px;
+  height: 14px;
   border: solid #fff; /* Белая галочка */
   border-width: 0 3px 3px 0;
 }
@@ -409,14 +428,14 @@ html, body {
 
 .form-selector {
   background-color: #282828;
-  padding: 20px;
+  padding: 15px;
   padding-bottom: 0px;
   border: 2px solid #888;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  overflow-y: auto;
+  overflow-y: hidden;
   width: 70vw; /* Устанавливаем ширину в 90% от видимой области экрана */
-  max-height: 80vh;
+  max-height: 90vh;
   margin: 0 auto; /* Центрируем форму на экране */
   display: flex;
   flex-direction: column;
@@ -432,7 +451,7 @@ h2 {
 
 p {
   color: #e0e0e0;
-  font-size: 1.6em;
+  font-size: 1.3em;
   margin: 0 auto; /* Убираем верхний и нижний отступы и центрируем элемент по горизонтали */
   line-height: 1.5;
   text-align: center; /* Центрируем текст внутри <p> */
@@ -532,7 +551,6 @@ p {
   text-decoration: underline;
   cursor: pointer;
   font-size: 1.2em;
-  margin-bottom: 10px;
 }
 
 .clear-text {
@@ -540,8 +558,6 @@ p {
   text-decoration: underline;
   cursor: pointer;
   font-size: 1.2em;
-  margin-bottom: 10px;
-  margin-left: 20px;
 }
 
 .select-all-text:hover, .clear-text:hover {
@@ -557,7 +573,7 @@ p.warning-text {
 @media (max-width: 1440px) {
 
 p {
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
   h2 {
@@ -575,16 +591,37 @@ p {
   .select-all-text, .clear-text {
     font-size: 1.1em;
   }
+
+  .investor-table th,
+.investor-table td {
+  padding: 4px;
+}
+
+.custom-checkbox:after {
+  left: 50%;
+  top: 43%;
+  width: 8px;
+  height: 12px;
+  border-width: 0 2px 2px 0;
+}
+
+.custom-checkbox {
+  position: relative;
+  height: 20px; /* Увеличиваем размер чекбокса */
+  width: 20px;  /* Увеличиваем размер чекбокса */
+  border: 1px solid #ccc;
+}
+
 }
 
 /* @media (max-width: 1200px) */
 @media (max-width: 1200px) {
   .form-selector {
-    width: 85vw; /* Сужаем форму для меньших экранов */
+    width: 70vw; /* Сужаем форму для меньших экранов */
   }
 
 p {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
   h2 {
@@ -602,18 +639,62 @@ p {
   .select-all-text, .clear-text {
     font-size: 1em;
   }
+  .button {
+    font-size: 11px;
+  }
+
+  .continue-button {
+    margin-top: 10px; /* Уменьшаем отступы для кнопки */
+    margin-bottom: 10px; /* Уменьшаем отступы для кнопки */
+  }
+
+  .modal-header {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.investor-table th,
+  .investor-table td {
+    padding: 4px; /* Еще больше уменьшаем внутренние отступы */
+    font-size: 15px; /* Еще меньше размер шрифта */
+  }
+
 
 }
 
 /* @media (max-width: 1024px) */
 @media (max-width: 1024px) {
   .form-selector {
-    width: 85vw; /* Сужаем форму для меньших экранов */
+    width: 90vw; /* Сужаем форму для меньших экранов */
+    padding: 8px;
   }
+
+  .button {
+  font-size: 10px;
+}
+
+.custom-checkbox {
+  height: 15px; /* Увеличиваем размер чекбокса */
+  width: 15px;  /* Увеличиваем размер чекбокса */
+  border: 1px solid #ccc;
+}
+
+.custom-checkbox:after {
+  left: 50%;
+  top: 43%;
+  width: 5px;
+  height: 9px;
+  border-width: 0 2px 2px 0;
+}
+
+.modal-header {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
 
 
 p {
-  font-size: 1.2em;
+  font-size: 1.0em;
 }
 
   h2 {
@@ -637,37 +718,86 @@ p {
     font-size: 0.9em;
   }
 
+  .investor-table th,
+  .investor-table td {
+    padding: 4px; /* Еще больше уменьшаем внутренние отступы */
+    font-size: 15px; /* Еще меньше размер шрифта */
+  }
+
+  .continue-button {
+    margin-top: 9px; /* Уменьшаем отступы для кнопки */
+    margin-bottom: 9px; /* Уменьшаем отступы для кнопки */
+  }
+  .investor-table th,
+  .investor-table td {
+    padding: 4px; /* Еще больше сокращаем отступы */
+    font-size: 14px;
+  }
+  
 }
 
 /* @media (max-width: 768px) */
 @media (max-width: 768px) {
   .form-selector {
     width: 90vw;
-    padding: 15px;
-    box-sizing: border-box; /* Включаем отступы в общую высоту */
+    padding: 5px;
+  }
+
+  .modal-header {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.custom-checkbox {
+  height: 15px; /* Увеличиваем размер чекбокса */
+  width: 15px;  /* Увеличиваем размер чекбокса */
+}
+
+.custom-checkbox:after {
+  width: 4px;
+  height: 8px;
+  border-width: 0 2px 2px 0;
+}
+
+.table-header-container {
+  margin-bottom: 0px; /* Отступ между кнопками и таблицей */
+}
+
+
+  .investor-table td {
+    padding: 5px; /* Еще больше уменьшаем внутренние отступы */
+    font-size: 15px;
+  }
+
+  .investor-table th {
+    padding: 5px; /* Еще больше уменьшаем внутренние отступы */
+    font-size: 15px;
   }
 
   .table-container {
-    max-height: 50vh; /* Уменьшаем высоту таблицы до 50% на меньших экранах */
-    overflow-y: auto;
+    max-height: 45vh; /* Уменьшаем высоту таблицы до 50% на меньших экранах */
+  }
+
+  .continue-button {
+    margin-top: 8px; /* Уменьшаем отступы для кнопки */
+    margin-bottom: 8px; /* Уменьшаем отступы для кнопки */
   }
 
 /* Total info section */
 .total-info {
   position: sticky;
-  bottom: 0;
   background-color: #282828;
   text-align: center;
-  padding-bottom: 10px;
+  padding: 2px 0; /* Добавляем отступы сверху и снизу */
   margin-bottom: 0; /* Убираем любые внешние отступы */
 }
 
 p.warning-text {
-  font-size: 1.3em;
+  font-size: 0.9em;
 }
 
 p {
-  font-size: 1.2em;
+  font-size: 0.8em;
 }
 
   h2 {
@@ -687,7 +817,11 @@ p {
   }
 
   .select-all-text, .clear-text {
-    font-size: 1em;
+    font-size: 0.8em;
+  }
+  .button {
+    padding: 12px;
+    font-size: 12px;
   }
 
 
@@ -698,22 +832,38 @@ p {
 @media (max-width: 480px) {
   .form-selector {
     width: 90vw; /* На самых маленьких экранах делаем форму на всю ширину */
-    padding: 10px; /* Уменьшаем внутренние отступы */
+    padding: 2px; /* Уменьшаем внутренние отступы */
+  }
+
+  .continue-button {
+    margin-top: 10px; /* Уменьшаем отступы для кнопки */
+    margin-bottom: 10px; /* Уменьшаем отступы для кнопки */
   }
 
   .table-container {
-    max-height: 50vh; /* Уменьшаем высоту таблицы до 50% на самых маленьких экранах */
+    max-height: 80vh; /* Уменьшаем высоту таблицы до 50% на самых маленьких экранах */
     overflow-y: auto;
     overflow-x: hidden;
   }
 
 p {
-  font-size: 1.0em;
+  font-size: 0.8em;
 }
 
 .modal-header {
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-size: 16px;
+  margin-bottom: 1px;
+}
+
+.custom-checkbox {
+  height: 19px; /* Увеличиваем размер чекбокса */
+  width: 19px;  /* Увеличиваем размер чекбокса */
+}
+
+.custom-checkbox:after {
+  width: 7px;
+  height: 9px;
+  border-width: 0 2px 2px 0;
 }
 
   h2 {
@@ -733,24 +883,24 @@ p {
   }
 
   .select-all-text, .clear-text {
-    font-size: 1em;
+    font-size: 0.7em;
   }
 
   .investor-table {
     width: 100%; /* Заставляем таблицу занимать всю ширину контейнера */
     table-layout: fixed; /* Фиксированное расположение таблицы для равномерного распределения столбцов */
-    font-size: 14px;
   }
 
 
 .investor-table th,
 .investor-table td {
   padding: 2px;
-  text-align: center;
+  font-size: 14px;
 }
 
 .button {
-  font-size: 13px;
+  font-size: 10px;
+  padding: 8;
 }
 
 p.warning-text {
