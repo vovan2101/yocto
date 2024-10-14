@@ -2,7 +2,7 @@
     <div class="coming-soon">
       <div class="content">
         <h1>Coming Soon</h1>
-        <p>Get ready to embark on a retro adventure!</p>
+        <p>When one septillionth will do just fine!</p>
       </div>
     </div>
   </template>

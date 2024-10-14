@@ -2,7 +2,7 @@
     <div v-if="isOpen" class="modal" @click="closeModal">
       <div class="modal-content" @click.stop>
         <span class="close" @click="closeModal">&times;</span>
-        <h2 class="modal-header">Send Form to My Email</h2>
+        <h2 class="modal-header">Send to My Email</h2>
         <p>If you do not receive the email, please check your spam folder.</p>
   
         <!-- Поле для ввода email -->
