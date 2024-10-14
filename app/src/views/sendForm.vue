@@ -10,11 +10,11 @@
           <div class="header-container">
             <h2>Welcome to Yocto!</h2>
           </div>
-          <p>- We've preconfigured the applications for 10 top pre-seed investors (more coming soon).</p>
-          <p>- Please select the investors you would like to submit an application to based on the time you have.</p>
-          <p>- Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
-          <p>- Certain investors have unique questions and/or may request additional information.</p>
-          <p>- At the end, you can review and edit your answers before submitting.</p>
+          <p>We've preconfigured the applications for 10 top pre-seed & seed investors (more coming soon).</p>
+          <p>Please select the investors you would like to submit an application to based on the time you have.</p>
+          <p>Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
+          <p>Certain investors have unique questions and/or may request additional information.</p>
+          <p>At the end, you can review and edit your answers before submitting.</p>
           <p><strong>Let’s begin!</strong></p>
           <div class="button-container">
             <button class="button" @click="nextStep">Get Started</button>
@@ -1709,13 +1709,13 @@ required
 
   <div class="button-container">
     <!-- Кнопка для отправки формы -->
-    <button class="pink-button" @click="submitForm">Submit The Form</button>
+    <button class="pink-button" @click="submitForm">Submit</button>
     
     <!-- Кнопка для открытия модального окна с проверкой ответов -->
     <button class="link-scroll" @click="openReviewModal">Review My Answers</button>
     
     <!-- Кнопка для отправки формы на email -->
-    <button class="link-scroll" @click="openEmailModal">Send Form to My Email</button>
+    <button class="link-scroll" @click="openEmailModal">Send to My Email</button>
         <!-- Кнопка для отображения тестовой формы -->
       <button class="link-scroll" @click="openTestForm">View Yocto.vc Form</button>
 
@@ -1748,7 +1748,7 @@ required
       <button 
     class="nav-button" 
     @click="goToFirstStep" 
-    v-if="currentStep >= 2">
+    v-if="currentStep >= 1">
     Back to Start
   </button>
 
@@ -2245,6 +2245,7 @@ export default {
 
   hasQuestionsForStep(stepNumber) {
     const stepInvestors = {
+      0: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
       1: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
       2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
       3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
@@ -2357,10 +2358,10 @@ export default {
     }
   },
   goToFirstStep() {
-  let firstStep = 1; // Начнем с шага 2, так как 1-й шаг — это выбор форм
+  let firstStep = 0;
   
   // Проходим по шагам, начиная со 2-го, чтобы найти первый валидный шаг
-  for (let step = 1; step <= 51; step++) {
+  for (let step = 0; step <= 51; step++) {
     if (this.hasQuestionsForStep(step)) {
       firstStep = step; // Как только найден шаг с вопросами, назначаем его как первый
       break; // Прерываем цикл, так как нашли нужный шаг
@@ -3660,8 +3661,8 @@ ul {
 }
 
 .home-logo {
-  font-size: 40px;
-  top: 20px;
+  font-size: 30px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
@@ -3779,8 +3780,8 @@ ul {
   }
 
   .home-logo {
-    font-size: 35px;
-    top: 20px;
+    font-size: 30px;
+    top: 6px;
     left: 50%; /* Сместить логотип на середину экрана */
     transform: translateX(-50%); /* Смещение на половину ширины логотипа, чтобы он был по центру */
     position: absolute; /* Убедитесь, что логотип всё ещё в абсолютном позиционировании */
