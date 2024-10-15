@@ -226,15 +226,9 @@
   ],
   linkedin_profiles: [
     { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-    { name: '2048 Ventures', status: 'Optional', url: 'https://www.2048.vc/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
-    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
   ],
   founder_video_url: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
     { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
   ],
   team_video_upload: [
