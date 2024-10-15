@@ -7,16 +7,16 @@
 
           <!-- Step 0: Introduction -->
           <div v-if="currentStep === 0" class="intro-container">
-          <div class="header-container">
+          <div class="header-container-welcome-and-congrats">
             <h2>Welcome to Yocto!</h2>
           </div>
-          <p>We've preconfigured the applications for 10 top pre-seed & seed investors (more coming soon).</p>
-          <p>Please select the investors you would like to submit an application to based on the time you have.</p>
-          <p>Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
-          <p>Certain investors have unique questions and/or may request additional information.</p>
-          <p>At the end, you can review and edit your answers before submitting.</p>
-          <p><strong>Let’s begin!</strong></p>
-          <div class="button-container">
+          <p class="welcome-and-congrats">We've preconfigured the applications for 10 top pre-seed & seed investors (more coming soon).</p>
+          <p class="welcome-and-congrats">Please select the investors you would like to submit an application to based on the time you have.</p>
+          <p class="welcome-and-congrats">Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
+          <p class="welcome-and-congrats">Certain investors have unique questions and/or may request additional information.</p>
+          <p class="welcome-and-congrats">At the end, you can review and edit your answers before submitting.</p>
+          <p class="welcome-and-congrats"><strong>Let’s begin!</strong></p>
+          <div class="button-container-welcome-and-congrats">
             <button class="button" @click="nextStep">Get Started</button>
             <p class="enter-text">press Enter ↵</p>
           </div>
@@ -117,7 +117,7 @@
 <div class="header-container">
   <h2>What's the name of your company?</h2>
 </div>
-<p>No corporate suffixes needed - EG. Inc, LLC, etc.</p>
+<p>No corporate suffixes needed - For example, Inc, LLC, etc.</p>
 <input class="input-field" placeholder="Type your answer here..." v-model="formData.company_name" required />
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
@@ -131,7 +131,7 @@
 <div v-if="currentStep === 7 && hasQuestionsForStep(7)" id="date_founded">
 
 <div class="header-container">
-  <h2>Date Founded.</h2>
+  <h2>Date Founded?</h2>
 </div>
 <p>Approximately, when did you start the company?</p>
 <input class="input-field" type="date" v-model="formData.date_founded" />
@@ -309,7 +309,7 @@
           <div v-if="currentStep === 13 && hasQuestionsForStep(13)" id="pitch_description">
 
             <div class="header-container">
-              <h2>In 2-3 sentences, what is the elevator pitch of your company?</h2>
+              <h2>In no more than 4 sentences, what is the elevator pitch of your company?</h2>
             </div>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.pitch_description" required></textarea>
             <div class="button-container">
@@ -390,7 +390,7 @@
 </div>
 <p>Please select the options that apply to your business the most - the fewer the better!</p>
 <div class="choices">
-  Make between 1 and 2 choices
+  You can choose up to 2
 </div>
 <div class="scrollable-content">
 <div class="checkbox-group">
@@ -793,7 +793,7 @@ required
   <h2>What is your big vision for the company?</h2>
 </div>
 <p>In 5-7 years, what is the world dominating vision for your company? </p>
-<input class="input-field" type="input-field" placeholder="Type your answer here..." v-model="formData.vision" />
+<textarea class="input-field" type="input-field" placeholder="Type your answer here..." v-model="formData.vision"></textarea>
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
@@ -824,7 +824,7 @@ required
             </div>
             <p>Please select the options that apply to your business the most - the fewer the better!</p>
             <div class="choices">
-              Make between 1 and 3 choices
+              You can choose up to 3
             </div>
             <div class="scrollable-content">
             <div class="checkbox-group">
@@ -864,6 +864,9 @@ required
 
             <div class="header-container">
               <h2>What industry are you in (Liberty Ventures)?</h2>
+            </div>
+            <div class="choices">
+              You may only choose 1
             </div>
             <div class="scrollable-content">
             <div class="radio-group">
@@ -985,7 +988,7 @@ required
 </div>
 
 <div v-if="formData.headquartered === 'US'" class="additional-question">
-  <h3>Are you a Delaware C Corp?</h3>
+  <h3>Are you a C-Corp?</h3>
   <div class="radio-group">
     <label class="custom-radio">
       <input type="radio" value="Yes" v-model="formData.is_delaware_corp" />
@@ -1092,7 +1095,7 @@ required
           <div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="pitch_deck">
 
             <div class="header-container">
-              <h2>If you have a pitch deck that you would like to share as a link, please share it here!</h2>
+              <h2 class="long-header">If you have a pitch deck that you would like to share as a link, please share it here!</h2>
             </div>
             <input class="input-field" type="url" placeholder="https://pitch.com" v-model="formData.pitch_deck" required />
             <div class="button-container">
@@ -1108,7 +1111,7 @@ required
           <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="pitch_deck_file">
 
             <div class="header-container">
-              <h2>If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
+              <h2 class="long-header">If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
             </div>
             <div class="file-upload-container">
               <label class="custom-file-upload">
@@ -1239,7 +1242,7 @@ required
       <div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="capital_to_raise">
 
 <div class="header-container">
-  <h2>What is the amount of money you are looking to raise in your current round? (USD)</h2>
+  <h2 class="long-header">What is the amount of money you are looking to raise in your current round? (USD)</h2>
 </div>
 <p>Please provide the total round size.</p>
 <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.capital_to_raise" />
@@ -1286,7 +1289,7 @@ required
 <div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_amount">
 
   <div class="header-container">
-    <h2>Approximately how much revenue are you earning per month (in USD)?</h2>
+    <h2 class="long-header">Approximately how much revenue are you earning per month (in USD)?</h2>
   </div>
   <div class="radio-group">
     <label class="custom-radio">
@@ -1407,7 +1410,7 @@ required
 <div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="post_money_valuation">
 
     <div class="header-container">
-      <h2>What is your post-money valuation you are looking for in your current round? (in USD)</h2>
+      <h2 class="long-header">What is your post-money valuation you are looking for in your current round? (in USD)</h2>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.post_money_valuation" />
     <div class="button-container">
@@ -1698,16 +1701,15 @@ required
 <!-- Step 54: Final Step -->
 <div v-if="currentStep === 51 && hasQuestionsForStep(51)" id="final_step">
   <div class="header-container">
-    <h2>Congratulations! All of the information requested has been completed.</h2>
+    <h2 class="header-container-welcome-and-congrats">Congratulations! All of the information requested has been completed.</h2>
   </div>
-  <p>You may now review and edit your responses before submitting.</p>
+  <p class="congrats">You may now review and edit your responses before submitting.</p>
   <ul>
-    <li>To review your answers, select "Review Your Answers"</li>
-    <li>To receive a copy of your responses via email, select "Send to my Email"</li>
-    <li>To submit your responses, select "Submit The Form"</li>
-  </ul>
-
-  <div class="button-container">
+  <li class="welcome-and-congrats">To review your answers, select "Review Your Answers"</li>
+  <li class="welcome-and-congrats">To receive a copy of your responses via email, select "Send to my Email"</li>
+  <li class="welcome-and-congrats">To submit your responses, select "Submit"</li>
+</ul>
+  <div class="button-container-congrats">
     <!-- Кнопка для отправки формы -->
     <button class="pink-button" @click="submitForm">Submit</button>
     
@@ -1817,225 +1819,225 @@ export default {
       isTestFormOpen: false,
       currentField: '',   // Поле, для которого будет показана информация
       snapshotIndustryOptions: [
-          { key: 'A', value: 'Accounting', label: 'Accounting' },
-          { key: 'B', value: 'Airlines and Aviation', label: 'Airlines and Aviation' },
-          { key: 'C', value: 'Alternative Dispute Resolution', label: 'Alternative Dispute Resolution' },
-          { key: 'D', value: 'Alternative Medicine', label: 'Alternative Medicine' },
-          { key: 'E', value: 'Animation', label: 'Animation' },
-          { key: 'F', value: 'Apparel & Fashion', label: 'Apparel & Fashion' },
-          { key: 'G', value: 'Architecture & Planning', label: 'Architecture & Planning' },
-          { key: 'H', value: 'Arts & Crafts', label: 'Arts & Crafts' },
-          { key: 'I', value: 'Aviation & Aerospace', label: 'Aviation & Aerospace' },
-          { key: 'J', value: 'Banking', label: 'Banking' },
-          { key: 'K', value: 'Biotechnology', label: 'Biotechnology' },
-          { key: 'L', value: 'Broadcast Media', label: 'Broadcast Media' },
-          { key: 'M', value: 'Business Supplies & Equipment', label: 'Business Supplies & Equipment' },
-          { key: 'N', value: 'Capital Markets', label: 'Capital Markets' },
-          { key: 'O', value: 'Ceramics & Concrete', label: 'Ceramics & Concrete' },
-          { key: 'P', value: 'Chemicals', label: 'Chemicals' },
-          { key: 'Q', value: 'Civic & Social Organization', label: 'Civic & Social Organization' },
-          { key: 'R', value: 'Commercial Real Estate', label: 'Commercial Real Estate' },
-          { key: 'S', value: 'Computer & Network Security', label: 'Computer & Network Security' },
-          { key: 'T', value: 'Computer Games', label: 'Computer Games' },
-          { key: 'U', value: 'Computer Hardware', label: 'Computer Hardware' },
-          { key: 'V', value: 'Computer Networking', label: 'Computer Networking' },
-          { key: 'W', value: 'Consumer Electronics', label: 'Consumer Electronics' },
-          { key: 'X', value: 'Consumer Services', label: 'Consumer Services' },
-          { key: 'Y', value: 'Cosmetics', label: 'Cosmetics' },
-          { key: 'Z', value: 'Dairy', label: 'Dairy' },
-          { key: 'AA', value: 'Defense & Space', label: 'Defense & Space' },
-          { key: 'AB', value: 'Electrical & Electronic Manufacturing', label: 'Electrical & Electronic Manufacturing' },
-          { key: 'AC', value: 'Entertainment', label: 'Entertainment' },
-          { key: 'AD', value: 'Environmental Services', label: 'Environmental Services' },
-          { key: 'AE', value: 'Events Services', label: 'Events Services' },
-          { key: 'AF', value: 'Executive Office', label: 'Executive Office' },
-          { key: 'AG', value: 'Facilities Services', label: 'Facilities Services' },
-          { key: 'AH', value: 'Farming', label: 'Farming' },
-          { key: 'AI', value: 'Film Production', label: 'Film Production' },
-          { key: 'AJ', value: 'Finance - Banking', label: 'Finance - Banking' },
-          { key: 'AK', value: 'Fine Art', label: 'Fine Art' },
-          { key: 'AL', value: 'Fishery', label: 'Fishery' },
-          { key: 'AM', value: 'Food and Beverage Retail', label: 'Food and Beverage Retail' },
-          { key: 'AN', value: 'Food Production', label: 'Food Production' },
-          { key: 'AO', value: 'Furniture', label: 'Furniture' },
-          { key: 'AP', value: 'Gambling & Casinos', label: 'Gambling & Casinos' },
-          { key: 'AQ', value: 'Glass', label: 'Glass' },
-          { key: 'AR', value: 'Government Administration', label: 'Government Administration' },
-          { key: 'AS', value: 'Government Relations', label: 'Government Relations' },
-          { key: 'AT', value: 'Graphic Design', label: 'Graphic Design' },
-          { key: 'AU', value: 'Healthcare', label: 'Healthcare' },
-          { key: 'AV', value: 'Hospitality', label: 'Hospitality' },
-          { key: 'AW', value: 'Human Resources', label: 'Human Resources' },
-          { key: 'AX', value: 'Import & Export', label: 'Import & Export' },
-          { key: 'AY', value: 'Industrial Automation', label: 'Industrial Automation' },
-          { key: 'AZ', value: 'Information Technology & Services', label: 'Information Technology & Services' },
-          { key: 'BA', value: 'Insurance', label: 'Insurance' },
-          { key: 'BB', value: 'Investment Banking', label: 'Investment Banking' },
-          { key: 'BC', value: 'Investment Management', label: 'Investment Management' },
-          { key: 'BD', value: 'Judiciary', label: 'Judiciary' },
-          { key: 'BE', value: 'Law Practice', label: 'Law Practice' },
-          { key: 'BF', value: 'Legal Services', label: 'Legal Services' },
-          { key: 'BG', value: 'Leisure', label: 'Leisure' },
-          { key: 'BH', value: 'Libraries', label: 'Libraries' },
-          { key: 'BI', value: 'Logistics', label: 'Logistics' },
-          { key: 'BJ', value: 'Luxury Goods & Jewelry', label: 'Luxury Goods & Jewelry' },
-          { key: 'BK', value: 'Machinery', label: 'Machinery' },
-          { key: 'BL', value: 'Management Consulting', label: 'Management Consulting' },
-          { key: 'BM', value: 'Manufacturing', label: 'Manufacturing' },
-          { key: 'BN', value: 'Marine Transport', label: 'Marine Transport' },
-          { key: 'BO', value: 'Maritime', label: 'Maritime' },
-          { key: 'BP', value: 'Media Production', label: 'Media Production' },
-          { key: 'BQ', value: 'Mechanical or Industrial Engineering', label: 'Mechanical or Industrial Engineering' },
-          { key: 'BR', value: 'Mental Healthcare', label: 'Mental Healthcare' },
-          { key: 'BS', value: 'Mining & Metals', label: 'Mining & Metals' },
-          { key: 'BT', value: 'Mobile Games', label: 'Mobile Games' },
-          { key: 'BU', value: 'Motion Pictures & Film', label: 'Motion Pictures & Film' },
-          { key: 'BV', value: 'Museums & Institutions', label: 'Museums & Institutions' },
-          { key: 'BW', value: 'Music', label: 'Music' },
-          { key: 'BX', value: 'Newspapers', label: 'Newspapers' },
-          { key: 'BY', value: 'Non-Profit Organization Management', label: 'Non-Profit Organization Management' },
-          { key: 'BZ', value: 'Online Media', label: 'Online Media' },
-          { key: 'CA', value: 'Outsourcing/Offshoring', label: 'Outsourcing/Offshoring' },
-          { key: 'CB', value: 'Packaging & Containers', label: 'Packaging & Containers' },
-          { key: 'CC', value: 'Paper & Forest Products', label: 'Paper & Forest Products' },
-          { key: 'CD', value: 'Performing Arts', label: 'Performing Arts' },
-          { key: 'CE', value: 'Philanthropy', label: 'Philanthropy' },
-          { key: 'CF', value: 'Photography', label: 'Photography' },
-          { key: 'CG', value: 'Plastics', label: 'Plastics' },
-          { key: 'CH', value: 'Political Organization', label: 'Political Organization' },
-          { key: 'CI', value: 'Printing', label: 'Printing' },
-          { key: 'CJ', value: 'Professional Training & Coaching', label: 'Professional Training & Coaching' },
-          { key: 'CK', value: 'Program Development', label: 'Program Development' },
-          { key: 'CL', value: 'Public Policy', label: 'Public Policy' },
-          { key: 'CM', value: 'Public Relations & Communications', label: 'Public Relations & Communications' },
-          { key: 'CN', value: 'Publishing', label: 'Publishing' },
-          { key: 'CO', value: 'Railroad Manufacture', label: 'Railroad Manufacture' },
-          { key: 'CP', value: 'Ranching', label: 'Ranching' },
-          { key: 'CQ', value: 'Recreational Facilities & Services', label: 'Recreational Facilities & Services' },
-          { key: 'CR', value: 'Religious Institutions', label: 'Religious Institutions' },
-          { key: 'CS', value: 'Research Services', label: 'Research Services' },
-          { key: 'CT', value: 'Restaurants', label: 'Restaurants' },
-          { key: 'CU', value: 'Retail', label: 'Retail' },
-          { key: 'CV', value: 'Security & Investigations', label: 'Security & Investigations' },
-          { key: 'CW', value: 'Semiconductors', label: 'Semiconductors' },
-          { key: 'CX', value: 'Shipbuilding', label: 'Shipbuilding' },
-          { key: 'CY', value: 'Smart Cities/Urban Tech', label: 'Smart Cities/Urban Tech' },
-          { key: 'CZ', value: 'Sports', label: 'Sports' },
-          { key: 'DA', value: 'Staffing & Recruiting', label: 'Staffing & Recruiting' },
-          { key: 'DB', value: 'Supermarkets', label: 'Supermarkets' },
-          { key: 'DC', value: 'Telecommunications', label: 'Telecommunications' },
-          { key: 'DD', value: 'Textiles', label: 'Textiles' },
-          { key: 'DE', value: 'Think Tanks', label: 'Think Tanks' },
-          { key: 'DF', value: 'Tobacco', label: 'Tobacco' },
-          { key: 'DG', value: 'Translation & Localization', label: 'Translation & Localization' },
-          { key: 'DH', value: 'Transportation/Trucking/Railroad', label: 'Transportation/Trucking/Railroad' },
-          { key: 'DI', value: 'Utilities', label: 'Utilities' },
-          { key: 'DJ', value: 'Venture Capital & Private Equity', label: 'Venture Capital & Private Equity' },
-          { key: 'DK', value: 'Veterinary', label: 'Veterinary' },
-          { key: 'DL', value: 'Warehousing', label: 'Warehousing' },
-          { key: 'DM', value: 'Wholesale', label: 'Wholesale' },
-          { key: 'DN', value: 'Wine and Spirits', label: 'Wine and Spirits' },
-          { key: 'DO', value: 'Wireless', label: 'Wireless' },
-          { key: 'DP', value: 'Writing & Editing', label: 'Writing & Editing' }
+          { key: '1', value: 'Accounting', label: 'Accounting' },
+          { key: '2', value: 'Airlines and Aviation', label: 'Airlines and Aviation' },
+          { key: '3', value: 'Alternative Dispute Resolution', label: 'Alternative Dispute Resolution' },
+          { key: '4', value: 'Alternative Medicine', label: 'Alternative Medicine' },
+          { key: '5', value: 'Animation', label: 'Animation' },
+          { key: '6', value: 'Apparel & Fashion', label: 'Apparel & Fashion' },
+          { key: '7', value: 'Architecture & Planning', label: 'Architecture & Planning' },
+          { key: '8', value: 'Arts & Crafts', label: 'Arts & Crafts' },
+          { key: '9', value: 'Aviation & Aerospace', label: 'Aviation & Aerospace' },
+          { key: '10', value: 'Banking', label: 'Banking' },
+          { key: '11', value: 'Biotechnology', label: 'Biotechnology' },
+          { key: '12', value: 'Broadcast Media', label: 'Broadcast Media' },
+          { key: '13', value: 'Business Supplies & Equipment', label: 'Business Supplies & Equipment' },
+          { key: '14', value: 'Capital Markets', label: 'Capital Markets' },
+          { key: '15', value: 'Ceramics & Concrete', label: 'Ceramics & Concrete' },
+          { key: '16', value: 'Chemicals', label: 'Chemicals' },
+          { key: '17', value: 'Civic & Social Organization', label: 'Civic & Social Organization' },
+          { key: '18', value: 'Commercial Real Estate', label: 'Commercial Real Estate' },
+          { key: '19', value: 'Computer & Network Security', label: 'Computer & Network Security' },
+          { key: '20', value: 'Computer Games', label: 'Computer Games' },
+          { key: '21', value: 'Computer Hardware', label: 'Computer Hardware' },
+          { key: '22', value: 'Computer Networking', label: 'Computer Networking' },
+          { key: '23', value: 'Consumer Electronics', label: 'Consumer Electronics' },
+          { key: '24', value: 'Consumer Services', label: 'Consumer Services' },
+          { key: '25', value: 'Cosmetics', label: 'Cosmetics' },
+          { key: '26', value: 'Dairy', label: 'Dairy' },
+          { key: '27', value: 'Defense & Space', label: 'Defense & Space' },
+          { key: '28', value: 'Electrical & Electronic Manufacturing', label: 'Electrical & Electronic Manufacturing' },
+          { key: '29', value: 'Entertainment', label: 'Entertainment' },
+          { key: '30', value: 'Environmental Services', label: 'Environmental Services' },
+          { key: '31', value: 'Events Services', label: 'Events Services' },
+          { key: '32', value: 'Executive Office', label: 'Executive Office' },
+          { key: '33', value: 'Facilities Services', label: 'Facilities Services' },
+          { key: '34', value: 'Farming', label: 'Farming' },
+          { key: '35', value: 'Film Production', label: 'Film Production' },
+          { key: '36', value: 'Finance - Banking', label: 'Finance - Banking' },
+          { key: '37', value: 'Fine Art', label: 'Fine Art' },
+          { key: '38', value: 'Fishery', label: 'Fishery' },
+          { key: '39', value: 'Food and Beverage Retail', label: 'Food and Beverage Retail' },
+          { key: '40', value: 'Food Production', label: 'Food Production' },
+          { key: '41', value: 'Furniture', label: 'Furniture' },
+          { key: '42', value: 'Gambling & Casinos', label: 'Gambling & Casinos' },
+          { key: '43', value: 'Glass', label: 'Glass' },
+          { key: '44', value: 'Government Administration', label: 'Government Administration' },
+          { key: '45', value: 'Government Relations', label: 'Government Relations' },
+          { key: '46', value: 'Graphic Design', label: 'Graphic Design' },
+          { key: '47', value: 'Healthcare', label: 'Healthcare' },
+          { key: '48', value: 'Hospitality', label: 'Hospitality' },
+          { key: '49', value: 'Human Resources', label: 'Human Resources' },
+          { key: '50', value: 'Import & Export', label: 'Import & Export' },
+          { key: '51', value: 'Industrial Automation', label: 'Industrial Automation' },
+          { key: '52', value: 'Information Technology & Services', label: 'Information Technology & Services' },
+          { key: '53', value: 'Insurance', label: 'Insurance' },
+          { key: '54', value: 'Investment Banking', label: 'Investment Banking' },
+          { key: '55', value: 'Investment Management', label: 'Investment Management' },
+          { key: '56', value: 'Judiciary', label: 'Judiciary' },
+          { key: '57', value: 'Law Practice', label: 'Law Practice' },
+          { key: '58', value: 'Legal Services', label: 'Legal Services' },
+          { key: '59', value: 'Leisure', label: 'Leisure' },
+          { key: '60', value: 'Libraries', label: 'Libraries' },
+          { key: '61', value: 'Logistics', label: 'Logistics' },
+          { key: '62', value: 'Luxury Goods & Jewelry', label: 'Luxury Goods & Jewelry' },
+          { key: '63', value: 'Machinery', label: 'Machinery' },
+          { key: '64', value: 'Management Consulting', label: 'Management Consulting' },
+          { key: '65', value: 'Manufacturing', label: 'Manufacturing' },
+          { key: '66', value: 'Marine Transport', label: 'Marine Transport' },
+          { key: '67', value: 'Maritime', label: 'Maritime' },
+          { key: '68', value: 'Media Production', label: 'Media Production' },
+          { key: '69', value: 'Mechanical or Industrial Engineering', label: 'Mechanical or Industrial Engineering' },
+          { key: '70', value: 'Mental Healthcare', label: 'Mental Healthcare' },
+          { key: '71', value: 'Mining & Metals', label: 'Mining & Metals' },
+          { key: '72', value: 'Mobile Games', label: 'Mobile Games' },
+          { key: '73', value: 'Motion Pictures & Film', label: 'Motion Pictures & Film' },
+          { key: '74', value: 'Museums & Institutions', label: 'Museums & Institutions' },
+          { key: '75', value: 'Music', label: 'Music' },
+          { key: '76', value: 'Newspapers', label: 'Newspapers' },
+          { key: '77', value: 'Non-Profit Organization Management', label: 'Non-Profit Organization Management' },
+          { key: '78', value: 'Online Media', label: 'Online Media' },
+          { key: '79', value: 'Outsourcing/Offshoring', label: 'Outsourcing/Offshoring' },
+          { key: '80', value: 'Packaging & Containers', label: 'Packaging & Containers' },
+          { key: '81', value: 'Paper & Forest Products', label: 'Paper & Forest Products' },
+          { key: '82', value: 'Performing Arts', label: 'Performing Arts' },
+          { key: '83', value: 'Philanthropy', label: 'Philanthropy' },
+          { key: '84', value: 'Photography', label: 'Photography' },
+          { key: '85', value: 'Plastics', label: 'Plastics' },
+          { key: '86', value: 'Political Organization', label: 'Political Organization' },
+          { key: '87', value: 'Printing', label: 'Printing' },
+          { key: '88', value: 'Professional Training & Coaching', label: 'Professional Training & Coaching' },
+          { key: '89', value: 'Program Development', label: 'Program Development' },
+          { key: '90', value: 'Public Policy', label: 'Public Policy' },
+          { key: '91', value: 'Public Relations & Communications', label: 'Public Relations & Communications' },
+          { key: '92', value: 'Publishing', label: 'Publishing' },
+          { key: '93', value: 'Railroad Manufacture', label: 'Railroad Manufacture' },
+          { key: '94', value: 'Ranching', label: 'Ranching' },
+          { key: '95', value: 'Recreational Facilities & Services', label: 'Recreational Facilities & Services' },
+          { key: '96', value: 'Religious Institutions', label: 'Religious Institutions' },
+          { key: '97', value: 'Research Services', label: 'Research Services' },
+          { key: '98', value: 'Restaurants', label: 'Restaurants' },
+          { key: '99', value: 'Retail', label: 'Retail' },
+          { key: '100', value: 'Security & Investigations', label: 'Security & Investigations' },
+          { key: '101', value: 'Semiconductors', label: 'Semiconductors' },
+          { key: '102', value: 'Shipbuilding', label: 'Shipbuilding' },
+          { key: '103', value: 'Smart Cities/Urban Tech', label: 'Smart Cities/Urban Tech' },
+          { key: '104', value: 'Sports', label: 'Sports' },
+          { key: '105', value: 'Staffing & Recruiting', label: 'Staffing & Recruiting' },
+          { key: '106', value: 'Supermarkets', label: 'Supermarkets' },
+          { key: '107', value: 'Telecommunications', label: 'Telecommunications' },
+          { key: '108', value: 'Textiles', label: 'Textiles' },
+          { key: '109', value: 'Think Tanks', label: 'Think Tanks' },
+          { key: '110', value: 'Tobacco', label: 'Tobacco' },
+          { key: '111', value: 'Translation & Localization', label: 'Translation & Localization' },
+          { key: '112', value: 'Transportation/Trucking/Railroad', label: 'Transportation/Trucking/Railroad' },
+          { key: '113', value: 'Utilities', label: 'Utilities' },
+          { key: '114', value: 'Venture Capital & Private Equity', label: 'Venture Capital & Private Equity' },
+          { key: '115', value: 'Veterinary', label: 'Veterinary' },
+          { key: '116', value: 'Warehousing', label: 'Warehousing' },
+          { key: '117', value: 'Wholesale', label: 'Wholesale' },
+          { key: '118', value: 'Wine and Spirits', label: 'Wine and Spirits' },
+          { key: '119', value: 'Wireless', label: 'Wireless' },
+          { key: '120', value: 'Writing & Editing', label: 'Writing & Editing' }
         ],
 
                 industryOptions: [
-          { key: 'A', value: '3D printing', label: '3D printing' },
-          { key: 'B', value: 'AdTech', label: 'AdTech' },
-          { key: 'C', value: 'Agtech', label: 'Agtech' },
-          { key: 'D', value: 'Advertising / Marketing', label: 'Advertising / Marketing' },
-          { key: 'E', value: 'Audiotech', label: 'Audiotech' },
-          { key: 'F', value: 'Autonomous cars', label: 'Autonomous cars' },
-          { key: 'G', value: 'AI / ML', label: 'AI / ML' },
-          { key: 'H', value: 'Augmented reality (AR)', label: 'Augmented reality (AR)' },
-          { key: 'I', value: 'Beauty / Fashion Products', label: 'Beauty / Fashion Products' },
-          { key: 'J', value: 'B2B Marketplace', label: 'B2B Marketplace' },
-          { key: 'K', value: 'B2B SaaS', label: 'B2B SaaS' },
-          { key: 'L', value: 'B2B payments', label: 'B2B payments' },
-          { key: 'M', value: 'Biotech', label: 'Biotech' },
-          { key: 'N', value: 'Big Data', label: 'Big Data' },
-          { key: 'O', value: 'Blockchain / Crypto / NFT / Web3', label: 'Blockchain / Crypto / NFT / Web3' },
-          { key: 'P', value: 'Cannabis', label: 'Cannabis' },
-          { key: 'Q', value: 'Carsharing', label: 'Carsharing' },
-          { key: 'R', value: 'Cleantech / Climate / Sustainability', label: 'Cleantech / Climate / Sustainability' },
-          { key: 'S', value: 'Cloudtech and DevOps', label: 'Cloudtech and DevOps' },
-          { key: 'T', value: 'Communications / Collaboration / Productivity', label: 'Communications / Collaboration / Productivity' },
-          { key: 'U', value: 'Consumer', label: 'Consumer' },
-          { key: 'V', value: 'Consumer Goods', label: 'Consumer Goods' },
-          { key: 'W', value: 'Consumer Tech', label: 'Consumer Tech' },
-          { key: 'X', value: 'Construction / Materials', label: 'Construction / Materials' },
-          { key: 'Y', value: 'Cyber Security', label: 'Cyber Security' },
-          { key: 'Z', value: 'Data / Analytics', label: 'Data / Analytics' },
-          { key: 'AA', value: 'Developer Tools', label: 'Developer Tools' },
-          { key: 'AB', value: 'Digital health', label: 'Digital health' },
-          { key: 'AC', value: 'Ecommerce Enablement', label: 'Ecommerce Enablement' },
-          { key: 'AD', value: 'eCommerce', label: 'eCommerce' },
-          { key: 'AE', value: 'Education / Personal and professional development', label: 'Education / Personal and professional development' },
-          { key: 'AF', value: 'Electronics / IOT', label: 'Electronics / IOT' },
-          { key: 'AG', value: 'Enterprise', label: 'Enterprise' },
-          { key: 'AH', value: 'Femtech', label: 'Femtech' },
-          { key: 'AI', value: 'Future of Work', label: 'Future of Work' },
-          { key: 'AJ', value: 'Family / Parenting / Relationships / ElderTech', label: 'Family / Parenting / Relationships / ElderTech' },
-          { key: 'AK', value: 'Finance - banking / payments / lending', label: 'Finance - banking / payments / lending' },
-          { key: 'AL', value: 'Finance - Insurance', label: 'Finance - Insurance' },
-          { key: 'AM', value: 'Finance - Other', label: 'Finance - Other' },
-          { key: 'AN', value: 'FinTech', label: 'FinTech' },
-          { key: 'AO', value: 'Food / Beverages / agriculture', label: 'Food / Beverages / agriculture' },
-          { key: 'AP', value: 'Gaming', label: 'Gaming' },
-          { key: 'AQ', value: 'General / Industry agnostic', label: 'General / Industry agnostic' },
-          { key: 'AR', value: 'GovTech', label: 'GovTech' },
-          { key: 'AS', value: 'Hardware', label: 'Hardware' },
-          { key: 'AT', value: 'Health / Fitness / Wellness', label: 'Health / Fitness / Wellness' },
-          { key: 'AU', value: 'Healthcare', label: 'Healthcare' },
-          { key: 'AV', value: 'HR / hiring / employment', label: 'HR / hiring / employment' },
-          { key: 'AW', value: 'Impact investing', label: 'Impact investing' },
-          { key: 'AX', value: 'Industrials', label: 'Industrials' },
-          { key: 'AY', value: 'Legal / government / regulation', label: 'Legal / government / regulation' },
-          { key: 'AZ', value: 'Longevity', label: 'Longevity' },
-          { key: 'BA', value: 'Lifestyles of Health and Sustainability (LOHAS) and wellness', label: 'Lifestyles of Health and Sustainability (LOHAS) and wellness' },
-          { key: 'BB', value: 'Manufacturing', label: 'Manufacturing' },
-          { key: 'BC', value: 'MarTech', label: 'MarTech' },
-          { key: 'BD', value: 'Medical devices', label: 'Medical devices' },
-          { key: 'BE', value: 'Mobility / Transportation', label: 'Mobility / Transportation' },
-          { key: 'BF', value: 'Micro-mobility', label: 'Micro-mobility' },
-          { key: 'BG', value: 'Mobility tech', label: 'Mobility tech' },
-          { key: 'BH', value: 'Mobile', label: 'Mobile' },
-          { key: 'BI', value: 'Mortgage tech', label: 'Mortgage tech' },
-          { key: 'BJ', value: 'Nanotechnology', label: 'Nanotechnology' },
-          { key: 'BK', value: 'Oil and gas', label: 'Oil and gas' },
-          { key: 'BL', value: 'Personal and Professional Services', label: 'Personal and Professional Services' },
-          { key: 'BM', value: 'Pets / animals', label: 'Pets / animals' },
-          { key: 'BN', value: 'Physical infrastructure / Utilities', label: 'Physical infrastructure / Utilities' },
-          { key: 'BO', value: 'Real Estate / Housing', label: 'Real Estate / Housing' },
-          { key: 'BP', value: 'Robotics / drones', label: 'Robotics / drones' },
-          { key: 'BQ', value: 'Restaurant tech', label: 'Restaurant tech' },
-          { key: 'BR', value: 'SaaS', label: 'SaaS' },
-          { key: 'BS', value: 'Sales / Operations / Customer Service', label: 'Sales / Operations / Customer Service' },
-          { key: 'BT', value: 'Science / deep tech', label: 'Science / deep tech' },
-          { key: 'BU', value: 'SMB SaaS', label: 'SMB SaaS' },
-          { key: 'BV', value: 'Social Media / Community / Networking', label: 'Social Media / Community / Networking' },
-          { key: 'BW', value: 'Space Tech', label: 'Space Tech' },
-          { key: 'BX', value: 'Supply Chain: Logistics / Shipping / Delivery', label: 'Supply Chain: Logistics / Shipping / Delivery' },
-          { key: 'BY', value: 'Travel / Hospitality', label: 'Travel / Hospitality' },
-          { key: 'BZ', value: 'Vertical Saas', label: 'Vertical Saas' },
-          { key: 'CA', value: 'Virtual reality (VR)', label: 'Virtual reality (VR)' },
-          { key: 'CB', value: 'Wearables and quantified self', label: 'Wearables and quantified self' },
-          { key: 'CC', value: 'Other', label: 'Other' }
+          { key: '1', value: '3D printing', label: '3D printing' },
+          { key: '2', value: 'AdTech', label: 'AdTech' },
+          { key: '3', value: 'Agtech', label: 'Agtech' },
+          { key: '4', value: 'Advertising / Marketing', label: 'Advertising / Marketing' },
+          { key: '5', value: 'Audiotech', label: 'Audiotech' },
+          { key: '6', value: 'Autonomous cars', label: 'Autonomous cars' },
+          { key: '7', value: 'AI / ML', label: 'AI / ML' },
+          { key: '8', value: 'Augmented reality (AR)', label: 'Augmented reality (AR)' },
+          { key: '9', value: 'Beauty / Fashion Products', label: 'Beauty / Fashion Products' },
+          { key: '10', value: 'B2B Marketplace', label: 'B2B Marketplace' },
+          { key: '11', value: 'B2B SaaS', label: 'B2B SaaS' },
+          { key: '12', value: 'B2B payments', label: 'B2B payments' },
+          { key: '13', value: 'Biotech', label: 'Biotech' },
+          { key: '14', value: 'Big Data', label: 'Big Data' },
+          { key: '15', value: 'Blockchain / Crypto / NFT / Web3', label: 'Blockchain / Crypto / NFT / Web3' },
+          { key: '16', value: 'Cannabis', label: 'Cannabis' },
+          { key: '17', value: 'Carsharing', label: 'Carsharing' },
+          { key: '18', value: 'Cleantech / Climate / Sustainability', label: 'Cleantech / Climate / Sustainability' },
+          { key: '19', value: 'Cloudtech and DevOps', label: 'Cloudtech and DevOps' },
+          { key: '20', value: 'Communications / Collaboration / Productivity', label: 'Communications / Collaboration / Productivity' },
+          { key: '21', value: 'Consumer', label: 'Consumer' },
+          { key: '22', value: 'Consumer Goods', label: 'Consumer Goods' },
+          { key: '23', value: 'Consumer Tech', label: 'Consumer Tech' },
+          { key: '24', value: 'Construction / Materials', label: 'Construction / Materials' },
+          { key: '25', value: 'Cyber Security', label: 'Cyber Security' },
+          { key: '26', value: 'Data / Analytics', label: 'Data / Analytics' },
+          { key: '27', value: 'Developer Tools', label: 'Developer Tools' },
+          { key: '28', value: 'Digital health', label: 'Digital health' },
+          { key: '29', value: 'Ecommerce Enablement', label: 'Ecommerce Enablement' },
+          { key: '30', value: 'eCommerce', label: 'eCommerce' },
+          { key: '31', value: 'Education / Personal and professional development', label: 'Education / Personal and professional development' },
+          { key: '32', value: 'Electronics / IOT', label: 'Electronics / IOT' },
+          { key: '33', value: 'Enterprise', label: 'Enterprise' },
+          { key: '34', value: 'Femtech', label: 'Femtech' },
+          { key: '35', value: 'Future of Work', label: 'Future of Work' },
+          { key: '36', value: 'Family / Parenting / Relationships / ElderTech', label: 'Family / Parenting / Relationships / ElderTech' },
+          { key: '37', value: 'Finance - banking / payments / lending', label: 'Finance - banking / payments / lending' },
+          { key: '38', value: 'Finance - Insurance', label: 'Finance - Insurance' },
+          { key: '39', value: 'Finance - Other', label: 'Finance - Other' },
+          { key: '40', value: 'FinTech', label: 'FinTech' },
+          { key: '41', value: 'Food / Beverages / agriculture', label: 'Food / Beverages / agriculture' },
+          { key: '42', value: 'Gaming', label: 'Gaming' },
+          { key: '43', value: 'General / Industry agnostic', label: 'General / Industry agnostic' },
+          { key: '44', value: 'GovTech', label: 'GovTech' },
+          { key: '45', value: 'Hardware', label: 'Hardware' },
+          { key: '46', value: 'Health / Fitness / Wellness', label: 'Health / Fitness / Wellness' },
+          { key: '47', value: 'Healthcare', label: 'Healthcare' },
+          { key: '48', value: 'HR / hiring / employment', label: 'HR / hiring / employment' },
+          { key: '49', value: 'Impact investing', label: 'Impact investing' },
+          { key: '50', value: 'Industrials', label: 'Industrials' },
+          { key: '51', value: 'Legal / government / regulation', label: 'Legal / government / regulation' },
+          { key: '52', value: 'Longevity', label: 'Longevity' },
+          { key: '53', value: 'Lifestyles of Health and Sustainability (LOHAS) and wellness', label: 'Lifestyles of Health and Sustainability (LOHAS) and wellness' },
+          { key: '54', value: 'Manufacturing', label: 'Manufacturing' },
+          { key: '55', value: 'MarTech', label: 'MarTech' },
+          { key: '56', value: 'Medical devices', label: 'Medical devices' },
+          { key: '57', value: 'Mobility / Transportation', label: 'Mobility / Transportation' },
+          { key: '58', value: 'Micro-mobility', label: 'Micro-mobility' },
+          { key: '59', value: 'Mobility tech', label: 'Mobility tech' },
+          { key: '60', value: 'Mobile', label: 'Mobile' },
+          { key: '61', value: 'Mortgage tech', label: 'Mortgage tech' },
+          { key: '62', value: 'Nanotechnology', label: 'Nanotechnology' },
+          { key: '63', value: 'Oil and gas', label: 'Oil and gas' },
+          { key: '64', value: 'Personal and Professional Services', label: 'Personal and Professional Services' },
+          { key: '65', value: 'Pets / animals', label: 'Pets / animals' },
+          { key: '66', value: 'Physical infrastructure / Utilities', label: 'Physical infrastructure / Utilities' },
+          { key: '67', value: 'Real Estate / Housing', label: 'Real Estate / Housing' },
+          { key: '68', value: 'Robotics / drones', label: 'Robotics / drones' },
+          { key: '69', value: 'Restaurant tech', label: 'Restaurant tech' },
+          { key: '70', value: 'SaaS', label: 'SaaS' },
+          { key: '71', value: 'Sales / Operations / Customer Service', label: 'Sales / Operations / Customer Service' },
+          { key: '72', value: 'Science / deep tech', label: 'Science / deep tech' },
+          { key: '73', value: 'SMB SaaS', label: 'SMB SaaS' },
+          { key: '74', value: 'Social Media / Community / Networking', label: 'Social Media / Community / Networking' },
+          { key: '75', value: 'Space Tech', label: 'Space Tech' },
+          { key: '76', value: 'Supply Chain: Logistics / Shipping / Delivery', label: 'Supply Chain: Logistics / Shipping / Delivery' },
+          { key: '77', value: 'Travel / Hospitality', label: 'Travel / Hospitality' },
+          { key: '78', value: 'Vertical Saas', label: 'Vertical Saas' },
+          { key: '79', value: 'Virtual reality (VR)', label: 'Virtual reality (VR)' },
+          { key: '80', value: 'Wearables and quantified self', label: 'Wearables and quantified self' },
+          { key: '81', value: 'Other', label: 'Other' }
         ],
         locations: [
         { key: 'A', label: 'San Francisco / Bay Area', value: 'San Francisco / Bay Area' },
         { key: 'B', label: 'New York', value: 'New York' },
         { key: 'C', label: 'Boston', value: 'Boston' },
-        { key: 'D', label: 'Toronto', value: 'Toronto' },
-        { key: 'E', label: 'Montreal', value: 'Montreal' },
         { key: 'F', label: 'Los Angeles', value: 'Los Angeles' },
         { key: 'G', label: 'Austin', value: 'Austin' },
-        { key: 'H', label: 'Denver', value: 'Denver' },
-        { key: 'I', label: 'Utah', value: 'Utah' },
         { key: 'J', label: 'Chicago', value: 'Chicago' },
         { key: 'K', label: 'Seattle', value: 'Seattle' },
         { key: 'L', label: 'Atlanta', value: 'Atlanta' },
+        { key: 'H', label: 'Denver', value: 'Denver' },
+        { key: 'I', label: 'Utah', value: 'Utah' },
         { key: 'M', label: 'Philadelphia', value: 'Philadelphia' },
+        { key: 'D', label: 'Toronto', value: 'Toronto' },
+        { key: 'E', label: 'Montreal', value: 'Montreal' },
         { key: 'N', label: 'US - Other', value: 'US - Other' },
         { key: 'O', label: 'Canada - Other', value: 'Canada - Other' },
         { key: 'P', label: 'Latin America', value: 'Latin America' },
@@ -2078,21 +2080,6 @@ export default {
         { key: 'I', value: 'Services', label: 'Services' },
         { key: 'J', value: 'Digital Goods / Content', label: 'Digital Goods / Content' },
         { key: 'K', value: 'Experiences', label: 'Experiences' },
-        { key: 'L', value: 'Software - AI/ML, Hardware', label: 'Software - AI/ML, Hardware' },
-        { key: 'M', value: 'Software - AI/ML, Software - Infrastructure (API, cloud, etc.)', label: 'Software - AI/ML, Software - Infrastructure (API, cloud, etc.)' },
-        { key: 'N', value: 'Software - Marketplace / Network, Software - Service (SaaS)', label: 'Software - Marketplace / Network, Software - Service (SaaS)' },
-        { key: 'O', value: 'Physical Goods, Digital Goods / Content', label: 'Physical Goods, Digital Goods / Content' },
-        { key: 'P', value: 'Software - Infrastructure (API, cloud, etc.), Software - Marketplace / Network', label: 'Software - Infrastructure (API, cloud, etc.), Software - Marketplace / Network' },
-        { key: 'Q', value: 'Software - Marketplace / Network, Digital Goods / Content', label: 'Software - Marketplace / Network, Digital Goods / Content' },
-        { key: 'R', value: 'Software - Marketplace / Network, Services', label: 'Software - Marketplace / Network, Services' },
-        { key: 'S', value: 'Software - Marketplace / Network, Software - Service (SaaS), Software - Dev Tools', label: 'Software - Marketplace / Network, Software - Service (SaaS), Software - Dev Tools' },
-        { key: 'T', value: 'Software - Service (SaaS), Software - Infrastructure (API, cloud, etc.), Hardware', label: 'Software - Service (SaaS), Software - Infrastructure (API, cloud, etc.), Hardware' },
-        { key: 'U', value: 'Services, Physical Goods, Experiences, Digital Goods / Content', label: 'Services, Physical Goods, Experiences, Digital Goods / Content' },
-        { key: 'V', value: 'Software - Service (SaaS), Software - Marketplace / Network, Software - AI/ML', label: 'Software - Service (SaaS), Software - Marketplace / Network, Software - AI/ML' },
-        { key: 'W', value: 'Software - Other, Services', label: 'Software - Other, Services' },
-        { key: 'X', value: 'Services, Other, Software - Infrastructure (API, cloud, etc.)', label: 'Services, Other, Software - Infrastructure (API, cloud, etc.)' },
-        { key: 'Y', value: 'Experiences, Software - Marketplace / Network', label: 'Experiences, Software - Marketplace / Network' },
-        { key: 'Z', value: 'Other, Software - Service (SaaS)', label: 'Other, Software - Service (SaaS)' },
         { key: 'AA', value: 'Other', label: 'Other' }
       ],
       formData: {
@@ -2861,6 +2848,7 @@ h2 {
   font-size: 2.7em; /* Увеличим размер шрифта заголовков */
   margin-bottom: 20px;
   font-family: Inter;
+  text-align: center;
 }
 
 h3 {
@@ -2869,6 +2857,7 @@ h3 {
   margin-bottom: 20px;
   font-family: Inter;
   margin-top: 20px;
+  text-align: center;
 }
 
 .pink-button {
@@ -2902,12 +2891,27 @@ h3 {
 .header-container {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 20px; /* Отступ между элементами */
+}
+
+.header-container-welcome-and-congrats {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px; /* Отступ между элементами */
+}
+
+.long-header {
+  text-align: center; /* Центрирование текста заголовка */
+  max-width: 80vw; /* Ограничиваем максимальную ширину заголовка */
+  line-height: 1.3; /* Межстрочный интервал */
 }
 
 .choices {
   color: #ffffff;
   margin-bottom: 5px;
+  text-align: center;
 }
 
 p {
@@ -2915,16 +2919,43 @@ p {
   font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
   margin-bottom: 20px;
   line-height: 1.5;
+  text-align: center;
+}
+
+p.welcome-and-congrats {
+  color: #e0e0e0;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+p.congrats {
+  color: #e0e0e0;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+
+li.welcome-and-congrats {
+  color: #e0e0e0;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  line-height: 1.1;
+  text-align: left;
 }
 
 .input-field {
-  width: 80%; /* Увеличим ширину полей ввода */
+  width: 70%; /* Увеличим ширину полей ввода */
   padding: 10px 15px; /* Увеличим внутренние отступы */
-  margin: 10px 0; /* Увеличим внешние отступы */
+  margin: 10px auto 0; /* Увеличим внешние отступы */
+  display: block;
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid #e0e0e0;
   font-size: 1.5em; /* Увеличим размер шрифта */
+  text-align: left;
 }
 
 .input-field:focus {
@@ -2947,10 +2978,28 @@ p {
 
 .button-container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   gap: 25px; /* Увеличим расстояние между кнопками */
   margin-top: 3vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
+.button-container-welcome-and-congrats {
+  display: flex;
+  justify-content: left;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
+.button-container-congrats{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 5px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
 }
 
 .nav-buttons-left {
@@ -3017,6 +3066,7 @@ ul {
   list-style-type: none;
   font-size: 1.6em;
   margin-bottom: 35px;
+  text-align: center;
 }
 
 button:focus {
@@ -3026,21 +3076,23 @@ button:focus {
 .checkbox-group {
   max-width: 75%;
   max-height: 45vh;
-  margin-top: 25px;
+  margin: 25px auto 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow-y: auto; /* Добавляем прокрутку при переполнении */
+  align-items: center;
 }
 
 .radio-group {
   max-width: 75%;
   max-height: 45vh;
-  margin-top: 25px;
+  margin: 25px auto 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow-y: auto; /* Добавляем прокрутку при переполнении */
+  align-items: center;
 }
 
 .custom-radio {
@@ -3205,6 +3257,7 @@ button:focus {
     display: flex;
     justify-content: flex-start;
     margin-top: 10px; /* Отступ сверху */
+    justify-content: center;
 }
 
 .link-scroll {
@@ -3226,7 +3279,8 @@ button:focus {
 .file-upload-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
 }
 
@@ -3262,7 +3316,6 @@ button:focus {
 @media (max-width: 1440px) {
   .header-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
@@ -3283,6 +3336,18 @@ h3 {
 p {
   font-size: 1.4em;
   text-align: center;
+}
+
+p.welcome-and-congrats{
+  font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
+}
+
+p.congrats{
+  font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
+}
+
+li.welcome-and-congrats{
+  font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
 }
 
 .fixed-title {
@@ -3320,6 +3385,7 @@ p {
   margin-top: 1.5vh;
   text-align: center;
 }
+
 
 .nav-button {
   font-size: 20px;
@@ -3390,6 +3456,18 @@ h3 {
 p {
   font-size: 1.2em;
   text-align: center;
+}
+
+p.welcome-and-congrats {
+  font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
+}
+
+p.congrats {
+  font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
+}
+
+li.welcome-and-congrats {
+  font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
 }
 
 .fixed-title {
@@ -3501,6 +3579,21 @@ p {
   text-align: center;
 }
 
+p.welcome-and-congrats {
+  font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
+}
+
+p.congrats {
+  font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
+li.welcome-and-congrats {
+  font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
+
 .fixed-title {
     font-size: 1.3em; /* Уменьшаем размер шрифта */
     padding: 5px 10px; /* Уменьшаем отступы */
@@ -3585,6 +3678,15 @@ ul {
 .home-logo {
   font-size: 30px;
 }
+
+.button-container-congrats{
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
 }
 
 @media (max-width: 768px) {
@@ -3592,6 +3694,11 @@ ul {
 .header-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.header-container-welcome-and-congrats {
+  display: flex;
   align-items: center;
 }
 
@@ -3613,6 +3720,23 @@ p {
   font-size: 1.1em;
   text-align: center;
 }
+
+p.welcome-and-congrats {
+  font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
+p.congrats {
+  font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
+
+}
+
+
+li.welcome-and-congrats {
+  font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
 
 .fixed-title {
     font-size: 1.2em; /* Уменьшаем размер шрифта */
@@ -3649,6 +3773,24 @@ p {
   margin-top: 1.5vh;
   text-align: center;
 }
+
+.button-container-welcome-and-congrats {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
+.button-container-congrats{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
 
 .nav-button {
   font-size: 16px;
@@ -3732,6 +3874,21 @@ ul {
     text-align: center;
   }
 
+  
+  p.welcome-and-congrats {
+  font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
+}
+
+p.congrats {
+  font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
+
+}
+
+li.welcome-and-congrats {
+  font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
+}
+
+
   .fixed-title {
     font-size: 1.1em; /* Уменьшаем размер шрифта */
     padding: 5px 10px; /* Уменьшаем отступы */
@@ -3766,6 +3923,22 @@ ul {
     gap: 10px;
     margin-top: 1.5vh;
     text-align: center; /* Это сохранит текст выравненным по центру */
+}
+
+.button-container-welcome-and-congrats {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
+}
+
+.button-container-congrats{
+  display: flex;
+  justify-content: left;
+  gap: 10px; /* Увеличим расстояние между кнопками */
+  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  text-align: center;
 }
 
 
