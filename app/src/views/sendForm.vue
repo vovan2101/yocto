@@ -2940,7 +2940,7 @@ p.congrats {
 
 li.welcome-and-congrats {
   color: #e0e0e0;
-  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  font-size: 1em; /* Увеличим размер шрифта для параграфов */
   line-height: 1.1;
   text-align: left;
 }
@@ -2996,7 +2996,7 @@ li.welcome-and-congrats {
   display: flex;
   justify-content: left;
   align-items: center;
-  gap: 5px; /* Увеличим расстояние между кнопками */
+  gap: 15px; /* Увеличим расстояние между кнопками */
   margin-top: 1.5vh; /* Увеличим отступ сверху */
   text-align: center;
 }
