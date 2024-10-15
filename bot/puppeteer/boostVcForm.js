@@ -63,7 +63,7 @@ const fillBoostVcForm = async (formData) => {
 
         await page.type('textarea[data-cy="text-area"][aria-label="In a few sentences, describe your idea / company."]', formData.company_description);
         await page.type('textarea[data-cy="text-area"][aria-label="In a few sentences, tell us why you / your team are awesome."]', formData.team_description);
-        await page.type('textarea[data-cy="text-area"][aria-label="Provide a link to you / your team\'s LinkedIn profiles."]', `${formData.ceo_linkedin} ${formData.cto_linkedin} ${formData.linkedin_profiles}`);
+        await page.type('textarea[data-cy="text-area"][aria-label="Provide a link to you / your team\'s LinkedIn profiles."]', `${formData.ceo_linkedin} ${formData.founder2_linkedin} ${formData.founder3_linkedin} ${formData.cto_linkedin} ${formData.linkedin_profiles}`);
         
         const fileInputs = await page.$$('.filepond--wrapper .filepond--root input.filepond--browser[type="file"][name="filepond"]');
         if (fileInputs.length >= 2) {
