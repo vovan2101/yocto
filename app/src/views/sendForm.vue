@@ -1227,7 +1227,7 @@ required
       <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_amount">
 
 <div class="header-container">
-  <h2>How much capital have you raised in prior rounds? (in USD)</h2>
+  <h2>How much capital have you raised all in prior rounds? (in USD)</h2>
 </div>
 <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.raising_amount" required />
 <div class="button-container">
@@ -1295,7 +1295,7 @@ required
     <label class="custom-radio">
       <input type="radio" value="1-$999" v-model="formData.earning_amount" />
       <span class="radio-button">
-        <span class="radio-key">A</span> $1 - $999
+        <span class="radio-key">A</span> $0 - $999
         <span class="checkmark">&#10003;</span>
       </span>
     </label>
@@ -1410,7 +1410,7 @@ required
 <div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="post_money_valuation">
 
     <div class="header-container">
-      <h2 class="long-header">What is your post-money valuation you are looking for in your current round? (in USD)</h2>
+      <h2 class="long-header">What is the post-money valuation you are looking for in your current round? (in USD)</h2>
     </div>
     <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.post_money_valuation" />
     <div class="button-container">
@@ -1469,7 +1469,7 @@ required
 <div v-if="currentStep === 39 && hasQuestionsForStep(39)" id="team_description">
 
   <div class="header-container">
-    <h2>In 2-3 sentences, why you / your team are awesome.</h2>
+    <h2>In 2-3 sentences, why you / your team are awesome?</h2>
   </div>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.team_description" required></textarea>
   <div class="button-container">
@@ -1499,17 +1499,17 @@ required
 <div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="ceo_linkedin">
 
   <div class="header-container">
-    <h2>Founder LinkedIn</h2>
+    <h2>Founder LinkedIn.</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.ceo_linkedin" />
 
   <div class="header-container">
-    <h2>Founder 2 LinkedIn</h2>
+    <h2>Founder 2 LinkedIn. (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder2_linkedin" />
 
   <div class="header-container">
-    <h2>Founder 3 LinkedIn</h2>
+    <h2>Founder 3 LinkedIn. (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder3_linkedin" />
 
@@ -1525,7 +1525,7 @@ required
 <div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="cto_linkedin">
 
   <div class="header-container">
-    <h2>CTO LinkedIn</h2>
+    <h2>CTO LinkedIn? (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.cto_linkedin" />
   <div class="button-container">
@@ -1555,8 +1555,9 @@ required
 <div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="founder_video_url">
 
   <div class="header-container">
-    <h2>Founder video URL</h2>
+    <h2>Founder video URL.</h2>
   </div>
+  <p>You may tell us about you/your team, what you are building, and why you are excited about it (no more than 2 minutes).</p>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder_video_url" />
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
@@ -1570,8 +1571,9 @@ required
 <div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="team_video_upload">
 
   <div class="header-container">
-    <h2>Upload short video about team and the company.</h2>
+    <h2>Founder video File.</h2>
   </div>
+  <p>You may tell us about you/your team, what you are building, and why you are excited about it (no more than 2 minutes).</p>
   <div class="file-upload-container">
     <label class="custom-file-upload">
       <input type="file" @change="handleVideoUpload" />
@@ -2275,8 +2277,8 @@ export default {
       40: ['Spatial Capital'],
       41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
       42: ['2048 Ventures'],
-      43: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
-      44: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
+      43: ['Boost Ventures'],
+      44: ['2048 Ventures', 'Path Ventures'],
       45: ['Boost Ventures'],
       46: ['Hustle Fund'],
       47: ['Hustle Fund', 'Incisive Ventures'],
