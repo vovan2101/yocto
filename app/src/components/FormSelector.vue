@@ -188,6 +188,7 @@
   created() {
   // Устанавливаем все формы по умолчанию при загрузке компонента
   this.selectedForms = [...this.forms];
+  this.loadSelectedInvestors();
 },
 watch: {
     selectedForms(newSelectedForms) {
@@ -221,21 +222,96 @@ computed: {
 
       return Array.from(uniqueSteps);
     },
-    submitSelection() {
+    async submitSelection() {
     if (this.selectedForms.length > 0) {
       console.log('Selected forms:', this.selectedForms);
-      this.$emit('forms-selected', this.selectedForms); // Передаем выбранные формы родительскому компоненту
+      this.$emit('forms-selected', this.selectedForms);
 
-      // Ждем обновления состояния в родительском компоненте перед переходом на следующий шаг
+      // Извлекаем имена выбранных инвесторов
+      const selectedInvestorNames = this.selectedForms.map(form => form.name);
+
+      // Сохраняем выбранных инвесторов в базу данных
+      await this.saveSelectedInvestors(selectedInvestorNames);
+
+      // Переходим на следующий шаг
       this.$nextTick(() => {
-        this.nextStep(); // Переход на следующий шаг
+        this.nextStep();
       });
     } else {
-      // Если нет выбранных форм, показываем предупреждение
       this.showWarning = true;
       setTimeout(() => {
-        this.showWarning = false; // Скрываем предупреждение через 3 секунды
+        this.showWarning = false;
       }, 4000);
+    }
+  },
+
+    // Новый метод для сохранения выбранных инвесторов
+    async saveSelectedInvestors(selectedInvestors) {
+    const deviceId = localStorage.getItem('device_id');
+
+    if (!deviceId) {
+      console.error('Device ID not found in localStorage.');
+      return;
+    }
+
+    const formData = {
+      device_id: deviceId,
+      selected_investors: selectedInvestors,
+    };
+
+    try {
+      const response = await fetch('http://localhost:3002/form-response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const result = await response.json();
+        console.error('Error saving selected investors:', result.message);
+        throw new Error(result.message || 'Failed to save selected investors');
+      }
+
+      console.log('Selected investors successfully saved.');
+    } catch (error) {
+      console.error('Error saving selected investors:', error);
+    }
+  },
+
+  async loadSelectedInvestors() {
+    const deviceId = localStorage.getItem('device_id');
+
+    if (!deviceId) {
+      console.error('Device ID not found in localStorage.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3002/form-response/device/${deviceId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+
+        if (result && result.selected_investors) {
+          // Находим формы, соответствующие сохраненным инвесторам
+          this.selectedForms = this.forms.filter(form =>
+            result.selected_investors.includes(form.name)
+          );
+        } else {
+          console.log('No selected investors found in response.');
+        }
+      } else {
+        console.error('Error loading selected investors:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error loading selected investors:', error);
     }
   },
       nextStep() {
