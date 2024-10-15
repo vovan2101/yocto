@@ -260,7 +260,7 @@ computed: {
     };
 
     try {
-      const response = await fetch('http://localhost:3002/form-response', {
+      const response = await fetch('http://test.yocto.vc/form-response', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ computed: {
     }
 
     try {
-      const response = await fetch(`http://localhost:3002/form-response/device/${deviceId}`, {
+      const response = await fetch(`http://test.yocto.vc/form-response/device/${deviceId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
