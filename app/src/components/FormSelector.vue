@@ -296,6 +296,14 @@ computed: {
         },
       });
 
+          // Логируем статус и заголовки ответа
+      console.log('Response Status:', response.status);
+      console.log('Response Headers:', response.headers);
+
+          // Получаем текст ответа
+      const responseText = await response.text();
+      console.log('Response Text:', responseText);
+
       if (response.ok) {
         const result = await response.json();
 
