@@ -89,7 +89,7 @@ function formatFormData(formData) {
     formattedData += `What is your company website?: ${formData.company_website}\n`;
   }
 
-  if (formData.industry_selection.length) {
+  if (formData.industry_selection) {
     formattedData += `What industry are you in?: ${formData.industry_selection.join(', ')}\n`;
   }
 
