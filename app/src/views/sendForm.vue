@@ -1289,7 +1289,7 @@ required
 <div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_amount">
 
   <div class="header-container">
-    <h2 class="long-header">Approximately how much revenue are you earning per month (in USD)?</h2>
+    <h2 class="long-header">Approximately how much revenue are you earning per month? (in USD)</h2>
   </div>
   <div class="radio-group">
     <label class="custom-radio">
@@ -1525,7 +1525,7 @@ required
 <div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="cto_linkedin">
 
   <div class="header-container">
-    <h2>CTO LinkedIn? (Leave blank if not applicable)</h2>
+    <h2>CTO LinkedIn. (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.cto_linkedin" />
   <div class="button-container">
@@ -1690,7 +1690,9 @@ required
   <div class="header-container">
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
   </div>
-  <p>Check their website for more information on their values: https://libertyventures.xyz/values</p>
+  <p>Check their website for more information on their values: 
+  <a href="https://libertyventures.xyz/values" target="_blank" class="custom-link">https://libertyventures.xyz/values</a>
+</p>
   <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.value_of_team" required></textarea>
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
@@ -3306,6 +3308,15 @@ button:focus {
   font-size: 14px;
   color: #ffffff;
 }
+
+.custom-link {
+    text-decoration: underline; /* Добавляем подчеркивание для ссылки */
+    color: #0000EE; /* Цвет ссылки по умолчанию */
+  }
+
+  .custom-link:hover {
+    text-decoration: none; /* Убираем подчеркивание при наведении */
+  }
 
 /* Медиазапросы для адаптации под мобильные устройства */
 
