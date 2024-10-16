@@ -260,7 +260,7 @@ computed: {
     };
 
     try {
-      const response = await fetch('http://test.yocto.vc/form-response', {
+      const response = await fetch('http://test.yocto.vc/api/form-response', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -289,20 +289,12 @@ computed: {
     }
 
     try {
-      const response = await fetch(`http://test.yocto.vc/form-response/device/${deviceId}`, {
+      const response = await fetch(`http://test.yocto.vc/api/form-response/device/${deviceId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
-          // Логируем статус и заголовки ответа
-      console.log('Response Status:', response.status);
-      console.log('Response Headers:', response.headers);
-
-          // Получаем текст ответа
-      const responseText = await response.text();
-      console.log('Response Text:', responseText);
 
       if (response.ok) {
         const result = await response.json();
