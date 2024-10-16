@@ -2652,6 +2652,18 @@ if (this.currentStep === 2) {
   }
 },
 
+generateUUID() {
+      let dt = new Date().getTime();
+      if (window.performance && typeof window.performance.now === 'function') {
+        dt += performance.now(); // Используем high-precision таймер, если доступен
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c === 'x' ? r.toString(16) : ((r & 0x3) | 0x8).toString(16));
+      });
+    },
+
   
     // Метод для загрузки данных формы из базы данных
     async loadFormData(device_id) {
@@ -2798,13 +2810,16 @@ scrollToCurrentStep() {
   let deviceId = localStorage.getItem('device_id');
 
   if (!deviceId) {
-    // Если device_id не существует, генерируем новый уникальный UUID
-    deviceId = crypto.randomUUID(); // Генерация нового UUID
-    localStorage.setItem('device_id', deviceId);
-    console.log('Создан новый device_id:', deviceId);
-  } else {
-    console.log('Существующий device_id найден:', deviceId);
-  }
+      if (crypto.randomUUID) {
+        deviceId = crypto.randomUUID();
+      } else {
+        deviceId = this.generateUUID();
+      }
+      localStorage.setItem('device_id', deviceId);
+      console.log('Создан новый device_id:', deviceId);
+    } else {
+      console.log('Существующий device_id найден:', deviceId);
+    }
 
    // Проверяем, что deviceId не равен null или undefined
    if (deviceId) {
