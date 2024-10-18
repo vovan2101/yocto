@@ -30,15 +30,10 @@ app.use(routes);
 
 // Маршрут для отправки форм
 app.post('/send-forms', upload.fields([
-  { name: 'founder_video_file', maxCount: 1 },
   { name: 'pitch_deck_file', maxCount: 1 }
 ]), (req, res) => {
   const formData = req.body;
   console.log('Received form data:', formData);
-
-  if (req.files['founder_video_file']) {
-    formData.founder_video_file = req.files['founder_video_file'][0].path;
-  }
 
   if (req.files['pitch_deck_file']) {
     formData.pitch_deck_file = req.files['pitch_deck_file'][0].path;
@@ -67,8 +62,8 @@ app.post('/send-email', (req, res) => {
   const mailOptions = {
     from: process.env.FROM_GMAIL_EMAIL,
     to: [email, 'pete@hundy.com'], // Отправляем на оба адреса
-    subject: 'Your Form Submission',
-    text: `Here are your form answers:\n\n${formattedFormData}`
+    subject: 'Your Submitted Answers on Yocto',
+    text: `Here are the answers you submitted on Yocto:\n\n${formattedFormData}`
   };
 
   console.log('GMAIL_EMAIL:', process.env.GMAIL_EMAIL);
