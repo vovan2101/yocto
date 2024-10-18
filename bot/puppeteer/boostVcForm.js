@@ -1,5 +1,43 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+
+// Функция для создания PDF с ссылкой на видео
+async function createFounderVideoPdf(videoUrl) {
+    const doc = new PDFDocument();
+  
+    // Путь к сохраненному PDF файлу
+    const pdfFilePath = path.join(__dirname, 'founder_video_link.pdf');
+  
+    // Создаем поток для записи PDF файла
+    const writeStream = fs.createWriteStream(pdfFilePath);
+    doc.pipe(writeStream);
+  
+    // Добавляем заголовок
+    doc.fontSize(18).text('Founder Video URL', {
+      align: 'center',
+    });
+  
+    // Добавляем ссылку в PDF
+    doc.moveDown();
+    doc.fontSize(14).text(`Click here to view the founder's video: ${videoUrl}`, {
+      align: 'center',
+      link: videoUrl,
+      underline: true,
+    });
+  
+    // Заканчиваем создание PDF
+    doc.end();
+  
+    // Ждем завершения записи файла
+    return new Promise((resolve, reject) => {
+      writeStream.on('finish', () => {
+        resolve(pdfFilePath); // Возвращаем путь к созданному PDF файлу
+      });
+      writeStream.on('error', reject);
+    });
+  }
 
 const fillBoostVcForm = async (formData) => {
     if (!formData) {
@@ -63,13 +101,51 @@ const fillBoostVcForm = async (formData) => {
 
         await page.type('textarea[data-cy="text-area"][aria-label="In a few sentences, describe your idea / company."]', formData.company_description);
         await page.type('textarea[data-cy="text-area"][aria-label="In a few sentences, tell us why you / your team are awesome."]', formData.team_description);
-        await page.type('textarea[data-cy="text-area"][aria-label="Provide a link to you / your team\'s LinkedIn profiles."]', `${formData.ceo_linkedin} ${formData.founder2_linkedin} ${formData.founder3_linkedin} ${formData.cto_linkedin} ${formData.linkedin_profiles}`);
+        await page.type('textarea[data-cy="text-area"][aria-label="Provide a link to you / your team\'s LinkedIn profiles."]', `${formData.ceo_linkedin} ${formData.founder2_linkedin} ${formData.founder3_linkedin} ${formData.cto_linkedin}`);
         
-        const fileInputs = await page.$$('.filepond--wrapper .filepond--root input.filepond--browser[type="file"][name="filepond"]');
-        if (fileInputs.length >= 2) {
-            const videoFileInput = fileInputs[0];
-            await videoFileInput.uploadFile(path.resolve(__dirname, '..', formData.founder_video_file));
-            const pitchDeckFileInput = fileInputs[1];
+        // Если есть ссылка на видео, создаем PDF и загружаем его
+        if (formData.founder_video_url) {
+            try {
+                // Попытка создания PDF с ссылкой на видео
+                console.log('Attempting to create PDF with video URL...');
+                const videoFilePath = await createFounderVideoPdf(formData.founder_video_url);
+                console.log(`PDF created successfully at ${videoFilePath}`);
+        
+                // Находим поле для загрузки файла
+                const fileInputs = await page.$$('.filepond--wrapper .filepond--root input.filepond--browser[type="file"][name="filepond"]');
+                
+                if (fileInputs.length > 0) {
+                    const videoFileInput = fileInputs[0];
+        
+                    // Попытка загрузить PDF файл в поле
+                    try {
+                        console.log(`Attempting to upload PDF file to the form field...`);
+                        await videoFileInput.uploadFile(videoFilePath);
+                        console.log('PDF uploaded successfully!');
+        
+                        // Удаляем PDF файл после успешной загрузки
+                        try {
+                            fs.unlinkSync(videoFilePath);
+                            console.log(`Temporary PDF file deleted at ${videoFilePath}`);
+                        } catch (deleteError) {
+                            console.error('Failed to delete the PDF file:', deleteError);
+                        }
+                    } catch (uploadError) {
+                        console.error('Failed to upload the PDF file:', uploadError);
+                    }
+                } else {
+                    console.error('No file input found for video upload!');
+                }
+        
+            } catch (pdfError) {
+                console.error('Failed to create PDF with video URL:', pdfError);
+            }
+        }
+
+
+        // Загружаем pitch deck файл (если есть)
+        const pitchDeckFileInput = await page.$('.filepond--wrapper .filepond--root input.filepond--browser[type="file"][name="filepond"]');
+        if (pitchDeckFileInput) {
             await pitchDeckFileInput.uploadFile(path.resolve(__dirname, '..', formData.pitch_deck_file));
         }
 

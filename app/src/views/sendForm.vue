@@ -1295,7 +1295,7 @@ required
     <label class="custom-radio">
       <input type="radio" value="1-$999" v-model="formData.earning_amount" />
       <span class="radio-button">
-        <span class="radio-key">A</span> $0 - $999
+        <span class="radio-key">A</span> $1 - $999
         <span class="checkmark">&#10003;</span>
       </span>
     </label>
@@ -1499,17 +1499,17 @@ required
 <div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="ceo_linkedin">
 
   <div class="header-container">
-    <h2>Founder LinkedIn.</h2>
+    <h2>Founder LinkedIn?</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.ceo_linkedin" />
 
   <div class="header-container">
-    <h2>Founder 2 LinkedIn. (Leave blank if not applicable)</h2>
+    <h2>Founder 2 LinkedIn? (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder2_linkedin" />
 
   <div class="header-container">
-    <h2>Founder 3 LinkedIn. (Leave blank if not applicable)</h2>
+    <h2>Founder 3 LinkedIn? (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder3_linkedin" />
 
@@ -1525,7 +1525,7 @@ required
 <div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="cto_linkedin">
 
   <div class="header-container">
-    <h2>CTO LinkedIn. (Leave blank if not applicable)</h2>
+    <h2>CTO LinkedIn? (Leave blank if not applicable)</h2>
   </div>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.cto_linkedin" />
   <div class="button-container">
@@ -1537,25 +1537,10 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="linkedin_profiles">
+<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="founder_video_url">
 
   <div class="header-container">
-    <h2>Your team's LinkedIn profiles.</h2>
-  </div>
-  <input class="input-field" type="url" placeholder="https://" v-model="formData.linkedin_profiles" />
-  <div class="button-container">
-    <button class="button" @click="nextStep">Next</button>
-    <p class="enter-text">press Enter ↵</p>
-  </div>
-  <div class="link-left-container">
-        <a @click="openModal('linkedin_profiles')" class="link-scroll">Which investors require this information?</a>
-    </div>
-</div>
-
-<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="founder_video_url">
-
-  <div class="header-container">
-    <h2>Founder video URL.</h2>
+    <h2>Founder video URL?</h2>
   </div>
   <p>You may tell us about you/your team, what you are building, and why you are excited about it (no more than 2 minutes).</p>
   <input class="input-field" type="url" placeholder="https://" v-model="formData.founder_video_url" />
@@ -1568,32 +1553,11 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="team_video_upload">
+
+<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="pitching_live">
 
   <div class="header-container">
-    <h2>Founder video File.</h2>
-  </div>
-  <p>You may tell us about you/your team, what you are building, and why you are excited about it (no more than 2 minutes).</p>
-  <div class="file-upload-container">
-    <label class="custom-file-upload">
-      <input type="file" @change="handleVideoUpload" />
-      Upload Video
-    </label>
-    <p v-if="formData.founder_video_file" class="file-name">File: {{ formData.founder_video_file }} uploaded successfully.</p>
-  </div>
-  <div class="button-container">
-    <button class="button" @click="nextStep">Next</button>
-    <p class="enter-text">press Enter ↵</p>
-  </div>
-  <div class="link-left-container">
-        <a @click="openModal('team_video_upload')" class="link-scroll">Which investors require this information?</a>
-    </div>
-</div>
-
-<div v-if="currentStep === 46 && hasQuestionsForStep(46)" id="pitching_live">
-
-  <div class="header-container">
-    <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
+  <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
   </div>
   <ul>
     <li>- This would involve asking you a series of questions about your business</li>
@@ -1624,7 +1588,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 47 && hasQuestionsForStep(47)" id="share_submission">
+<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="share_submission">
 
   <div class="header-container">
     <h2>Would you like us to share your submission with other companies?</h2>
@@ -1655,7 +1619,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 48 && hasQuestionsForStep(48)" id="investors_participating">
+<div v-if="currentStep === 46 && hasQuestionsForStep(46)" id="investors_participating">
 
   <div class="header-container">
     <h2>Investors participating in the current round (if any).</h2>
@@ -1670,7 +1634,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 49 && hasQuestionsForStep(49)" id="want_us_to_know">
+<div v-if="currentStep === 47 && hasQuestionsForStep(47)" id="want_us_to_know">
 
   <div class="header-container">
     <h2>Anything else you want investors to know?</h2>
@@ -1685,7 +1649,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 50 && hasQuestionsForStep(50)" id="value_of_team">
+<div v-if="currentStep === 48 && hasQuestionsForStep(48)" id="value_of_team">
 
   <div class="header-container">
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
@@ -1703,7 +1667,7 @@ required
     </div>
 </div>
 <!-- Step 54: Final Step -->
-<div v-if="currentStep === 51 && hasQuestionsForStep(51)" id="final_step">
+<div v-if="currentStep === 49 && hasQuestionsForStep(49)" id="final_step">
   <div class="header-container">
     <h2 class="header-container-welcome-and-congrats">Congratulations! All of the information requested has been completed.</h2>
   </div>
@@ -1783,7 +1747,7 @@ required
       class="nav-button"
       :disabled="currentStep === 1"
       @click="nextStep"
-      v-if="currentStep > 1 && currentStep < 51"
+      v-if="currentStep > 1 && currentStep < 50"
     >
       →
     </button>
@@ -2142,15 +2106,15 @@ export default {
         founder2_linkedin: '',
         founder3_linkedin: '',
         cto_linkedin: '',
-        linkedin_profiles: '',
         founder_video_url: '',
-        founder_video_file: null,
         vision: '',
         pitching_live: '',
         share_submission: '',
         investors_participating: '',
         want_us_to_know: '',
         value_of_team: '',
+        industryString: '',
+        productString: '',
       },
       successMessage: '',
       errorMessage: '',
@@ -2202,15 +2166,13 @@ export default {
     40: 'company_linkedin',
     41: 'ceo_linkedin',
     42: 'cto_linkedin',
-    43: 'linkedin_profiles',
-    44: 'founder_video_url',
-    45: 'team_video_upload',
-    46: 'pitching_live',
-    47: 'share_submission',
-    48: 'investors_participating',
-    49: 'want_us_to_know',
-    50: 'value_of_team',
-    51: 'final_step',
+    43: 'founder_video_url',
+    44: 'pitching_live',
+    45: 'share_submission',
+    46: 'investors_participating',
+    47: 'want_us_to_know',
+    48: 'value_of_team',
+    49: 'final_step',
   };
 
   return stepIds[stepNumber];
@@ -2279,15 +2241,13 @@ export default {
       40: ['Spatial Capital'],
       41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
       42: ['2048 Ventures'],
-      43: ['Boost Ventures'],
-      44: ['2048 Ventures', 'Path Ventures'],
-      45: ['Boost Ventures'],
-      46: ['Hustle Fund'],
+      43: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
+      44: ['Hustle Fund'],
+      45: ['Hustle Fund', 'Incisive Ventures'],
+      46: ['Hustle Fund', 'Incisive Ventures'],
       47: ['Hustle Fund', 'Incisive Ventures'],
-      48: ['Hustle Fund', 'Incisive Ventures'],
-      49: ['Hustle Fund', 'Incisive Ventures'],
-      50: ['Liberty Ventures'],
-      51: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
+      48: ['Liberty Ventures'],
+      49: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
     };
 
     // Проверяем, есть ли инвесторы для текущего шага
@@ -2371,7 +2331,7 @@ export default {
       this.isModalOpen = false;
     },
     checkOtherLocation() {
-    if (!['US - Other', 'Canada - Other', 'Asia - Other'].includes(this.formData.specific_location)) {
+    if (!['US - Other', 'Canada - OtheproductStringr', 'Asia - Other'].includes(this.formData.specific_location)) {
       this.formData.other_location = '';
       }
     },
@@ -2462,10 +2422,6 @@ export default {
       if (this.formData.raising_round !== 'Beyond Series A') {
         this.formData.beyond_series_a_round = '';
       }
-    },
-    handleVideoUpload(event) {
-      const file = event.target.files[0];
-      this.formData.founder_video_file = file;
     },
     handlePitchDeckUpload(event) {
       const file = event.target.files[0];
@@ -2591,8 +2547,18 @@ if (this.currentStep === 2) {
   await this.saveField('raising_amount', this.formData.raising_amount);
 } else if (this.currentStep === 32) {
   await this.saveField('capital_to_raise', this.formData.capital_to_raise);
-} else if (this.currentStep === 33) {
-  await this.saveField('earning_revenue', this.formData.earning_revenue);
+}   if (this.currentStep === 33) {
+    // Step 33: Сохранение earning_revenue
+    await this.saveField('earning_revenue', this.formData.earning_revenue);
+
+    // Если выбрано "No", пропускаем шаг 34 и идем сразу на шаг 35
+    if (this.formData.earning_revenue === 'No') {
+      this.currentStep = 35;
+      setTimeout(() => {
+        this.scrollToCurrentStep();
+      }, 500);
+      return;
+    }
 } else if (this.currentStep === 34) {
   await this.saveField('earning_amount', this.formData.earning_amount);
 } else if (this.currentStep === 35) {
@@ -2617,20 +2583,16 @@ if (this.currentStep === 2) {
 } else if (this.currentStep === 42) {
   await this.saveField('cto_linkedin', this.formData.cto_linkedin);
 } else if (this.currentStep === 43) {
-  await this.saveField('linkedin_profiles', this.formData.linkedin_profiles);
-} else if (this.currentStep === 44) {
   await this.saveField('founder_video_url', this.formData.founder_video_url);
-} else if (this.currentStep === 45) {
-  await this.saveField('founder_video_file', this.formData.founder_video_file);
-} else if (this.currentStep === 46) {
+} else if (this.currentStep === 44) {
   await this.saveField('pitching_live', this.formData.pitching_live);
-} else if (this.currentStep === 47) {
+} else if (this.currentStep === 45) {
   await this.saveField('share_submission', this.formData.share_submission);
-} else if (this.currentStep === 48) {
+} else if (this.currentStep === 46) {
   await this.saveField('investors_participating', this.formData.investors_participating);
-} else if (this.currentStep === 49) {
+} else if (this.currentStep === 47) {
   await this.saveField('want_us_to_know', this.formData.want_us_to_know);
-} else if (this.currentStep === 50) {
+} else if (this.currentStep === 48) {
   await this.saveField('value_of_team', this.formData.value_of_team);
 }
 
@@ -2647,7 +2609,7 @@ if (this.currentStep === 2) {
     setTimeout(() => {
       this.scrollToCurrentStep();
     }, 500); // Задержка в 500 мс для гарантированного рендеринга
-    if (this.currentStep === 51) {
+    if (this.currentStep === 50) {
       this.hasReachedEnd = true;
     }
     this.showTitle = this.currentStep !== 1;
@@ -2707,7 +2669,7 @@ generateUUID() {
 },
 
     goToEnd() {
-    this.currentStep = 51; // Переводим пользователя на последний шаг
+    this.currentStep = 50; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
   },
   findSecondValidStep() {
@@ -2732,6 +2694,12 @@ generateUUID() {
     while (prevValidStep >= 2 && !this.hasQuestionsForStep(prevValidStep)) {
       prevValidStep--;
     }
+  }
+
+    // Если текущий шаг 35, проверяем, был ли шаг 34 пропущен
+    if (this.currentStep === 35 && this.formData.earning_revenue === 'No') {
+    // Пропускаем шаг 34, если ответ на шаге 33 был "No"
+    prevValidStep = 33;
   }
 
   // Если после проверки шагов мы находимся на шаге 2, либо шаг 2 пропускается для инвестора, просто переходим на шаг 1 (выбор формы)
@@ -3331,7 +3299,7 @@ button:focus {
 
 .custom-link {
     text-decoration: underline; /* Добавляем подчеркивание для ссылки */
-    color: #0000EE; /* Цвет ссылки по умолчанию */
+    color: #ff538c; /* Цвет ссылки по умолчанию */
   }
 
   .custom-link:hover {
