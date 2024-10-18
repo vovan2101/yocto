@@ -250,10 +250,6 @@ module.exports = new EntitySchema({
       type: 'text',
       nullable: true,
     },
-    founder_video_file: {
-      type: 'text',
-      nullable: true,
-    },
     pitching_live: {
       type: 'text',
       nullable: true,

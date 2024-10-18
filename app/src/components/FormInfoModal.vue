@@ -224,14 +224,9 @@
   cto_linkedin: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
   ],
-  linkedin_profiles: [
-    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
-  ],
   founder_video_url: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
     { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
-  ],
-  team_video_upload: [
     { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
   ],
   vision: [

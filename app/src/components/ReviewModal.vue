@@ -254,51 +254,39 @@
     <span class="answer">{{ formData.cto_linkedin }}</span>
   </li>
 
-  <!-- LinkedIn Profiles -->
-  <li v-if="shouldDisplayQuestion(43, 'linkedin_profiles')">
-    <strong><a @click="goToStep(43)">Your team's LinkedIn profiles:</a></strong>
-    <span class="answer">{{ formData.linkedin_profiles }}</span>
-  </li>
-
   <!-- Founder Video URL -->
-  <li v-if="shouldDisplayQuestion(44, 'founder_video_url')">
-    <strong><a @click="goToStep(44)">Founder video URL:</a></strong>
+  <li v-if="shouldDisplayQuestion(43, 'founder_video_url')">
+    <strong><a @click="goToStep(43)">Founder video URL:</a></strong>
     <span class="answer">{{ formData.founder_video_url }}</span>
   </li>
 
-  <!-- Team Video Upload -->
-  <li v-if="shouldDisplayQuestion(45, 'team_video_upload')">
-    <strong><a @click="goToStep(45)">Upload video about the team and company:</a></strong>
-    <span class="answer">{{ formData.team_video_upload.name }}</span>
-  </li>
-
   <!-- Pitching Live -->
-  <li v-if="shouldDisplayQuestion(46, 'pitching_live')">
-    <strong><a @click="goToStep(46)">Are you interested in pitching live in front of a virtual audience?:</a></strong>
+  <li v-if="shouldDisplayQuestion(44, 'pitching_live')">
+    <strong><a @click="goToStep(44)">Are you interested in pitching live in front of a virtual audience?:</a></strong>
     <span class="answer">{{ formData.pitching_live }}</span>
   </li>
 
   <!-- Share Submission -->
-  <li v-if="shouldDisplayQuestion(47, 'share_submission')">
-    <strong><a @click="goToStep(47)">Would you like us to share your submission with other companies?:</a></strong>
+  <li v-if="shouldDisplayQuestion(45, 'share_submission')">
+    <strong><a @click="goToStep(45)">Would you like us to share your submission with other companies?:</a></strong>
     <span class="answer">{{ formData.share_submission }}</span>
   </li>
 
   <!-- Investors Participating -->
-  <li v-if="shouldDisplayQuestion(48, 'investors_participating')">
-    <strong><a @click="goToStep(48)">Investors participating in the current round (if any):</a></strong>
+  <li v-if="shouldDisplayQuestion(46, 'investors_participating')">
+    <strong><a @click="goToStep(46)">Investors participating in the current round (if any):</a></strong>
     <span class="answer">{{ formData.investors_participating }}</span>
   </li>
 
   <!-- Anything Else -->
-  <li v-if="shouldDisplayQuestion(49, 'want_us_to_know')">
-    <strong><a @click="goToStep(49)">Anything else you'd like investors to know?:</a></strong>
+  <li v-if="shouldDisplayQuestion(47, 'want_us_to_know')">
+    <strong><a @click="goToStep(47)">Anything else you'd like investors to know?:</a></strong>
     <span class="answer">{{ formData.want_us_to_know }}</span>
   </li>
 
   <!-- Value of Team -->
-  <li v-if="shouldDisplayQuestion(50, 'value_of_team')">
-    <strong><a @click="goToStep(50)">How do the values of your team align with Liberty Ventures?:</a></strong>
+  <li v-if="shouldDisplayQuestion(48, 'value_of_team')">
+    <strong><a @click="goToStep(48)">How do the values of your team align with Liberty Ventures?:</a></strong>
     <span class="answer">{{ formData.value_of_team }}</span>
   </li>
       </ul>
@@ -336,54 +324,52 @@ export default {
         2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
         3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
         4: ['Liberty Ventures'],
-        5: ['Precursor Ventures'],
-        6: ['Hustle Fund'],
-        7: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        8: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
-        9: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
-        10: ['Hustle Fund', 'Incisive Ventures'],
-        11: ['Incisive Ventures'],
-        12: ['Hustle Fund'],
-        13: ['Hustle Fund'],
-        14: ['2048 Ventures'],
-        15: ['Hustle Fund', 'Incisive Ventures'],
-        16: ['Hustle Fund'],
-        17: ['Hustle Fund'],
-        18: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        19: ['Liberty Ventures'],
-        20: ['Hustle Fund', 'Incisive Ventures'],
+        5: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
+        6: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        7: ['2048 Ventures'],
+        8: ['Precursor Ventures'],
+        9: ['Hustle Fund'],
+        10: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
+        11: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
+        12: ['Hustle Fund', 'Incisive Ventures'],
+        13: ['Incisive Ventures'],
+        14: ['Hustle Fund'],
+        15: ['Hustle Fund'],
+        16: ['Hustle Fund', 'Incisive Ventures'],
+        17: ['Hustle Fund', 'Incisive Ventures'],
+        18: ['Hustle Fund'],
+        19: ['Hustle Fund'],
+        20: ['Hustle Fund'],
         21: ['Hustle Fund'],
-        22: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures'],
-        23: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        24: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-        25: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        26: ['Hustle Fund'],
-        27: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
-        28: ['Precursor Ventures'],
-        29: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        30: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        31: ['Hustle Fund'],
-        32: ['Hustle Fund', 'Incisive Ventures'],
+        22: ['2048 Ventures'],
+        23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+        24: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        25: ['Liberty Ventures'],
+        26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        27: ['Precursor Ventures'],
+        28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        29: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+        30: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        31: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        32: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
         33: ['Hustle Fund'],
-        34: ['Precursor Ventures'],
-        35: ['Hustle Fund', 'Incisive Ventures'],
-        36: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-        37: ['Incisive Ventures'],
-        38: ['Boost Ventures'],
-        39: ['Spatial Capital'],
-        40: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-        41: ['2048 Ventures'],
-        42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
-        43: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
-        44: ['Boost Ventures'],
-        45: ['2048 Ventures'],
-        46: ['Hustle Fund'],
+        34: ['Hustle Fund', 'Incisive Ventures'],
+        35: ['Hustle Fund'],
+        36: ['Precursor Ventures'],
+        37: ['Hustle Fund', 'Incisive Ventures'],
+        38: ['Incisive Ventures'],
+        39: ['Boost Ventures'],
+        40: ['Spatial Capital'],
+        41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+        42: ['2048 Ventures'],
+        43: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
+        44: ['Hustle Fund'],
+        45: ['Hustle Fund', 'Incisive Ventures'],
+        46: ['Hustle Fund', 'Incisive Ventures'],
         47: ['Hustle Fund', 'Incisive Ventures'],
-        48: ['Hustle Fund', 'Incisive Ventures'],
-        49: ['Hustle Fund', 'Incisive Ventures'],
-        50: ['Liberty Ventures'],
-        51: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
-      };
+        48: ['Liberty Ventures'],
+        49: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
+    };
       
       // Проверяем, есть ли соответствующий ответ в данных формы и привязан ли шаг к выбранным формам
       return this.formData[fieldKey] && this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
