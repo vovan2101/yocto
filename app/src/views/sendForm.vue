@@ -899,95 +899,114 @@ required
 <div class="header-container">
   <h2>Where is your business incorporated?</h2>
 </div>
+
 <div class="scrollable-content">
-<div class="radio-group">
-  <label class="custom-radio">
-    <input type="radio" value="US" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">A</span> US
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Canada" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">B</span> Canada
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Mexico" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">C</span> Mexico
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Asia - East" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">D</span> Asia - East
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">E</span> Asia - India / Pakistan / Bangladesh
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Asia - Southeast Asia" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">F</span> Asia - Southeast Asia
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Australia / New Zealand" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">G</span> Australia / New Zealand
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Europe" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">H</span> Europe
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Latin America" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">I</span> Latin America
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Middle East" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">J</span> Middle East
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Africa" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">K</span> Africa
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-  <label class="custom-radio">
-    <input type="radio" value="Other" v-model="formData.headquartered" />
-    <span class="radio-button">
-      <span class="radio-key">L</span> Other
-      <span class="checkmark">&#10003;</span>
-    </span>
-  </label>
-</div>
+  <div class="radio-group">
+    <!-- Радиокнопка для "US" с возможностью unclick -->
+    <label class="custom-radio">
+      <input type="radio" 
+             value="US" 
+             v-model="formData.headquartered" 
+             @click="toggleUSSelection"
+      />
+      <span class="radio-button">
+        <span class="radio-key">A</span> US
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <!-- Остальные радиокнопки отображаются только если не выбрано "US" -->
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Canada" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">B</span> Canada
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Mexico" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">C</span> Mexico
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Asia - East" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">D</span> Asia - East
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Asia - India / Pakistan / Bangladesh" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">E</span> Asia - India / Pakistan / Bangladesh
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Asia - Southeast Asia" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">F</span> Asia - Southeast Asia
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Australia / New Zealand" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">G</span> Australia / New Zealand
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Europe" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">H</span> Europe
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Latin America" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">I</span> Latin America
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Middle East" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">J</span> Middle East
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Africa" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">K</span> Africa
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <label class="custom-radio" v-if="formData.headquartered !== 'US'">
+      <input type="radio" value="Other" v-model="formData.headquartered" />
+      <span class="radio-button">
+        <span class="radio-key">L</span> Other
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+  </div>
 </div>
 
+<!-- Показываем вопрос о C-Corp только если выбрано "US" -->
 <div v-if="formData.headquartered === 'US'" class="additional-question">
   <h3>Are you a C-Corp?</h3>
   <div class="radio-group">
@@ -2118,6 +2137,7 @@ export default {
         productString: '',
         customer_acquisitionString: '',
       },
+      previousHeadquartered: '',
       successMessage: '',
       errorMessage: '',
       isEmailModalOpen: false, // Управляет отображением окна email
@@ -2255,6 +2275,18 @@ export default {
     // Проверяем, есть ли инвесторы для текущего шага
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
+
+  toggleUSSelection() {
+      // Проверяем, выбрана ли уже "US"
+      if (this.formData.headquartered === 'US') {
+        // Если выбрана, то сбрасываем выбор
+        this.formData.headquartered = this.previousHeadquartered;
+      } else {
+        // Если не выбрана, сохраняем текущее значение, а затем выбираем "US"
+        this.previousHeadquartered = this.formData.headquartered;
+        this.formData.headquartered = 'US';
+      }
+    },
 
       // Метод для сохранения текущего поля формы
       async saveField(fieldName, fieldValue) {
