@@ -151,7 +151,7 @@
     21: 'customers_based',
     22: 'vision',
     23: 'company_website',
-    24: 'industry_selection',
+    24: 'industry',
     25: 'liberty_ventures_industry',
     26: 'headquartered',
     27: 'legal_structure',
