@@ -2499,7 +2499,17 @@ if (this.currentStep === 2) {
 } else if (this.currentStep === 17) {
   await this.saveField('product_status', this.formData.product_status);
 } else if (this.currentStep === 18) {
+  // Сохранение active_customers
   await this.saveField('active_customers', this.formData.active_customers);
+
+  // Если выбрано "No", пропускаем шаг 19 и идем сразу на шаг 20
+  if (this.formData.active_customers === 'No') {
+    this.currentStep = 20;
+    setTimeout(() => {
+      this.scrollToCurrentStep();
+    }, 500);
+    return;
+  }
 } else if (this.currentStep === 19) {
   await this.saveField('how_many_users', this.formData.how_many_users);
 } else if (this.currentStep === 20) {
@@ -2702,6 +2712,12 @@ generateUUID() {
     if (this.currentStep === 35 && this.formData.earning_revenue === 'No') {
     // Пропускаем шаг 34, если ответ на шаге 33 был "No"
     prevValidStep = 33;
+  }
+
+    // Логика для шага 19 (how_many_users)
+    if (this.currentStep === 20 && this.formData.active_customers === 'No') {
+    // Пропускаем шаг 19, если ответ на шаге 18 был "No"
+    prevValidStep = 18;
   }
 
   // Если после проверки шагов мы находимся на шаге 2, либо шаг 2 пропускается для инвестора, просто переходим на шаг 1 (выбор формы)
