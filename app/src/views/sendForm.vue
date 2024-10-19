@@ -10,11 +10,12 @@
           <div class="header-container-welcome-and-congrats">
             <h2>Welcome to Yocto!</h2>
           </div>
-          <p class="welcome-and-congrats">We've preconfigured the applications for 10 top pre-seed & seed investors (more coming soon).</p>
-          <p class="welcome-and-congrats">Please select the investors you would like to submit an application to based on the time you have.</p>
-          <p class="welcome-and-congrats">Time estimates assume you know the answers to the questions and have any files requested readliy available.</p>
-          <p class="welcome-and-congrats">Certain investors have unique questions and/or may request additional information.</p>
-          <p class="welcome-and-congrats">At the end, you can review and edit your answers before submitting.</p>
+          <ul class="welcome-list">
+            <li>Please select the investors you would like to submit an application to based on the time you have.</li>
+            <li>Time estimates assume you know the answers to the questions and have any files requested readily available.</li>
+            <li>Certain investors have unique questions and/or may request additional information.</li>
+            <li>At the end, you can review and edit your answers before submitting.</li>
+          </ul>
           <p class="welcome-and-congrats"><strong>Let’s begin!</strong></p>
           <div class="button-container-welcome-and-congrats">
             <button class="button" @click="nextStep">Get Started</button>
@@ -1672,7 +1673,7 @@ required
     <h2 class="header-container-welcome-and-congrats">Congratulations! All of the information requested has been completed.</h2>
   </div>
   <p class="congrats">You may now review and edit your responses before submitting.</p>
-  <ul>
+  <ul class="welcome-list">
   <li class="welcome-and-congrats">To review your answers, select "Review Your Answers"</li>
   <li class="welcome-and-congrats">To receive a copy of your responses via email, select "Send to my Email"</li>
   <li class="welcome-and-congrats">To submit your responses, select "Submit"</li>
@@ -2932,6 +2933,20 @@ li.welcome-and-congrats {
   line-height: 1.1;
   text-align: left;
 }
+
+ul.welcome-list {
+  list-style-type: disc; /* Устанавливаем маркеры */
+  padding-left: 20px; /* Отступ слева для списка */
+  margin-top: 10px; /* Отступ сверху для списка */
+  margin-bottom: 10px; /* Отступ снизу для списка */
+  text-align: left;
+}
+
+.welcome-list li {
+  margin-bottom: 5px; /* Уменьшение расстояния между элементами списка */
+  line-height: 1.4; /* Установка межстрочного расстояния для лучшей читаемости */
+}
+
 
 .input-field {
   width: 70%; /* Увеличим ширину полей ввода */
