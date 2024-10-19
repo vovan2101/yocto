@@ -87,7 +87,7 @@
   </li>
 
   <!-- Customer Acquisition -->
-  <li v-if="shouldDisplayQuestion(15, 'customer_acquisition') && formData.customer_acquisition.length">
+  <li v-if="shouldDisplayQuestion(15, 'customer_acquisition')">
     <strong><a @click="goToStep(15)">How do you plan on acquiring your customers?:</a></strong>
     <span class="answer">{{ formData.customer_acquisition.join(', ') }}</span>
   </li>
@@ -117,7 +117,7 @@
   </li>
 
   <!-- Business Model -->
-  <li v-if="shouldDisplayQuestion(20, 'business_model') && formData.business_model.length">
+  <li v-if="shouldDisplayQuestion(20, 'business_model')">
     <strong><a @click="goToStep(20)">What is your Business Model?:</a></strong>
     <span class="answer">{{ formData.business_model.join(', ') }}</span>
   </li>
@@ -141,7 +141,7 @@
   </li>
 
   <!-- Industry Selection -->
-  <li v-if="shouldDisplayQuestion(24, 'industry_selection') && formData.industry.length">
+  <li v-if="shouldDisplayQuestion(24, 'industry')">
     <strong><a @click="goToStep(24)">What industry are you in?:</a></strong>
     <span class="answer">{{ formData.industry.join(', ') }}</span>
   </li>

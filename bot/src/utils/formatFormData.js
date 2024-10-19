@@ -53,8 +53,8 @@ function formatFormData(formData) {
     formattedData += `13. Who is your target customer & how are you going to acquire them?\n${formData.target_customer}\n\n`;
   }
 
-  if (formData.customer_acquisition.length) {
-    formattedData += `14. How do you plan on acquiring your customers?\n${formData.customer_acquisition.join(', ')}\n\n`;
+  if (formData.customer_acquisition) {
+    formattedData += `14. How do you plan on acquiring your customers?\n${formData.customer_acquisition}\n\n`;
   }
 
   if (formData.product_selection) {
@@ -73,8 +73,8 @@ function formatFormData(formData) {
     formattedData += `18. How many users do you have?\n${formData.how_many_users}\n\n`;
   }
 
-  if (formData.business_model.length) {
-    formattedData += `19. What is your Business Model?\n${formData.business_model.join(', ')}\n\n`;
+  if (formData.business_model) {
+    formattedData += `19. What is your Business Model?\n${formData.business_model}\n\n`;
   }
 
   if (formData.customers_based) {
@@ -89,8 +89,8 @@ function formatFormData(formData) {
     formattedData += `22. What is your company website?\n${formData.company_website}\n\n`;
   }
 
-  if (formData.industry_selection) {
-    formattedData += `23. What industry are you in?\n${formData.industry_selection.join(', ')}\n\n`;
+  if (formData.industry) {
+    formattedData += `23. What industry are you in?\n${formData.industry}\n\n`;
   }
 
   if (formData.liberty_ventures_industry) {
