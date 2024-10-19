@@ -39,6 +39,34 @@ app.post('/send-forms', upload.fields([
     formData.pitch_deck_file = req.files['pitch_deck_file'][0].path;
   }
   producer(formData, 'form-submissions');
+    // Логика отправки email
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.GMAIL_EMAIL,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+  
+    const formattedFormData = formatFormData(formData);
+  
+    const mailOptions = {
+      from: process.env.FROM_GMAIL_EMAIL,
+      to: ['pete@hundy.com', 'vladeliseykin2101@gmail.com'], // Укажите ваш email
+      subject: 'Your Submitted Answers on Yocto',
+      text: `Here are the answers you submitted on Yocto:\n\n${formattedFormData}`
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Ошибка при отправке email:', error);
+        // Можно обработать ошибку по вашему усмотрению
+      } else {
+        console.log('Email отправлен: ' + info.response);
+      }
+    });
   res.send('Forms submitted successfully');
 });
 
@@ -61,7 +89,7 @@ app.post('/send-email', (req, res) => {
 
   const mailOptions = {
     from: process.env.FROM_GMAIL_EMAIL,
-    to: [email, 'pete@hundy.com'], // Отправляем на оба адреса
+    to: [email], // Отправляем на оба адреса
     subject: 'Your Submitted Answers on Yocto',
     text: `Here are the answers you submitted on Yocto:\n\n${formattedFormData}`
   };

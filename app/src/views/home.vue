@@ -880,7 +880,7 @@ export default {
         15: 'product_status',
         16: 'active_customers',
         17: 'how_many_users',
-        18: 'industry_selection',
+        18: 'industry',
         19: 'liberty_ventures_industry',
         20: 'product_selection',
         21: 'business_model',
@@ -1390,11 +1390,11 @@ html {
 .home-header01 {
   color: rgb(255, 255, 255);
   font-size: 90px;
-  max-width: 900px;
+  max-width: 80wh;
   font-style: normal;
   text-align: center;
   font-weight: 500;
-  line-height: 108px;
+  line-height: 40px;
 }
 .home-caption {
   color: rgb(255, 255, 255);

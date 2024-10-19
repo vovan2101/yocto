@@ -817,7 +817,7 @@ required
 <a @click="openModal('company_website')" class="link-scroll">Which investors require this information?</a>
 </div>
 </div>
-          <div v-if="currentStep === 24 && hasQuestionsForStep(24)" id="industry_selection">
+          <div v-if="currentStep === 24 && hasQuestionsForStep(24)" id="industry">
 
             <div class="header-container">
               <h2>What industry are you in?</h2>
@@ -1738,7 +1738,7 @@ required
       class="nav-button"
       :disabled="currentStep === 1"
       @click="nextStep"
-      v-if="currentStep > 1 && currentStep < 50"
+      v-if="currentStep > 1 && currentStep < 49"
     >
       →
     </button>
@@ -2102,6 +2102,7 @@ export default {
         value_of_team: '',
         industryString: '',
         productString: '',
+        customer_acquisitionString: '',
       },
       successMessage: '',
       errorMessage: '',
@@ -2134,7 +2135,7 @@ export default {
     21: 'customers_based',
     22: 'vision',
     23: 'company_website',
-    24: 'industry_selection',
+    24: 'industry',
     25: 'liberty_ventures_industry',
     26: 'headquartered',
     27: 'legal_structure',
@@ -2580,16 +2581,16 @@ if (this.currentStep === 2) {
   let nextValidStep = this.currentStep + 1;
 
   // Проверяем и пропускаем шаги, для которых нет вопросов
-  while (nextValidStep <= 51 && !this.hasQuestionsForStep(nextValidStep)) {
+  while (nextValidStep <= 49 && !this.hasQuestionsForStep(nextValidStep)) {
     nextValidStep++;
   }
 
-  if (nextValidStep <= 51) {
+  if (nextValidStep <= 49) {
     this.currentStep = nextValidStep;
     setTimeout(() => {
       this.scrollToCurrentStep();
     }, 500); // Задержка в 500 мс для гарантированного рендеринга
-    if (this.currentStep === 50) {
+    if (this.currentStep === 49) {
       this.hasReachedEnd = true;
     }
     this.showTitle = this.currentStep !== 1;
@@ -2649,7 +2650,7 @@ generateUUID() {
 },
 
     goToEnd() {
-    this.currentStep = 50; // Переводим пользователя на последний шаг
+    this.currentStep = 49; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
   },
   findSecondValidStep() {
@@ -2889,6 +2890,25 @@ p {
   text-align: center;
 }
 
+p.success-message {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+p.error-message {
+  color: #e0e0e0;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+  color: #f44336;
+  font-weight: bold;
+}
+
 p.welcome-and-congrats {
   color: #e0e0e0;
   font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
@@ -3014,11 +3034,6 @@ li.welcome-and-congrats {
 
 .success-message {
   color: #4caf50;
-  font-weight: bold;
-}
-
-.error-message {
-  color: #f44336;
   font-weight: bold;
 }
 
