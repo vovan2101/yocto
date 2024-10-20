@@ -911,7 +911,7 @@ p {
   }
 
   .table-container {
-    max-height: 80vh; /* Уменьшаем высоту таблицы до 50% на самых маленьких экранах */
+    max-height: 45vh; /* Уменьшаем высоту таблицы до 50% на самых маленьких экранах */
     overflow-y: auto;
     overflow-x: hidden;
   }
