@@ -623,7 +623,6 @@
 <div class="header-container">
   <h2>What is your Business Model?</h2>
 </div>
-<p>Please select the options that apply to your business the most - the fewer the better!</p>
 <p>(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
 <div class="choices">
   You can choose up to 2
@@ -3986,7 +3985,7 @@ li.welcome-and-congrats {
   .input-field {
     width: 75%; /* Ограничиваем ширину до 75% */
     font-size: 1em;
-    margin: 20px auto 0;
+    margin: 0 auto 0;
     display: block; /* Позволяет полю быть центровкой */
     text-align: left; /* Текст внутри поля начинается с левой стороны */
 }
