@@ -3168,7 +3168,7 @@ button:focus {
   border: 2px solid transparent; /* Убираем рамку */
   cursor: pointer;
   position: relative;
-  width: 100%;
+  width: 96%;
   transition: background-color 0.3s, border-color 0.3s; /* Плавные переходы */
 }
 
