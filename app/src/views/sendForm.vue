@@ -3985,7 +3985,7 @@ li.welcome-and-congrats {
   .input-field {
     width: 75%; /* Ограничиваем ширину до 75% */
     font-size: 1em;
-    margin: 0 auto 0;
+    margin: 10px auto 0;
     display: block; /* Позволяет полю быть центровкой */
     text-align: left; /* Текст внутри поля начинается с левой стороны */
 }
