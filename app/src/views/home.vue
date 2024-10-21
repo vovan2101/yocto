@@ -112,6 +112,23 @@
     </tr>
   </tbody>
 </table>
+<div class="modal-options">
+      <a href="#" @click.prevent="showUserRequestForm" class="modal-link">Don't see the form you are looking for? Request to add it.</a>
+      <br>
+      <a href="#" @click.prevent="showInvestorRequestForm" class="modal-link">Are you an investor? Request to add your form.</a>
+    </div>
+
+    <!-- Форма запроса от пользователя -->
+    <div v-if="isUserRequestFormVisible" class="request-form">
+      <input v-model="userRequestedFormName" placeholder="Enter the form name" />
+      <button @click="submitUserRequest">Submit</button>
+    </div>
+
+    <!-- Форма запроса от инвестора -->
+    <div v-if="isInvestorRequestFormVisible" class="request-form">
+      <input v-model="investorRequestedFormName" placeholder="Enter your form name" />
+      <button @click="submitInvestorRequest">Submit</button>
+    </div>
   </div>
 </div>
 
@@ -798,6 +815,10 @@ export default {
       rawwvf2: ' ',
       rawo84v: ' ',
       isModalOpen: false, // для управления состоянием модального окна
+      isUserRequestFormVisible: false,
+      isInvestorRequestFormVisible: false,
+      userRequestedFormName: '',
+      investorRequestedFormName: '',
       forms: [
         { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
         { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
@@ -933,6 +954,50 @@ computed: {
     }
   },
   methods: {
+    showUserRequestForm() {
+      this.isUserRequestFormVisible = true;
+      this.isInvestorRequestFormVisible = false;
+    },
+    showInvestorRequestForm() {
+      this.isInvestorRequestFormVisible = true;
+      this.isUserRequestFormVisible = false;
+    },
+    async submitUserRequest() {
+      if (this.userRequestedFormName.trim() !== '') {
+        await this.saveFormRequest('user', this.userRequestedFormName);
+        this.userRequestedFormName = '';
+        this.isUserRequestFormVisible = false;
+        alert('Your request has been submitted. Thank you!');
+      }
+    },
+    async submitInvestorRequest() {
+      if (this.investorRequestedFormName.trim() !== '') {
+        await this.saveFormRequest('investor', this.investorRequestedFormName);
+        this.investorRequestedFormName = '';
+        this.isInvestorRequestFormVisible = false;
+        alert('Your request has been submitted. Thank you!');
+      }
+    },
+    async saveFormRequest(type, formName) {
+      const deviceId = localStorage.getItem('device_id');
+      const requestData = {
+        device_id: deviceId,
+        type: type,
+        form_name: formName,
+      };
+      try {
+        await fetch('http://localhost:3002/form-requests', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        });
+      } catch (error) {
+        console.error('Error submitting form request:', error);
+      }
+    },
+
     getUniqueStepsForSelectedForms() {
       const uniqueSteps = new Set();
 
@@ -1044,6 +1109,30 @@ html {
   text-align: center;
   margin-bottom: 20px;
 }
+
+.modal-link {
+  color: white;
+  text-decoration: underline;
+}
+
+.modal-link:hover {
+  text-decoration: none;
+}
+
+.request-form {
+  margin-top: 10px;
+}
+
+.request-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 5px;
+}
+
+.request-form button {
+  padding: 8px 16px;
+}
+
 
 .investor-number {
   font-weight: bold;
