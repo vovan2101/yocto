@@ -1765,7 +1765,7 @@ required
   class="nav-button"
   :disabled="currentStep === 1"
   @click="prevStep"
-  v-if="currentStep > 1 && currentStep < 50"
+  v-if="currentStep > 1 && currentStep <= 50"
 >
   ←
 </button>
@@ -1776,7 +1776,7 @@ required
       class="nav-button"
       :disabled="currentStep === 1"
       @click="nextStep"
-      v-if="currentStep > 1 && currentStep < 49"
+      v-if="currentStep > 1 && currentStep < 50"
     >
       →
     </button>
