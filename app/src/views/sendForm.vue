@@ -3752,6 +3752,10 @@ ul {
   font-size: 14px;
 }
 
+.enter-text {
+    display: none;
+  }
+
 .radio-group,
 .checkbox-group {
   max-width: 75%;
@@ -3889,6 +3893,10 @@ li.welcome-and-congrats {
   font-size: 16px;
   padding: 0.4rem 0.8rem;
 }
+
+.enter-text {
+    display: none;
+  }
 
 ul {
   font-size: 1.1em;
@@ -4033,6 +4041,10 @@ li.welcome-and-congrats {
   margin-top: 1.5vh; /* Увеличим отступ сверху */
   text-align: center;
 }
+
+.enter-text {
+    display: none;
+  }
 
 
   .nav-button {
