@@ -1,5 +1,6 @@
 const { DataSource } = require('typeorm');
 const FormResponse = require('../entities/FormResponse');
+const FormRequest = require('../entities/FormRequest');
 
 require('dotenv').config(); // Для загрузки переменных окружения
 
@@ -12,7 +13,7 @@ const AppDataSource = new DataSource({
   database: process.env.STAGE_POSTGRES_DB,
   synchronize: true, // Автоматически создаёт таблицы на основе сущностей
   logging: true,
-  entities: [FormResponse], // Список всех ваших сущностей
+  entities: [FormResponse, FormRequest], // Список всех ваших сущностей
   migrations: [],
   subscribers: [],
 });
