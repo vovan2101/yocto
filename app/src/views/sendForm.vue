@@ -1718,7 +1718,17 @@ required
   <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
 
-      <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+<!-- Step 50: Submission Success -->
+<div v-if="currentStep === 50" id="submission_success">
+  <div class="header-container">
+    <h2>Your form has been successfully submitted!</h2>
+  </div>
+  <p>Thank you for submitting your application. Investors usually respond within a few days. We appreciate your patience!</p>
+  <div class="button-container">
+    <button class="button" @click="goToHome">Back to Home</button>
+  </div>
+</div>
+
       <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
     </div>
     </transition>
@@ -1728,14 +1738,14 @@ required
       <button 
     class="nav-button" 
     @click="goToFirstStep" 
-    v-if="currentStep >= 1">
+    v-if="currentStep >= 1 && currentStep < 50">
     Back to Start
   </button>
 
    <button 
     class="nav-button" 
     @click="goToEnd" 
-    v-if="hasReachedEnd && currentStep >= 2">
+    v-if="hasReachedEnd && currentStep >= 2 && currentStep < 49">
     Go to End
   </button>
 
@@ -1746,7 +1756,7 @@ required
   class="nav-button"
   :disabled="currentStep === 1"
   @click="prevStep"
-  v-if="currentStep > 1"
+  v-if="currentStep > 1 && currentStep < 50"
 >
   ←
 </button>
@@ -2181,6 +2191,7 @@ export default {
     47: 'want_us_to_know',
     48: 'value_of_team',
     49: 'final_step',
+    50: 'submission_success',
   };
 
   return stepIds[stepNumber];
@@ -2260,6 +2271,11 @@ export default {
 
     // Проверяем, есть ли инвесторы для текущего шага
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
+  },
+
+  goToHome() {
+    // Перенаправление на домашнюю страницу
+    window.location.href = '/';
   },
 
   toggleUSSelection() {
@@ -2786,6 +2802,7 @@ scrollToCurrentStep() {
     });
 
         if (response.ok) {
+          this.currentStep++;
           this.successMessage = 'Form submitted successfully!';
           this.errorMessage = '';
         } else {
@@ -2798,10 +2815,13 @@ scrollToCurrentStep() {
       }
     },
     handleKeydown(event) {
-      if (event.key === 'Enter') {
-        this.nextStep();
-      }
-    }
+  if (this.currentStep === 49) {
+    return;
+  }
+  if (event.key === 'Enter') {
+    this.nextStep();
+  }
+}
   },
   mounted() {
   console.log('Компонент смонтирован. Проверка наличия device_id.');
