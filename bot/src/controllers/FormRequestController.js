@@ -18,3 +18,7 @@ exports.saveFormRequest = async (req, res) => {
     res.status(500).json({ message: 'Error saving form request' });
   }
 };
+
+module.exports = {
+  saveFormRequest,
+};
