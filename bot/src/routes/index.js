@@ -1,6 +1,6 @@
 const express = require('express');
 const formResponseRoutes = require('./FormResponseRoutes'); // Ваши маршруты для FormResponse
-const formRequestRoutes = require('./formRequestRoutes');
+const formRequestRoutes = require('./FormRequestRoutes');
 
 const router = express.Router();
 
