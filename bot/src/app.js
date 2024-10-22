@@ -25,8 +25,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+app.use(express.json());
 // Подключаем маршруты
-app.use(routes);
+app.use('/api', routes);
 
 // Маршрут для отправки форм
 app.post('/send-forms', upload.fields([
