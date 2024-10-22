@@ -113,22 +113,23 @@
   </tbody>
 </table>
 <div class="modal-options">
-      <a href="#" @click.prevent="showUserRequestForm" class="modal-link">Don't see the form you are looking for? Request to add it.</a>
-      <br>
-      <a href="#" @click.prevent="showInvestorRequestForm" class="modal-link">Are you an investor? Request to add your form.</a>
-    </div>
+  <a href="#user-request-input" class="modal-link" @click="showUserRequestForm">Don't see the form you are looking for? Request to add it.</a>
+  <br>
+  <a href="#investor-request-input" class="modal-link" @click="showInvestorRequestForm">Are you an investor? Request to add your form.</a>
+</div>
 
-    <!-- Форма запроса от пользователя -->
-    <div v-if="isUserRequestFormVisible" class="request-form">
-      <input v-model="userRequestedFormName" placeholder="Enter the form name" />
-      <button @click="submitUserRequest">Submit</button>
-    </div>
+<!-- Форма запроса от пользователя -->
+<div v-show="isUserRequestFormVisible" class="request-form">
+  <input id="user-request-input" v-model="userRequestedFormName" placeholder="Enter the form name" />
+  <button class="button small-button" @click="submitUserRequest">Submit</button>
+</div>
 
-    <!-- Форма запроса от инвестора -->
-    <div v-if="isInvestorRequestFormVisible" class="request-form">
-      <input v-model="investorRequestedFormName" placeholder="Enter your form name" />
-      <button @click="submitInvestorRequest">Submit</button>
-    </div>
+<!-- Форма запроса от инвестора -->
+<div v-show="isInvestorRequestFormVisible" class="request-form">
+  <input id="investor-request-input" v-model="investorRequestedFormName" placeholder="Enter your form name" />
+  <button class="button small-button" @click="submitInvestorRequest">Submit</button>
+</div>
+
   </div>
 </div>
 
@@ -941,6 +942,8 @@ export default {
   created() {
   // Устанавливаем все формы по умолчанию при загрузке компонента
   this.selectedForms = [...this.forms];
+  this.isUserRequestFormVisible = false;
+  this.isInvestorRequestFormVisible = false;
 },
 computed: {
     totalEstimatedTime() {
@@ -955,13 +958,36 @@ computed: {
   },
   methods: {
     showUserRequestForm() {
-      this.isUserRequestFormVisible = true;
-      this.isInvestorRequestFormVisible = false;
-    },
-    showInvestorRequestForm() {
-      this.isInvestorRequestFormVisible = true;
-      this.isUserRequestFormVisible = false;
-    },
+    this.isUserRequestFormVisible = true;
+    this.isInvestorRequestFormVisible = false;
+    this.scrollToBottom();
+  },
+  showInvestorRequestForm() {
+    this.isInvestorRequestFormVisible = true;
+    this.isUserRequestFormVisible = false;
+    this.scrollToBottom();
+  },
+  scrollToBottom() {
+    // Прокручиваем только при видимой форме
+    if (this.isUserRequestFormVisible || this.isInvestorRequestFormVisible) {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          const inputElement = this.$el.querySelector('#user-request-input') || this.$el.querySelector('#investor-request-input');
+          if (inputElement) {
+            inputElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 200);
+      });
+    }
+  },
+showUserRequestForm() {
+    this.isUserRequestFormVisible = true;
+    this.isInvestorRequestFormVisible = false;
+  },
+  showInvestorRequestForm() {
+    this.isInvestorRequestFormVisible = true;
+    this.isUserRequestFormVisible = false;
+  },
     async submitUserRequest() {
       if (this.userRequestedFormName.trim() !== '') {
         await this.saveFormRequest('user', this.userRequestedFormName);
@@ -1113,20 +1139,38 @@ html {
 .modal-link {
   color: white;
   text-decoration: underline;
+  font-size: 18px; /* Увеличиваем размер шрифта */
+  display: block; /* Ссылки занимают всю ширину */
 }
+
+/* Добавляем отступ только под второй ссылкой */
+.modal-link:nth-of-type(2) {
+  margin-bottom: 10px; /* Небольшой отступ снизу */
+}
+
 
 .modal-link:hover {
   text-decoration: none;
 }
 
-.request-form {
-  margin-top: 10px;
+.modal-options {
+  margin: 10px 20px auto; /* Увеличиваем отступ сверху */
 }
+
+.request-form {
+  margin: 15px 20px;
+}
+
+.small-button {
+  font-size: 14px; /* Меньший размер шрифта */
+  padding: 0.3rem 0.6rem; /* Меньшие отступы */
+}
+
 
 .request-form input {
   width: 100%;
   padding: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .request-form button {
