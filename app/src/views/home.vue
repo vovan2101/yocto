@@ -3143,9 +3143,22 @@ html {
 .home-container5 {
   display: contents;
 }
+
+@media(max-width: 1400px) {
+  .home-header01 {
+    font-size: 70px;
+  }
+}
+
 @media(max-width: 1100px) {
   .home-caption {
     white-space: normal;
+  }
+
+  .home-header01 {
+    font-size: 73px;
+    max-width: 90%;
+    line-height: 70px;
   }
 }
 
@@ -3158,6 +3171,11 @@ html {
   }
   .home-burger-menu {
     display: flex;
+  }
+
+  .home-header01 {
+    font-size: 55px;
+    line-height: 62px;
   }
 
   .home-caption {
@@ -3174,6 +3192,12 @@ html {
 .modal-content {
     width: 90%;
     max-width: 550px;
+  }
+
+  .home-header01 {
+    font-size: 36px;
+    max-width: 90%;
+    line-height: 43px;
   }
 
   .investor-table th,
@@ -3295,7 +3319,7 @@ html {
 
   .home-header01 {
     font-size: 36px;
-    max-width: 70%;
+    max-width: 90%;
     line-height: 43px;
   }
   .home-caption {
