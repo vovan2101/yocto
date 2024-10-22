@@ -2772,24 +2772,6 @@ scrollToCurrentStep() {
   });
 },
     async submitForm() {
-      if (this.formData.relationship === 'Other' && !this.formData.other_relationship) {
-        this.errorMessage = 'Please specify your relationship to the company.';
-        this.successMessage = '';
-        return;
-      }
-
-      if (this.formData.business_model.includes('Other') && !this.formData.other_business_model) {
-        this.errorMessage = 'Please specify your business model.';
-        this.successMessage = '';
-        return;
-      }
-
-      if (this.formData.product === 'Other' && !this.formData.other_product) {
-        this.errorMessage = 'Please specify your product.';
-        this.successMessage = '';
-        return;
-      }
-
       try {
         const formData = new FormData();
         for (const key in this.formData) {
