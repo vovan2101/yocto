@@ -26,10 +26,10 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Подключаем маршруты
-app.use(routes);
+app.use('/api', routes);
 
 // Маршрут для отправки форм
-app.post('/send-forms', upload.fields([
+app.post('/api/send-forms', upload.fields([
   { name: 'pitch_deck_file', maxCount: 1 }
 ]), (req, res) => {
   const formData = req.body;
