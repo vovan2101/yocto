@@ -6,10 +6,10 @@ module.exports = new EntitySchema({
   tableName: 'form_requests',
   columns: {
     id: {
-      primary: true,
-      type: 'uuid',
-      generated: true,
-    },
+        primary: true,
+        type: 'int',
+        generated: true, // Автоинкрементный числовой идентификатор
+      },
     device_id: {
       type: 'text',
       nullable: false,

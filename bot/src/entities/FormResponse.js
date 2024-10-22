@@ -6,8 +6,8 @@ module.exports = new EntitySchema({
   columns: {
     id: {
       primary: true,
-      type: 'uuid',
-      generated: 'uuid',
+      type: 'int',
+      generated: true,
     },
     device_id: {
       type: 'text',
