@@ -1,9 +1,8 @@
-// controllers/FormRequestController.js
+// controllers/formRequestController.js
 const { AppDataSource } = require('../config/data-source');
 const FormRequest = require('../entities/FormRequest');
 
-const saveFormRequest = async (req, res) => {
-  console.log('saveFormRequest called with data:', req.body);
+exports.saveFormRequest = async (req, res) => {
   const { device_id, type, form_name } = req.body;
   try {
     const formRequestRepository = AppDataSource.getRepository(FormRequest);
@@ -18,8 +17,4 @@ const saveFormRequest = async (req, res) => {
     console.error('Error saving form request:', error);
     res.status(500).json({ message: 'Error saving form request' });
   }
-};
-
-module.exports = {
-  saveFormRequest,
 };
