@@ -5,7 +5,7 @@ const FormRequest = require('../entities/FormRequest');
 exports.saveFormRequest = async (req, res) => {
   const { device_id, type, form_name } = req.body;
   try {
-    const formRequestRepository = AppDataSource.getRepository('FormRequest');
+    const formRequestRepository = AppDataSource.getRepository(FormRequest);
     const newRequest = formRequestRepository.create({
       device_id,
       type,
