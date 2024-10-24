@@ -113,23 +113,30 @@
   </tbody>
 </table>
 <div class="modal-options">
-  <a href="#user-request-input" class="modal-link" @click="showUserRequestForm">Don't see the form you are looking for? Request to add it.</a>
+  <!-- Ссылка для пользователя -->
+  <a href="#user-request-input" class="modal-link" @click="toggleUserRequestForm">Don't see an investor with a form you are looking for?</a>
+  
+  <!-- Форма запроса от пользователя, которая отображается под вопросом -->
+  <div v-show="isUserRequestFormVisible" class="request-form">
+    <input id="user-request-input" v-model="userRequestedFormName" placeholder="Please provide the URL for the investor's submission form." />
+    <button class="button small-button" @click="submitUserRequest">Submit</button>
+  </div>
+  
   <br>
-  <a href="#investor-request-input" class="modal-link" @click="showInvestorRequestForm">Are you an investor? Request to add your form.</a>
-</div>
 
-<!-- Форма запроса от пользователя -->
-<div v-show="isUserRequestFormVisible" class="request-form">
-  <input id="user-request-input" v-model="userRequestedFormName" placeholder="Enter the form name" />
-  <button class="button small-button" @click="submitUserRequest">Submit</button>
-</div>
+  <!-- Ссылка для инвестора -->
+  <a href="#investor-request-input" class="modal-link" @click="toggleInvestorRequestForm">Are you an investor and want to add your form?</a>
 
-<!-- Форма запроса от инвестора -->
-<div v-show="isInvestorRequestFormVisible" class="request-form">
-  <input id="investor-request-input" v-model="investorRequestedFormName" placeholder="Enter your form name" />
-  <button class="button small-button" @click="submitInvestorRequest">Submit</button>
-</div>
+  <!-- Форма запроса от инвестора, которая отображается под вопросом -->
+  <div v-show="isInvestorRequestFormVisible" class="request-form">
+    <input id="investor-request-input" v-model="investorRequestedFormName" placeholder="Please provide the URL for your submission form." />
+    <button class="button small-button" @click="submitInvestorRequest">Submit</button>
+  </div>
 
+  <!-- Сообщения успеха или ошибки отображаются здесь, под обеими формами -->
+  <p v-if="userSuccessMessage || userErrorMessage" class="success-message">{{ userSuccessMessage || userErrorMessage }}</p>
+  <p v-if="investorSuccessMessage || investorErrorMessage" class="success-message">{{ investorSuccessMessage || investorErrorMessage }}</p>
+</div>
   </div>
 </div>
 
@@ -820,6 +827,10 @@ export default {
       isInvestorRequestFormVisible: false,
       userRequestedFormName: '',
       investorRequestedFormName: '',
+      userSuccessMessage: '',
+      userErrorMessage: '',
+      investorSuccessMessage: '',
+      investorErrorMessage: '',
       forms: [
         { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
         { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
@@ -957,16 +968,19 @@ computed: {
     }
   },
   methods: {
-    showUserRequestForm() {
-    this.isUserRequestFormVisible = true;
-    this.isInvestorRequestFormVisible = false;
-    this.scrollToBottom();
-  },
-  showInvestorRequestForm() {
-    this.isInvestorRequestFormVisible = true;
-    this.isUserRequestFormVisible = false;
-    this.scrollToBottom();
-  },
+    // Переключение видимости формы для пользователя
+    toggleUserRequestForm() {
+      this.isUserRequestFormVisible = !this.isUserRequestFormVisible;
+      this.clearMessages(); // Убираем сообщения при скрытии формы
+      this.isInvestorRequestFormVisible = false; // Закрываем форму для инвестора
+    },
+    
+    // Переключение видимости формы для инвестора
+    toggleInvestorRequestForm() {
+      this.isInvestorRequestFormVisible = !this.isInvestorRequestFormVisible;
+      this.clearMessages(); // Убираем сообщения при скрытии формы
+      this.isUserRequestFormVisible = false; // Закрываем форму для пользователя
+    },
   scrollToBottom() {
     // Прокручиваем только при видимой форме
     if (this.isUserRequestFormVisible || this.isInvestorRequestFormVisible) {
@@ -988,14 +1002,30 @@ showUserRequestForm() {
     this.isInvestorRequestFormVisible = true;
     this.isUserRequestFormVisible = false;
   },
-    async submitUserRequest() {
-      if (this.userRequestedFormName.trim() !== '') {
-        await this.saveFormRequest('user', this.userRequestedFormName);
-        this.userRequestedFormName = '';
-        this.isUserRequestFormVisible = false;
-        alert('Your request has been submitted. Thank you!');
-      }
+  async submitUserRequest() {
+  if (this.userRequestedFormName.trim() !== '') {
+    await this.saveFormRequest('user', this.userRequestedFormName);
+    this.userSuccessMessage = 'Your request has been submitted. Thank you!';
+    this.userRequestedFormName = '';
+    this.isUserRequestFormVisible = false;
+    this.clearMessagesAfterDelay();
+  } else {
+    this.userErrorMessage = 'Please provide a valid URL.';
+    this.clearMessagesAfterDelay();
+  }
+},
+clearMessages() {
+      this.userSuccessMessage = '';
+      this.userErrorMessage = '';
+      this.investorSuccessMessage = '';
+      this.investorErrorMessage = '';
     },
+    clearMessagesAfterDelay() {
+      setTimeout(() => {
+        this.clearMessages();
+      }, 5000); // Сообщение исчезает через 5 секунд
+    },
+
     async submitInvestorRequest() {
       if (this.investorRequestedFormName.trim() !== '') {
         await this.saveFormRequest('investor', this.investorRequestedFormName);
@@ -1195,7 +1225,7 @@ html {
 }
 
 .request-form {
-  margin: 15px 20px;
+  margin: 15px 0;
 }
 
 .small-button {
@@ -1221,6 +1251,15 @@ html {
   color: #ffffff;
 }
 
+.success-message {
+  color: #4caf50;
+  font-size: 20px
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 20px
+}
 
 /* Таблица инвесторов */
 .investor-table {
