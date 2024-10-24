@@ -19,26 +19,26 @@ export default new Router({
       name: 'ComingSoon',
       component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
     },
-    {
-      name: 'Home',
-      path: '/',
-      component: Home,
-    },
+    // {
+    //   name: 'Home',
+    //   path: '/',
+    //   component: Home,
+    // },
     // {
     //   path: '/find-investors',
     //   name: 'FindInvestors',
     //   component: FindInvestors
     // },
-    {
-      path: '/send-form',
-      name: 'sendForm',
-      component: sendForm,
-    },
-    {
-      name: '404 - Not Found',
-      path: '**',
-      component: NotFound,
-      fallback: true,
-    },
+    // {
+    //   path: '/send-form',
+    //   name: 'sendForm',
+    //   component: sendForm,
+    // },
+    // {
+    //   name: '404 - Not Found',
+    //   path: '**',
+    //   component: NotFound,
+    //   fallback: true,
+    // },
   ],
 })
