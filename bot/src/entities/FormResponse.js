@@ -154,10 +154,6 @@ module.exports = new EntitySchema({
       type: 'text',
       nullable: true,
     },
-    is_delaware_corp: {
-      type: 'text',
-      nullable: true,
-    },
     legal_structure: {
       type: 'text',
       nullable: true,
