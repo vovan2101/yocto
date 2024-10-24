@@ -1004,7 +1004,42 @@ showUserRequestForm() {
         alert('Your request has been submitted. Thank you!');
       }
     },
+    generateUUID() {
+      let dt = new Date().getTime();
+      if (window.performance && typeof window.performance.now === 'function') {
+        dt += performance.now(); // Используем high-precision таймер, если доступен
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c === 'x' ? r.toString(16) : ((r & 0x3) | 0x8).toString(16));
+      });
+    },
+
     async saveFormRequest(type, formName) {
+      // Проверка наличия deviceId
+      if (!deviceId) {
+        if (crypto.randomUUID) {
+          deviceId = crypto.randomUUID(); // Используем встроенный метод, если доступен
+        } else {
+          deviceId = this.generateUUID(); // Иначе используем собственную функцию
+        }
+
+        // Сохраняем новый device_id в localStorage
+        localStorage.setItem('device_id', deviceId);
+        console.log('Создан новый device_id:', deviceId);
+      } else {
+        console.log('Существующий device_id найден:', deviceId);
+      }
+
+      // Проверяем, что deviceId не равен null или undefined
+      if (deviceId) {
+        console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
+        this.loadFormData(deviceId);
+      } else {
+        console.error('device_id не найден после проверки localStorage.');
+        return; // Завершаем выполнение, если device_id отсутствует
+      }
       const deviceId = localStorage.getItem('device_id');
       const requestData = {
         device_id: deviceId,
