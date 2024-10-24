@@ -1017,35 +1017,20 @@ showUserRequestForm() {
     },
 
     async saveFormRequest(type, formName) {
-      // Проверка наличия deviceId
-      if (!deviceId) {
-        if (crypto.randomUUID) {
-          deviceId = crypto.randomUUID(); // Используем встроенный метод, если доступен
-        } else {
-          deviceId = this.generateUUID(); // Иначе используем собственную функцию
-        }
+  // Получаем deviceId из localStorage
+  const deviceId = localStorage.getItem('device_id');
 
-        // Сохраняем новый device_id в localStorage
-        localStorage.setItem('device_id', deviceId);
-        console.log('Создан новый device_id:', deviceId);
-      } else {
-        console.log('Существующий device_id найден:', deviceId);
-      }
+  // Если deviceId не найден, прерываем выполнение
+  if (!deviceId) {
+    console.error('device_id не найден при попытке отправки формы.');
+    return;
+  }
 
-      // Проверяем, что deviceId не равен null или undefined
-      if (deviceId) {
-        console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
-        this.loadFormData(deviceId);
-      } else {
-        console.error('device_id не найден после проверки localStorage.');
-        return; // Завершаем выполнение, если device_id отсутствует
-      }
-      const deviceId = localStorage.getItem('device_id');
-      const requestData = {
-        device_id: deviceId,
-        type: type,
-        form_name: formName,
-      };
+  const requestData = {
+    device_id: deviceId, // Используем существующий или созданный device_id
+    type: type,
+    form_name: formName,
+  };
       try {
         await fetch('https://www.yocto.vc/api/form-requests', {
           method: 'POST',
@@ -1099,6 +1084,31 @@ showUserRequestForm() {
       },
     ],
   },
+  mounted() {
+  console.log('Компонент смонтирован. Проверка наличия device_id.');
+
+  let deviceId = localStorage.getItem('device_id');
+
+  if (!deviceId) {
+    if (crypto.randomUUID) {
+      deviceId = crypto.randomUUID(); // Используем встроенный метод
+    } else {
+      deviceId = this.generateUUID(); // Используем метод генерации UUID
+    }
+    localStorage.setItem('device_id', deviceId);
+    console.log('Создан новый device_id:', deviceId);
+  } else {
+    console.log('Существующий device_id найден:', deviceId);
+  }
+
+  // Проверяем, что deviceId не равен null или undefined
+  if (deviceId) {
+    console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
+    this.loadFormData(deviceId);
+  } else {
+    console.error('device_id не найден после проверки localStorage.');
+  }
+},
 }
 
 </script>
