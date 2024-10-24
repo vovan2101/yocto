@@ -1100,14 +1100,6 @@ showUserRequestForm() {
   } else {
     console.log('Существующий device_id найден:', deviceId);
   }
-
-  // Проверяем, что deviceId не равен null или undefined
-  if (deviceId) {
-    console.log('Текущий device_id перед загрузкой данных формы:', deviceId);
-    this.loadFormData(deviceId);
-  } else {
-    console.error('device_id не найден после проверки localStorage.');
-  }
 },
 }
 
