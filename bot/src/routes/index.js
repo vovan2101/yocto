@@ -6,6 +6,6 @@ const router = express.Router();
 
 // Подключаем маршруты формы
 router.use('/form-response', formResponseRoutes);
-router.use('/', formRequestRoutes); // Подключаем formRequestRoutes
+router.use('/form-requests', formRequestRoutes); // Подключаем formRequestRoutes
 
 module.exports = router;
