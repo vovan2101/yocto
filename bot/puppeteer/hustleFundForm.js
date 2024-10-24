@@ -66,7 +66,7 @@ const fillhustleFundForm = async (formData) => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Выбор радиокнопки для вопроса "Are you a Delaware C Corp?"
-            const delawareSelector = formData.is_delaware_corp === 'Yes'
+            const delawareSelector = formData.ormData.legal_structure === 'Delaware C-Corp'
                 ? 'div[data-qa="choice-0-readable-element"][aria-label="Yes"]'
                 : 'div[data-qa="choice-1-readable-element"][aria-label="No"]';
             
