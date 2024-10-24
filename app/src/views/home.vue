@@ -1004,13 +1004,33 @@ showUserRequestForm() {
         alert('Your request has been submitted. Thank you!');
       }
     },
+    generateUUID() {
+      let dt = new Date().getTime();
+      if (window.performance && typeof window.performance.now === 'function') {
+        dt += performance.now(); // Используем high-precision таймер, если доступен
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (dt + Math.random() * 16) % 16 | 0;
+        dt = Math.floor(dt / 16);
+        return (c === 'x' ? r.toString(16) : ((r & 0x3) | 0x8).toString(16));
+      });
+    },
+
     async saveFormRequest(type, formName) {
-      const deviceId = localStorage.getItem('device_id');
-      const requestData = {
-        device_id: deviceId,
-        type: type,
-        form_name: formName,
-      };
+  // Получаем deviceId из localStorage
+  const deviceId = localStorage.getItem('device_id');
+
+  // Если deviceId не найден, прерываем выполнение
+  if (!deviceId) {
+    console.error('device_id не найден при попытке отправки формы.');
+    return;
+  }
+
+  const requestData = {
+    device_id: deviceId, // Используем существующий или созданный device_id
+    type: type,
+    form_name: formName,
+  };
       try {
         await fetch('http://localhost:3002/form-requests', {
           method: 'POST',
@@ -1064,6 +1084,23 @@ showUserRequestForm() {
       },
     ],
   },
+  mounted() {
+  console.log('Компонент смонтирован. Проверка наличия device_id.');
+
+  let deviceId = localStorage.getItem('device_id');
+
+  if (!deviceId) {
+    if (crypto.randomUUID) {
+      deviceId = crypto.randomUUID(); // Используем встроенный метод
+    } else {
+      deviceId = this.generateUUID(); // Используем метод генерации UUID
+    }
+    localStorage.setItem('device_id', deviceId);
+    console.log('Создан новый device_id:', deviceId);
+  } else {
+    console.log('Существующий device_id найден:', deviceId);
+  }
+},
 }
 
 </script>
