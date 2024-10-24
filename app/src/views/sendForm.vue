@@ -10,8 +10,9 @@
           <div class="header-container-welcome-and-congrats">
             <h2>Welcome to Yocto!</h2>
           </div>
+          <p class="select-the-investors">Select the investors you would like to submit an application to based on the time you have.</p>
           <ul class="welcome-list">
-            <li>Please select the investors you would like to submit an application to based on the time you have.</li>
+            <li>You may use time estimator to select the investors based on time you have available.</li>
             <li>Time estimates assume you know the answers to the questions and have any files requested readily available.</li>
             <li>Certain investors have unique questions and/or may request additional information.</li>
             <li>At the end, you can review and edit your answers before submitting.</li>
@@ -2064,7 +2065,7 @@ export default {
         { key: 'I', value: 'Services', label: 'Services' },
         { key: 'J', value: 'Digital Goods / Content', label: 'Digital Goods / Content' },
         { key: 'K', value: 'Experiences', label: 'Experiences' },
-        { key: 'AA', value: 'Other', label: 'Other' }
+        { key: 'L', value: 'Other', label: 'Other' }
       ],
       formData: {
         first_name: '',
@@ -2940,6 +2941,14 @@ p {
   text-align: center;
 }
 
+p.select-the-investors {
+  color: #e0e0e0;
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: left;
+}
+
 p.success-message {
   color: #4caf50;
   font-weight: bold;
@@ -3393,6 +3402,11 @@ p {
   text-align: center;
 }
 
+p.select-the-investors {
+  font-size: 1.4em;
+}
+
+
 p.welcome-and-congrats{
   font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
 }
@@ -3512,6 +3526,12 @@ p {
   font-size: 1.2em;
   text-align: center;
 }
+
+
+p.select-the-investors {
+  font-size: 1.2em;
+}
+
 
 p.welcome-and-congrats {
   font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
@@ -3633,6 +3653,11 @@ p {
   font-size: 1.1em;
   text-align: center;
 }
+
+p.select-the-investors {
+  font-size: 1.1em;
+}
+
 
 p.welcome-and-congrats {
   font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
@@ -3780,6 +3805,11 @@ p {
   text-align: center;
 }
 
+p.select-the-investors {
+  font-size: 1.1em;
+}
+
+
 p.welcome-and-congrats {
   font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
   text-align: center;
@@ -3801,6 +3831,11 @@ li.welcome-and-congrats {
     font-size: 1.2em; /* Уменьшаем размер шрифта */
     padding: 3px 7px; /* Уменьшаем отступы */
   }
+
+  p.select-the-investors {
+  text-align: center;
+}
+
 
 
 .file-upload-container {
@@ -3937,6 +3972,11 @@ ul {
     text-align: center;
   }
 
+  p.select-the-investors {
+  font-size: 0.9em;
+}
+
+
   
   p.welcome-and-congrats {
   font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
@@ -3979,6 +4019,11 @@ li.welcome-and-congrats {
     display: block; /* Позволяет полю быть центровкой */
     text-align: left; /* Текст внутри поля начинается с левой стороны */
 }
+
+p.select-the-investors {
+  text-align: center;
+}
+
 
 .button-container {
     display: flex; /* Включаем Flexbox */

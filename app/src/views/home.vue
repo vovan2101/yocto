@@ -85,7 +85,7 @@
       <div class="home-heading">
         <h1 class="home-header01">One form - lots of investors</h1>
         <p class="home-caption">
-          Why submit multiple forms over and over again with the same answers. 
+          Why submit multiple forms over and over again with the same answers? 
         </p>
         <p class="home-caption">Submit your responses to top investors here in one place.</p>
       </div>
