@@ -1724,7 +1724,7 @@ required
   <div class="header-container">
     <h2>Your form has been successfully submitted!</h2>
   </div>
-  <p>Thank you for submitting your application. Investors usually respond within a few days. We appreciate your patience!</p>
+  <p>Thank you for submitting your application. Investors tipically respond within a few days. We appreciate your patience!</p>
   <div class="button-container">
     <button class="button" @click="goToHome">Back to Home</button>
   </div>
