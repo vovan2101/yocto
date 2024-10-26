@@ -1699,12 +1699,32 @@ required
 
 <!-- Step 50: Submission Success -->
 <div v-if="currentStep === 50" id="submission_success">
-  <div class="header-container">
-    <h2>Your form has been successfully submitted!</h2>
+  <!-- Колесо загрузки и текст -->
+  <div v-if="showLoading" class="loading-container">
+    <p class="loading-text">{{ loadingText }}</p>
+    <div class="loader"></div>
   </div>
-  <p>Thank you for submitting your application. Investors tipically respond within a few days. We appreciate your patience!</p>
-  <div class="button-container">
-    <button class="button" @click="goToHome">Back to Home</button>
+
+  <!-- Список инвесторов -->
+  <div v-if="showInvestors" class="investor-list">
+    <div
+      v-for="(investor, index) in investorsState"
+      :key="investor.name"
+      :class="['investor-item', { show: investor.visible }]"
+    >
+      <span>{{ investor.name }}</span>
+    </div>
+  </div>
+
+  <!-- Сообщение об успешной отправке -->
+  <div v-if="showSuccessMessage" class="final-message show">
+    <div class="header-container">
+      <h2>Your form has been successfully submitted!</h2>
+    </div>
+    <p>Thank you for submitting your application. Investors typically respond within a few days. We appreciate your patience!</p>
+    <div class="button-container">
+      <button class="button" @click="goToHome">Back to Home</button>
+    </div>
   </div>
 </div>
 
@@ -1778,6 +1798,11 @@ export default {
       currentStep: 0,
       hasReachedEnd: false,
       selectedForms: [],
+      investorsState: [],
+      loadingText: "Prepare to submit data...",
+      showLoading: false,
+      showInvestors: false,
+      showSuccessMessage: false,
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
       currentField: '',   // Поле, для которого будет показана информация
@@ -2118,6 +2143,13 @@ export default {
       isReviewModalOpen: false, // Управляет отображением окна обзора
     };
   },
+  watch: {
+    currentStep(newStep) {
+      if (newStep === 50) {
+        this.startAnimation();
+      }
+    }
+  },
   methods: {
     getStepId(stepNumber) {
   const stepIds = {
@@ -2250,7 +2282,27 @@ export default {
     // Проверяем, есть ли инвесторы для текущего шага
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
-
+  startAnimation() {
+      // Создаём массив объектов для анимации
+      this.investorsState = this.selectedForms.map(name => ({ name, visible: false }));
+      this.showLoading = true;
+      this.showInvestors = true; // Начинаем отображение инвесторов сразу после загрузки
+      this.showInvestorList();
+    },
+    showInvestorList() {
+      this.investorsState.forEach((investor, index) => {
+        setTimeout(() => {
+          investor.visible = true;
+        }, index * 800); // Задержка для плавного появления каждого инвестора
+      });
+      // Устанавливаем задержку, чтобы скрыть загрузку только после отображения всех инвесторов
+      setTimeout(this.endLoadingAndShowSuccess, this.investorsState.length * 800 + 1000);
+    },
+    endLoadingAndShowSuccess() {
+      this.showLoading = false;
+      this.showInvestors = false;
+      this.showSuccessMessage = true;
+    },
   goToHome() {
     // Перенаправление на домашнюю страницу
     window.location.href = '/';
@@ -3347,6 +3399,72 @@ button:focus {
   .custom-link:hover {
     text-decoration: none; /* Убираем подчеркивание при наведении */
   }
+
+  #submission_success {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; /* Отступ между загрузкой и инвесторами */
+}
+
+
+.investor-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  font-size: 1.5em;
+  font-weight: 900;
+  color: white;
+}
+
+.investor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Расстояние между инвесторами */
+}
+
+.investor-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.final-message {
+  margin-top: 30px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.final-message.show {
+  opacity: 1;
+}
+
+  .loader {
+  border: 8px solid #f0f0f0;
+  border-top: 8px solid #ff69b4;
+  border-right: 8px solid #ffd700;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 20px auto;
+  animation: spin 2s linear infinite;
+}
 
 /* Медиазапросы для адаптации под мобильные устройства */
 
