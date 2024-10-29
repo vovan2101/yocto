@@ -1676,8 +1676,8 @@ required
   <li class="welcome-and-congrats">To submit your responses, select "Submit"</li>
 </ul>
   <div class="button-container-congrats">
-    <!-- Кнопка для отправки формы -->
-    <button class="pink-button" @click="submitForm">Submit</button>
+<!-- Кнопка для отправки формы -->
+<button class="pink-button" @click="checkInvestorsBeforeSubmit">Submit</button>
     
     <!-- Кнопка для открытия модального окна с проверкой ответов -->
     <button class="link-scroll" @click="openReviewModal">Review My Answers</button>
@@ -2425,6 +2425,46 @@ checkAllSent() {
     console.log('Поле формы успешно сохранено:', result);
   } catch (error) {
     console.error('Ошибка при сохранении поля формы:', error);
+  }
+},
+
+async checkInvestorsBeforeSubmit() {
+  try {
+    const response = await fetch('https://www.yocto.vc/api/form-response/check-investors', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        device_id: localStorage.getItem('device_id'),
+        selected_investors: this.selectedForms,
+        company_name: this.formData.company_name,
+        company_website: this.formData.company_website,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.canSubmit) {
+      // Продолжаем отправку формы
+      this.submitForm();
+    } else {
+      // Показываем ошибку пользователю
+      this.errorMessage = data.message || 'You have already submitted forms to all selected investors.';
+
+      // Очищаем сообщение об ошибке через 5 секунд
+      setTimeout(() => {
+        this.errorMessage = '';
+      }, 5000);
+    }
+  } catch (error) {
+    console.error('Error checking investors:', error);
+    this.errorMessage = 'An error occurred while checking investors.';
+
+    // Очищаем сообщение об ошибке через 5 секунд
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 5000);
   }
 },
 

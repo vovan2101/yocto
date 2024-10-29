@@ -1,5 +1,5 @@
 const express = require('express');
-const { saveFormResponse, getFormResponse } = require('../controllers/FormResponseController');
+const { saveFormResponse, getFormResponse, checkInvestors } = require('../controllers/FormResponseController');
 
 const router = express.Router();
 
@@ -10,5 +10,8 @@ router.post('/', saveFormResponse);
 router.get('/:id', getFormResponse);
 
 router.get('/device/:device_id', getFormResponse);
+
+// Проверить инвесторов перед отправкой формы
+router.post('/check-investors', checkInvestors);
 
 module.exports = router;
