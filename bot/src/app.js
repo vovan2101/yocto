@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 app.use(routes);
 
 // Маршрут для отправки форм
-app.post('send-forms', upload.fields([
+app.post('/send-forms', upload.fields([
   { name: 'pitch_deck_file', maxCount: 1 }
 ]), (req, res) => {
   const formData = req.body;
