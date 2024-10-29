@@ -92,8 +92,17 @@
       <div class="home-buttons">
       <router-link to="/send-form" class="button">Connect to investors</router-link>
       <button @click="openModal" class="home-learn button-clean button">See Investor List</button>
+      <button @click="deleteUserData" class="home-learn button-clean button">Delete my data</button>
     </div>
   </section>
+
+  <!-- Добавляем отображение сообщений -->
+<div v-if="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+<div v-if="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
 
   <!-- Модальное окно -->
   <div v-if="isModalOpen" class="modal" @click="outsideClick">
@@ -829,8 +838,12 @@ export default {
       investorRequestedFormName: '',
       userSuccessMessage: '',
       userErrorMessage: '',
+      successMessage: '',
+      errorMessage: '',
       investorSuccessMessage: '',
       investorErrorMessage: '',
+      successMessageTimeout: null,
+      errorMessageTimeout: null,
       forms: [
         { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
         { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
@@ -1072,6 +1085,64 @@ clearMessages() {
       } catch (error) {
         console.error('Error submitting form request:', error);
       }
+    },
+
+    async deleteUserData() {
+      const deviceId = localStorage.getItem('device_id');
+      if (!deviceId) {
+        this.setErrorMessage('No device ID found. Unable to delete data.');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:3002/form-response/delete-data', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ device_id: deviceId }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Очищаем localStorage и уведомляем пользователя
+          localStorage.removeItem('device_id');
+          this.setSuccessMessage('Your data has been deleted.');
+          // При необходимости обновите интерфейс или перенаправьте пользователя
+        } else {
+          this.setErrorMessage(data.message || 'Failed to delete data.');
+        }
+      } catch (error) {
+        console.error('Error deleting data:', error);
+        this.setErrorMessage('An error occurred while deleting your data.');
+      }
+    },
+
+  setSuccessMessage(message) {
+      this.successMessage = message;
+
+      if (this.successMessageTimeout) {
+        clearTimeout(this.successMessageTimeout);
+      }
+
+      this.successMessageTimeout = setTimeout(() => {
+        this.successMessage = '';
+        this.successMessageTimeout = null;
+      }, 5000);
+    },
+
+    setErrorMessage(message) {
+      this.errorMessage = message;
+
+      if (this.errorMessageTimeout) {
+        clearTimeout(this.errorMessageTimeout);
+      }
+
+      this.errorMessageTimeout = setTimeout(() => {
+        this.errorMessage = '';
+        this.errorMessageTimeout = null;
+      }, 5000);
     },
 
     getUniqueStepsForSelectedForms() {

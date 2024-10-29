@@ -159,8 +159,32 @@ const checkInvestors = async (req, res) => {
   }
 };
 
+const deleteUserData = async (req, res) => {
+  try {
+    const { device_id } = req.body;
+
+    if (!device_id) {
+      return res.status(400).json({ success: false, message: 'Device ID is required' });
+    }
+
+    const repository = AppDataSource.getRepository(FormResponse);
+    const result = await repository.delete({ device_id });
+
+    if (result.affected > 0) {
+      return res.json({ success: true, message: 'Data deleted successfully' });
+    } else {
+      return res.status(404).json({ success: false, message: 'Data not found for the provided device ID' });
+    }
+  } catch (error) {
+    console.error('Error deleting user data:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};
+
+
 module.exports = {
   saveFormResponse,
   getFormResponse,
   checkInvestors,
+  deleteUserData,
 };
