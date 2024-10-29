@@ -1,5 +1,6 @@
 const { AppDataSource } = require('../config/data-source');
 const FormResponse = require('../entities/FormResponse');
+const { ILike } = require('typeorm');
 
 // Получить данные формы
 const getFormResponse = async (req, res) => {
@@ -75,7 +76,95 @@ const saveFormResponse = async (req, res) => {
   }
 };
 
+// Проверить, отправлял ли пользователь формы выбранным инвесторам
+const checkInvestors = async (req, res) => {
+  try {
+    const { device_id, selected_investors, company_name, company_website } = req.body;
+
+    if (!device_id || !selected_investors) {
+      return res.status(400).json({ message: 'Selected investors are required' });
+    }
+
+    const repository = AppDataSource.getRepository(FormResponse);
+
+    // Найти все записи с таким же company_name и company_website (независимо от регистра)
+    const existingForms = await repository.find({
+      where: {
+        company_name: ILike(company_name),
+        company_website: ILike(company_website),
+      },
+    });
+
+    // Проверить, есть ли записи с отправленными формами выбранным инвесторам
+    let formsSentToAllInvestors = false;
+
+    if (existingForms && existingForms.length > 0) {
+      for (const form of existingForms) {
+        const sentInvestors = form.sent_investors || [];
+
+        // Проверяем, были ли формы отправлены всем выбранным инвесторам
+        const allInvestorsSent = selected_investors.every(investor => sentInvestors.includes(investor));
+
+        if (allInvestorsSent) {
+          formsSentToAllInvestors = true;
+          break;
+        }
+      }
+    }
+
+    if (formsSentToAllInvestors) {
+      // Если формы уже были отправлены этой компанией выбранным инвесторам
+      return res.json({ canSubmit: false, message: 'Forms have already been submitted for this company and website to the selected investors.' });
+    }
+
+    // Продолжаем с существующей логикой
+    let userForm = await repository.findOne({ where: { device_id } });
+
+    if (!userForm) {
+      // Если записи нет, создаем новую
+      userForm = repository.create({
+        device_id,
+        company_name,
+        company_website,
+        sent_investors: selected_investors,
+      });
+    } else {
+      // Обновляем поля company_name и company_website в существующей записи
+      userForm.company_name = company_name;
+      userForm.company_website = company_website;
+
+      const sentInvestors = userForm.sent_investors || [];
+
+      // Проверяем, есть ли инвесторы, которым форма еще не была отправлена
+      const investorsToSend = selected_investors.filter(
+        investor => !sentInvestors.includes(investor)
+      );
+
+      if (investorsToSend.length > 0) {
+        // Обновляем sent_investors
+        userForm.sent_investors = Array.from(new Set([...sentInvestors, ...investorsToSend]));
+      } else {
+        return res.json({ canSubmit: false, message: 'You have already submitted forms to all selected investors.' });
+      }
+    }
+
+    // Сохраняем изменения
+    await repository.save(userForm);
+
+    // Возвращаем, что можно продолжать отправку формы
+    return res.json({ canSubmit: true });
+  } catch (error) {
+    console.error('Error checking investors:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   saveFormResponse,
   getFormResponse,
+<<<<<<< HEAD
 };
+=======
+  checkInvestors,
+};
+>>>>>>> df2f7fb (user can't now send same forms twice or more)

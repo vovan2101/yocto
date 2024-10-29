@@ -18,6 +18,10 @@ module.exports = new EntitySchema({
       type: 'simple-array',
       nullable: true,
     },
+    sent_investors: {
+      type: 'simple-array',
+      nullable: true,
+    },
     first_name: {
       type: 'text',
       nullable: true,
