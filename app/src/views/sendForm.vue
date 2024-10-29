@@ -10,7 +10,7 @@
           <div class="header-container-welcome-and-congrats">
             <h2>Welcome to Yocto!</h2>
           </div>
-          <p class="select-the-investors">Select the investors you would like to submit an application to based on the time you have.</p>
+          <p class="select-the-investors">Select the investors you would like to submit an application to.</p>
           <ul class="welcome-list">
             <li>You may use time estimator to select the investors based on time you have available.</li>
             <li>Time estimates assume you know the answers to the questions and have any files requested readily available.</li>
@@ -1711,19 +1711,42 @@ required
   <!-- Колесо загрузки и текст -->
   <div v-if="showLoading" class="loading-container">
     <p class="loading-text">{{ loadingText }}</p>
+    <p class="loading-message">Please wait while all forms are being sent.</p>
     <div class="loader"></div>
   </div>
 
-  <!-- Список инвесторов -->
-  <div v-if="showInvestors" class="investor-list">
-    <div
-      v-for="(investor, index) in investorsState"
-      :key="investor.name"
-      :class="['investor-item', { show: investor.visible }]"
-    >
-      <span>{{ investor.name }}</span>
-    </div>
+<!-- Список инвесторов -->
+<div v-if="showInvestors" class="investor-list">
+  <div
+    v-for="(investor, index) in investorsState"
+    :key="investor.name"
+    :class="['investor-item', { show: investor.visible }]"
+  >
+    <!-- Фиксированный контейнер для галочки -->
+    <span class="checkmark-container">
+  <span
+    class="success-checkmark"
+    v-show="investor.status === 'sent'"
+    :class="[investor.pulseClass]"
+  >✔</span>
+</span>
+
+
+    <!-- Имя инвестора -->
+    <span class="investor-name">{{ investor.name }}:</span>
+
+    <!-- Статус инвестора -->
+    <span class="investor-status">
+      <span
+        class="status-text"
+        :class="[investor.statusClass]"
+      >
+        {{ investor.status }}<span v-if="investor.status !== 'sent'">{{ dynamicDots }}</span>
+      </span>
+    </span>
   </div>
+</div>
+
 
   <!-- Сообщение об успешной отправке -->
   <div v-if="showSuccessMessage" class="final-message show">
@@ -1809,6 +1832,7 @@ export default {
     return {
       currentStep: 0,
       hasReachedEnd: false,
+      dynamicDots: "", // Динамические точки
       selectedForms: [],
       investorsState: [],
       loadingText: "Prepare to submit data...",
@@ -2296,21 +2320,76 @@ export default {
     return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
   startAnimation() {
-      // Создаём массив объектов для анимации
-      this.investorsState = this.selectedForms.map(name => ({ name, visible: false }));
-      this.showLoading = true;
-      this.showInvestors = true; // Начинаем отображение инвесторов сразу после загрузки
-      this.showInvestorList();
-    },
-    showInvestorList() {
-      this.investorsState.forEach((investor, index) => {
-        setTimeout(() => {
-          investor.visible = true;
-        }, index * 800); // Задержка для плавного появления каждого инвестора
-      });
-      // Устанавливаем задержку, чтобы скрыть загрузку только после отображения всех инвесторов
-      setTimeout(this.endLoadingAndShowSuccess, this.investorsState.length * 800 + 1000);
-    },
+  this.investorsState = this.selectedForms.map(name => ({
+    name,
+    visible: false,
+    status: "preparing form",
+    statusClass: "",
+    pulseClass: ""
+  }));
+  this.showLoading = true;
+  this.showInvestors = true;
+  this.showInvestorList();
+  this.startDynamicDots();
+},
+
+showInvestorList() {
+  setTimeout(() => {
+    this.investorsState.forEach((investor, index) => {
+      setTimeout(() => {
+        investor.visible = true;
+        this.updateInvestorStatus(investor);
+      }, index * 1000);
+    });
+  }, 1500);
+},
+
+startDynamicDots() {
+  this.dotInterval = setInterval(() => {
+    this.dynamicDots = this.dynamicDots.length < 3 ? this.dynamicDots + "." : "";
+  }, 500);
+},
+
+updateInvestorStatus(investor) {
+  const statuses = ["preparing form", "submitting form", "awaiting response", "sent"];
+  let statusIndex = 0;
+
+  const changeStatus = () => {
+    // Применяем класс fade-out перед сменой статуса
+    investor.statusClass = "fade-out";
+
+    setTimeout(() => {
+      investor.status = statuses[statusIndex];
+      investor.statusClass = ""; // Убираем класс после смены статуса
+
+      // Пульсация при статусе "sent"
+      if (investor.status === "sent") {
+        investor.pulseClass = "pulse";
+        setTimeout(() => (investor.pulseClass = ""), 2000); // Длительность совпадает с анимацией
+      }
+
+      if (statusIndex === statuses.length - 1) {
+        // Последний статус достигнут, проверяем всех инвесторов
+        this.checkAllSent();
+      } else {
+        statusIndex++;
+        // Рандомная задержка от 1 до 3 секунд
+        const randomDelay = Math.random() * 3000 + 1000; // От 1000 до 3000 мс
+        investor.statusTimeout = setTimeout(changeStatus, randomDelay);
+      }
+    }, 500); // Задержка для плавного перехода
+  };
+
+  // Запускаем процесс смены статусов
+  changeStatus();
+},
+
+checkAllSent() {
+  if (this.investorsState.every(investor => investor.status === "sent")) {
+    clearInterval(this.dotInterval);
+    setTimeout(this.endLoadingAndShowSuccess, 1000);
+  }
+},
     endLoadingAndShowSuccess() {
       this.showLoading = false;
       this.showInvestors = false;
@@ -3421,7 +3500,7 @@ button:focus {
   }
 
   #submission_success {
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3433,31 +3512,40 @@ button:focus {
 }
 
 .loading-text {
-  font-size: 1.2em;
+  font-size: 3.0em;
   margin-bottom: 10px;
+  color: white;
 }
+
+.loading-message {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px; /* Отступ между загрузкой и инвесторами */
-}
-
-
-.investor-item {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  font-size: 1.5em;
-  font-weight: 900;
-  color: white;
+  margin-bottom: 20px;
 }
 
 .investor-list {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Расстояние между инвесторами */
+  gap: 15px;
+}
+
+.investor-item {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  color: white;
+  font-weight: 900;
+  font-size: 25px;
 }
 
 .investor-item.show {
@@ -3465,25 +3553,69 @@ button:focus {
   transform: translateY(0);
 }
 
-.final-message {
-  margin-top: 30px;
+.investor-status {
+  width: 90px;
+  font-style: italic;
+  flex-shrink: 0; /* Предотвращаем сжатие контейнера */
+  color: #4caf50;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px; /* Размещает статус справа */
+  white-space: nowrap; /* Запрещаем перенос текста */
+}
+
+.investor-name {
+  flex: 1; /* Занимает оставшееся пространство */
+}
+.hidden {
+  display: none;
+}
+
+.status-text {
+  display: inline-block;
+  transition: opacity 0.5s ease;
+}
+
+.status-text.fade-out {
   opacity: 0;
-  transition: opacity 1s ease;
 }
 
-.final-message.show {
-  opacity: 1;
+.success-checkmark {
+  display: inline-block; /* Позволяет применять transform */
+  margin-right: 10px;
+  font-size: 25px;
+  color: #4caf50;
 }
 
-  .loader {
+.checkmark-container {
+  width: 45px;
+  display: flex;
+  align-items: center;
+}
+.loader {
   border: 8px solid #f0f0f0;
-  border-top: 8px solid #ff69b4;
-  border-right: 8px solid #ffd700;
+  border-top: 8px solid #e04d80;
+  border-right: 8px solid rgb(218, 177, 101);
   border-radius: 50%;
   width: 60px;
   height: 60px;
   margin: 20px auto;
   animation: spin 2s linear infinite;
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.pulse {
+  animation: pulse 1s ease;
+  animation-iteration-count: 1;
 }
 
 /* Медиазапросы для адаптации под мобильные устройства */
@@ -3611,6 +3743,20 @@ ul {
 .home-logo {
   font-size: 35px;
 }
+.loading-container {
+  margin-bottom: 10px;
+}
+
+.investor-list {
+  gap: 5px;
+}
+p.select-the-investors {
+  line-height: 1.7em;
+}
+.loader {
+  width: 40px;
+  height: 40px;
+}
 }
 
 @media (max-width: 1200px) {
@@ -3736,6 +3882,29 @@ ul {
 .home-logo {
   font-size: 30px;
 }
+
+.loading-text {
+    font-size: 2.5em;
+  }
+
+  .loading-message {
+    font-size: 2.0em;
+  }
+
+  .investor-item {
+    font-size: 23px;
+  }
+
+  .investor-status {
+    font-size: 14px;
+  }
+
+  .loader {
+    width: 55px;
+    height: 55px;
+    border-width: 7px;
+  }
+
 }
 
 /* Стили для устройств с разрешением до 1024px */
@@ -3882,6 +4051,48 @@ ul {
   margin-top: 1.5vh; /* Увеличим отступ сверху */
   text-align: center;
 }
+.investor-item {
+    font-size: 22px;
+  }
+
+  .investor-status {
+    font-size: 16px;
+  }
+
+  .loading-text {
+    font-size: 2.5em;
+  }
+
+  .loading-message {
+    font-size: 1.8em;
+  }
+
+  .loader {
+    width: 60px;
+    height: 60px;
+    border-width: 8px;
+  }
+  .loading-text {
+    font-size: 2.2em;
+  }
+
+  .loading-message {
+    font-size: 1.8em;
+  }
+
+  .investor-item {
+    font-size: 21px;
+  }
+
+  .investor-status {
+    font-size: 13px;
+  }
+
+  .loader {
+    width: 50px;
+    height: 50px;
+    border-width: 6px;
+  }
 
 }
 
@@ -3897,6 +4108,47 @@ ul {
   display: flex;
   align-items: center;
 }
+
+.loading-text {
+    font-size: 2em;
+  }
+
+  .loading-message {
+    font-size: 1.5em;
+  }
+
+  .investor-item {
+    display: flex;
+    flex-direction: row; /* Элементы в строку */
+    align-items: center;
+    font-size: 20px;
+    text-align: left; /* Выравниваем текст по левому краю */
+  }
+  .investor-status {
+    font-size: 12px;
+    text-align: center; /* Статус выравнивается по правому краю */
+    white-space: nowrap;
+  }
+  .checkmark-container {
+    width: 35px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .investor-name {
+    flex: 1;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-align: left; /* Выравниваем текст по левому краю */
+    margin-right: 10px; /* Отступ между именем и статусом */
+  }
+
+  .loader {
+    width: 35px;
+    height: 35px;
+    border-width: 5px;
+  }
+
 
 h2 {
   font-size: 2em;
@@ -4049,8 +4301,16 @@ ul {
   overflow-y: auto;
   margin-top: 10px;
 }
+#submission_success {
+  text-align: center;
+  padding: 15px;
 }
 
+.investor-list {
+  gap: 8px;
+}
+
+}
 
 @media (max-width: 480px) {
   
@@ -4153,6 +4413,62 @@ p.select-the-investors {
   text-align: center;
 }
 
+.loading-text {
+    font-size: 2em;
+  }
+
+  .loading-message {
+    font-size: 1.5em;
+  }
+
+  .investor-item {
+    display: flex;
+    flex-direction: row; /* Элементы в строку */
+    align-items: center;
+    font-size: 15px;
+    text-align: left; /* Выравниваем текст по левому краю */
+    white-space: nowrap;
+  }
+  .investor-status {
+    font-size: 13px;
+    text-align: center; /* Статус выравнивается по правому краю */
+    white-space: nowrap;
+    margin-left: 0px; /* Размещает статус справа */
+  }
+  .checkmark-container {
+    width: 5px;
+    margin-right: 5px;
+    flex-shrink: 0;
+    font-size: 14px;
+    flex-shrink: 0; /* Предотвращаем сжатие контейнера */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрируем содержимое */
+  }
+
+  .investor-name {
+    flex: 1;
+    margin-bottom: 0;
+    white-space: nowrap;
+    text-align: left; /* Выравниваем текст по левому краю */
+    margin-right: 10px; /* Отступ между именем и статусом */
+  }
+  .success-checkmark {
+    font-size: 20px;
+    visibility: visible;
+  }
+
+  .success-checkmark.hidden {
+  visibility: hidden;
+}
+
+  .loader {
+    width: 35px;
+    height: 35px;
+    border-width: 5px;
+  }
+
+
 .button-container-congrats{
   display: flex;
   justify-content: left;
@@ -4229,5 +4545,25 @@ p.select-the-investors {
   overflow-y: auto; /* Добавляем вертикальную прокрутку */
   margin-top: 10px; /* Отступ сверху, чтобы отделить от остальных элементов */
 }
+
+.loading-text {
+    font-size: 1.5em;
+  }
+
+  .loading-message {
+    font-size: 1.2em;
+  }
+
+  .loader {
+    width: 30px;
+    height: 30px;
+    border-width: 4px;
+  }
+
+  .investor-list {
+  gap: 0px;
+}
+
+
 }
 </style>
