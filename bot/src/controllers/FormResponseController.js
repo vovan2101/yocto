@@ -162,9 +162,5 @@ const checkInvestors = async (req, res) => {
 module.exports = {
   saveFormResponse,
   getFormResponse,
-<<<<<<< HEAD
-};
-=======
   checkInvestors,
 };
->>>>>>> df2f7fb (user can't now send same forms twice or more)

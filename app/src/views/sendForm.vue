@@ -2443,7 +2443,7 @@ checkAllSent() {
 
 async checkInvestorsBeforeSubmit() {
   try {
-    const response = await fetch('http://localhost:3002/form-response/check-investors', {
+    const response = await fetch('http://test.yocto.vc/api/form-response/check-investors', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
