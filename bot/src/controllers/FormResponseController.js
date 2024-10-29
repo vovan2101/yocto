@@ -114,7 +114,7 @@ const checkInvestors = async (req, res) => {
 
     if (formsSentToAllInvestors) {
       // Если формы уже были отправлены этой компанией выбранным инвесторам
-      return res.json({ canSubmit: false, message: 'Forms have already been submitted for this company and website to the selected investors.' });
+      return res.json({ canSubmit: false, message: 'Forms have already been submitted for this company to the selected investors.' });
     }
 
     // Продолжаем с существующей логикой
