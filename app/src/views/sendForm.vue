@@ -2485,8 +2485,6 @@ validateEmail(email) {
   return emailPattern.test(email);
 },
 
-<<<<<<< HEAD
-=======
 closeWarningMessage() {
     this.isFadingOut = true; // Запускаем анимацию исчезновения
     clearTimeout(this.warningTimeout); // Очищаем таймер, если он установлен
@@ -2503,7 +2501,6 @@ closeWarningMessage() {
       this.isTestFormOpen = false;
     },
   
->>>>>>> d1055a9 (add about section, add warning message if email in a wrong format, also some fixes)
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
     },
