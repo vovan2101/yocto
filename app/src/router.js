@@ -30,21 +30,21 @@ export default new Router({
     //   name: 'FindInvestors',
     //   component: FindInvestors
     // },
-    {
-      path: '/send-form',
-      name: 'sendForm',
-      component: sendForm,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: about,
-    },
-    {
-      name: '404 - Not Found',
-      path: '**',
-      component: NotFound,
-      fallback: true,
-    },
+    // {
+    //   path: '/send-form',
+    //   name: 'sendForm',
+    //   component: sendForm,
+    // },
+    // {
+    //   path: '/about',
+    //   name: 'about',
+    //   component: about,
+    // },
+    // {
+    //   name: '404 - Not Found',
+    //   path: '**',
+    //   component: NotFound,
+    //   fallback: true,
+    // },
   ],
 })
