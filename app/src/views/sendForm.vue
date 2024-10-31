@@ -46,12 +46,22 @@
     </div>
 
     <!-- Step 3: Email -->
+    <!-- Warning message -->
+    <div v-if="warningMessage" :class="['warning-message', { 'fade-out': isFadingOut }]">
+  <span>{{ warningMessage }}</span>
+  <button class="close-button" @click="closeWarningMessage">×</button>
+</div>
     <div v-if="currentStep === 3 && hasQuestionsForStep(3)" id="email">
-
       <div class="header-container">
         <h2>What is your e-mail address?</h2>
       </div>
-      <input class="input-field" type="email" placeholder="name@example.com" v-model="formData.email" required />
+      <input
+        class="input-field"
+        type="email"
+        placeholder="name@example.com"
+        v-model="formData.email"
+        required
+      />
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
@@ -1717,7 +1727,7 @@ required
     <span class="checkmark-container">
   <span
     class="success-checkmark"
-    v-show="investor.status === 'sent'"
+    v-show="investor.status === 'received'"
     :class="[investor.pulseClass]"
   >✔</span>
 </span>
@@ -1732,7 +1742,7 @@ required
         class="status-text"
         :class="[investor.statusClass]"
       >
-        {{ investor.status }}<span v-if="investor.status !== 'sent'">{{ dynamicDots }}</span>
+        {{ investor.status }}<span v-if="investor.status !== 'received'">{{ dynamicDots }}</span>
       </span>
     </span>
   </div>
@@ -2163,7 +2173,10 @@ export default {
       previousHeadquartered: '',
       successMessage: '',
       errorMessage: '',
+      warningMessage: '',
       isEmailModalOpen: false, // Управляет отображением окна email
+      warningTimeout: null,
+      isFadingOut: false,
       isReviewModalOpen: false, // Управляет отображением окна обзора
     };
   },
@@ -2338,7 +2351,7 @@ startDynamicDots() {
 },
 
 updateInvestorStatus(investor) {
-  const statuses = ["preparing form", "submitting form", "awaiting response", "sent"];
+  const statuses = ["preparing form", "submitting form", "awaiting response", "received"];
   let statusIndex = 0;
 
   const changeStatus = () => {
@@ -2350,7 +2363,7 @@ updateInvestorStatus(investor) {
       investor.statusClass = ""; // Убираем класс после смены статуса
 
       // Пульсация при статусе "sent"
-      if (investor.status === "sent") {
+      if (investor.status === "received") {
         investor.pulseClass = "pulse";
         setTimeout(() => (investor.pulseClass = ""), 2000); // Длительность совпадает с анимацией
       }
@@ -2372,7 +2385,7 @@ updateInvestorStatus(investor) {
 },
 
 checkAllSent() {
-  if (this.investorsState.every(investor => investor.status === "sent")) {
+  if (this.investorsState.every(investor => investor.status === "received")) {
     clearInterval(this.dotInterval);
     setTimeout(this.endLoadingAndShowSuccess, 1000);
   }
@@ -2467,7 +2480,30 @@ async checkInvestorsBeforeSubmit() {
     }, 5000);
   }
 },
+validateEmail(email) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+},
 
+<<<<<<< HEAD
+=======
+closeWarningMessage() {
+    this.isFadingOut = true; // Запускаем анимацию исчезновения
+    clearTimeout(this.warningTimeout); // Очищаем таймер, если он установлен
+
+    setTimeout(() => {
+      this.warningMessage = ''; // Очищаем сообщение после завершения анимации
+      this.isFadingOut = false; // Сбрасываем флаг
+    }, 800); // Длительность анимации совпадает с CSS (0.8s)
+  },
+  openTestForm() {
+      this.isTestFormOpen = true;
+    },
+    closeTestForm() {
+      this.isTestFormOpen = false;
+    },
+  
+>>>>>>> d1055a9 (add about section, add warning message if email in a wrong format, also some fixes)
     openEmailModal() {
       this.isEmailModalOpen = true; // Открыть окно email
     },
@@ -2619,7 +2655,17 @@ if (this.currentStep === 2) {
   await this.saveField('last_name', this.formData.last_name);
 } else if (this.currentStep === 3) {
   // Step 3: Сохранение email
-  await this.saveField('email', this.formData.email);
+  if (!this.validateEmail(this.formData.email)) {
+    this.warningMessage = 'Please enter a valid email address';
+    this.isFadingOut = false;
+        clearTimeout(this.warningTimeout);
+        
+        // Устанавливаем таймер на автоматическое исчезновение через 10 секунд
+        this.warningTimeout = setTimeout(() => {
+          this.closeWarningMessage();
+        }, 10000);
+    await this.saveField('email', this.formData.email); // Сохраняем email
+  }
 } else if (this.currentStep === 4) {
   // Step 4: Сохранение номера телефона
   await this.saveField('phone_number', this.formData.phone_number);
@@ -2997,6 +3043,62 @@ body {
 .step-indicator {
   font-size: 1.6em; /* Увеличим размер шрифта для индикатора шага */
   color: #ffffff;
+}
+
+/* Сообщение */
+.warning-message {
+  position: fixed; /* Фиксированное позиционирование для закрепления сверху */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(255, 207, 119); /* Полупрозрачный фон */
+  color: #333;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.3rem;
+  font-weight: 400;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-100%);
+  animation: slideDown 0.8s forwards;
+}
+
+
+@keyframes slideDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #333;
+  cursor: pointer;
+  font-weight: bold;
+}
+.close-button:hover {
+  color: #000;
+}
+
+.warning-message.fade-out {
+  animation: slideUp 0.8s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 }
 
 .outer-container {

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Meta from 'vue-meta'
 
 import Home from './views/home'
+import about from './views/about'
 import NotFound from './views/not-found'
 import './style.css'
 // import FindInvestors from './views/FindInvestors.vue';
@@ -29,16 +30,21 @@ export default new Router({
     //   name: 'FindInvestors',
     //   component: FindInvestors
     // },
-    // {
-    //   path: '/send-form',
-    //   name: 'sendForm',
-    //   component: sendForm,
-    // },
-    // {
-    //   name: '404 - Not Found',
-    //   path: '**',
-    //   component: NotFound,
-    //   fallback: true,
-    // },
+    {
+      path: '/send-form',
+      name: 'sendForm',
+      component: sendForm,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: about,
+    },
+    {
+      name: '404 - Not Found',
+      path: '**',
+      component: NotFound,
+      fallback: true,
+    },
   ],
 })

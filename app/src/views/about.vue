@@ -1,104 +1,61 @@
 <template>
-  <div class="home-container">
-    <header class="home-header">
-      <header data-thq="thq-navbar" class="home-navbar">
-        <span class="home-logo">Yocto</span>
-        <div data-thq="thq-navbar-nav" data-role="Nav" class="home-desktop-menu">
-          <nav data-thq="thq-navbar-nav-links" data-role="Nav" class="home-nav">
-            <!-- <router-link to="/" class="home-button button-clean button">Home</router-link> -->
-            <!-- <button class="home-button2 button-clean button">About</button>
-            <button class="home-button3 button-clean button">Pricing</button>
-            <button class="home-button4 button-clean button">Blog</button> -->
-            <!-- <router-link to="/send-form" class="home-button5 button-clean button">Send Forms</router-link>
-            <router-link to="/find-investors" class="home-button6 button-clean button">Find Investors</router-link> -->
-          </nav>
-        </div>
-        <div data-thq="thq-navbar-btn-group" class="home-btn-group">
-          <!-- <div class="home-socials">
-            <button class="social button">
-              <img alt="image" src="/Icons/twitter.svg" class="home-image" />
-            </button>
-            <button class="social button">
-              <img alt="image" src="/Icons/discord.svg" class="home-image01" />
-            </button>
-          </div> -->
-          <router-link to="/about" class="home-learn button-clean button">About Us</router-link>
-          <router-link to="/send-form" class="button">Connect to investors</router-link>
-              <!-- Add the About Us link -->
-        </div>
-        <div data-thq="thq-burger-menu" class="home-burger-menu">
-          <button class="button home-button5">
-            <svg viewBox="0 0 1024 1024" class="home-icon">
-              <path
-                d="M128 554.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 298.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667zM128 810.667h768c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-768c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </button>
-        </div>
-        <div data-thq="thq-mobile-menu" class="home-mobile-menu">
-          <div data-thq="thq-mobile-menu-nav" data-role="Nav" class="home-nav1">
-            <div class="home-container1">
-              <router-link to="/" class="home-logo1">Yocto</router-link>
-              <div data-thq="thq-close-menu" class="home-menu-close">
-                <svg viewBox="0 0 1024 1024" class="home-icon02">
-                  <path
-                    d="M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <nav
-              data-thq="thq-mobile-menu-nav-links"
-              data-role="Nav"
-              class="home-nav2"
-            >
-              <!-- <router-link to="/" class="home-text">Home</router-link> -->
-              <router-link to="/about" class="home-learn button-clean button">About Us</router-link>
-              <router-link to="/send-form" class="button">Connect to investors</router-link>
-              <!-- <span class="home-text01">About</span>
-              <span class="home-text03">Pricing</span>
-              <span class="home-text04">Blog</span>
-              <router-link to="/send-form" class="home-text05">Send Forms</router-link>
-              <router-link to="/find-investors" class="home-text06">Find Investors</router-link> -->
-            </nav>
-            <!-- <div class="home-container2">
-              <button class="home-login button">Login</button>
-              <button class="button">Register</button>
-            </div> -->
+    <div class="home-container">
+        <router-link to="/" class="home-logo">Yocto</router-link>
+    <section class="home-project">
+      <div class="home-understand">
+        <div class="home-content13">
+          <div class="home-heading02">
+            <h2 class="home-header07">About us</h2>
+            <p class="home-header08">
+                Yocto helps you save valuable time and focus on product development. With Yocto, the process of sending forms to investors is quick and seamless—let Yocto handle the process for you.
+            </p>
           </div>
-          <!-- <div class="home-icon-group">
-            <svg viewBox="0 0 950.8571428571428 1024" class="home-icon04">
-              <path
-                d="M925.714 233.143c-25.143 36.571-56.571 69.143-92.571 95.429 0.571 8 0.571 16 0.571 24 0 244-185.714 525.143-525.143 525.143-104.571 0-201.714-30.286-283.429-82.857 14.857 1.714 29.143 2.286 44.571 2.286 86.286 0 165.714-29.143 229.143-78.857-81.143-1.714-149.143-54.857-172.571-128 11.429 1.714 22.857 2.857 34.857 2.857 16.571 0 33.143-2.286 48.571-6.286-84.571-17.143-148-91.429-148-181.143v-2.286c24.571 13.714 53.143 22.286 83.429 23.429-49.714-33.143-82.286-89.714-82.286-153.714 0-34.286 9.143-65.714 25.143-93.143 90.857 112 227.429 185.143 380.571 193.143-2.857-13.714-4.571-28-4.571-42.286 0-101.714 82.286-184.571 184.571-184.571 53.143 0 101.143 22.286 134.857 58.286 41.714-8 81.714-23.429 117.143-44.571-13.714 42.857-42.857 78.857-81.143 101.714 37.143-4 73.143-14.286 106.286-28.571z"
-              ></path></svg
-            ><svg viewBox="0 0 877.7142857142857 1024" class="home-icon06">
-              <path
-                d="M585.143 512c0-80.571-65.714-146.286-146.286-146.286s-146.286 65.714-146.286 146.286 65.714 146.286 146.286 146.286 146.286-65.714 146.286-146.286zM664 512c0 124.571-100.571 225.143-225.143 225.143s-225.143-100.571-225.143-225.143 100.571-225.143 225.143-225.143 225.143 100.571 225.143 225.143zM725.714 277.714c0 29.143-23.429 52.571-52.571 52.571s-52.571-23.429-52.571-52.571 23.429-52.571 52.571-52.571 52.571 23.429 52.571 52.571zM438.857 152c-64 0-201.143-5.143-258.857 17.714-20 8-34.857 17.714-50.286 33.143s-25.143 30.286-33.143 50.286c-22.857 57.714-17.714 194.857-17.714 258.857s-5.143 201.143 17.714 258.857c8 20 17.714 34.857 33.143 50.286s30.286 25.143 50.286 33.143c57.714 22.857 194.857 17.714 258.857 17.714s201.143 5.143 258.857-17.714c20-8 34.857-17.714 50.286-33.143s25.143-30.286 33.143-50.286c22.857-57.714 17.714-194.857 17.714-258.857s5.143-201.143-17.714-258.857c-8-20-17.714-34.857-33.143-50.286s-30.286-25.143-50.286-33.143c-57.714-22.857-194.857-17.714-258.857-17.714zM877.714 512c0 60.571 0.571 120.571-2.857 181.143-3.429 70.286-19.429 132.571-70.857 184s-113.714 67.429-184 70.857c-60.571 3.429-120.571 2.857-181.143 2.857s-120.571 0.571-181.143-2.857c-70.286-3.429-132.571-19.429-184-70.857s-67.429-113.714-70.857-184c-3.429-60.571-2.857-120.571-2.857-181.143s-0.571-120.571 2.857-181.143c3.429-70.286 19.429-132.571 70.857-184s113.714-67.429 184-70.857c60.571-3.429 120.571-2.857 181.143-2.857s120.571-0.571 181.143 2.857c70.286 3.429 132.571 19.429 184 70.857s67.429 113.714 70.857 184c3.429 60.571 2.857 120.571 2.857 181.143z"
-              ></path></svg
-            ><svg viewBox="0 0 602.2582857142856 1024" class="home-icon08">
-              <path
-                d="M548 6.857v150.857h-89.714c-70.286 0-83.429 33.714-83.429 82.286v108h167.429l-22.286 169.143h-145.143v433.714h-174.857v-433.714h-145.714v-169.143h145.714v-124.571c0-144.571 88.571-223.429 217.714-223.429 61.714 0 114.857 4.571 130.286 6.857z"
-              ></path>
-            </svg>
-          </div> -->
         </div>
-      </header>
-    </header>
-    <section class="home-hero">
-      <div class="home-heading">
-        <h1 class="home-header01">One form - lots of investors</h1>
-        <p class="home-caption">
-          Why submit multiple forms over and over again with the same answers? 
-        </p>
-        <p class="home-caption">Submit your responses to top investors here in one place.</p>
+        <img alt="image" src="/group%202415.svg" class="home-image23" />
       </div>
-      <div class="home-buttons">
-      <router-link to="/send-form" class="button">Connect to investors</router-link>
-      <button @click="openModal" class="home-learn button-clean button">See Investor List</button>
-    </div>
-  </section>
-
-  <!-- Модальное окно -->
+      </section>
+    <section class="home-cards">
+      <div class="home-row">
+        <div class="home-card">
+          <div class="home-avatar">
+            <img alt="image" src="/Avatars/avatar.svg" class="home-avatar1" />
+          </div>
+          <div class="home-main">
+            <div class="home-content01">
+              <h2 class="home-header02">Select Your Target Investors</h2>
+              <p class="home-description02">
+                Browse our growing list of investors, or select specific ones that match your needs. Currently, Yocto includes 10 forms from seed and pre-seed investors, with more being added soon. Simply answer questions, and Yocto will deliver your responses directly.
+              </p>
+            </div>
+            <button class="home-learn1 button">
+                <router-link to="/send-form"><span class="home-text07">Connect to investors</span></router-link>
+              <img alt="image" src="/Icons/arrow.svg" class="home-image02" />
+            </button>
+          </div>
+        </div>
+        <div class="home-card01">
+          <div class="home-avatar2">
+            <img
+              alt="image"
+              src="/Avatars/default-avatar.svg"
+              class="home-avatar3"
+            />
+          </div>
+          <div class="home-main1">
+            <div class="home-content02">
+              <h2 class="home-header03">Request New Investor Forms</h2>
+              <p class="home-description03">
+                Can't find a specific investor? Request their form, and we’ll add it within 48 hours. Investors interested in joining Yocto can submit their forms directly. To request new investors, use the link below.
+              </p>
+            </div>
+            <button @click="openModal" class="home-learn2 button">
+              <span class="home-text08">See investor list</span>
+              <img alt="image" src="/Icons/arrow-2.svg" class="home-image03" />
+            </button>
+          </div>
+        </div>
+      </div>
+        <!-- Модальное окно -->
   <div v-if="isModalOpen" class="modal" @click="outsideClick">
   <div class="modal-content">
     <span class="close" @click="closeModal">&times;</span>
@@ -142,91 +99,6 @@
 </div>
   </div>
 </div>
-
-    <section class="home-description">
-      <img alt="image" src="/nftpeople.png" class="home-divider-image" />
-      <!-- <div class="home-container3">
-        <div class="home-description01"> -->
-          <!-- <div class="home-content">
-            <p class="home-paragraph">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquat enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-            </p>
-            <p class="home-paragraph1">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquat enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-            </p>
-          </div> -->
-          <!-- <div class="home-links">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              class="home-link button-link button"
-            >
-              <span>Follow us on Twitter</span>
-              <img alt="image" src="/Icons/arrow.svg" class="home-arrow" />
-            </a>
-            <a
-              href="https://discord.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              class="home-link01 button-link button"
-            >
-              <span>Join us on Discord</span>
-              <img alt="image" src="/Icons/arrow.svg" class="home-arrow1" />
-            </a>
-          </div> -->
-        <!-- </div>
-      </div> -->
-    </section>
-    <!-- <section class="home-cards">
-      <div class="home-row">
-        <div class="home-card">
-          <div class="home-avatar">
-            <img alt="image" src="/Avatars/avatar.svg" class="home-avatar1" />
-          </div>
-          <div class="home-main">
-            <div class="home-content01">
-              <h2 class="home-header02">10,000+ unique Investors</h2>
-              <p class="home-description02">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquat enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-              </p>
-            </div>
-            <button class="home-learn1 button">
-              <span class="home-text07">See investor list</span>
-              <img alt="image" src="/Icons/arrow.svg" class="home-image02" />
-            </button>
-          </div>
-        </div>
-        <div class="home-card01">
-          <div class="home-avatar2">
-            <img
-              alt="image"
-              src="/Avatars/default-avatar.svg"
-              class="home-avatar3"
-            />
-          </div>
-          <div class="home-main1">
-            <div class="home-content02">
-              <h2 class="home-header03">Send investment form with one click</h2>
-              <p class="home-description03">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquat enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-              </p>
-            </div>
-            <button class="home-learn2 button">
-              <span class="home-text08">See investor list</span>
-              <img alt="image" src="/Icons/arrow-2.svg" class="home-image03" />
-            </button>
-          </div>
-        </div>
-      </div> -->
       <!-- <div class="home-card02">
         <div class="home-avatar4">
           <img alt="image" src="/Avatars/light-avatar.svg" class="home-avatar5" />
@@ -234,31 +106,27 @@
         <div class="home-row1">
           <div class="home-main2">
             <div class="home-content03">
-              <h2 class="home-header04">Create yourself for the metaverse</h2>
+              <h2 class="home-header04">Efficient Communication</h2>
               <p class="home-description04">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliquat enim
-                ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                Short on time? No worries. Yocto saves your answers, so you can return and finish later. Typically, investors respond within three days and will reach out directly if interested.
               </p>
             </div>
-            <button class="home-learn3 button">
-              <span class="home-text09">See investor list</span>
-              <img alt="image" src="/Icons/arrow-2.svg" class="home-image04" />
-            </button>
           </div>
           <img alt="image" src="/group%202262.svg" class="home-image05" />
         </div>
-      </div> -->
-    <!-- </section> -->
-    <!-- <section class="home-collection">
+      </div>
+    </section>
+    <section class="home-collection">
       <div class="home-content04">
-        <span class="home-caption01">collection</span>
         <div class="home-heading01">
-          <h2 class="home-header05">All time best collections</h2>
+          <h2 class="home-header05">All investors we have</h2>
           <p class="home-header06">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore.
+            We currently have 10 investors who invest in seed and pree seed companies. If we does't have the form you are looking for or you are an investor and want to add your form to Yocto, let us know on the link below and we will add it within 48 hours.
           </p>
+          <button @click="openModal" class="home-learn2 button">
+              <span class="home-text09">See investor list</span>
+              <img alt="image" src="/Icons/arrow.svg" class="home-image02" />
+            </button>
         </div>
       </div>
       <div class="home-main3">
@@ -266,162 +134,158 @@
           <div class="home-image06">
             <img
               alt="image"
-              src="/Characters/character-1.svg"
+              src="/Characters/precursorventures.png"
               class="home-image07"
             />
           </div>
           <div class="home-content05">
-            <span class="home-caption02">Character #1</span>
-            <h3 class="home-title">0.05 ETH</h3>
+            <span class="home-caption02">Precursor Ventures</span>
+            <h3 class="home-title">14 questions</h3>
           </div>
         </div>
         <div class="home-card04">
           <div class="home-image08">
             <img
               alt="image"
-              src="/Characters/character-2.svg"
+              src="/Characters/pathvc.png"
               class="home-image09"
             />
           </div>
           <div class="home-content06">
-            <span class="home-caption03">Character #2</span>
-            <h3 class="home-title1">0.05 ETH</h3>
+            <span class="home-caption03">Path Ventures</span>
+            <h3 class="home-title1">9 questions</h3>
           </div>
         </div>
         <div class="home-card05">
           <div class="home-image10">
             <img
               alt="image"
-              src="/Characters/character-3.svg"
+              src="/Characters/hustlefund.jpeg"
               class="home-image11"
             />
           </div>
           <div class="home-content07">
-            <span class="home-caption04">Character #3</span>
-            <h3 class="home-title2">0.05 ETH</h3>
+            <span class="home-caption04">Hustle Fund</span>
+            <h3 class="home-title2">30 questions</h3>
           </div>
         </div>
         <div class="home-card06">
           <div class="home-image12">
             <img
               alt="image"
-              src="/Characters/character-4.svg"
+              src="/Characters/boost.png"
               class="home-image13"
             />
           </div>
           <div class="home-content08">
             <span class="home-caption05">
-              <span>Character #4</span>
+              <span>Boost Ventures</span>
               <br />
             </span>
-            <h3 class="home-title3">0.05 ETH</h3>
+            <h3 class="home-title3">8 questions</h3>
           </div>
         </div>
         <div class="home-card07">
           <div class="home-image14">
             <img
               alt="image"
-              src="/Characters/character-5.svg"
+              src="/Characters/2048venture.jpg"
               class="home-image15"
             />
           </div>
           <div class="home-content09">
-            <span class="home-caption06">Character #5</span>
-            <h3 class="home-title4">0.05 ETH</h3>
+            <span class="home-caption06">2048 Ventures</span>
+            <h3 class="home-title4">15 questions</h3>
           </div>
         </div>
         <div class="home-card08">
           <div class="home-image16">
             <img
               alt="image"
-              src="/Characters/character-6.svg"
+              src="/Characters/libertyventures.jpg"
               class="home-image17"
             />
           </div>
           <div class="home-content10">
-            <span class="home-caption07">Character #6</span>
-            <h3 class="home-title5">0.05 ETH</h3>
+            <span class="home-caption07">Liberty Ventures</span>
+            <h3 class="home-title5">10 questions</h3>
           </div>
         </div>
         <div class="home-card09">
           <div class="home-image18">
             <img
               alt="image"
-              src="/Characters/character-7.svg"
+              src="/Characters/everywhereventures.png"
               class="home-image19"
             />
           </div>
           <div class="home-content11">
-            <span class="home-caption08">Character #7</span>
-            <h3 class="home-title6">0.05 ETH</h3>
+            <span class="home-caption08">Everywhere Ventures</span>
+            <h3 class="home-title6">7 questions</h3>
           </div>
         </div>
         <div class="home-card10">
           <div class="home-image20">
             <img
               alt="image"
-              src="/Characters/character-8.svg"
+              src="/Characters/incisiveventures.jpg"
               class="home-image21"
             />
           </div>
           <div class="home-content12">
-            <span class="home-caption09">Character #8</span>
-            <h3 class="home-title7">0.05 ETH</h3>
+            <span class="home-caption09">Incisive Ventures</span>
+            <h3 class="home-title7">21 questions</h3>
           </div>
         </div>
-      </div>
-      <button class="home-view2 button-link button">View all</button>
-    </section> -->
-    <!-- <section class="home-project">
-      <div class="home-understand">
-        <div class="home-content13">
-          <span class="home-caption10">Project</span>
-          <div class="home-heading02">
-            <h2 class="home-header07">Understand the project</h2>
-            <p class="home-header08">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            </p>
+        <div class="home-card08">
+          <div class="home-image16">
+            <img
+              alt="image"
+              src="/Characters/wischoffventures.jpg"
+              class="home-image17"
+            />
           </div>
-          <button class="home-view3 button-link button">
-            <span>See investor list</span>
-            <img alt="image" src="/Icons/arrow.svg" class="home-image22" />
-          </button>
+          <div class="home-content10">
+            <span class="home-caption07">Wischoff Ventures</span>
+            <h3 class="home-title5">8 questions</h3>
+          </div>
         </div>
-        <img alt="image" src="/group%202415.svg" class="home-image23" />
-      </div>
+        <div class="home-card07">
+          <div class="home-image14">
+            <img
+              alt="image"
+              src="/Characters/spatial.jpg"
+              class="home-image15"
+            />
+          </div>
+          <div class="home-content09">
+            <span class="home-caption06">Spatial Capital</span>
+            <h3 class="home-title4">7 questions</h3>
+          </div>
+        </div> -->
+    </section>
+    <section class="home-project">
       <div class="home-mining">
         <img alt="image" src="/group%202422.svg" class="home-image24" />
         <div class="home-content14">
-          <span class="home-caption11">Project</span>
           <div class="home-heading03">
-            <h2 class="home-header09">How the minting works</h2>
+            <h2 class="home-header09">How Yocto works</h2>
             <p class="home-header10">
               <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                <p class="yellow-square">1. Select the investors you'd like to connect with.</p>
+                    <p class="blue-square">2. Complete the Yocto questionnaire.</p>
+                    <p class="black-square">3. Submit your responses.</p>
+                    <p class="green-square">4. Wait for interested investors to get back to you.</p>
               </span>
               <br />
               <br />
-              <span>
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur.
-              </span>
               <br />
             </p>
           </div>
-          <button class="home-view4 button-link button">
-            <span>See investor list</span>
-            <img alt="image" src="/Icons/arrow.svg" class="home-image25" />
-          </button>
         </div>
       </div>
     </section>
-    <section class="home-roadmap">
+    <!-- <section class="home-roadmap">
       <div class="home-heading04">
         <h2 class="home-header11">Roadmap</h2>
         <p class="home-header12">
@@ -514,23 +378,8 @@
         </div>
       </div>
     </section> -->
-    <!-- <section class="home-join-us">
-      <div class="home-content15">
-        <div class="home-main4">
-          <div class="home-heading09">
-            <h2 class="home-header24">Create your character now</h2>
-            <p class="home-caption16">
-              A character custom collection is joining the NFT space on Opensea.
-            </p>
-          </div>
-          <button class="home-view5 button">Get Investments Now</button>
-          <router-link to="/survey" class="home-view5 button">Connect to investors</router-link>
-        </div>
-        <img alt="image" src="/group%202273.svg" class="home-image29" />
-      </div>
-    </section>
     <section class="home-faq">
-      <h2 class="home-header25">We have all the answers</h2>
+      <h2 class="home-header25">FAQ</h2>
       <div class="home-accordion">
         <div data-role="accordion-container" class="home-element accordion">
           <div class="home-content16">
@@ -698,7 +547,7 @@
         </div>
       </div>
     </section>
-    <section class="home-get-yours">
+    <!-- <section class="home-get-yours">
       <div class="home-row2">
         <div class="home-column">
           <div class="home-card11">
@@ -729,248 +578,67 @@
               minim veniam.
             </p>
           </div>
-          <button class="home-button7 button">View on Opensea</button>
+          <router-link to="/send-form" class="button">Connect to investors</router-link>
         </div>
       </div>
     </section> -->
-    <!-- <footer class="home-footer">
-      <div class="home-main5">
-        <div class="home-branding">
-          <div class="home-heading10">
-            <h2 class="home-logo2">Yocto</h2>
-            <p class="home-caption17">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore.
-            </p>
-          </div>
-          <div class="home-socials1">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              class="home-twitter1 social button"
-            >
-              <img alt="image" src="/Icons/twitter.svg" class="home-image32" />
-            </a>
-            <a
-              href="https://discord.com"
-              target="_blank"
-              rel="noreferrer noopener"
-              class="home-discord1 social button"
-            >
-              <img alt="image" src="/Icons/discord.svg" class="home-image33" />
-            </a>
-          </div>
-        </div>
-        <div class="home-links1">
-          <div class="home-list1">
-            <h3 class="home-heading11">Site</h3>
-            <div class="home-items">
-              <button class="home-link02 button-clean button">About</button>
-              <button class="home-link03 button-clean button">Collection</button>
-              <button class="home-link04 button-clean button">Roadmap</button>
-              <button class="home-link05 button-clean button">Features</button>
-            </div>
-          </div>
-          <div class="home-list2">
-            <h3 class="home-heading12">Company</h3>
-            <div class="home-items1">
-              <button class="home-link06 button-clean button">Team</button>
-              <button class="home-link07 button-clean button">Press</button>
-              <button class="home-link08 button-clean button">Terms</button>
-              <button class="home-link09 button-clean button">Limitations</button>
-              <button class="home-link10 button-clean button">Licenses</button>
-            </div>
-          </div>
-        </div>
-        <div class="home-socials2">
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            class="home-twitter2 social button"
-          >
-            <img alt="image" src="/Icons/twitter.svg" class="home-image34" />
-          </a>
-          <a
-            href="https://discord.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            class="home-discord2 social button"
-          >
-            <img alt="image" src="/Icons/discord.svg" class="home-image35" />
-          </a>
-        </div>
-      </div>
-      <span class="home-copyright">© 2024 Yocto. All Rights Reserved.</span>
-    </footer> -->
-  </div>
+    </div>
 </template>
 
 <script>
 import DangerousHTML from 'dangerous-html/vue'
 
 export default {
-  name: 'Home',
-  components: {
-    DangerousHTML,
-  },
-  data() {
-    return {
-      raw1hn9: ' ',
-      raws40p: ' ',
-      rawxrbx: ' ',
-      rawbgus: ' ',
-      rawkqx8: ' ',
-      rawwfnp: ' ',
-      rawwvf2: ' ',
-      rawo84v: ' ',
-      isModalOpen: false, // для управления состоянием модального окна
-      isUserRequestFormVisible: false,
-      isInvestorRequestFormVisible: false,
-      userRequestedFormName: '',
-      investorRequestedFormName: '',
-      userSuccessMessage: '',
-      userErrorMessage: '',
-      investorSuccessMessage: '',
-      investorErrorMessage: '',
-      forms: [
-        { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
-        { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
-        { name: "Everywhere Ventures", estimatedTime: 4, questions: 9, url: "https://everywhere.vc/" },
-        { name: "Hustle Fund", estimatedTime: 15, questions: 31, url: "https://www.hustlefund.vc/" },
-        { name: "Incisive Ventures", estimatedTime: 11, questions: 23, url: "https://incisive.vc/" },
-        { name: "Liberty Ventures", estimatedTime: 5, questions: 8, url: "https://libertyventures.xyz/" },
-        { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/" },
-        { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/" },
-        { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/" },
-        { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://www.wischoff.com/" },
-      ],
-      selectedForms: [],
-      stepInvestors: {
-        2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        4: ['Liberty Ventures'],
-        5: ['Precursor Ventures'],
-        6: ['Hustle Fund'],
-        7: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        8: ['Liberty Ventures', 'Path Ventures', 'Spatial Capital'],
-        9: ['2048 Ventures', 'Boost Ventures', 'Hustle Fund', 'Precursor Ventures'],
-        10: ['Hustle Fund', 'Incisive Ventures'],
-        11: ['Incisive Ventures'],
-        12: ['Hustle Fund'],
-        13: ['Hustle Fund'],
-        14: ['2048 Ventures'],
-        15: ['Hustle Fund', 'Incisive Ventures'],
-        16: ['Hustle Fund'],
-        17: ['Hustle Fund'],
-        18: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        19: ['Liberty Ventures'],
-        20: ['Hustle Fund', 'Incisive Ventures'],
-        21: ['Hustle Fund'],
-        22: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures'],
-        23: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        24: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-        25: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        26: ['Hustle Fund'],
-        27: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
-        28: ['Precursor Ventures'],
-        29: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        30: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        31: ['Hustle Fund'],
-        32: ['Hustle Fund', 'Incisive Ventures'],
-        33: ['Hustle Fund'],
-        34: ['Precursor Ventures'],
-        35: ['Hustle Fund', 'Incisive Ventures'],
-        36: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-        37: ['Incisive Ventures'],
-        38: ['Boost Ventures'],
-        39: ['Spatial Capital'],
-        40: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-        41: ['2048 Ventures'],
-        42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', '2048 Ventures', 'Wischoff Ventures', 'Everywhere Ventures'],
-        43: ['2048 Ventures', 'Boost Ventures', 'Path Ventures'],
-        44: ['Boost Ventures'],
-        45: ['2048 Ventures'],
-        46: ['Hustle Fund'],
-        47: ['Hustle Fund', 'Incisive Ventures'],
-        48: ['Hustle Fund', 'Incisive Ventures'],
-        49: ['Hustle Fund', 'Incisive Ventures'],
-        50: ['Liberty Ventures'],
-        51: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures']
-      },
-      stepIds: {
-        2: 'first_name',
-        3: 'email',
-        4: 'phone_number',
-        5: 'relationship',
-        6: 'working_full_time',
-        7: 'company_name',
-        8: 'one_line_description',
-        9: 'company_description',
-        10: 'company_solution',
-        11: 'pitch_description',
-        12: 'target_customer',
-        13: 'customer_acquisition',
-        14: 'date_founded',
-        15: 'product_status',
-        16: 'active_customers',
-        17: 'how_many_users',
-        18: 'industry',
-        19: 'liberty_ventures_industry',
-        20: 'product_selection',
-        21: 'business_model',
-        22: 'company_website',
-        23: 'pitch_deck',
-        24: 'pitch_deck_file',
-        25: 'headquartered',
-        26: 'customers_based',
-        27: 'specific_location',
-        28: 'legal_structure',
-        29: 'raising_round',
-        30: 'raising_amount',
-        31: 'earning_revenue',
-        32: 'earning_amount',
-        33: 'source_of_revenue',
-        34: 'pre_money_valuation',
-        35: 'post_money_valuation',
-        36: 'capital_to_raise',
-        37: 'prev_experience',
-        38: 'team_description',
-        39: 'company_linkedin',
-        40: 'ceo_linkedin',
-        41: 'cto_linkedin',
-        42: 'linkedin_profiles',
-        43: 'founder_video_url',
-        44: 'team_video_upload',
-        45: 'vision',
-        46: 'pitching_live',
-        47: 'share_submission',
-        48: 'investors_participating',
-        49: 'want_us_to_know',
-        50: 'value_of_team',
-        51: 'final_step'
-      }
-    };
-  },
-  created() {
+    name: 'about',
+    props: {},
+    components: {
+        DangerousHTML,
+    },
+    data() {
+        return {
+            raweg1t: ' ',
+            raw74xv: ' ',
+            raw7y8p: ' ',
+            rawz6f1: ' ',
+            rawd98h: ' ',
+            rawdf0n: ' ',
+            rawdf0n: ' ',
+            rawfwya: ' ',
+            rawopgq: ' ',
+            isModalOpen: false, // для управления состоянием модального окна
+            isUserRequestFormVisible: false,
+            isInvestorRequestFormVisible: false,
+            userRequestedFormName: '',
+            investorRequestedFormName: '',
+            userSuccessMessage: '',
+            userErrorMessage: '',
+            successMessage: '',
+            errorMessage: '',
+            investorSuccessMessage: '',
+            investorErrorMessage: '',
+            successMessageTimeout: null,
+            errorMessageTimeout: null,
+            forms: [
+                { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
+                { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
+                { name: "Everywhere Ventures", estimatedTime: 4, questions: 9, url: "https://everywhere.vc/" },
+                { name: "Hustle Fund", estimatedTime: 15, questions: 31, url: "https://www.hustlefund.vc/" },
+                { name: "Incisive Ventures", estimatedTime: 11, questions: 23, url: "https://incisive.vc/" },
+                { name: "Liberty Ventures", estimatedTime: 5, questions: 8, url: "https://libertyventures.xyz/" },
+                { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/" },
+                { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/" },
+                { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/" },
+                { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://www.wischoff.com/" },
+            ],
+        }
+    },
+    created() {
   // Устанавливаем все формы по умолчанию при загрузке компонента
-  this.selectedForms = [...this.forms];
   this.isUserRequestFormVisible = false;
   this.isInvestorRequestFormVisible = false;
 },
-computed: {
-    totalEstimatedTime() {
-      const uniqueSteps = this.getUniqueStepsForSelectedForms();
-      // 1 вопрос = 0.5 минут (30 секунд)
-      return Math.floor(uniqueSteps.length * 0.5);
-    },
-    totalQuestions() {
-      const uniqueSteps = this.getUniqueStepsForSelectedForms();
-      return uniqueSteps.length;
-    }
-  },
-  methods: {
+
+methods: {
     // Переключение видимости формы для пользователя
     toggleUserRequestForm() {
       this.isUserRequestFormVisible = !this.isUserRequestFormVisible;
@@ -984,7 +652,7 @@ computed: {
       this.clearMessages(); // Убираем сообщения при скрытии формы
       this.isUserRequestFormVisible = false; // Закрываем форму для пользователя
     },
-  scrollToBottom() {
+    scrollToBottom() {
     // Прокручиваем только при видимой форме
     if (this.isUserRequestFormVisible || this.isInvestorRequestFormVisible) {
       this.$nextTick(() => {
@@ -1036,18 +704,6 @@ clearMessages() {
         this.isInvestorRequestFormVisible = false;
       }
     },
-    generateUUID() {
-      let dt = new Date().getTime();
-      if (window.performance && typeof window.performance.now === 'function') {
-        dt += performance.now(); // Используем high-precision таймер, если доступен
-      }
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = (dt + Math.random() * 16) % 16 | 0;
-        dt = Math.floor(dt / 16);
-        return (c === 'x' ? r.toString(16) : ((r & 0x3) | 0x8).toString(16));
-      });
-    },
-
     async saveFormRequest(type, formName) {
   // Получаем deviceId из localStorage
   const deviceId = localStorage.getItem('device_id');
@@ -1075,21 +731,6 @@ clearMessages() {
         console.error('Error submitting form request:', error);
       }
     },
-
-    getUniqueStepsForSelectedForms() {
-      const uniqueSteps = new Set();
-
-      // Собираем уникальные шаги для выбранных форм
-      Object.keys(this.stepInvestors).forEach(step => {
-        this.selectedForms.forEach(form => {
-          if (this.stepInvestors[step] && this.stepInvestors[step].includes(form.name)) {
-            uniqueSteps.add(step);
-          }
-        });
-      });
-
-      return Array.from(uniqueSteps);
-    },
     openModal() {
       this.isModalOpen = true;
       document.body.classList.add('modal-open');
@@ -1103,42 +744,13 @@ clearMessages() {
       this.closeModal();
       }
     }
-  },
-  updateSelectedForms(newSelectedForms) {
-      this.selectedForms = [...newSelectedForms]; // Сохраняем изменения
-    },
-  metaInfo: {
-    title: 'Yocto',
-    meta: [
-      {
-        property: 'og:title',
-        content: 'Yocto',
-      },
-    ],
-  },
-  mounted() {
-  console.log('Компонент смонтирован. Проверка наличия device_id.');
-
-  let deviceId = localStorage.getItem('device_id');
-
-  if (!deviceId) {
-    if (crypto.randomUUID) {
-      deviceId = crypto.randomUUID(); // Используем встроенный метод
-    } else {
-      deviceId = this.generateUUID(); // Используем метод генерации UUID
-    }
-    localStorage.setItem('device_id', deviceId);
-    console.log('Создан новый device_id:', deviceId);
-  } else {
-    console.log('Существующий device_id найден:', deviceId);
-  }
-},
+}
 }
 
 </script>
 
 <style scoped>
-/* Стили для модального окна */
+
 .modal {
   position: fixed;
   z-index: 1;
@@ -1153,10 +765,6 @@ clearMessages() {
 }
 
 .modal-open {
-  overflow: hidden;
-}
-
-html {
   overflow: hidden;
 }
 
@@ -1203,6 +811,20 @@ html {
   text-shadow: 1px 1px 0 #000;
   text-align: center;
   margin-bottom: 20px;
+}
+
+/* Таблица инвесторов */
+.investor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  flex-grow: 1; /* Растягиваем таблицу, чтобы она занимала все доступное пространство */
+}
+
+.investor-number {
+  font-weight: bold;
+  margin-right: 7px;
+  color: #ffffff;
 }
 
 .modal-link {
@@ -1263,14 +885,6 @@ html {
   font-size: 20px
 }
 
-/* Таблица инвесторов */
-.investor-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  flex-grow: 1; /* Растягиваем таблицу, чтобы она занимала все доступное пространство */
-}
-
 .investor-table th,
 .investor-table td {
   border: 1px solid #444; /* Более темная рамка */
@@ -1298,305 +912,13 @@ html {
   background-color: #333; /* Темный фон при наведении */
 }
 
-.total-info {
-  position: sticky;
-  bottom: 0;
-  background-color: #282828;
-  border-top: 1px solid #444;
-  text-align: center;
-}
 
-.total-info p {
-  margin: 5px 0;
-  color: #fff;
-}
-
-/* Стили для чекбоксов */
-.custom-checkbox-container {
-  display: inline-flex; /* Flexbox для правильного выравнивания */
-  align-items: center; /* Центрирование по вертикали */
-  justify-content: center; /* Центрирование по горизонтали */
-  padding-left: 0; /* Убираем лишний отступ */
-  cursor: pointer;
-  font-size: 16px;
-  user-select: none;
-}
-
-.custom-checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.custom-checkbox {
-  position: relative;
-  height: 30px; /* Увеличиваем размер чекбокса */
-  width: 30px;  /* Увеличиваем размер чекбокса */
-  background-color: #eee;
-  border: 2px solid #ccc;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-/* При наведении меняем цвет рамки */
-.custom-checkbox-container:hover input ~ .custom-checkbox {
-  background-color: #f0f0f0;
-  border-color: #aaa;
-}
-
-.custom-checkbox:after {
-  content: "";
-  position: absolute;
-  display: none;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(45deg); /* Центрируем галочку */
-  width: 10px;
-  height: 18px;
-  border: solid #fff; /* Белая галочка */
-  border-width: 0 3px 3px 0;
-}
-
-.custom-checkbox-container input:checked ~ .custom-checkbox {
-  background-color: #ff538c; /* Розовый цвет для фона */
-  border-color: #000000;
-}
-
-.custom-checkbox-container input:checked ~ .custom-checkbox:after {
-  display: block;
-}
-
-/* Стили для кнопок-ссылок */
-.button-link-scrollable {
-  display: block;
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  font-weight: 600;
-  padding: 10px;
-  transition: background-color 0.3s ease;
-  text-decoration: underline; /* Добавляем подчеркивание */
-}
-
-.button-link-scrollable:hover {
-  background-color: #444; /* Затемнение фона при наведении */
-}
-
-.home-container {
-  width: 100%;
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  background-color: #27272D;
-}
-.home-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.home-navbar {
-  width: 100%;
-  display: flex;
-  position: relative;
-  max-width: 1440px;
-  align-items: center;
-  padding-top: var(--dl-space-space-threeunits);
-  padding-left: var(--dl-space-space-fiveunits);
-  padding-right: var(--dl-space-space-fiveunits);
-  padding-bottom: var(--dl-space-space-threeunits);
-  justify-content: space-between;
-}
-.home-logo {
-  color: #ff538c;
-  font-size: 52px;
-  font-style: normal;
-  font-weight: 600;
-  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
-}
-
-.home-desktop-menu {
-  display: flex;
-}
-.home-nav {
-  gap: var(--dl-space-space-twounits);
-  flex: 0 0 auto;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-.home-button {
-  color: rgb(255, 255, 255);
-}
-.home-button1 {
-  color: rgb(255, 255, 255);
-}
-.home-button2 {
-  color: rgb(255, 255, 255);
-}
-.home-button3 {
-  color: rgb(255, 255, 255);
-}
-.home-button4 {
-  color: rgb(255, 255, 255);
-}
-
-.home-button5 {
-  color: rgb(255, 255, 255);
-}
-
-.home-button6 {
-  color: rgb(255, 255, 255);
-}
-.home-btn-group {
-  gap: var(--dl-space-space-fourunits);
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-}
-.home-socials {
-  gap: var(--dl-space-space-unit);
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-}
-.home-image {
-  width: 100px;
-  object-fit: cover;
-}
-.home-image01 {
-  width: 100px;
-  object-fit: cover;
-}
-.home-burger-menu {
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-.home-icon {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-}
-.home-mobile-menu {
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  padding: 32px;
-  z-index: 100;
-  position: fixed;
-  transform: translateX(100%);
-  transition: 0.5s;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #fff;
-}
-.home-nav1 {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
 .home-container1 {
   width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: var(--dl-space-space-threeunits);
   justify-content: space-between;
-}
-.home-logo1 {
-  color: #ff538c;
-  font-size: 52px;
-  font-style: normal;
-  font-weight: 600;
-  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
-}
-
-.home-menu-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.home-icon02 {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-}
-.home-nav2 {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-text {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text01 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text02 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text03 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text04 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text05 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-text06 {
-  margin-bottom: var(--dl-space-space-unit);
-}
-.home-container2 {
-  flex: 0 0 auto;
-  width: auto;
-  display: flex;
-  margin-top: var(--dl-space-space-unit);
-  align-items: center;
-  flex-direction: row;
-}
-.home-login {
-  margin-right: var(--dl-space-space-twounits);
-}
-.home-icon-group {
-  display: flex;
-}
-.home-icon04 {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-  margin-right: var(--dl-space-space-twounits);
-}
-.home-icon06 {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-  margin-right: var(--dl-space-space-twounits);
-}
-.home-icon08 {
-  width: var(--dl-size-size-xsmall);
-  height: var(--dl-size-size-xsmall);
-}
-.home-hero {
-  gap: var(--dl-space-space-fiveunits);
-  width: 100%;
-  display: flex;
-  max-width: 1440px;
-  align-items: center;
-  padding-top: var(--dl-space-space-fourunits);
-  padding-left: var(--dl-space-space-fiveunits);
-  padding-right: var(--dl-space-space-fiveunits);
-  flex-direction: column;
-  padding-bottom: var(--dl-space-space-sixunits);
-}
-.home-heading {
-  gap: var(--dl-space-space-twounits);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 }
 .home-header01 {
   color: rgb(255, 255, 255);
@@ -1607,99 +929,14 @@ html {
   font-weight: 500;
   line-height: 40px;
 }
-.home-caption {
-  color: rgb(255, 255, 255);
-  font-size: 30px; /* Увеличенный размер шрифта */
-  white-space: nowrap; /* Запрещаем перенос текста */
-  text-align: center;
-  line-height: 1.2; /* Коррекция межстрочного расстояния */
-  margin: 0 auto;
+.home-intro {
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+    color: #333;
 }
 
-.home-buttons {
-  gap: var(--dl-space-space-threeunits);
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-.home-learn {
-  color: rgb(255, 255, 255);
-  text-decoration: underline;
-}
-.home-description {
-  gap: 120px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.home-divider-image {
-  width: 100%;
-  object-fit: cover;
-}
-.home-container3 {
-  width: 100%;
-  display: flex;
-  max-width: 1440px;
-  align-items: flex-end;
-  flex-direction: column;
-}
-.home-description01 {
-  gap: var(--dl-space-space-fiveunits);
-  width: 100%;
-  display: flex;
-  max-width: 900px;
-  align-items: flex-start;
-  padding-left: var(--dl-space-space-fiveunits);
-  padding-right: var(--dl-space-space-fiveunits);
-  flex-direction: column;
-}
-.home-content {
-  gap: var(--dl-space-space-threeunits);
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-paragraph {
-  color: #ffffff;
-  font-size: 40px;
-  line-height: 60px;
-}
-.home-paragraph1 {
-  color: rgb(255, 255, 255);
-  font-size: 40px;
-  line-height: 60px;
-}
-.home-links {
-  width: 100%;
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-}
-.home-link {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  text-decoration: none;
-  border-top-width: 0px;
-}
-.home-arrow {
-  width: 25px;
-  object-fit: cover;
-}
-.home-link01 {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  text-decoration: none;
-  border-top-width: 0px;
-}
-.home-arrow1 {
-  width: 25px;
-  object-fit: cover;
-}
 .home-cards {
   gap: var(--dl-space-space-fiveunits);
   width: 100%;
@@ -1710,15 +947,9 @@ html {
   padding-left: var(--dl-space-space-fiveunits);
   padding-right: var(--dl-space-space-fiveunits);
   flex-direction: column;
-  padding-bottom: 120px;
+  padding-bottom: 75px;
 }
-.home-row {
-  gap: var(--dl-space-space-fiveunits);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
+
 .home-card {
   gap: var(--dl-space-space-twounits);
   flex: 1;
@@ -1731,6 +962,147 @@ html {
   padding-bottom: var(--dl-space-space-fourunits);
   background-color: #000000;
 }
+
+.home-card01 {
+  gap: var(--dl-space-space-twounits);
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  padding-top: var(--dl-space-space-sixunits);
+  padding-left: var(--dl-space-space-fourunits);
+  padding-right: var(--dl-space-space-fiveunits);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-fourunits);
+  background-color: #FFCF77;
+}
+
+.home-card02 {
+  gap: var(--dl-space-space-twounits);
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding-top: var(--dl-space-space-sixunits);
+  padding-left: var(--dl-space-space-fourunits);
+  padding-right: var(--dl-space-space-fiveunits);
+  flex-direction: column;
+  padding-bottom: var(--dl-space-space-fourunits);
+  background-color: #8FA7DF;
+}
+
+.home-card03 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card04 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card05 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card06 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card07 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card08 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card09 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card10 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.home-card11 {
+  display: flex;
+  padding: var(--dl-space-space-oneandhalfunits);
+  align-items: center;
+  flex-direction: column;
+  background-color: #FFCF77;
+}
+
+.home-card12 {
+  display: flex;
+  padding: var(--dl-space-space-oneandhalfunits);
+  align-items: center;
+  flex-direction: column;
+  background-color: #000000;
+}
+
+.home-card13 {
+  gap: var(--dl-space-space-twounits);
+  width: 100%;
+  display: flex;
+  padding: var(--dl-space-space-fourunits);
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: #8FA7DF;
+}
+
+.home-row {
+  gap: var(--dl-space-space-fiveunits);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.home-row1 {
+  gap: var(--dl-space-space-fourunits);
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.home-row2 {
+  gap: var(--dl-space-space-threeunits);
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
 .home-avatar {
   width: 60px;
   height: 60px;
@@ -1746,69 +1118,7 @@ html {
   height: 100%;
   object-fit: cover;
 }
-.home-main {
-  gap: var(--dl-space-space-threeunits);
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-content01 {
-  gap: var(--dl-space-space-unit);
-  width: 100%;
-  display: flex;
-  max-width: 460px;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-header02 {
-  color: rgb(255, 255, 255);
-  font-size: 52px;
-  font-style: normal;
-  font-weight: 500;
-}
-.home-description02 {
-  color: rgba(255, 255, 255, 0.8);
-  width: 100%;
-  font-size: 18px;
-  max-width: 400px;
-  line-height: 27px;
-}
-.home-learn1 {
-  gap: var(--dl-space-space-unit);
-  color: white;
-  display: flex;
-  padding: 0px;
-  box-shadow: none;
-  align-items: center;
-  padding-top: 0px;
-  border-width: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  flex-direction: row;
-  padding-bottom: 0px;
-  background-color: transparent;
-}
-.home-text07 {
-  font-style: normal;
-  font-weight: 500;
-}
-.home-image02 {
-  width: 16px;
-  object-fit: cover;
-}
-.home-card01 {
-  gap: var(--dl-space-space-twounits);
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  padding-top: var(--dl-space-space-sixunits);
-  padding-left: var(--dl-space-space-fourunits);
-  padding-right: var(--dl-space-space-fiveunits);
-  flex-direction: column;
-  padding-bottom: var(--dl-space-space-fourunits);
-  background-color: #FFCF77;
-}
+
 .home-avatar2 {
   width: 60px;
   height: 60px;
@@ -1820,72 +1130,13 @@ html {
   justify-content: center;
   background-color: #EC7495;
 }
+
+.home-text09 {
+    color: white;
+}
 .home-avatar3 {
   width: 28px;
   object-fit: cover;
-}
-.home-main1 {
-  gap: var(--dl-space-space-threeunits);
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-content02 {
-  gap: var(--dl-space-space-unit);
-  width: 100%;
-  display: flex;
-  max-width: 460px;
-  align-items: flex-start;
-  flex-direction: column;
-}
-.home-header03 {
-  color: rgb(0, 0, 0);
-  font-size: 52px;
-  font-style: normal;
-  font-weight: 500;
-}
-.home-description03 {
-  color: #000000;
-  width: 100%;
-  font-size: 18px;
-  max-width: 400px;
-  line-height: 27px;
-}
-.home-learn2 {
-  gap: var(--dl-space-space-unit);
-  color: #000000;
-  display: flex;
-  padding: 0px;
-  box-shadow: none;
-  align-items: center;
-  padding-top: 0px;
-  border-width: 0px;
-  padding-left: 0px;
-  padding-right: 0px;
-  flex-direction: row;
-  padding-bottom: 0px;
-  background-color: transparent;
-}
-.home-text08 {
-  font-style: normal;
-  font-weight: 500;
-}
-.home-image03 {
-  width: 16px;
-  object-fit: cover;
-}
-.home-card02 {
-  gap: var(--dl-space-space-twounits);
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  padding-top: var(--dl-space-space-sixunits);
-  padding-left: var(--dl-space-space-fourunits);
-  padding-right: var(--dl-space-space-fiveunits);
-  flex-direction: column;
-  padding-bottom: var(--dl-space-space-fourunits);
-  background-color: #8FA7DF;
 }
 .home-avatar4 {
   width: 60px;
@@ -1902,14 +1153,23 @@ html {
   width: 22px;
   object-fit: cover;
 }
-.home-row1 {
-  gap: var(--dl-space-space-fourunits);
+
+.home-main {
+  gap: var(--dl-space-space-threeunits);
   width: 100%;
   display: flex;
   align-items: flex-start;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
 }
+
+.home-main1 {
+  gap: var(--dl-space-space-threeunits);
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
 .home-main2 {
   gap: var(--dl-space-space-threeunits);
   width: 100%;
@@ -1918,7 +1178,32 @@ html {
   align-items: flex-start;
   flex-direction: column;
 }
-.home-content03 {
+
+.home-main3 {
+  gap: var(--dl-space-space-twounits);
+  width: 100%;
+  display: grid;
+  align-items: flex-start;
+  flex-direction: column;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.home-main4 {
+  gap: var(--dl-space-space-threeunits);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-main5 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.home-content01 {
   gap: var(--dl-space-space-unit);
   width: 100%;
   display: flex;
@@ -1926,19 +1211,63 @@ html {
   align-items: flex-start;
   flex-direction: column;
 }
-.home-header04 {
-  color: rgb(0, 0, 0);
+
+.home-header02 {
+  color: rgb(255, 255, 255);
   font-size: 52px;
   font-style: normal;
   font-weight: 500;
 }
-.home-description04 {
-  color: #000000;
+
+.home-description02 {
+  color: rgba(255, 255, 255, 0.8);
   width: 100%;
-  font-size: 18px;
+  font-size: 22px;
   max-width: 400px;
   line-height: 27px;
 }
+
+.home-text07 {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.home-image02 {
+  width: 16px;
+  object-fit: cover;
+}
+
+.home-content02 {
+  gap: var(--dl-space-space-unit);
+  width: 100%;
+  display: flex;
+  max-width: 460px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.home-description03 {
+  color: #000000;
+  width: 100%;
+  font-size: 22px;
+  max-width: 400px;
+  line-height: 27px;
+}
+
+.home-description04 {
+  color: #000000;
+  width: 100%;
+  font-size: 25px;
+  max-width: 400px;
+  line-height: 27px;
+}
+
+.home-text08 {
+  font-style: normal;
+  font-weight: 500;
+  color: black;
+}
+
 .home-learn3 {
   gap: var(--dl-space-space-unit);
   color: #000000;
@@ -1954,29 +1283,68 @@ html {
   padding-bottom: 0px;
   background-color: transparent;
 }
-.home-text09 {
-  font-style: normal;
-  font-weight: 500;
-}
-.home-image04 {
-  width: 16px;
-  object-fit: cover;
-}
-.home-image05 {
-  width: 100%;
-  object-fit: cover;
-}
+
 .home-collection {
   gap: var(--dl-space-space-fiveunits);
   width: 100%;
   display: flex;
-  max-width: 1440px;
+  max-width: 1600px;
   align-items: flex-start;
   padding-left: var(--dl-space-space-fiveunits);
   padding-right: var(--dl-space-space-fiveunits);
   flex-direction: column;
-  padding-bottom: 160px;
+  padding-bottom: 90px;
 }
+
+.home-learn1 {
+  gap: var(--dl-space-space-unit);
+  color: white;
+  display: flex;
+  padding: 0px;
+  box-shadow: none;
+  align-items: center;
+  padding-top: 0px;
+  border-width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  flex-direction: row;
+  padding-bottom: 0px;
+  background-color: transparent;
+}
+
+.home-learn2 {
+  gap: var(--dl-space-space-unit);
+  color: #000000;
+  margin-top: 40px;
+  display: flex;
+  padding: 0px;
+  box-shadow: none;
+  align-items: center;
+  padding-top: 0px;
+  border-width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  flex-direction: row;
+  padding-bottom: 0px;
+  background-color: transparent;
+}
+
+.home-learn3 {
+  gap: var(--dl-space-space-unit);
+  color: #000000;
+  display: flex;
+  padding: 0px;
+  box-shadow: none;
+  align-items: center;
+  padding-top: 0px;
+  border-width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  flex-direction: row;
+  padding-bottom: 0px;
+  background-color: transparent;
+}
+
 .home-content04 {
   gap: var(--dl-space-space-threeunits);
   width: 100%;
@@ -1992,24 +1360,23 @@ html {
   text-transform: uppercase;
 }
 .home-heading01 {
-  gap: var(--dl-space-space-twounits);
   width: 100%;
   display: flex;
-  max-width: 640px;
+  max-width: 1200px;
   align-items: flex-start;
   flex-direction: column;
 }
 .home-header05 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 72px;
   font-style: normal;
   font-weight: 500;
   letter-spacing: 1px;
 }
 .home-header06 {
-  color: rgb(255, 255, 255);
-  font-size: 18px;
-  line-height: 27px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 25px;
+  line-height: 35px;
 }
 .home-main3 {
   gap: var(--dl-space-space-twounits);
@@ -2025,6 +1392,11 @@ html {
   align-items: flex-start;
   flex-direction: column;
   background-color: #ffffff;
+}
+
+.home-learn {
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
 }
 .home-image06 {
   width: 100%;
@@ -2344,7 +1716,14 @@ html {
   padding-left: var(--dl-space-space-fiveunits);
   padding-right: var(--dl-space-space-fiveunits);
   flex-direction: column;
-  padding-bottom: 160px;
+}
+.home-content03 {
+  gap: var(--dl-space-space-unit);
+  width: 100%;
+  display: flex;
+  max-width: 460px;
+  align-items: flex-start;
+  flex-direction: column;
 }
 .home-understand {
   gap: var(--dl-space-space-fiveunits);
@@ -2353,7 +1732,11 @@ html {
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  margin-top: 100px;
+  padding-bottom: 30px;
+  padding-top: 30px;
 }
+
 .home-content13 {
   gap: var(--dl-space-space-threeunits);
   width: 100%;
@@ -2378,7 +1761,7 @@ html {
   flex-direction: column;
 }
 .home-header07 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 72px;
   font-style: normal;
   font-weight: 500;
@@ -2386,8 +1769,16 @@ html {
 }
 .home-header08 {
   color: rgb(255, 255, 255);
-  font-size: 18px;
-  line-height: 27px;
+  font-size: 30px;
+  line-height: 38px;
+}
+.home-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  background-color: #27272D;
 }
 .home-view3 {
   gap: var(--dl-space-space-unit);
@@ -2418,6 +1809,10 @@ html {
   width: 510px;
   object-fit: cover;
 }
+.home-image05 {
+  width: 100%;
+  object-fit: cover;
+}
 .home-content14 {
   gap: var(--dl-space-space-threeunits);
   width: 100%;
@@ -2434,7 +1829,6 @@ html {
   text-transform: uppercase;
 }
 .home-heading03 {
-  gap: var(--dl-space-space-twounits);
   width: 100%;
   display: flex;
   max-width: 640px;
@@ -2450,8 +1844,7 @@ html {
 }
 .home-header10 {
   color: rgb(255, 255, 255);
-  font-size: 18px;
-  line-height: 27px;
+  line-height: 15px;
 }
 .home-view4 {
   gap: var(--dl-space-space-unit);
@@ -2575,6 +1968,10 @@ html {
   font-size: 18px;
   line-height: 27px;
 }
+.home-button5 {
+  color: rgb(255, 255, 255);
+}
+
 .home-step2 {
   gap: var(--dl-space-space-oneandhalfunits);
   display: flex;
@@ -2655,6 +2052,16 @@ html {
   width: 16px;
   object-fit: cover;
 }
+.home-icon02 {
+  width: var(--dl-size-size-xsmall);
+  height: var(--dl-size-size-xsmall);
+}
+.home-nav2 {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
 .home-header21 {
   color: rgb(255, 255, 255);
   font-size: 18px;
@@ -2716,6 +2123,13 @@ html {
   flex-direction: column;
   background-color: #FFCF77;
 }
+.home-btn-group {
+  gap: var(--dl-space-space-fourunits);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
 .home-main4 {
   gap: var(--dl-space-space-threeunits);
   display: flex;
@@ -2758,8 +2172,8 @@ html {
   padding-bottom: 160px;
 }
 .home-header25 {
-  color: rgb(255, 255, 255);
-  font-size: 90px;
+  color: #ffcf77;
+  font-size: 72px;
   max-width: 900px;
   font-style: normal;
   text-align: center;
@@ -2838,6 +2252,14 @@ html {
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
+}
+.home-content03 {
+  gap: var(--dl-space-space-unit);
+  width: 100%;
+  display: flex;
+  max-width: 460px;
+  align-items: flex-start;
+  flex-direction: column;
 }
 .home-icon-container1 {
   padding-top: var(--dl-space-space-halfunit);
@@ -2961,6 +2383,34 @@ html {
   width: 16px;
   height: 16px;
   display: none;
+}
+
+.yellow-square {
+    color: #ffcf77; /* Matches the yellow square */
+    font-size: 30px;
+  line-height: 40px;
+  font-weight: 800;
+}
+
+.blue-square {
+    color: #8fa7df; /* Matches the blue square */
+    font-size: 30px;
+  line-height: 40px;
+  font-weight: 800;
+}
+
+.black-square {
+    color: #000; /* Matches the black square */
+    font-size: 30px;
+  line-height: 40px;
+  font-weight: 800;
+}
+
+.green-square {
+    color: #78e185; /* Matches the green square */
+    font-size: 30px;
+  line-height: 40px;
+  font-weight: 800;
 }
 .home-icon28 {
   fill: #ffffff;
@@ -3221,10 +2671,144 @@ html {
 .home-container5 {
   display: contents;
 }
+.home-logo {
+  color: #ff538c;
+  font-size: 72px;
+  font-style: normal;
+  margin-top: 80px;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
+}
 
+.home-logo1 {
+  color: #ff538c;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 600;
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
+}
+
+.home-caption {
+  color: rgb(255, 255, 255);
+  font-size: 30px; /* Увеличенный размер шрифта */
+  text-align: center;
+  line-height: 1.2; /* Коррекция межстрочного расстояния */
+  margin: 0 auto;
+}
+
+.home-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-navbar {
+  width: 100%;
+  display: flex;
+  position: relative;
+  max-width: 1440px;
+  align-items: center;
+  padding-top: var(--dl-space-space-threeunits);
+  padding-left: var(--dl-space-space-fiveunits);
+  padding-right: var(--dl-space-space-fiveunits);
+  padding-bottom: var(--dl-space-space-threeunits);
+  justify-content: space-between;
+}
+
+.home-desktop-menu {
+  display: flex;
+}
+
+.home-nav {
+  gap: var(--dl-space-space-twounits);
+  flex: 0 0 auto;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.home-learn {
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+}
+.home-icon {
+  width: var(--dl-size-size-xsmall);
+  height: var(--dl-size-size-xsmall);
+}
+.home-mobile-menu {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  padding: 32px;
+  z-index: 100;
+  position: fixed;
+  transform: translateX(100%);
+  transition: 0.5s;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.home-nav1 {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.home-menu-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 @media(max-width: 1400px) {
-  .home-header01 {
-    font-size: 70px;
+    .home-row {
+    flex-direction: column;
+  }
+
+  .home-get-yours {
+    height: auto;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .home-card {
+    width: 100%;
+  }
+
+  .home-card01 {
+    width: 100%;
+  }
+
+  .home-card11 {
+    width: 100%;
+    aspect-ratio: 0.85;
+    justify-content: center;
+  }
+
+  .home-card12 {
+    width: 100%;
+    aspect-ratio: 0.85;
+  }
+
+  .home-row1 {
+    flex-direction: column;
+  }
+  
+
+  .home-row2 {
+    gap: var(--dl-space-space-threeunits);
+    width: 100%;
+    height: 555px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home-main3 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -3351,80 +2935,10 @@ html {
     width: 100%;
   }
 }
+
+
 @media(max-width: 767px) {
-  .home-navbar {
-    padding-left: var(--dl-space-space-twounits);
-    padding-right: var(--dl-space-space-twounits);
-  }
-  .home-hero {
-    padding-top: var(--dl-space-space-threeunits);
-    padding-left: var(--dl-space-space-oneandhalfunits);
-    padding-right: var(--dl-space-space-oneandhalfunits);
-    padding-bottom: var(--dl-space-space-twounits);
-  }
-
-  .home-divider-image {
-    height: 40vh; /* Устанавливаем высоту в процентах от высоты экрана */
-  }
-
-  .home-heading {
-    gap: var(--dl-space-space-unit);
-  }
-  .modal-content {
-    width: 95%;
-    max-width: 500px;
-  }
-
-  .modal-header {
-  font-size: 30px;
-}
-.investor-table th,
-  .investor-table td {
-    padding: 20px;
-    font-size: 16px;
-  }
-
-  /* Уменьшаем размер чекбоксов для мобильных устройств */
-  .custom-checkbox {
-    height: 25px;
-    width: 25px;
-  }
-
-  .custom-checkbox:after {
-    width: 8px;
-    height: 14px;
-  }
-
-  .home-header01 {
-    font-size: 36px;
-    max-width: 90%;
-    line-height: 43px;
-  }
-  .home-caption {
-    font-size: 16px;
-    line-height: 24px;
-    white-space: normal;
-  }
-  .home-description {
-    gap: var(--dl-space-space-threeunits);
-  }
-  .home-description01 {
-    gap: var(--dl-space-space-threeunits);
-    padding-left: var(--dl-space-space-oneandhalfunits);
-    padding-right: var(--dl-space-space-oneandhalfunits);
-  }
-  .home-content {
-    gap: var(--dl-space-space-unit);
-  }
-  .home-paragraph {
-    font-size: 20px;
-    line-height: 30px;
-  }
-  .home-paragraph1 {
-    font-size: 20px;
-    line-height: 30px;
-  }
-  .home-cards {
+    .home-cards {
     padding-top: var(--dl-space-space-threeunits);
     padding-left: var(--dl-space-space-oneandhalfunits);
     padding-right: var(--dl-space-space-oneandhalfunits);
@@ -3437,16 +2951,7 @@ html {
     padding-right: var(--dl-space-space-oneandhalfunits);
     padding-bottom: var(--dl-space-space-threeunits);
   }
-  .home-main {
-    gap: var(--dl-space-space-oneandhalfunits);
-  }
-  .home-header02 {
-    font-size: 24px;
-  }
-  .home-description02 {
-    font-size: 14px;
-    line-height: 21px;
-  }
+
   .home-card01 {
     gap: var(--dl-space-space-oneandhalfunits);
     padding-top: var(--dl-space-space-threeunits);
@@ -3454,16 +2959,7 @@ html {
     padding-right: var(--dl-space-space-oneandhalfunits);
     padding-bottom: var(--dl-space-space-threeunits);
   }
-  .home-main1 {
-    gap: var(--dl-space-space-oneandhalfunits);
-  }
-  .home-header03 {
-    font-size: 24px;
-  }
-  .home-description03 {
-    font-size: 14px;
-    line-height: 21px;
-  }
+
   .home-card02 {
     gap: var(--dl-space-space-oneandhalfunits);
     padding-top: var(--dl-space-space-threeunits);
@@ -3471,24 +2967,69 @@ html {
     padding-right: var(--dl-space-space-oneandhalfunits);
     padding-bottom: var(--dl-space-space-oneandhalfunits);
   }
+
+  .home-card11 {
+    padding: var(--dl-space-space-unit);
+  }
+  .home-image30 {
+    width: 100%;
+  }
+  .home-card12 {
+    padding: var(--dl-space-space-unit);
+  }
+
+  .home-card13 {
+    gap: var(--dl-space-space-threeunits);
+    align-items: center;
+    padding-top: var(--dl-space-space-threeunits);
+    padding-left: var(--dl-space-space-unit);
+    padding-right: var(--dl-space-space-unit);
+    padding-bottom: var(--dl-space-space-threeunits);
+  }
   .home-row1 {
     gap: var(--dl-space-space-twounits);
+  }
+
+  .home-row2 {
+    gap: var(--dl-space-space-oneandhalfunits);
+    height: 555px;
+  }
+
+  .home-main {
+    gap: var(--dl-space-space-oneandhalfunits);
+  }
+
+  .home-main1 {
+    gap: var(--dl-space-space-oneandhalfunits);
   }
   .home-main2 {
     gap: var(--dl-space-space-oneandhalfunits);
   }
-  .home-header04 {
+  .home-main4 {
+    gap: var(--dl-space-space-twounits);
+    padding-left: var(--dl-space-space-oneandhalfunits);
+    padding-right: var(--dl-space-space-oneandhalfunits);
+  }
+  .home-main5 {
+    gap: var(--dl-space-space-threeunits);
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .home-header02 {
     font-size: 24px;
   }
-  .home-description04 {
+  .home-description03 {
     font-size: 14px;
     line-height: 21px;
   }
+
   .home-collection {
     gap: var(--dl-space-space-fourunits);
     padding-left: var(--dl-space-space-oneandhalfunits);
     padding-right: var(--dl-space-space-oneandhalfunits);
   }
+
   .home-content04 {
     gap: var(--dl-space-space-oneandhalfunits);
   }
@@ -3500,7 +3041,7 @@ html {
     letter-spacing: 0;
   }
   .home-header06 {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 21px;
   }
   .home-image06 {
@@ -3556,9 +3097,10 @@ html {
   .home-header07 {
     font-size: 32px;
     letter-spacing: 0;
+    align-self: center;
   }
   .home-header08 {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 21px;
   }
   .home-view3 {
@@ -3789,14 +3331,7 @@ html {
   .home-image31 {
     width: 100%;
   }
-  .home-card13 {
-    gap: var(--dl-space-space-threeunits);
-    align-items: center;
-    padding-top: var(--dl-space-space-threeunits);
-    padding-left: var(--dl-space-space-unit);
-    padding-right: var(--dl-space-space-unit);
-    padding-bottom: var(--dl-space-space-threeunits);
-  }
+
   .home-content21 {
     align-items: center;
   }
@@ -3852,8 +3387,21 @@ html {
   .home-socials2 {
     display: flex;
   }
+  .home-navbar {
+    padding-left: var(--dl-space-space-twounits);
+    padding-right: var(--dl-space-space-twounits);
+  }
 }
+
 @media(max-width: 479px) {
+    .home-row2 {
+    height: 350px;
+  }
+
+  .home-main3 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   .home-caption {
     white-space: normal;
   }
@@ -3862,30 +3410,6 @@ html {
   }
   .home-mobile-menu {
     padding: 16px;
-  }
-
-  .modal-content {
-    width: 100%;
-    max-width: 450px;
-  }
-  .modal-header {
-  font-size: 25px;
-}
-.investor-table th,
-  .investor-table td {
-    padding: 20px;
-    font-size: 16px;
-  }
-
-  /* Делаем чекбокс еще меньше для мобильных */
-  .custom-checkbox {
-    height: 20px;
-    width: 20px;
-  }
-
-  .custom-checkbox:after {
-    width: 6px;
-    height: 10px;
   }
   .home-main3 {
     grid-template-columns: repeat(1, 1fr);
@@ -3935,4 +3459,5 @@ html {
   font-size: 12px;
 }
 }
+
 </style>
