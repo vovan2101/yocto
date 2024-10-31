@@ -222,7 +222,7 @@
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   cto_linkedin: [
-    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: '2048 Ventures', status: 'Optional', url: 'https://www.2048.vc/' },
   ],
   founder_video_url: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
@@ -289,7 +289,7 @@
   
   .modal-content {
     background-color: #282828;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 2px solid #888;
     width: 80%;
