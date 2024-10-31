@@ -720,7 +720,7 @@ clearMessages() {
     form_name: formName,
   };
       try {
-        await fetch('http://localhost:3002/form-requests', {
+        await fetch('http://test.yocto.vc/api/form-requests', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
