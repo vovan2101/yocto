@@ -36,7 +36,7 @@
   export default {
     props: {
       isOpen: Boolean,
-      formData: Object
+      formData: Object,
     },
     data() {
       return {
@@ -51,55 +51,58 @@
         closeModal() {
             this.$emit('close'); // Закрытие модального окна
         },
-        // Логика отправки формы на email
-        async sendFormToEmail() {
-            const email = this.userEmail;
-            
-                // Проверяем, прошло ли 60 секунд с момента последней отправки
-        const currentTime = new Date().getTime();
-        if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
-            this.errorMessage = 'You can only send one email per minute. Please wait.';
-            this.successMessage = '';
-            return;
-        }
+  // Логика отправки формы на email
+  async sendFormToEmail() {
+  const email = this.userEmail;
+  const currentTime = new Date().getTime();
+  
+  if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
+    this.errorMessage = 'You can only send one email per minute. Please wait.';
+    this.successMessage = '';
+    return;
+  }
 
-        if (!email) {
-          this.errorMessage = 'Please enter a valid email address';
-          this.successMessage = '';
-          return;
-        }
-  
-        try {
-          const response = await fetch('http://test.yocto.vc/api/send-email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: email,
-              formData: this.formData
-            })
-          });
-  
-          if (response.ok) {
-            this.successMessage = 'Form successfully sent to ' + email;
-            this.errorMessage = '';
-            this.lastSentTime = currentTime; // Сохраняем время отправки
-            this.isSendingDisabled = true; // Блокируем кнопку на 60 секунд
-            setTimeout(() => {
-            this.isSendingDisabled = false;
-          }, 60000);
-          } else {
-            this.errorMessage = 'Error sending form. Please try again later.';
-            this.successMessage = '';
-          }
-        } catch (error) {
-          this.errorMessage = 'An error occurred while sending the email.';
-          this.successMessage = '';
-          console.error(error);
-        }
-      }
+  if (!email) {
+    this.errorMessage = 'Please enter a valid email address';
+    this.successMessage = '';
+    return;
+  }
+
+  try {
+    const formDataToSend = {
+      ...this.formData,
+    };
+
+    const response = await fetch('http://test.yocto.vc/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        formData: formDataToSend
+      })
+    });
+
+    if (response.ok) {
+      this.successMessage = 'Form successfully sent to ' + email;
+      this.errorMessage = '';
+      this.lastSentTime = currentTime;
+      this.isSendingDisabled = true;
+      setTimeout(() => {
+        this.isSendingDisabled = false;
+      }, 60000);
+    } else {
+      this.errorMessage = 'Error sending form. Please try again later.';
+      this.successMessage = '';
     }
+  } catch (error) {
+    this.errorMessage = 'An error occurred while sending the email.';
+    this.successMessage = '';
+    console.error(error);
+  }
+}
+}
   };
   </script>
   
