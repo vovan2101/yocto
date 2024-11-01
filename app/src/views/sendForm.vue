@@ -4,7 +4,12 @@
     <div ref="steps">
       <transition name="fade" mode="out-in">
         <div :key="currentStep">
-
+          <div v-if="warningMessages.length > 0" :class="['warning-message', { 'fade-out': isFadingOut }]">
+  <div v-for="(message, index) in warningMessages" :key="index">
+    {{ message }}
+  </div>
+  <button class="close-button" @click="closeWarningMessages">×</button>
+</div>
           <!-- Step 0: Introduction -->
           <div v-if="currentStep === 0" class="intro-container">
           <div class="header-container-welcome-and-congrats">
@@ -1235,7 +1240,7 @@ required
       <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_amount">
 
 <div class="header-container">
-  <h2>How much capital have you raised all in prior rounds? (in USD)</h2>
+  <h2>How much capital have you raised in all prior rounds? (in USD)</h2>
 </div>
 <input class="input-field" type="text" placeholder="Type your answer here..." v-model="formData.raising_amount" required />
 <div class="button-container">
@@ -1770,7 +1775,10 @@ required
   </div>
 </div>
 
-      <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+<div class="error-container">
+  <p v-if="errorMessage" class="error-message visible">{{ errorMessage }}</p>
+</div>
+
     </div>
     </transition>
     </div>
@@ -1853,6 +1861,240 @@ export default {
       isModalOpen: false, // Для управления видимостью модального окна
       isTestFormOpen: false,
       currentField: '',   // Поле, для которого будет показана информация
+      formInfo: {
+  first_name: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+  ],
+  last_name: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+  ],
+  email: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  phone_number: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+  relationship: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  working_full_time: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  company_name: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  one_line_description: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+  ],
+  company_description: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  company_solution: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  pitch_description: [
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  target_customer: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  customer_acquisition: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  date_founded: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  product_status: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  active_customers: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  how_many_users: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  industry: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  liberty_ventures_industry: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+  product: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  business_model: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  company_website: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  pitch_deck: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Optional', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  pitch_deck_file: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  headquartered: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  customers_based: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  specific_location: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  legal_structure: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+  ],
+  raising_round: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  raising_amount: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  earning_revenue: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  earning_amount: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  source_of_revenue: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+  ],
+  pre_money_valuation: [
+    { name: 'Precursor Ventures', status: 'Optional', url: 'https://precursorvc.com/' },
+  ],
+  post_money_valuation: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  capital_to_raise: [
+    { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  prev_experience: [
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  team_description: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+  ],
+  company_linkedin: [
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+  ],
+  ceo_linkedin: [
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  cto_linkedin: [
+    { name: '2048 Ventures', status: 'Optional', url: 'https://www.2048.vc/' },
+  ],
+  founder_video_url: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
+    { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
+  ],
+  vision: [
+    { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
+  ],
+  pitching_live: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+  ],
+  share_submission: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+  ],
+  investors_participating: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  want_us_to_know: [
+    { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+  ],
+  value_of_team: [
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+  ],
+},
       snapshotIndustryOptions: [
           { key: '1', value: 'Accounting', label: 'Accounting' },
           { key: '2', value: 'Airlines and Aviation', label: 'Airlines and Aviation' },
@@ -2187,6 +2429,7 @@ export default {
       successMessage: '',
       errorMessage: '',
       warningMessage: '',
+      warningMessages: [],
       isEmailModalOpen: false, // Управляет отображением окна email
       warningTimeout: null,
       isFadingOut: false,
@@ -2261,7 +2504,6 @@ export default {
       console.log('Selected forms in parent:', this.selectedForms);
     },
     goToStep(stepNumber) {
-  console.log(`Navigating to step: ${stepNumber}`);
   this.currentStep = stepNumber;
 
   this.$nextTick(() => {
@@ -2455,6 +2697,12 @@ checkAllSent() {
 },
 
 async checkInvestorsBeforeSubmit() {
+  // Проверка обязательных полей перед отправкой
+  if (!this.validateRequiredFields()) {
+    this.showErrorMessage('Please fill out all required fields.');
+    return; // Останавливаем дальнейшую отправку
+  }
+
   try {
     const response = await fetch('http://test.yocto.vc/api/form-response/check-investors', {
       method: 'POST',
@@ -2472,27 +2720,25 @@ async checkInvestorsBeforeSubmit() {
     const data = await response.json();
 
     if (data.canSubmit) {
-      // Продолжаем отправку формы
+      // Переход к отправке формы
       this.submitForm();
     } else {
-      // Показываем ошибку пользователю
-      this.errorMessage = data.message || 'You have already submitted forms to all selected investors.';
-
-      // Очищаем сообщение об ошибке через 5 секунд
-      setTimeout(() => {
-        this.errorMessage = '';
-      }, 5000);
+      // Показываем ошибку, если отправка невозможна
+      this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
     }
   } catch (error) {
     console.error('Error checking investors:', error);
-    this.errorMessage = 'An error occurred while checking investors.';
-
-    // Очищаем сообщение об ошибке через 5 секунд
-    setTimeout(() => {
-      this.errorMessage = '';
-    }, 5000);
+    this.showErrorMessage('An error occurred while checking investors.');
   }
 },
+
+validateRequiredFields() {
+  // Проверка: если хотя бы одно обязательное поле не заполнено, возвращаем false
+  return Object.keys(this.formData).every(field => {
+    return !this.isFieldRequired(field) || this.formData[field];
+  });
+},
+
 validateEmail(email) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailPattern.test(email);
@@ -2507,6 +2753,13 @@ closeWarningMessage() {
       this.isFadingOut = false; // Сбрасываем флаг
     }, 800); // Длительность анимации совпадает с CSS (0.8s)
   },
+
+  closeWarningMessages() {
+    this.isFadingOut = true;
+    this.warningMessages = [];
+    clearTimeout(this.warningTimeout);
+},
+
   openTestForm() {
       this.isTestFormOpen = true;
     },
@@ -2636,6 +2889,18 @@ closeWarningMessage() {
       this.formData.other_legal_structure = '';
     }
   },
+  showErrorMessage(message) {
+    this.errorMessage = message;
+    this.$nextTick(() => {
+      document.querySelector('.error-message').classList.add('visible');
+    });
+    setTimeout(() => {
+      document.querySelector('.error-message').classList.remove('visible');
+      setTimeout(() => {
+        this.errorMessage = ''; // Сбрасываем сообщение после исчезновения
+      }, 800); // Длительность совпадает с transition
+    }, 5000); // Длительность показа сообщения
+  },
     checkIndustry() {
       if (this.formData.industry !== 'FinTech') {
         this.formData.fintech_type = '';
@@ -2651,6 +2916,10 @@ closeWarningMessage() {
       this.formData.pitch_deck_file = file;
     },
    async nextStep() {
+      this.errorMessage = '';
+      this.removeFocus();
+      const warnings = []; // Список для сбора предупреждений
+      this.warningMessages = []; // Сброс сообщений
   // Если мы на шаге 0, всегда переходим на шаг 1
   if (this.currentStep === 0) {
     this.currentStep = 1;
@@ -2660,138 +2929,210 @@ closeWarningMessage() {
 
 // Сохраняем данные текущего шага перед переходом на следующий шаг
 if (this.currentStep === 2) {
-  // Step 2: Сохранение имени и фамилии
-  await this.saveField('first_name', this.formData.first_name);
-  await this.saveField('last_name', this.formData.last_name);
-} else if (this.currentStep === 3) {
-  // Step 3: Сохранение email
-  if (!this.validateEmail(this.formData.email)) {
-    this.warningMessage = 'Please enter a valid email address';
-    this.isFadingOut = false;
-        clearTimeout(this.warningTimeout);
-        
-        // Устанавливаем таймер на автоматическое исчезновение через 10 секунд
-        this.warningTimeout = setTimeout(() => {
-          this.closeWarningMessage();
-        }, 10000);
-    await this.saveField('email', this.formData.email); // Сохраняем email
-  }
-} else if (this.currentStep === 4) {
-  // Step 4: Сохранение номера телефона
-  await this.saveField('phone_number', this.formData.phone_number);
-} else if (this.currentStep === 5) {
-  // Step 5: Сохранение местоположения
-  await this.saveField('specific_location', this.formData.specific_location);
-  if (this.formData.specific_location === 'Other') {
-    await this.saveField('other_specific_location', this.formData.other_specific_location);
-  }
-} else if (this.currentStep === 6) {
-  // Step 6: Сохранение имени компании
-  await this.saveField('company_name', this.formData.company_name);
-} else if (this.currentStep === 7) {
-  // Step 7: Сохранение даты основания компании
-  await this.saveField('date_founded', this.formData.date_founded);
-} else if (this.currentStep === 8) {
-  // Step 8: Сохранение отношения к компании
-  await this.saveField('relationship', this.formData.relationship);
-  if (this.formData.relationship === 'Other') {
-    await this.saveField('other_relationship', this.formData.other_relationship);
-  }
-} else if (this.currentStep === 9) {
-  // Step 9: Полная занятость
-  await this.saveField('working_full_time', this.formData.working_full_time);
-  if (this.formData.working_full_time === 'Yes') {
-    await this.saveField('full_time_duration', this.formData.full_time_duration);
-  }
-} else if (this.currentStep === 10) {
-  // Step 10: Однострочное описание компании
-  await this.saveField('one_line_description', this.formData.one_line_description);
-} else if (this.currentStep === 11) {
-  // Step 11: Описание проблемы
-  await this.saveField('company_description', this.formData.company_description);
-} else if (this.currentStep === 12) {
-  // Step 12: Описание решения
-  await this.saveField('company_solution', this.formData.company_solution);
-} else if (this.currentStep === 13) {
-  await this.saveField('pitch_description', this.formData.pitch_description);
-} else if (this.currentStep === 14) {
-  await this.saveField('target_customer', this.formData.target_customer);
-} else if (this.currentStep === 15) {
-  this.prepareCustomerAcquisitionData();
-  await this.saveField('customer_acquisition', this.formData.customer_acquisition);
-  if (this.formData.customer_acquisition.includes('Other')) {
-    await this.saveField('other_customer_acquisition', this.formData.other_customer_acquisition);
-  }
-} else if (this.currentStep === 16) {
-  this.prepareProductData();
-  await this.saveField('product', this.formData.product);
-  if (this.formData.product.includes('Other')) {
-    await this.saveField('other_product', this.formData.other_product);
-  }
-} else if (this.currentStep === 17) {
-  await this.saveField('product_status', this.formData.product_status);
-} else if (this.currentStep === 18) {
-  // Сохранение active_customers
-  await this.saveField('active_customers', this.formData.active_customers);
-
-  // Если выбрано "No", пропускаем шаг 19 и идем сразу на шаг 20
-  if (this.formData.active_customers === 'No') {
-    this.currentStep = 20;
-    setTimeout(() => {
-      this.scrollToCurrentStep();
-    }, 500);
-    return;
-  }
-} else if (this.currentStep === 19) {
-  await this.saveField('how_many_users', this.formData.how_many_users);
-} else if (this.currentStep === 20) {
-  this.prepareBusinessModelData();
-  await this.saveField('business_model', this.formData.business_model);
-  if (this.formData.business_model.includes('Other')) {
-    await this.saveField('other_business_model', this.formData.other_business_model);
-  }
-} else if (this.currentStep === 21) {
-  await this.saveField('customers_based', this.formData.customers_based);
-  if (this.formData.customers_based === 'Other') {
-    await this.saveField('other_customers_based', this.formData.other_customers_based);
-  }
-} else if (this.currentStep === 22) {
-  await this.saveField('vision', this.formData.vision);
-} else if (this.currentStep === 23) {
-  await this.saveField('company_website', this.formData.company_website);
-} else if (this.currentStep === 24) {
-  this.prepareIndustryData();
-  await this.saveField('industry', this.formData.industry);
-  if (this.formData.industry.includes('Other')) {
-    await this.saveField('other_industry', this.formData.other_industry);
-  }
-} else if (this.currentStep === 25) {
-  await this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
-} else if (this.currentStep === 26) {
-  await this.saveField('headquartered', this.formData.headquartered);
-} else if (this.currentStep === 27) {
-  await this.saveField('legal_structure', this.formData.legal_structure);
-  if (this.formData.legal_structure === 'Other') {
-    await this.saveField('other_legal_structure', this.formData.other_legal_structure);
-  }
-} else if (this.currentStep === 28) {
-  await this.saveField('pitch_deck', this.formData.pitch_deck);
-} else if (this.currentStep === 29) {
-  await this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
-} else if (this.currentStep === 30) {
-  await this.saveField('raising_round', this.formData.raising_round);
-  if (this.formData.raising_round === 'Beyond Series A') {
-    await this.saveField('beyond_series_a_round', this.formData.beyond_series_a_round);
-  }
-} else if (this.currentStep === 31) {
-  await this.saveField('raising_amount', this.formData.raising_amount);
-} else if (this.currentStep === 32) {
-  await this.saveField('capital_to_raise', this.formData.capital_to_raise);
-}   if (this.currentStep === 33) {
-    // Step 33: Сохранение earning_revenue
+    if (!this.formData.first_name && this.isFieldRequired('first_name')) {
+      warnings.push('First name is required by selected investors.');
+    }
+    if (!this.formData.last_name && this.isFieldRequired('last_name')) {
+      warnings.push('Last name is required by selected investors.');
+    }
+    await this.saveField('first_name', this.formData.first_name);
+    await this.saveField('last_name', this.formData.last_name);
+  } else if (this.currentStep === 3) {
+    if (!this.formData.email && this.isFieldRequired('email')) {
+      warnings.push('Email is required by selected investors.');
+    } else if (!this.validateEmail(this.formData.email)) {
+      warnings.push('Please enter a valid email address.');
+    }
+    await this.saveField('email', this.formData.email);
+  } else if (this.currentStep === 4) {
+    if (!this.formData.phone_number && this.isFieldRequired('phone_number')) {
+      warnings.push('Phone number is required by selected investors.');
+    }
+    await this.saveField('phone_number', this.formData.phone_number);
+  } else if (this.currentStep === 5) {
+    if (!this.formData.specific_location && this.isFieldRequired('specific_location')) {
+      warnings.push('Specific location is required by selected investors.');
+    }
+    await this.saveField('specific_location', this.formData.specific_location);
+    if (this.formData.specific_location === 'Other') {
+      await this.saveField('other_specific_location', this.formData.other_specific_location);
+    }
+  } else if (this.currentStep === 6) {
+    if (!this.formData.company_name && this.isFieldRequired('company_name')) {
+      warnings.push('Company name is required by selected investors.');
+    }
+    await this.saveField('company_name', this.formData.company_name);
+  } else if (this.currentStep === 7) {
+    if (!this.formData.date_founded && this.isFieldRequired('date_founded')) {
+      warnings.push('Date founded is required by selected investors.');
+    }
+    await this.saveField('date_founded', this.formData.date_founded);
+  } else if (this.currentStep === 8) {
+    if (!this.formData.relationship && this.isFieldRequired('relationship')) {
+      warnings.push('Relationship to company is required by selected investors.');
+    }
+    await this.saveField('relationship', this.formData.relationship);
+    if (this.formData.relationship === 'Other') {
+      await this.saveField('other_relationship', this.formData.other_relationship);
+    }
+  } else if (this.currentStep === 9) {
+    if (!this.formData.working_full_time && this.isFieldRequired('working_full_time')) {
+      warnings.push('Working full time status is required by selected investors.');
+    }
+    await this.saveField('working_full_time', this.formData.working_full_time);
+    if (this.formData.working_full_time === 'Yes') {
+      await this.saveField('full_time_duration', this.formData.full_time_duration);
+    }
+  } else if (this.currentStep === 10) {
+    if (!this.formData.one_line_description && this.isFieldRequired('one_line_description')) {
+      warnings.push('One-line description is required by selected investors.');
+    }
+    await this.saveField('one_line_description', this.formData.one_line_description);
+  } else if (this.currentStep === 11) {
+    if (!this.formData.company_description && this.isFieldRequired('company_description')) {
+      warnings.push('Company description is required by selected investors.');
+    }
+    await this.saveField('company_description', this.formData.company_description);
+  } else if (this.currentStep === 12) {
+    if (!this.formData.company_solution && this.isFieldRequired('company_solution')) {
+      warnings.push('Company solution is required by selected investors.');
+    }
+    await this.saveField('company_solution', this.formData.company_solution);
+  } else if (this.currentStep === 13) {
+    if (!this.formData.pitch_description && this.isFieldRequired('pitch_description')) {
+      warnings.push('Pitch description is required by selected investors.');
+    }
+    await this.saveField('pitch_description', this.formData.pitch_description);
+  } else if (this.currentStep === 14) {
+    if (!this.formData.target_customer && this.isFieldRequired('target_customer')) {
+      warnings.push('Target customer information is required by selected investors.');
+    }
+    await this.saveField('target_customer', this.formData.target_customer);
+  } else if (this.currentStep === 15) {
+    if (Array.isArray(this.formData.customer_acquisition) && this.formData.customer_acquisition.length === 0 && this.isFieldRequired('customer_acquisition')) {
+      warnings.push('Customer acquisition details are required by selected investors.');
+    }
+    this.prepareCustomerAcquisitionData();
+    await this.saveField('customer_acquisition', this.formData.customer_acquisition);
+    if (this.formData.customer_acquisition.includes('Other')) {
+      await this.saveField('other_customer_acquisition', this.formData.other_customer_acquisition);
+    }
+  } else if (this.currentStep === 16) {
+    if (Array.isArray(this.formData.product) && this.formData.product.length === 0 && this.isFieldRequired('product')) {
+      warnings.push('Product information is required by selected investors.');
+    }
+    this.prepareProductData();
+    await this.saveField('product', this.formData.product);
+    if (this.formData.product.includes('Other')) {
+      await this.saveField('other_product', this.formData.other_product);
+    }
+  } else if (this.currentStep === 17) {
+    if (!this.formData.product_status && this.isFieldRequired('product_status')) {
+      warnings.push('Product status is required by selected investors.');
+    }
+    await this.saveField('product_status', this.formData.product_status);
+  } else if (this.currentStep === 18) {
+    if (!this.formData.active_customers && this.isFieldRequired('active_customers')) {
+      warnings.push('Active customer information is required by selected investors.');
+    }
+    await this.saveField('active_customers', this.formData.active_customers);
+    if (this.formData.active_customers === 'No') {
+      this.currentStep = 20;
+      setTimeout(() => this.scrollToCurrentStep(), 500);
+      return;
+    }
+  } else if (this.currentStep === 19) {
+    if (!this.formData.how_many_users && this.isFieldRequired('how_many_users')) {
+      warnings.push('Number of users is required by selected investors.');
+    }
+    await this.saveField('how_many_users', this.formData.how_many_users);
+  } else if (this.currentStep === 20) {
+    if (Array.isArray(this.formData.business_model) && this.formData.business_model.length === 0 && this.isFieldRequired('business_model')) {
+      warnings.push('Business model is required by selected investors.');
+    }
+    this.prepareBusinessModelData();
+    await this.saveField('business_model', this.formData.business_model);
+    if (this.formData.business_model.includes('Other')) {
+      await this.saveField('other_business_model', this.formData.other_business_model);
+    }
+  } else if (this.currentStep === 21) {
+    if (!this.formData.customers_based && this.isFieldRequired('customers_based')) {
+      warnings.push('Customers based information is required by selected investors.');
+    }
+    await this.saveField('customers_based', this.formData.customers_based);
+    if (this.formData.customers_based === 'Other') {
+      await this.saveField('other_customers_based', this.formData.other_customers_based);
+    }
+  } else if (this.currentStep === 22) {
+    if (!this.formData.vision && this.isFieldRequired('vision')) {
+      warnings.push('Vision is required by selected investors.');
+    }
+    await this.saveField('vision', this.formData.vision);
+  } else if (this.currentStep === 23) {
+    if (!this.formData.company_website && this.isFieldRequired('company_website')) {
+      warnings.push('Company website is required by selected investors.');
+    }
+    await this.saveField('company_website', this.formData.company_website);
+  } else if (this.currentStep === 24) {
+    if (Array.isArray(this.formData.industry) && this.formData.industry.length === 0 && this.isFieldRequired('industry')) {
+      warnings.push('Industry information is required by selected investors.');
+    }
+    this.prepareIndustryData();
+    await this.saveField('industry', this.formData.industry);
+    if (this.formData.industry.includes('Other')) {
+      await this.saveField('other_industry', this.formData.other_industry);
+    }
+} { if (this.currentStep === 25) {
+    if (!this.formData.liberty_ventures_industry && this.isFieldRequired('liberty_ventures_industry')) {
+      warnings.push('Liberty Ventures industry is required by selected investors.');
+    }
+    await this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
+  } else if (this.currentStep === 26) {
+    if (!this.formData.headquartered && this.isFieldRequired('headquartered')) {
+      warnings.push('Headquartered information is required by selected investors.');
+    }
+    await this.saveField('headquartered', this.formData.headquartered);
+  } else if (this.currentStep === 27) {
+    if (!this.formData.legal_structure && this.isFieldRequired('legal_structure')) {
+      warnings.push('Legal structure is required by selected investors.');
+    }
+    await this.saveField('legal_structure', this.formData.legal_structure);
+    if (this.formData.legal_structure === 'Other') {
+      await this.saveField('other_legal_structure', this.formData.other_legal_structure);
+    }
+  } else if (this.currentStep === 28) {
+    if (!this.formData.pitch_deck && this.isFieldRequired('pitch_deck')) {
+      warnings.push('Pitch deck is required by selected investors.');
+    }
+    await this.saveField('pitch_deck', this.formData.pitch_deck);
+  } else if (this.currentStep === 29) {
+    if (!this.formData.pitch_deck_file && this.isFieldRequired('pitch_deck_file')) {
+      warnings.push('Pitch deck file is required by selected investors.');
+    }
+    await this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
+  } else if (this.currentStep === 30) {
+    if (!this.formData.raising_round && this.isFieldRequired('raising_round')) {
+      warnings.push('Raising round information is required by selected investors.');
+    }
+    await this.saveField('raising_round', this.formData.raising_round);
+    if (this.formData.raising_round === 'Beyond Series A') {
+      await this.saveField('beyond_series_a_round', this.formData.beyond_series_a_round);
+    }
+  } else if (this.currentStep === 31) {
+    if (!this.formData.raising_amount && this.isFieldRequired('raising_amount')) {
+      warnings.push('Raising amount is required by selected investors.');
+    }
+    await this.saveField('raising_amount', this.formData.raising_amount);
+  } else if (this.currentStep === 32) {
+    if (!this.formData.capital_to_raise && this.isFieldRequired('capital_to_raise')) {
+      warnings.push('Capital to raise is required by selected investors.');
+    }
+    await this.saveField('capital_to_raise', this.formData.capital_to_raise);
+  } else if (this.currentStep === 33) {
+    if (!this.formData.earning_revenue && this.isFieldRequired('earning_revenue')) {
+      warnings.push('Earning revenue status is required by selected investors.');
+    }
     await this.saveField('earning_revenue', this.formData.earning_revenue);
-
-    // Если выбрано "No", пропускаем шаг 34 и идем сразу на шаг 35
     if (this.formData.earning_revenue === 'No') {
       this.currentStep = 35;
       setTimeout(() => {
@@ -2799,44 +3140,91 @@ if (this.currentStep === 2) {
       }, 500);
       return;
     }
-} else if (this.currentStep === 34) {
-  await this.saveField('earning_amount', this.formData.earning_amount);
-} else if (this.currentStep === 35) {
-  await this.saveField('source_of_revenue', this.formData.source_of_revenue);
-  if (this.formData.source_of_revenue === 'Other') {
-    await this.saveField('other_source_of_revenue', this.formData.other_source_of_revenue);
+  } else if (this.currentStep === 34) {
+    if (!this.formData.earning_amount && this.isFieldRequired('earning_amount')) {
+      warnings.push('Earning amount is required by selected investors.');
+    }
+    await this.saveField('earning_amount', this.formData.earning_amount);
+  } else if (this.currentStep === 35) {
+    if (!this.formData.source_of_revenue && this.isFieldRequired('source_of_revenue')) {
+      warnings.push('Source of revenue is required by selected investors.');
+    }
+    await this.saveField('source_of_revenue', this.formData.source_of_revenue);
+    if (this.formData.source_of_revenue === 'Other') {
+      await this.saveField('other_source_of_revenue', this.formData.other_source_of_revenue);
+    }
+  } else if (this.currentStep === 36) {
+    if (!this.formData.pre_money_valuation && this.isFieldRequired('pre_money_valuation')) {
+      warnings.push('Pre-money valuation is required by selected investors.');
+    }
+    await this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
+  } else if (this.currentStep === 37) {
+    if (!this.formData.post_money_valuation && this.isFieldRequired('post_money_valuation')) {
+      warnings.push('Post-money valuation is required by selected investors.');
+    }
+    await this.saveField('post_money_valuation', this.formData.post_money_valuation);
+  } else if (this.currentStep === 38) {
+    if (!this.formData.prev_experience && this.isFieldRequired('prev_experience')) {
+      warnings.push('Previous experience is required by selected investors.');
+    }
+    await this.saveField('prev_experience', this.formData.prev_experience);
+  } else if (this.currentStep === 39) {
+    if (!this.formData.team_description && this.isFieldRequired('team_description')) {
+      warnings.push('Team description is required by selected investors.');
+    }
+    await this.saveField('team_description', this.formData.team_description);
+  } else if (this.currentStep === 40) {
+    if (!this.formData.company_linkedin && this.isFieldRequired('company_linkedin')) {
+      warnings.push('Company LinkedIn is required by selected investors.');
+    }
+    await this.saveField('company_linkedin', this.formData.company_linkedin);
+  } else if (this.currentStep === 41) {
+    if (!this.formData.ceo_linkedin && this.isFieldRequired('ceo_linkedin')) {
+      warnings.push('CEO LinkedIn is required by selected investors.');
+    }
+    await this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
+    await this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
+    await this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
+  } else if (this.currentStep === 42) {
+    if (!this.formData.cto_linkedin && this.isFieldRequired('cto_linkedin')) {
+      warnings.push('CTO LinkedIn is required by selected investors.');
+    }
+    await this.saveField('cto_linkedin', this.formData.cto_linkedin);
+  } else if (this.currentStep === 43) {
+    if (!this.formData.founder_video_url && this.isFieldRequired('founder_video_url')) {
+      warnings.push('Founder video URL is required by selected investors.');
+    }
+    await this.saveField('founder_video_url', this.formData.founder_video_url);
+  } else if (this.currentStep === 44) {
+    if (!this.formData.pitching_live && this.isFieldRequired('pitching_live')) {
+      warnings.push('Pitching live status is required by selected investors.');
+    }
+    await this.saveField('pitching_live', this.formData.pitching_live);
+  } else if (this.currentStep === 45) {
+    if (!this.formData.share_submission && this.isFieldRequired('share_submission')) {
+      warnings.push('Share submission information is required by selected investors.');
+    }
+    await this.saveField('share_submission', this.formData.share_submission);
+  } else if (this.currentStep === 46) {
+    if (!this.formData.investors_participating && this.isFieldRequired('investors_participating')) {
+      warnings.push('Investors participating information is required by selected investors.');
+    }
+    await this.saveField('investors_participating', this.formData.investors_participating);
+  } else if (this.currentStep === 47) {
+    if (!this.formData.want_us_to_know && this.isFieldRequired('want_us_to_know')) {
+      warnings.push('Additional information is required by selected investors.');
+    }
+    await this.saveField('want_us_to_know', this.formData.want_us_to_know);
+  } else if (this.currentStep === 48) {
+    if (!this.formData.value_of_team && this.isFieldRequired('value_of_team')) {
+      warnings.push('Value of team is required by selected investors.');
+    }
+    await this.saveField('value_of_team', this.formData.value_of_team);
   }
-} else if (this.currentStep === 36) {
-  await this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
-} else if (this.currentStep === 37) {
-  await this.saveField('post_money_valuation', this.formData.post_money_valuation);
-} else if (this.currentStep === 38) {
-  await this.saveField('prev_experience', this.formData.prev_experience);
-} else if (this.currentStep === 39) {
-  await this.saveField('team_description', this.formData.team_description);
-} else if (this.currentStep === 40) {
-  await this.saveField('company_linkedin', this.formData.company_linkedin);
-} else if (this.currentStep === 41) {
-  await this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
-  await this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
-  await this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
-} else if (this.currentStep === 42) {
-  await this.saveField('cto_linkedin', this.formData.cto_linkedin);
-} else if (this.currentStep === 43) {
-  await this.saveField('founder_video_url', this.formData.founder_video_url);
-} else if (this.currentStep === 44) {
-  await this.saveField('pitching_live', this.formData.pitching_live);
-} else if (this.currentStep === 45) {
-  await this.saveField('share_submission', this.formData.share_submission);
-} else if (this.currentStep === 46) {
-  await this.saveField('investors_participating', this.formData.investors_participating);
-} else if (this.currentStep === 47) {
-  await this.saveField('want_us_to_know', this.formData.want_us_to_know);
-} else if (this.currentStep === 48) {
-  await this.saveField('value_of_team', this.formData.value_of_team);
+
+
+  if (warnings.length > 0) this.displayWarning(warnings.join('\n'));
 }
-
-
   // Иначе выполняем стандартную логику для пропуска шагов без вопросов
   let nextValidStep = this.currentStep + 1;
 
@@ -2856,6 +3244,37 @@ if (this.currentStep === 2) {
     this.showTitle = this.currentStep !== 1;
   }
 },
+removeFocus() {
+    if (document.activeElement) {
+      document.activeElement.blur(); // Снимаем фокус с текущего активного элемента
+    }
+  },
+// Метод проверки необходимости поля на основе выбранных инвесторов
+isFieldRequired(fieldName) {
+  if (!this.formInfo[fieldName]) {
+    console.warn(`No form info found for field: ${fieldName}`);
+    return false;
+  }
+  // Проверяет, требуется ли поле хотя бы одним выбранным инвестором
+  return this.selectedForms.some(investor => {
+    const requiredField = this.formInfo[fieldName].find(
+      requirement => requirement.name === investor && requirement.status === 'Required'
+    );
+    return Boolean(requiredField);
+  });
+},
+// Функция для отображения предупреждающего сообщения
+displayWarning(message) {
+  this.warningMessages.push(message); // Добавляем сообщение в массив
+  this.isFadingOut = false;
+  clearTimeout(this.warningTimeout);
+
+  // Автоматическое исчезновение сообщения через 10 секунд
+  this.warningTimeout = setTimeout(() => {
+    this.closeWarningMessages();
+  }, 10000);
+},
+
 
 generateUUID() {
       let dt = new Date().getTime();
@@ -2927,6 +3346,8 @@ generateUUID() {
     return secondStep; // Возвращаем второй валидный шаг
   },
   prevStep() {
+  this.errorMessage = '';
+  this.removeFocus();
   let prevValidStep = this.currentStep - 1;
 
   // Если текущий шаг больше второго, продолжаем проверку шагов
@@ -2973,32 +3394,33 @@ scrollToCurrentStep() {
     }, 300); // 300 мс задержка
   });
 },
-    async submitForm() {
-      try {
-        const formData = new FormData();
-        for (const key in this.formData) {
-          formData.append(key, this.formData[key]);
-        }
+async submitForm() {
+  try {
+    const formData = new FormData();
+    for (const key in this.formData) {
+      formData.append(key, this.formData[key]);
+    }
 
         const response = await fetch('http://test.yocto.vc/api/send-forms', {
           method: 'POST',
           body: formData
     });
 
-        if (response.ok) {
-          this.currentStep++;
-          this.successMessage = 'Form submitted successfully!';
-          this.errorMessage = '';
-        } else {
-          this.errorMessage = 'Failed to submit form.';
-          this.successMessage = '';
-        }
-      } catch (error) {
-        this.errorMessage = 'An error occurred while submitting the form.';
-        this.successMessage = '';
-      }
-    },
+    if (response.ok) {
+      this.currentStep++;
+      this.successMessage = 'Form submitted successfully!';
+      this.errorMessage = ''; // Очищаем предыдущее сообщение об ошибке
+    } else {
+      this.showErrorMessage('Failed to submit form.');
+      this.successMessage = '';
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    this.showErrorMessage('An error occurred while submitting the form.');
+  }
+},
     handleKeydown(event) {
+  console.log('Keydown event:', event.key, 'Current step:', this.currentStep); // Диагностика
   if (this.currentStep === 49) {
     return;
   }
@@ -3215,14 +3637,32 @@ p.success-message {
   text-align: left;
 }
 
+.error-container {
+  width: 100%; /* или конкретное значение ширины, например 300px */
+  height: 50px; /* высота, достаточная для сообщения */
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
 p.error-message {
-  color: #e0e0e0;
-  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
-  margin-bottom: 20px;
-  line-height: 1.5;
-  text-align: left;
   color: #f44336;
   font-weight: bold;
+  font-size: 1.6em;
+  text-align: left;
+  margin: 0;
+  opacity: 0; /* По умолчанию скрыто */
+  transition: opacity 0.8s ease-in-out; /* Плавный переход для opacity */
+  position: absolute;
+  width: 100%;
+}
+
+p.error-message.visible {
+  opacity: 1; /* Показать с анимацией */
+}
+
+p.error-message.hidden {
+  opacity: 0; /* Скрыть с анимацией */
 }
 
 p.welcome-and-congrats {
