@@ -31,7 +31,7 @@
             <!-- Шаг 1: Выбор форм -->
             <FormSelector 
       v-if="currentStep === 1" 
-      :initial-selected-forms="selectedForms" 
+      :initial-selected-forms="formData.selectedForms" 
       @forms-selected="handleFormSelection" 
     />
     <!-- Step 2: First and Last Name -->
@@ -146,19 +146,22 @@
 </div>
 
 <div v-if="currentStep === 7 && hasQuestionsForStep(7)" id="date_founded">
-
-<div class="header-container">
-  <h2>Date Founded?</h2>
-</div>
-<p>Approximately, when did you start the company?</p>
-<input class="input-field" type="date" v-model="formData.date_founded" />
-<div class="button-container">
-  <button class="button" @click="nextStep">Next</button>
-  <p class="enter-text">press Enter ↵</p>
-</div>
-<div class="link-left-container">
-<a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
-</div>
+  <div class="header-container">
+    <h2>Date Founded?</h2>
+  </div>
+  <p>Approximately, when did you start the company?</p>
+  <input 
+    class="input-field" 
+    type="date" 
+    v-model="formData.date_founded" 
+    :max="currentDate" />
+  <div class="button-container">
+    <button class="button" @click="nextStep">Next</button>
+    <p class="enter-text">press Enter ↵</p>
+  </div>
+  <div class="link-left-container">
+    <a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
+  </div>
 </div>
 
     <!-- Step 5: Relationship -->
@@ -281,7 +284,7 @@
             <div class="header-container">
               <h2>What's the one-line description of your company?</h2>
             </div>
-            <p>(Keep it simple - eg "We're the Uber for babysitters")</p>
+            <p>(Keep it simple - for example, "We're the Uber for babysitters")</p>
             <textarea class="input-field" placeholder="Type your answer here..." v-model="formData.one_line_description"></textarea>
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
@@ -639,10 +642,10 @@
 <div class="header-container">
   <h2>What is your Business Model?</h2>
 </div>
-<p>(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
 <div class="choices">
   You can choose up to 2
 </div>
+<p class="if-marketplace">(If you are a Marketplace/Network, please specify the types of users interacting on your platform. )</p>
 <div class="scrollable-content">
 <div class="checkbox-group">
   <label class="custom-checkbox" v-for="model in businessModelOptions" :key="model.value">
@@ -1687,7 +1690,7 @@ required
   <p class="congrats">You may now review and edit your responses before submitting.</p>
   <ul class="welcome-list">
   <li class="welcome-and-congrats">To review your answers, select "Review Your Answers"</li>
-  <li class="welcome-and-congrats">To receive a copy of your responses via email, select "Send to my Email"</li>
+  <li class="welcome-and-congrats">To receive a copy of your responses via email, select "Send to my Email". You can select this after you submit.</li>
   <li class="welcome-and-congrats">To submit your responses, select "Submit"</li>
 </ul>
   <div class="button-container-congrats">
@@ -1705,11 +1708,9 @@ required
   <ReviewModal 
   :formData="formData" 
   :isOpen="isReviewModalOpen" 
-  :selectedForms="selectedForms"
   @close="closeReviewModal" 
   @go-to-step="goToStep"
 />
-  <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
 
 <!-- Step 50: Submission Success -->
@@ -1753,17 +1754,19 @@ required
   </div>
 </div>
 
-
   <!-- Сообщение об успешной отправке -->
   <div v-if="showSuccessMessage" class="final-message show">
     <div class="header-container">
       <h2>Your form has been successfully submitted!</h2>
     </div>
-    <p>Thank you for submitting your application. Investors typically respond within a few days. We appreciate your patience!</p>
+    <p>Investors typically respond within a few days. Thank you for using Yocto!</p>
     <div class="button-container">
       <button class="button" @click="goToHome">Back to Home</button>
+      <!-- Кнопка для отправки формы на email -->
+      <button class="link-scroll" @click="openEmailModal">Send to My Email</button>
     </div>
   </div>
+  <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
 </div>
 
 <div class="error-container">
@@ -1836,10 +1839,10 @@ export default {
   },
   data() {
     return {
+      currentDate: new Date().toISOString().split('T')[0], // Получаем текущую дату в формате 'YYYY-MM-DD'
       currentStep: 0,
       hasReachedEnd: false,
       dynamicDots: "", // Динамические точки
-      selectedForms: [],
       investorsState: [],
       loadingText: "Prepare to submit data...",
       showLoading: false,
@@ -2411,6 +2414,7 @@ export default {
         industryString: '',
         productString: '',
         customer_acquisitionString: '',
+        selectedForms: [],
       },
       previousHeadquartered: '',
       successMessage: '',
@@ -2486,10 +2490,10 @@ export default {
 
   return stepIds[stepNumber];
 },
-  handleFormSelection(forms) {
-      this.selectedForms = forms.map(form => form.name); // Сохраняем выбранные формы
-      console.log('Selected forms in parent:', this.selectedForms);
-    },
+handleFormSelection(forms) {
+  this.formData.selectedForms = forms.map(form => form.name); // Сохраняем выбранные формы в formData
+  console.log('Selected forms in formData:', this.formData.selectedForms);
+},
     goToStep(stepNumber) {
   this.currentStep = stepNumber;
 
@@ -2559,10 +2563,10 @@ export default {
     };
 
     // Проверяем, есть ли инвесторы для текущего шага
-    return this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
+    return this.formData.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
   },
   startAnimation() {
-  this.investorsState = this.selectedForms.map(name => ({
+    this.investorsState = this.formData.selectedForms.map(name => ({
     name,
     visible: false,
     status: "preparing form",
@@ -2698,7 +2702,7 @@ async checkInvestorsBeforeSubmit() {
       },
       body: JSON.stringify({
         device_id: localStorage.getItem('device_id'),
-        selected_investors: this.selectedForms,
+        selected_investors: this.formData.selectedForms,
         company_name: this.formData.company_name,
         company_website: this.formData.company_website,
       }),
@@ -3243,7 +3247,7 @@ isFieldRequired(fieldName) {
     return false;
   }
   // Проверяет, требуется ли поле хотя бы одним выбранным инвестором
-  return this.selectedForms.some(investor => {
+  return this.formData.selectedForms.some(investor => {
     const requiredField = this.formInfo[fieldName].find(
       requirement => requirement.name === investor && requirement.status === 'Required'
     );
@@ -3407,7 +3411,6 @@ async submitForm() {
   }
 },
     handleKeydown(event) {
-  console.log('Keydown event:', event.key, 'Current step:', this.currentStep); // Диагностика
   if (this.currentStep === 49) {
     return;
   }
@@ -3602,6 +3605,14 @@ h3 {
 p {
   color: #e0e0e0;
   font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  margin-bottom: 20px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+p.if-marketplace {
+  color: #e0e0e0;
+  font-size: 16px; /* Увеличим размер шрифта для параграфов */
   margin-bottom: 20px;
   line-height: 1.5;
   text-align: center;
@@ -4209,6 +4220,10 @@ p.select-the-investors {
   font-size: 1.4em;
 }
 
+p.if-marketplace {
+  font-size: 15px;
+}
+
 
 p.welcome-and-congrats{
   font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
@@ -4312,6 +4327,10 @@ ul {
 p.select-the-investors {
   line-height: 1.7em;
 }
+
+p.if-marketplace {
+  line-height: 1.4;
+}
 .loader {
   width: 40px;
   height: 40px;
@@ -4347,6 +4366,10 @@ p {
 
 p.select-the-investors {
   font-size: 1.2em;
+}
+
+p.if-marketplace {
+  font-size: 14px; /* Увеличим размер шрифта для параграфов */
 }
 
 
@@ -4497,6 +4520,11 @@ p {
 p.select-the-investors {
   font-size: 1.1em;
 }
+
+p.if-marketplace {
+  font-size: 13px; /* Увеличим размер шрифта для параграфов */
+}
+
 
 
 p.welcome-and-congrats {
@@ -4732,6 +4760,11 @@ p.select-the-investors {
   font-size: 1.1em;
 }
 
+p.if-marketplace {
+  font-size: 12px; /* Увеличим размер шрифта для параграфов */
+}
+
+
 
 p.welcome-and-congrats {
   font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
@@ -4758,6 +4791,10 @@ li.welcome-and-congrats {
   p.select-the-investors {
   text-align: center;
 }
+p.if-marketplace {
+  align-items: center; /* Увеличим размер шрифта для параграфов */
+}
+
 
 
 
@@ -4906,8 +4943,9 @@ ul {
   p.select-the-investors {
   font-size: 0.9em;
 }
-
-
+p.if-marketplace {
+  font-size: 10px; /* Увеличим размер шрифта для параграфов */
+}
   
   p.welcome-and-congrats {
   font-size: 0.9em; /* Увеличим размер шрифта для параграфов */

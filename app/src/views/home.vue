@@ -1095,9 +1095,12 @@ clearMessages() {
       document.body.classList.add('modal-open');
     },
     closeModal() {
-      this.isModalOpen = false;
-      document.body.classList.remove('modal-open');
-    },
+  this.isModalOpen = false;
+  this.isUserRequestFormVisible = false; // Закрываем форму для пользователя
+  this.isInvestorRequestFormVisible = false; // Закрываем форму для инвестора
+  this.clearMessages(); // Очищаем сообщения
+  document.body.classList.remove('modal-open');
+},
     outsideClick(event) {
     if (event.target === event.currentTarget) {
       this.closeModal();
