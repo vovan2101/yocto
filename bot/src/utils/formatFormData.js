@@ -1,6 +1,12 @@
 function formatFormData(formData) {
   let formattedData = '';
 
+  if (Array.isArray(formData.selectedForms)) {
+    formattedData += `Your form has been successfully submitted to the following investors: ${formData.selectedForms.join(', ')}.\n\n`;
+  } else {
+    formattedData += `Your form has been successfully submitted to the following investors: ${String(formData.selectedForms)}.\n\n`;
+  }  
+
   if (formData.first_name || formData.last_name) {
     formattedData += `1. What's your first and last name?\n${formData.first_name || ''} ${formData.last_name || ''}\n\n`;
   }
