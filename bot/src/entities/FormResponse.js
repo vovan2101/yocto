@@ -158,6 +158,10 @@ module.exports = new EntitySchema({
       type: 'text',
       nullable: true,
     },
+    headquartered_precursor: {
+      type: 'text',
+      nullable: true,
+    },
     legal_structure: {
       type: 'text',
       nullable: true,

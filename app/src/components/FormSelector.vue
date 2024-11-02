@@ -106,27 +106,28 @@
         25: ['Liberty Ventures'],
         26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
         27: ['Precursor Ventures'],
-        28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        29: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-        30: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-        31: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-        32: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-        33: ['Hustle Fund'],
-        34: ['Hustle Fund', 'Incisive Ventures'],
-        35: ['Hustle Fund'],
-        36: ['Precursor Ventures'],
-        37: ['Hustle Fund', 'Incisive Ventures'],
-        38: ['Incisive Ventures'],
-        39: ['Boost Ventures'],
-        40: ['Spatial Capital'],
-        41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-        42: ['2048 Ventures'],
-        43: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
-        44: ['Hustle Fund'],
-        45: ['Hustle Fund', 'Incisive Ventures'],
+        28: ['Precursor Ventures'],
+        29: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        30: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+        31: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+        32: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+        33: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
+        34: ['Hustle Fund'],
+        35: ['Hustle Fund', 'Incisive Ventures'],
+        36: ['Hustle Fund'],
+        37: ['Precursor Ventures'],
+        38: ['Hustle Fund', 'Incisive Ventures'],
+        39: ['Incisive Ventures'],
+        40: ['Boost Ventures'],
+        41: ['Spatial Capital'],
+        42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+        43: ['2048 Ventures'],
+        44: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
+        45: ['Hustle Fund'],
         46: ['Hustle Fund', 'Incisive Ventures'],
         47: ['Hustle Fund', 'Incisive Ventures'],
-        48: ['Liberty Ventures'],
+        48: ['Hustle Fund', 'Incisive Ventures'],
+        49: ['Liberty Ventures'],
       },
       stepIds: {
         2: 'first_name',
@@ -154,28 +155,29 @@
     24: 'industry',
     25: 'liberty_ventures_industry',
     26: 'headquartered',
-    27: 'legal_structure',
-    28: 'pitch_deck',
-    29: 'pitch_deck_file',
-    30: 'raising_round',
-    31: 'raising_amount',
-    32: 'capital_to_raise',
-    33: 'earning_revenue',
-    34: 'earning_amount',
-    35: 'source_of_revenue',
-    36: 'pre_money_valuation',
-    37: 'post_money_valuation',
-    38: 'prev_experience',
-    39: 'team_description',
-    40: 'company_linkedin',
-    41: 'ceo_linkedin',
-    42: 'cto_linkedin',
-    43: 'founder_video_url',
-    44: 'pitching_live',
-    45: 'share_submission',
-    46: 'investors_participating',
-    47: 'want_us_to_know',
-    48: 'value_of_team',
+    27: 'headquartered_precursor',
+    28: 'legal_structure',
+    29: 'pitch_deck',
+    30: 'pitch_deck_file',
+    31: 'raising_round',
+    32: 'raising_amount',
+    33: 'capital_to_raise',
+    34: 'earning_revenue',
+    35: 'earning_amount',
+    36: 'source_of_revenue',
+    37: 'pre_money_valuation',
+    38: 'post_money_valuation',
+    39: 'prev_experience',
+    40: 'team_description',
+    41: 'company_linkedin',
+    42: 'ceo_linkedin',
+    43: 'cto_linkedin',
+    44: 'founder_video_url',
+    45: 'pitching_live',
+    46: 'share_submission',
+    47: 'investors_participating',
+    48: 'want_us_to_know',
+    49: 'value_of_team',
       }
     };
   },
@@ -312,14 +314,14 @@ computed: {
         let nextValidStep = this.$parent.currentStep + 1;
   
         // Проверяем и пропускаем шаги, для которых нет вопросов
-        while (nextValidStep <= 50 && !this.$parent.hasQuestionsForStep(nextValidStep)) {
+        while (nextValidStep <= 51 && !this.$parent.hasQuestionsForStep(nextValidStep)) {
           nextValidStep++;
         }
   
-        if (nextValidStep <= 50) {
+        if (nextValidStep <= 51) {
           this.$parent.currentStep = nextValidStep;
           this.$parent.scrollToCurrentStep();
-          if (this.$parent.currentStep === 50) {
+          if (this.$parent.currentStep === 51) {
             this.$parent.hasReachedEnd = true; // Устанавливаем флаг, если пользователь дошел до конца
           }
           this.$parent.showTitle = this.$parent.currentStep !== 1;
