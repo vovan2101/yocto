@@ -153,8 +153,10 @@
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  headquartered_precursor: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
   ],
   customers_based: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },

@@ -1032,7 +1032,49 @@ required
 </div>
 </div>
 
-<div v-if="currentStep === 27 && hasQuestionsForStep(27)" id="legal_structure">
+
+<div v-if="currentStep === 27 && hasQuestionsForStep(27)" id="headquartered_precursor">
+
+<div class="header-container">
+  <h2>Where is your business headquartered?</h2>
+</div>
+
+<div class="scrollable-content">
+  <div class="radio-group">
+    <!-- Радиокнопка для "US" с возможностью unclick -->
+    <label class="custom-radio">
+      <input type="radio" 
+             value="North America" 
+             v-model="formData.headquartered_precursor"
+      />
+      <span class="radio-button">
+        <span class="radio-key">A</span> North America
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+
+    <!-- Остальные радиокнопки всегда отображаются -->
+    <label class="custom-radio">
+      <input type="radio" value="Outside of North America" v-model="formData.headquartered_precursor" />
+      <span class="radio-button">
+        <span class="radio-key">B</span> Outside of North America
+        <span class="checkmark">&#10003;</span>
+      </span>
+    </label>
+  </div>
+</div>
+
+<div class="button-container">
+<button class="button" @click="nextStep">Next</button>
+<p class="enter-text">press Enter ↵</p>
+</div>
+<div class="link-left-container">
+<a @click="openModal('headquartered_precursor')" class="link-scroll">Which investors require this information?</a>
+</div>
+</div>
+
+
+<div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="legal_structure">
 
 <div class="header-container">
   <h2>What is the current or intended legal structure of the company?</h2>
@@ -1108,7 +1150,7 @@ required
 </div>
 
           <!-- Step 23 -->
-          <div v-if="currentStep === 28 && hasQuestionsForStep(28)" id="pitch_deck">
+          <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="pitch_deck">
 
             <div class="header-container">
               <h2 class="long-header">If you have a pitch deck that you would like to share as a link, please share it here!</h2>
@@ -1124,7 +1166,7 @@ required
           </div>
 
           <!-- Step 24 -->
-          <div v-if="currentStep === 29 && hasQuestionsForStep(29)" id="pitch_deck_file">
+          <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="pitch_deck_file">
 
             <div class="header-container">
               <h2 class="long-header">If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
@@ -1145,7 +1187,7 @@ required
           </div>
           </div>
 
-    <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="raising_round">
+    <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_round">
 
         <div class="header-container">
           <h2>What round are you raising?</h2>
@@ -1240,7 +1282,7 @@ required
     </div>
       </div>
 
-      <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_amount">
+      <div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="raising_amount">
 
 <div class="header-container">
   <h2>How much capital have you raised in all prior rounds? (in USD)</h2>
@@ -1255,7 +1297,7 @@ required
 </div>
 </div>
 
-      <div v-if="currentStep === 32 && hasQuestionsForStep(32)" id="capital_to_raise">
+      <div v-if="currentStep === 33 && hasQuestionsForStep(33)" id="capital_to_raise">
 
 <div class="header-container">
   <h2 class="long-header">What is the amount of money you are looking to raise in your current round? (USD)</h2>
@@ -1271,7 +1313,7 @@ required
 </div>
 </div>
 
-<div v-if="currentStep === 33 && hasQuestionsForStep(33)" id="earning_revenue">
+<div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_revenue">
 
   <div class="header-container">
     <h2>Is your startup currently earning revenue?</h2>
@@ -1302,7 +1344,7 @@ required
 </div>
 
 
-<div v-if="currentStep === 34 && hasQuestionsForStep(34)" id="earning_amount">
+<div v-if="currentStep === 35 && hasQuestionsForStep(35)" id="earning_amount">
 
   <div class="header-container">
     <h2 class="long-header">Approximately how much revenue are you earning per month? (in USD)</h2>
@@ -1346,7 +1388,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 35 && hasQuestionsForStep(35)" id="source_of_revenue">
+<div v-if="currentStep === 36 && hasQuestionsForStep(36)" id="source_of_revenue">
 
   <div class="header-container">
     <h2>What do you expect your main source of revenue to be?</h2>
@@ -1408,7 +1450,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 36 && hasQuestionsForStep(36)" id="pre_money_valuation">
+<div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="pre_money_valuation">
 
     <div class="header-container">
       <h2>What is your pre-money valuation? (in USD)</h2>
@@ -1423,7 +1465,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 37 && hasQuestionsForStep(37)" id="post_money_valuation">
+<div v-if="currentStep === 38 && hasQuestionsForStep(38)" id="post_money_valuation">
 
     <div class="header-container">
       <h2 class="long-header">What is the post-money valuation you are looking for in your current round? (in USD)</h2>
@@ -1438,7 +1480,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 38 && hasQuestionsForStep(38)" id="prev_experience">
+<div v-if="currentStep === 39 && hasQuestionsForStep(39)" id="prev_experience">
 
 <div class="header-container">
   <h2>What is your previous entrepreneurial experience?</h2>
@@ -1482,7 +1524,7 @@ required
   </div>
 </div>
 
-<div v-if="currentStep === 39 && hasQuestionsForStep(39)" id="team_description">
+<div v-if="currentStep === 40 && hasQuestionsForStep(40)" id="team_description">
 
   <div class="header-container">
     <h2>In 2-3 sentences, why you / your team are awesome?</h2>
@@ -1497,7 +1539,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 40 && hasQuestionsForStep(40)" id="company_linkedin">
+<div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="company_linkedin">
 
   <div class="header-container">
     <h2>What's your company's LinkedIn?</h2>
@@ -1512,7 +1554,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 41 && hasQuestionsForStep(41)" id="ceo_linkedin">
+<div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="ceo_linkedin">
 
   <div class="header-container">
     <h2>Founder LinkedIn?</h2>
@@ -1538,7 +1580,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 42 && hasQuestionsForStep(42)" id="cto_linkedin">
+<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="cto_linkedin">
 
   <div class="header-container">
     <h2>CTO LinkedIn? (Leave blank if not applicable)</h2>
@@ -1553,7 +1595,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 43 && hasQuestionsForStep(43)" id="founder_video_url">
+<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="founder_video_url">
 
   <div class="header-container">
     <h2>Founder video URL?</h2>
@@ -1570,7 +1612,7 @@ required
 </div>
 
 
-<div v-if="currentStep === 44 && hasQuestionsForStep(44)" id="pitching_live">
+<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="pitching_live">
 
   <div class="header-container">
   <h2>Would you be interested in pitching live in front of a virtual audience?</h2>
@@ -1604,7 +1646,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 45 && hasQuestionsForStep(45)" id="share_submission">
+<div v-if="currentStep === 46 && hasQuestionsForStep(46)" id="share_submission">
 
   <div class="header-container">
     <h2>Would you like us to share your submission with other companies?</h2>
@@ -1635,7 +1677,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 46 && hasQuestionsForStep(46)" id="investors_participating">
+<div v-if="currentStep === 47 && hasQuestionsForStep(47)" id="investors_participating">
 
   <div class="header-container">
     <h2>Investors participating in the current round (if any).</h2>
@@ -1650,7 +1692,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 47 && hasQuestionsForStep(47)" id="want_us_to_know">
+<div v-if="currentStep === 48 && hasQuestionsForStep(48)" id="want_us_to_know">
 
   <div class="header-container">
     <h2>Anything else you want investors to know?</h2>
@@ -1665,7 +1707,7 @@ required
     </div>
 </div>
 
-<div v-if="currentStep === 48 && hasQuestionsForStep(48)" id="value_of_team">
+<div v-if="currentStep === 49 && hasQuestionsForStep(49)" id="value_of_team">
 
   <div class="header-container">
     <h2>How do the values of your team align with those of Liberty Ventures?</h2>
@@ -1683,7 +1725,7 @@ required
     </div>
 </div>
 <!-- Step 54: Final Step -->
-<div v-if="currentStep === 49 && hasQuestionsForStep(49)" id="final_step">
+<div v-if="currentStep === 50 && hasQuestionsForStep(50)" id="final_step">
   <div class="header-container">
     <h2 class="header-container-welcome-and-congrats">Congratulations! All of the information requested has been completed.</h2>
   </div>
@@ -1721,7 +1763,7 @@ required
 </div>
 
 <!-- Step 50: Submission Success -->
-<div v-if="currentStep === 50" id="submission_success">
+<div v-if="currentStep === 51" id="submission_success">
   <!-- Колесо загрузки и текст -->
   <div v-if="showLoading" class="loading-container">
     <p class="loading-text">{{ loadingText }}</p>
@@ -1788,14 +1830,14 @@ required
       <button 
     class="nav-button" 
     @click="goToFirstStep" 
-    v-if="currentStep >= 1 && currentStep < 50">
+    v-if="currentStep >= 1 && currentStep < 51">
     Back to Start
   </button>
 
    <button 
     class="nav-button" 
     @click="goToEnd" 
-    v-if="hasReachedEnd && currentStep >= 2 && currentStep < 49">
+    v-if="hasReachedEnd && currentStep >= 2 && currentStep < 51">
     Go to End
   </button>
 
@@ -1806,7 +1848,7 @@ required
   class="nav-button"
   :disabled="currentStep === 1"
   @click="prevStep"
-  v-if="currentStep > 1 && currentStep <= 50"
+  v-if="currentStep > 1 && currentStep <= 51"
 >
   ←
 </button>
@@ -1817,7 +1859,7 @@ required
       class="nav-button"
       :disabled="currentStep === 1"
       @click="nextStep"
-      v-if="currentStep > 1 && currentStep < 50"
+      v-if="currentStep > 1 && currentStep < 51"
     >
       →
     </button>
@@ -1998,8 +2040,10 @@ export default {
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  headquartered_precursor: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
   ],
   customers_based: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
@@ -2377,7 +2421,7 @@ export default {
         target_customer: '',
         customer_acquisition: [],
         other_customer_acquisition: '',
-        date_founded: '',
+        date_founded: null,
         product_status: '',
         active_customers: '',
         how_many_users: '',
@@ -2392,6 +2436,7 @@ export default {
         pitch_deck: '',
         pitch_deck_file: null,
         headquartered: '',
+        headquartered_precursor: '',
         customers_based: '',
         other_customers_based: '',
         specific_location: '',
@@ -2440,7 +2485,7 @@ export default {
   },
   watch: {
     currentStep(newStep) {
-      if (newStep === 50) {
+      if (newStep === 51) {
         this.startAnimation();
       }
     }
@@ -2473,30 +2518,31 @@ export default {
     24: 'industry',
     25: 'liberty_ventures_industry',
     26: 'headquartered',
-    27: 'legal_structure',
-    28: 'pitch_deck',
-    29: 'pitch_deck_file',
-    30: 'raising_round',
-    31: 'raising_amount',
-    32: 'capital_to_raise',
-    33: 'earning_revenue',
-    34: 'earning_amount',
-    35: 'source_of_revenue',
-    36: 'pre_money_valuation',
-    37: 'post_money_valuation',
-    38: 'prev_experience',
-    39: 'team_description',
-    40: 'company_linkedin',
-    41: 'ceo_linkedin',
-    42: 'cto_linkedin',
-    43: 'founder_video_url',
-    44: 'pitching_live',
-    45: 'share_submission',
-    46: 'investors_participating',
-    47: 'want_us_to_know',
-    48: 'value_of_team',
-    49: 'final_step',
-    50: 'submission_success',
+    27: 'headquartered_precursor',
+    28: 'legal_structure',
+    29: 'pitch_deck',
+    30: 'pitch_deck_file',
+    31: 'raising_round',
+    32: 'raising_amount',
+    33: 'capital_to_raise',
+    34: 'earning_revenue',
+    35: 'earning_amount',
+    36: 'source_of_revenue',
+    37: 'pre_money_valuation',
+    38: 'post_money_valuation',
+    39: 'prev_experience',
+    40: 'team_description',
+    41: 'company_linkedin',
+    42: 'ceo_linkedin',
+    43: 'cto_linkedin',
+    44: 'founder_video_url',
+    45: 'pitching_live',
+    46: 'share_submission',
+    47: 'investors_participating',
+    48: 'want_us_to_know',
+    49: 'value_of_team',
+    50: 'final_step',
+    51: 'submission_success',
   };
 
   return stepIds[stepNumber];
@@ -2547,30 +2593,31 @@ handleFormSelection(forms) {
       23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
       24: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
       25: ['Liberty Ventures'],
-      26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      26: ['Hustle Fund', 'Incisive Ventures', 'Wischoff Ventures'],
       27: ['Precursor Ventures'],
-      28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-      29: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-      30: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-      31: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-      32: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-      33: ['Hustle Fund'],
-      34: ['Hustle Fund', 'Incisive Ventures'],
-      35: ['Hustle Fund'],
-      36: ['Precursor Ventures'],
-      37: ['Hustle Fund', 'Incisive Ventures'],
-      38: ['Incisive Ventures'],
-      39: ['Boost Ventures'],
-      40: ['Spatial Capital'],
-      41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-      42: ['2048 Ventures'],
-      43: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
-      44: ['Hustle Fund'],
-      45: ['Hustle Fund', 'Incisive Ventures'],
+      28: ['Precursor Ventures'],
+      29: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      30: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      31: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      32: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+      33: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
+      34: ['Hustle Fund'],
+      35: ['Hustle Fund', 'Incisive Ventures'],
+      36: ['Hustle Fund'],
+      37: ['Precursor Ventures'],
+      38: ['Hustle Fund', 'Incisive Ventures'],
+      39: ['Incisive Ventures'],
+      40: ['Boost Ventures'],
+      41: ['Spatial Capital'],
+      42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+      43: ['2048 Ventures'],
+      44: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
+      45: ['Hustle Fund'],
       46: ['Hustle Fund', 'Incisive Ventures'],
       47: ['Hustle Fund', 'Incisive Ventures'],
-      48: ['Liberty Ventures'],
-      49: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
+      48: ['Hustle Fund', 'Incisive Ventures'],
+      49: ['Liberty Ventures'],
+      50: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Доступен для всех форм
     };
 
     // Проверяем, есть ли инвесторы для текущего шага
@@ -3091,10 +3138,15 @@ if (this.currentStep === 2) {
     await this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
   } else if (this.currentStep === 26) {
     if (!this.formData.headquartered && this.isFieldRequired('headquartered')) {
-      warnings.push('Headquartered information is required by selected investors.');
+      warnings.push('Business Incorporation information is required by selected investors.');
     }
     await this.saveField('headquartered', this.formData.headquartered);
   } else if (this.currentStep === 27) {
+    if (!this.formData.headquartered_precursor && this.isFieldRequired('headquartered_precursor')) {
+      warnings.push('Headquartered information is required by selected investors.');
+    }
+    await this.saveField('headquartered_precursor', this.formData.headquartered_precursor);
+  } else if (this.currentStep === 28) {
     if (!this.formData.legal_structure && this.isFieldRequired('legal_structure')) {
       warnings.push('Legal structure is required by selected investors.');
     }
@@ -3102,17 +3154,17 @@ if (this.currentStep === 2) {
     if (this.formData.legal_structure === 'Other') {
       await this.saveField('other_legal_structure', this.formData.other_legal_structure);
     }
-  } else if (this.currentStep === 28) {
+  } else if (this.currentStep === 29) {
     if (!this.formData.pitch_deck && this.isFieldRequired('pitch_deck')) {
       warnings.push('Pitch deck is required by selected investors.');
     }
     await this.saveField('pitch_deck', this.formData.pitch_deck);
-  } else if (this.currentStep === 29) {
+  } else if (this.currentStep === 30) {
     if (!this.formData.pitch_deck_file && this.isFieldRequired('pitch_deck_file')) {
       warnings.push('Pitch deck file is required by selected investors.');
     }
     await this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
-  } else if (this.currentStep === 30) {
+  } else if (this.currentStep === 31) {
     if (!this.formData.raising_round && this.isFieldRequired('raising_round')) {
       warnings.push('Raising round information is required by selected investors.');
     }
@@ -3120,34 +3172,34 @@ if (this.currentStep === 2) {
     if (this.formData.raising_round === 'Beyond Series A') {
       await this.saveField('beyond_series_a_round', this.formData.beyond_series_a_round);
     }
-  } else if (this.currentStep === 31) {
+  } else if (this.currentStep === 32) {
     if (!this.formData.raising_amount && this.isFieldRequired('raising_amount')) {
       warnings.push('Raising amount is required by selected investors.');
     }
     await this.saveField('raising_amount', this.formData.raising_amount);
-  } else if (this.currentStep === 32) {
+  } else if (this.currentStep === 33) {
     if (!this.formData.capital_to_raise && this.isFieldRequired('capital_to_raise')) {
       warnings.push('Capital to raise is required by selected investors.');
     }
     await this.saveField('capital_to_raise', this.formData.capital_to_raise);
-  } else if (this.currentStep === 33) {
+  } else if (this.currentStep === 34) {
     if (!this.formData.earning_revenue && this.isFieldRequired('earning_revenue')) {
       warnings.push('Earning revenue status is required by selected investors.');
     }
     await this.saveField('earning_revenue', this.formData.earning_revenue);
     if (this.formData.earning_revenue === 'No') {
-      this.currentStep = 35;
+      this.currentStep = 36;
       setTimeout(() => {
         this.scrollToCurrentStep();
       }, 500);
       return;
     }
-  } else if (this.currentStep === 34) {
+  } else if (this.currentStep === 35) {
     if (!this.formData.earning_amount && this.isFieldRequired('earning_amount')) {
       warnings.push('Earning amount is required by selected investors.');
     }
     await this.saveField('earning_amount', this.formData.earning_amount);
-  } else if (this.currentStep === 35) {
+  } else if (this.currentStep === 36) {
     if (!this.formData.source_of_revenue && this.isFieldRequired('source_of_revenue')) {
       warnings.push('Source of revenue is required by selected investors.');
     }
@@ -3155,69 +3207,69 @@ if (this.currentStep === 2) {
     if (this.formData.source_of_revenue === 'Other') {
       await this.saveField('other_source_of_revenue', this.formData.other_source_of_revenue);
     }
-  } else if (this.currentStep === 36) {
+  } else if (this.currentStep === 37) {
     if (!this.formData.pre_money_valuation && this.isFieldRequired('pre_money_valuation')) {
       warnings.push('Pre-money valuation is required by selected investors.');
     }
     await this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
-  } else if (this.currentStep === 37) {
+  } else if (this.currentStep === 38) {
     if (!this.formData.post_money_valuation && this.isFieldRequired('post_money_valuation')) {
       warnings.push('Post-money valuation is required by selected investors.');
     }
     await this.saveField('post_money_valuation', this.formData.post_money_valuation);
-  } else if (this.currentStep === 38) {
+  } else if (this.currentStep === 39) {
     if (!this.formData.prev_experience && this.isFieldRequired('prev_experience')) {
       warnings.push('Previous experience is required by selected investors.');
     }
     await this.saveField('prev_experience', this.formData.prev_experience);
-  } else if (this.currentStep === 39) {
+  } else if (this.currentStep === 40) {
     if (!this.formData.team_description && this.isFieldRequired('team_description')) {
       warnings.push('Team description is required by selected investors.');
     }
     await this.saveField('team_description', this.formData.team_description);
-  } else if (this.currentStep === 40) {
+  } else if (this.currentStep === 41) {
     if (!this.formData.company_linkedin && this.isFieldRequired('company_linkedin')) {
       warnings.push('Company LinkedIn is required by selected investors.');
     }
     await this.saveField('company_linkedin', this.formData.company_linkedin);
-  } else if (this.currentStep === 41) {
+  } else if (this.currentStep === 42) {
     if (!this.formData.ceo_linkedin && this.isFieldRequired('ceo_linkedin')) {
       warnings.push('CEO LinkedIn is required by selected investors.');
     }
     await this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
     await this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
     await this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
-  } else if (this.currentStep === 42) {
+  } else if (this.currentStep === 43) {
     if (!this.formData.cto_linkedin && this.isFieldRequired('cto_linkedin')) {
       warnings.push('CTO LinkedIn is required by selected investors.');
     }
     await this.saveField('cto_linkedin', this.formData.cto_linkedin);
-  } else if (this.currentStep === 43) {
+  } else if (this.currentStep === 44) {
     if (!this.formData.founder_video_url && this.isFieldRequired('founder_video_url')) {
       warnings.push('Founder video URL is required by selected investors.');
     }
     await this.saveField('founder_video_url', this.formData.founder_video_url);
-  } else if (this.currentStep === 44) {
+  } else if (this.currentStep === 45) {
     if (!this.formData.pitching_live && this.isFieldRequired('pitching_live')) {
       warnings.push('Pitching live status is required by selected investors.');
     }
     await this.saveField('pitching_live', this.formData.pitching_live);
-  } else if (this.currentStep === 45) {
+  } else if (this.currentStep === 46) {
     if (!this.formData.share_submission && this.isFieldRequired('share_submission')) {
       warnings.push('Share submission information is required by selected investors.');
     }
     await this.saveField('share_submission', this.formData.share_submission);
-  } else if (this.currentStep === 46) {
+  } else if (this.currentStep === 47) {
     if (!this.formData.investors_participating && this.isFieldRequired('investors_participating')) {
       warnings.push('Investors participating information is required by selected investors.');
     }
     await this.saveField('investors_participating', this.formData.investors_participating);
-  } else if (this.currentStep === 47) {
+  } else if (this.currentStep === 48) {
     if (!this.formData.want_us_to_know && this.isFieldRequired('want_us_to_know')) {
       warnings.push('Additional information is required by selected investors.');
     }
     await this.saveField('want_us_to_know', this.formData.want_us_to_know);
-  } else if (this.currentStep === 48) {
+  } else if (this.currentStep === 49) {
     if (!this.formData.value_of_team && this.isFieldRequired('value_of_team')) {
       warnings.push('Value of team is required by selected investors.');
     }
@@ -3231,16 +3283,16 @@ if (this.currentStep === 2) {
   let nextValidStep = this.currentStep + 1;
 
   // Проверяем и пропускаем шаги, для которых нет вопросов
-  while (nextValidStep <= 49 && !this.hasQuestionsForStep(nextValidStep)) {
+  while (nextValidStep <= 50 && !this.hasQuestionsForStep(nextValidStep)) {
     nextValidStep++;
   }
 
-  if (nextValidStep <= 49) {
+  if (nextValidStep <= 50) {
     this.currentStep = nextValidStep;
     setTimeout(() => {
       this.scrollToCurrentStep();
     }, 500); // Задержка в 500 мс для гарантированного рендеринга
-    if (this.currentStep === 49) {
+    if (this.currentStep === 50) {
       this.hasReachedEnd = true;
     }
     this.showTitle = this.currentStep !== 1;
@@ -3331,7 +3383,7 @@ generateUUID() {
 },
 
     goToEnd() {
-    this.currentStep = 49; // Переводим пользователя на последний шаг
+    this.currentStep = 50; // Переводим пользователя на последний шаг
     this.scrollToCurrentStep();
   },
   findSecondValidStep() {
@@ -3360,16 +3412,16 @@ generateUUID() {
     }
   }
 
-    // Если текущий шаг 35, проверяем, был ли шаг 34 пропущен
-    if (this.currentStep === 35 && this.formData.earning_revenue === 'No') {
-    // Пропускаем шаг 34, если ответ на шаге 33 был "No"
-    prevValidStep = 33;
+    // Если текущий шаг 36, проверяем, был ли шаг 34 пропущен
+    if (this.currentStep === 36 && this.formData.earning_revenue === 'No') {
+    // Пропускаем шаг 35, если ответ на шаге 33 был "No"
+    prevValidStep = 34;
   }
 
-    // Логика для шага 19 (how_many_users)
-    if (this.currentStep === 20 && this.formData.active_customers === 'No') {
-    // Пропускаем шаг 19, если ответ на шаге 18 был "No"
-    prevValidStep = 18;
+    // Логика для шага 20 (how_many_users)
+    if (this.currentStep === 21 && this.formData.active_customers === 'No') {
+    // Пропускаем шаг 20, если ответ на шаге 18 был "No"
+    prevValidStep = 19;
   }
 
   // Если после проверки шагов мы находимся на шаге 2, либо шаг 2 пропускается для инвестора, просто переходим на шаг 1 (выбор формы)
@@ -3422,7 +3474,7 @@ async submitForm() {
   }
 },
     handleKeydown(event) {
-  if (this.currentStep === 49) {
+  if (this.currentStep === 50) {
     return;
   }
   if (event.key === 'Enter') {

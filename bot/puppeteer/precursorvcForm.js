@@ -65,13 +65,7 @@ const fillForm = async (formData) => {
         await page.type('#input_2_6', formData.company_website);
         await page.type('#input_2_11', formData.pitch_deck);
 
-        let headquarteredValue;
-        if (formData.headquartered === 'US' || formData.headquartered === 'Canada' || formData.headquartered === 'Mexico') {
-            headquarteredValue = 'North America';
-        } else {
-            headquarteredValue = 'Outside of North America';
-        }
-        await page.select('#input_2_12', headquarteredValue);
+        await page.select('#input_2_12', headquartered_precursor);
 
         let locationValue;
         if ([
