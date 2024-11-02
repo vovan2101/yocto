@@ -65,6 +65,7 @@
       this.formData.other_industry || null
     ].filter(Boolean).join(', '),
         "Where is your business incorporated?": this.formData.headquartered,
+        "Where is your business headquartered?": this.formData.headquartered_precursor,
         "What is the current or intended legal structure of the company?": this.formData.legal_structure || this.formData.other_legal_structure,
         "If you have a pitch deck that you would like to share as a link, please share it here!": this.formData.pitch_deck,
         "If you have a pitch deck that you would like to share as an attachment, please attach it here!": this.formData.pitch_deck_file ? 'Attached' : 'Not attached',

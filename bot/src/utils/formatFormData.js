@@ -107,96 +107,101 @@ function formatFormData(formData) {
     formattedData += `25. Where is your business incorporated?\n${formData.headquartered}\n\n`;
   }
 
+  if (formData.headquartered_precursor) {
+    formattedData += `26. Where is your business headquartered?\n${formData.headquartered_precursor}\n\n`;
+  }
+
+
   if (formData.legal_structure) {
-    formattedData += `26. What is the current or intended legal structure of the company?\n${formData.legal_structure}\n\n`;
+    formattedData += `27. What is the current or intended legal structure of the company?\n${formData.legal_structure}\n\n`;
   }
 
   if (formData.pitch_deck) {
-    formattedData += `27. If you have a pitch deck that you would like to share as a link, please share it here!\n${formData.pitch_deck}\n\n`;
+    formattedData += `28. If you have a pitch deck that you would like to share as a link, please share it here!\n${formData.pitch_deck}\n\n`;
   }
 
   if (formData.raising_round) {
-    formattedData += `28. What round are you raising?\n${formData.raising_round}\n\n`;
+    formattedData += `29. What round are you raising?\n${formData.raising_round}\n\n`;
   }
 
   if (formData.raising_amount) {
-    formattedData += `29. How much capital have you raised all in prior rounds? (in USD)\n${formData.raising_amount}\n\n`;
+    formattedData += `30. How much capital have you raised all in prior rounds? (in USD)\n${formData.raising_amount}\n\n`;
   }
 
   if (formData.capital_to_raise) {
-    formattedData += `30. What is the amount you are raising in your current round? (USD)\n${formData.capital_to_raise}\n\n`;
+    formattedData += `31. What is the amount you are raising in your current round? (USD)\n${formData.capital_to_raise}\n\n`;
   }
 
   if (formData.earning_revenue) {
-    formattedData += `31. Is your startup earning revenue?\n${formData.earning_revenue}\n\n`;
+    formattedData += `32. Is your startup earning revenue?\n${formData.earning_revenue}\n\n`;
   }
 
   if (formData.earning_amount) {
-    formattedData += `32. Approximately how much revenue are you earning per month? (in USD)\n${formData.earning_amount}\n\n`;
+    formattedData += `33. Approximately how much revenue are you earning per month? (in USD)\n${formData.earning_amount}\n\n`;
   }
 
   if (formData.source_of_revenue) {
-    formattedData += `33. What do you expect your main source of revenue to be?\n${formData.source_of_revenue}\n\n`;
+    formattedData += `34. What do you expect your main source of revenue to be?\n${formData.source_of_revenue}\n\n`;
   }
 
   if (formData.pre_money_valuation) {
-    formattedData += `34. What is your pre-money valuation (USD)?\n${formData.pre_money_valuation}\n\n`;
+    formattedData += `35. What is your pre-money valuation (USD)?\n${formData.pre_money_valuation}\n\n`;
   }
 
   if (formData.post_money_valuation) {
-    formattedData += `35. What is the post-money valuation you are looking for in your current round? (in USD)\n${formData.post_money_valuation}\n\n`;
+    formattedData += `36. What is the post-money valuation you are looking for in your current round? (in USD)\n${formData.post_money_valuation}\n\n`;
   }
 
   if (formData.prev_experience) {
-    formattedData += `36. What is your previous entrepreneurial experience?\n${formData.prev_experience}\n\n`;
+    formattedData += `37. What is your previous entrepreneurial experience?\n${formData.prev_experience}\n\n`;
   }
 
   if (formData.team_description) {
-    formattedData += `37. In 2-3 sentences, why you / your team are awesome?\n${formData.team_description}\n\n`;
+    formattedData += `38. In 2-3 sentences, why you / your team are awesome?\n${formData.team_description}\n\n`;
   }
 
   if (formData.company_linkedin) {
-    formattedData += `38. What's your company's LinkedIn?\n${formData.company_linkedin}\n\n`;
+    formattedData += `39. What's your company's LinkedIn?\n${formData.company_linkedin}\n\n`;
   }
 
   if (formData.ceo_linkedin) {
-    formattedData += `39. Founder LinkedIn\n${formData.ceo_linkedin}\n\n`;
+    formattedData += `40. Founder LinkedIn\n${formData.ceo_linkedin}\n\n`;
   }
 
   if (formData.founder2_linkedin) {
-    formattedData += `40. Founder 2 LinkedIn\n${formData.founder2_linkedin}\n\n`;
+    formattedData += `41. Founder 2 LinkedIn\n${formData.founder2_linkedin}\n\n`;
   }
 
   if (formData.founder3_linkedin) {
-    formattedData += `41. Founder 3 LinkedIn\n${formData.founder3_linkedin}\n\n`;
+    formattedData += `42. Founder 3 LinkedIn\n${formData.founder3_linkedin}\n\n`;
   }
 
   if (formData.cto_linkedin) {
-    formattedData += `42. CTO LinkedIn\n${formData.cto_linkedin}\n\n`;
+    formattedData += `43. CTO LinkedIn\n${formData.cto_linkedin}\n\n`;
   }
 
   if (formData.founder_video_url) {
-    formattedData += `43. Founder video URL\n${formData.founder_video_url}\n\n`;
+    formattedData += `44. Founder video URL\n${formData.founder_video_url}\n\n`;
   }
 
   if (formData.pitching_live) {
-    formattedData += `44. Would you be interested in pitching live in front of a virtual audience?\n${formData.pitching_live}\n\n`;
+    formattedData += `45. Would you be interested in pitching live in front of a virtual audience?\n${formData.pitching_live}\n\n`;
   }
 
   if (formData.share_submission) {
-    formattedData += `45. Would you like us to share your submission with other companies?\n${formData.share_submission}\n\n`;
+    formattedData += `46. Would you like us to share your submission with other companies?\n${formData.share_submission}\n\n`;
   }
 
   if (formData.investors_participating) {
-    formattedData += `46. Investors participating in the current round (if any)\n${formData.investors_participating}\n\n`;
+    formattedData += `47. Investors participating in the current round (if any)\n${formData.investors_participating}\n\n`;
   }
 
   if (formData.want_us_to_know) {
-    formattedData += `47. Anything else you'd like investors to know?\n${formData.want_us_to_know}\n\n`;
+    formattedData += `48. Anything else you'd like investors to know?\n${formData.want_us_to_know}\n\n`;
   }
 
   if (formData.value_of_team) {
-    formattedData += `48. How do the values of your team align with those of Liberty Ventures?\n${formData.value_of_team}\n\n`;
+    formattedData += `49. How do the values of your team align with those of Liberty Ventures?\n${formData.value_of_team}\n\n`;
   }
 
   return formattedData;

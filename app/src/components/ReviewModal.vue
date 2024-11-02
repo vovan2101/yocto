@@ -274,9 +274,19 @@
           </span>
         </li>
 
+                <!-- Headquartered -->
+          <li v-if="shouldDisplayQuestion(27, 'headquartered_precursor')">
+          <strong><a @click="goToStep(27)">Where is your business headquartered?</a></strong>
+          <span 
+            class="answer" 
+            :class="{ 'required-text': !formData.headquartered_precursor && isRequiredField('headquartered_precursor') }">
+            {{ formData.headquartered_precursor || (isRequiredField('headquartered_precursor') ? 'This question is required' : 'Not answered') }}
+          </span>
+        </li>
+
         <!-- Legal Structure -->
-        <li v-if="shouldDisplayQuestion(27, 'legal_structure')">
-          <strong><a @click="goToStep(27)">What is the current or intended legal structure of the company?</a></strong>
+        <li v-if="shouldDisplayQuestion(28, 'legal_structure')">
+          <strong><a @click="goToStep(28)">What is the current or intended legal structure of the company?</a></strong>
           <span 
             class="answer" 
             :class="{ 'required-text': !formData.legal_structure && isRequiredField('legal_structure') }">
@@ -285,8 +295,8 @@
         </li>
 
         <!-- Pitch Deck URL -->
-        <li v-if="shouldDisplayQuestion(28, 'pitch_deck')">
-          <strong><a @click="goToStep(28)">If you have a pitch deck that you would like to share as a link, please share it here!</a></strong>
+        <li v-if="shouldDisplayQuestion(29, 'pitch_deck')">
+          <strong><a @click="goToStep(29)">If you have a pitch deck that you would like to share as a link, please share it here!</a></strong>
           <span 
             class="answer" 
             :class="{ 'required-text': !formData.pitch_deck && isRequiredField('pitch_deck') }">
@@ -294,8 +304,8 @@
           </span>
         </li>
 
-        <li v-if="shouldDisplayQuestion(29, 'pitch_deck_file')">
-          <strong><a @click="goToStep(29)">If you have a pitch deck that you would like to share as an attachment, please attach it here!</a></strong>
+        <li v-if="shouldDisplayQuestion(30, 'pitch_deck_file')">
+          <strong><a @click="goToStep(30)">If you have a pitch deck that you would like to share as an attachment, please attach it here!</a></strong>
           <span 
             class="answer" 
             :class="{ 'required-text': !formData.pitch_deck_file && isRequiredField('pitch_deck_file') }">
@@ -305,8 +315,8 @@
 
 
         <!-- Raising Round -->
-        <li v-if="shouldDisplayQuestion(30, 'raising_round')">
-          <strong><a @click="goToStep(30)">What round are you raising?</a></strong>
+        <li v-if="shouldDisplayQuestion(31, 'raising_round')">
+          <strong><a @click="goToStep(31)">What round are you raising?</a></strong>
           <span 
             class="answer" 
             :class="{ 'required-text': !formData.raising_round && isRequiredField('raising_round') }">
@@ -315,8 +325,8 @@
         </li>
 
  <!-- Raising Amount -->
-<li v-if="shouldDisplayQuestion(31, 'raising_amount')">
-  <strong><a @click="goToStep(31)">How much capital have you raised in all prior rounds? (in USD)</a></strong>
+<li v-if="shouldDisplayQuestion(32, 'raising_amount')">
+  <strong><a @click="goToStep(32)">How much capital have you raised in all prior rounds? (in USD)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.raising_amount && isRequiredField('raising_amount') }">
@@ -325,8 +335,8 @@
 </li>
 
 <!-- Capital to Raise -->
-<li v-if="shouldDisplayQuestion(32, 'capital_to_raise')">
-  <strong><a @click="goToStep(32)">What is the amount of money you are looking to raise in your current round? (USD)</a></strong>
+<li v-if="shouldDisplayQuestion(33, 'capital_to_raise')">
+  <strong><a @click="goToStep(33)">What is the amount of money you are looking to raise in your current round? (USD)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.capital_to_raise && isRequiredField('capital_to_raise') }">
@@ -335,8 +345,8 @@
 </li>
 
 <!-- Earning Revenue -->
-<li v-if="shouldDisplayQuestion(33, 'earning_revenue')">
-  <strong><a @click="goToStep(33)">Is your startup currently earning revenue?</a></strong>
+<li v-if="shouldDisplayQuestion(34, 'earning_revenue')">
+  <strong><a @click="goToStep(34)">Is your startup currently earning revenue?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.earning_revenue && isRequiredField('earning_revenue') }">
@@ -345,8 +355,8 @@
 </li>
 
 <!-- Earning Amount -->
-<li v-if="shouldDisplayQuestion(34, 'earning_amount')">
-  <strong><a @click="goToStep(34)">Approximately how much revenue are you earning per month? (in USD)</a></strong>
+<li v-if="shouldDisplayQuestion(35, 'earning_amount')">
+  <strong><a @click="goToStep(35)">Approximately how much revenue are you earning per month? (in USD)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.earning_amount && isRequiredField('earning_amount') }">
@@ -355,8 +365,8 @@
 </li>
 
 <!-- Source of Revenue -->
-<li v-if="shouldDisplayQuestion(35, 'source_of_revenue')">
-  <strong><a @click="goToStep(35)">What do you expect your main source of revenue to be?</a></strong>
+<li v-if="shouldDisplayQuestion(36, 'source_of_revenue')">
+  <strong><a @click="goToStep(36)">What do you expect your main source of revenue to be?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.source_of_revenue && isRequiredField('source_of_revenue') }">
@@ -365,8 +375,8 @@
 </li>
 
 <!-- Pre-money Valuation -->
-<li v-if="shouldDisplayQuestion(36, 'pre_money_valuation')">
-  <strong><a @click="goToStep(36)">What is your pre-money valuation? (in USD)</a></strong>
+<li v-if="shouldDisplayQuestion(37, 'pre_money_valuation')">
+  <strong><a @click="goToStep(37)">What is your pre-money valuation? (in USD)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.pre_money_valuation && isRequiredField('pre_money_valuation') }">
@@ -375,8 +385,8 @@
 </li>
 
 <!-- Post-money Valuation -->
-<li v-if="shouldDisplayQuestion(37, 'post_money_valuation')">
-  <strong><a @click="goToStep(37)">What is the post-money valuation you are looking for in your current round? (in USD)</a></strong>
+<li v-if="shouldDisplayQuestion(38, 'post_money_valuation')">
+  <strong><a @click="goToStep(38)">What is the post-money valuation you are looking for in your current round? (in USD)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.post_money_valuation && isRequiredField('post_money_valuation') }">
@@ -385,8 +395,8 @@
 </li>
 
 <!-- Previous Experience -->
-<li v-if="shouldDisplayQuestion(38, 'prev_experience')">
-  <strong><a @click="goToStep(38)">What is your previous entrepreneurial experience?</a></strong>
+<li v-if="shouldDisplayQuestion(39, 'prev_experience')">
+  <strong><a @click="goToStep(39)">What is your previous entrepreneurial experience?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.prev_experience && isRequiredField('prev_experience') }">
@@ -395,8 +405,8 @@
 </li>
 
 <!-- Team Description -->
-<li v-if="shouldDisplayQuestion(39, 'team_description')">
-  <strong><a @click="goToStep(39)">In 2-3 sentences, why you / your team are awesome?</a></strong>
+<li v-if="shouldDisplayQuestion(40, 'team_description')">
+  <strong><a @click="goToStep(40)">In 2-3 sentences, why you / your team are awesome?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.team_description && isRequiredField('team_description') }">
@@ -405,8 +415,8 @@
 </li>
 
 <!-- Company LinkedIn -->
-<li v-if="shouldDisplayQuestion(40, 'company_linkedin')">
-  <strong><a @click="goToStep(40)">What's your company's LinkedIn?</a></strong>
+<li v-if="shouldDisplayQuestion(41, 'company_linkedin')">
+  <strong><a @click="goToStep(41)">What's your company's LinkedIn?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.company_linkedin && isRequiredField('company_linkedin') }">
@@ -415,8 +425,8 @@
 </li>
 
 <!-- CEO LinkedIn -->
-<li v-if="shouldDisplayQuestion(41, 'ceo_linkedin')">
-  <strong><a @click="goToStep(41)">Founder LinkedIn?</a></strong>
+<li v-if="shouldDisplayQuestion(42, 'ceo_linkedin')">
+  <strong><a @click="goToStep(42)">Founder LinkedIn?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.ceo_linkedin && isRequiredField('ceo_linkedin') }">
@@ -425,8 +435,8 @@
 </li>
 
 <!-- CTO LinkedIn -->
-<li v-if="shouldDisplayQuestion(42, 'cto_linkedin')">
-  <strong><a @click="goToStep(42)">CTO LinkedIn? (Leave blank if not applicable)</a></strong>
+<li v-if="shouldDisplayQuestion(43, 'cto_linkedin')">
+  <strong><a @click="goToStep(43)">CTO LinkedIn? (Leave blank if not applicable)</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.cto_linkedin && isRequiredField('cto_linkedin') }">
@@ -435,8 +445,8 @@
 </li>
 
 <!-- Founder Video URL -->
-<li v-if="shouldDisplayQuestion(43, 'founder_video_url')">
-  <strong><a @click="goToStep(43)">Founder video URL?</a></strong>
+<li v-if="shouldDisplayQuestion(44, 'founder_video_url')">
+  <strong><a @click="goToStep(44)">Founder video URL?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.founder_video_url && isRequiredField('founder_video_url') }">
@@ -445,8 +455,8 @@
 </li>
 
 <!-- Pitching Live -->
-<li v-if="shouldDisplayQuestion(44, 'pitching_live')">
-  <strong><a @click="goToStep(44)">Would you be interested in pitching live in front of a virtual audience?</a></strong>
+<li v-if="shouldDisplayQuestion(45, 'pitching_live')">
+  <strong><a @click="goToStep(45)">Would you be interested in pitching live in front of a virtual audience?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.pitching_live && isRequiredField('pitching_live') }">
@@ -455,8 +465,8 @@
 </li>
 
 <!-- Share Submission -->
-<li v-if="shouldDisplayQuestion(45, 'share_submission')">
-  <strong><a @click="goToStep(45)">Would you like us to share your submission with other companies?</a></strong>
+<li v-if="shouldDisplayQuestion(46, 'share_submission')">
+  <strong><a @click="goToStep(46)">Would you like us to share your submission with other companies?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.share_submission && isRequiredField('share_submission') }">
@@ -465,8 +475,8 @@
 </li>
 
 <!-- Investors Participating -->
-<li v-if="shouldDisplayQuestion(46, 'investors_participating')">
-  <strong><a @click="goToStep(46)">Investors participating in the current round (if any).</a></strong>
+<li v-if="shouldDisplayQuestion(47, 'investors_participating')">
+  <strong><a @click="goToStep(47)">Investors participating in the current round (if any).</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.investors_participating && isRequiredField('investors_participating') }">
@@ -475,8 +485,8 @@
 </li>
 
 <!-- Anything Else -->
-<li v-if="shouldDisplayQuestion(47, 'want_us_to_know')">
-  <strong><a @click="goToStep(47)">Anything else you want investors to know?</a></strong>
+<li v-if="shouldDisplayQuestion(48, 'want_us_to_know')">
+  <strong><a @click="goToStep(48)">Anything else you want investors to know?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.want_us_to_know && isRequiredField('want_us_to_know') }">
@@ -485,8 +495,8 @@
 </li>
 
 <!-- Value of Team -->
-<li v-if="shouldDisplayQuestion(48, 'value_of_team')">
-  <strong><a @click="goToStep(48)">How do the values of your team align with those of Liberty Ventures?</a></strong>
+<li v-if="shouldDisplayQuestion(49, 'value_of_team')">
+  <strong><a @click="goToStep(49)">How do the values of your team align with those of Liberty Ventures?</a></strong>
   <span 
     class="answer" 
     :class="{ 'required-text': !formData.value_of_team && isRequiredField('value_of_team') }">
@@ -645,8 +655,10 @@ export default {
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+  ],
+  headquartered_precursor: [
+    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
   ],
   customers_based: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
@@ -775,39 +787,40 @@ export default {
     25: ['Liberty Ventures'],
     26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
     27: ['Precursor Ventures'],
-    28: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-    29: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
-    30: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
-    31: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
-    32: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
-    33: ['Hustle Fund'],
-    34: ['Hustle Fund', 'Incisive Ventures'],
-    35: ['Hustle Fund'],
-    36: ['Precursor Ventures'],
-    37: ['Hustle Fund', 'Incisive Ventures'],
-    38: ['Incisive Ventures'],
-    39: ['Boost Ventures'],
-    40: ['Spatial Capital'],
-    41: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
-    42: ['2048 Ventures'],
-    43: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
-    44: ['Hustle Fund'],
-    45: ['Hustle Fund', 'Incisive Ventures'],
+    28: ['Precursor Ventures'],
+    29: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
+    30: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+    31: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+    32: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
+    33: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
+    34: ['Hustle Fund'],
+    35: ['Hustle Fund', 'Incisive Ventures'],
+    36: ['Hustle Fund'],
+    37: ['Precursor Ventures'],
+    38: ['Hustle Fund', 'Incisive Ventures'],
+    39: ['Incisive Ventures'],
+    40: ['Boost Ventures'],
+    41: ['Spatial Capital'],
+    42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+    43: ['2048 Ventures'],
+    44: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
+    45: ['Hustle Fund'],
     46: ['Hustle Fund', 'Incisive Ventures'],
     47: ['Hustle Fund', 'Incisive Ventures'],
-    48: ['Liberty Ventures'],
-    49: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Available to all forms
+    48: ['Hustle Fund', 'Incisive Ventures'],
+    49: ['Liberty Ventures'],
+    50: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'] // Available to all forms
   };
 
     // Check if the field is associated with selected investors
-    const isRelevantInvestor = this.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
+    const isRelevantInvestor = this.formData.selectedForms.some(form => stepInvestors[stepNumber]?.includes(form));
     
     return isRelevantInvestor; // Always display if it's relevant to the selected forms
   },
   isRequiredField(fieldKey) {
     // Checks if a question is required by any of the selected investors
     return this.formInfo[fieldKey]?.some(
-      (requirement) => requirement.status === 'Required' && this.selectedForms.includes(requirement.name)
+      (requirement) => requirement.status === 'Required' && this.formData.selectedForms.includes(requirement.name)
     );
   },
 
@@ -901,28 +914,29 @@ export default {
       24: { key: 'industry', question: 'What industry are you in?' },
       25: { key: 'liberty_ventures_industry', question: 'What industry are you in (Liberty Ventures)?' },
       26: { key: 'headquartered', question: 'Where is your business incorporated?' },
-      27: { key: 'legal_structure', question: 'What is the current or intended legal structure of the company?' },
-      28: { key: 'pitch_deck', question: 'If you have a pitch deck to share, provide the link here:' },
-      29: { key: 'pitch_deck_file', question: 'If you have a pitch deck to share as an attachment, attach it here:' },
-      30: { key: 'raising_round', question: 'What round are you raising?' },
-      31: { key: 'raising_amount', question: 'How much are you raising (in USD)?' },
-      32: { key: 'capital_to_raise', question: 'What is the amount you are raising in your current round (USD)?' },
-      33: { key: 'earning_revenue', question: 'Is your startup earning revenue?' },
-      34: { key: 'earning_amount', question: 'How much revenue are you earning per month (USD)?' },
-      35: { key: 'source_of_revenue', question: 'What do you expect your main source of revenue to be?' },
-      36: { key: 'pre_money_valuation', question: 'What is your pre-money valuation (USD)?' },
-      37: { key: 'post_money_valuation', question: 'What is your post-money valuation (USD)?' },
-      38: { key: 'prev_experience', question: 'What is your previous entrepreneurial experience?' },
-      39: { key: 'team_description', question: 'Tell us about you and your team:' },
-      40: { key: 'company_linkedin', question: "What's your company's LinkedIn?" },
-      41: { key: 'ceo_linkedin', question: 'Founder LinkedIn:' },
-      42: { key: 'cto_linkedin', question: 'CTO Linkedin:' },
-      43: { key: 'founder_video_url', question: 'Founder video URL:' },
-      44: { key: 'pitching_live', question: 'Are you interested in pitching live in front of a virtual audience?' },
-      45: { key: 'share_submission', question: 'Would you like us to share your submission with other companies?' },
-      46: { key: 'investors_participating', question: 'Investors participating in the current round (if any):' },
-      47: { key: 'want_us_to_know', question: "Anything else you'd like investors to know?" },
-      48: { key: 'value_of_team', question: 'How do the values of your team align with Liberty Ventures?' }
+      27: { key: 'headquartered_precursor', question: 'Where is your business headquartered?' },
+      28: { key: 'legal_structure', question: 'What is the current or intended legal structure of the company?' },
+      29: { key: 'pitch_deck', question: 'If you have a pitch deck to share, provide the link here:' },
+      30: { key: 'pitch_deck_file', question: 'If you have a pitch deck to share as an attachment, attach it here:' },
+      31: { key: 'raising_round', question: 'What round are you raising?' },
+      32: { key: 'raising_amount', question: 'How much are you raising (in USD)?' },
+      33: { key: 'capital_to_raise', question: 'What is the amount you are raising in your current round (USD)?' },
+      34: { key: 'earning_revenue', question: 'Is your startup earning revenue?' },
+      35: { key: 'earning_amount', question: 'How much revenue are you earning per month (USD)?' },
+      36: { key: 'source_of_revenue', question: 'What do you expect your main source of revenue to be?' },
+      37: { key: 'pre_money_valuation', question: 'What is your pre-money valuation (USD)?' },
+      38: { key: 'post_money_valuation', question: 'What is your post-money valuation (USD)?' },
+      39: { key: 'prev_experience', question: 'What is your previous entrepreneurial experience?' },
+      40: { key: 'team_description', question: 'Tell us about you and your team:' },
+      41: { key: 'company_linkedin', question: "What's your company's LinkedIn?" },
+      42: { key: 'ceo_linkedin', question: 'Founder LinkedIn:' },
+      43: { key: 'cto_linkedin', question: 'CTO Linkedin:' },
+      44: { key: 'founder_video_url', question: 'Founder video URL:' },
+      45: { key: 'pitching_live', question: 'Are you interested in pitching live in front of a virtual audience?' },
+      46: { key: 'share_submission', question: 'Would you like us to share your submission with other companies?' },
+      47: { key: 'investors_participating', question: 'Investors participating in the current round (if any):' },
+      48: { key: 'want_us_to_know', question: "Anything else you'd like investors to know?" },
+      49: { key: 'value_of_team', question: 'How do the values of your team align with Liberty Ventures?' }
     };
   },
 },
