@@ -1037,9 +1037,13 @@ clearMessages() {
     async submitInvestorRequest() {
       if (this.investorRequestedFormName.trim() !== '') {
         await this.saveFormRequest('investor', this.investorRequestedFormName);
+        this.userSuccessMessage = 'Your request has been submitted. Thank you!';
         this.investorRequestedFormName = '';
         this.isInvestorRequestFormVisible = false;
-      }
+      } else {
+    this.userErrorMessage = 'Please provide a valid URL.';
+    this.clearMessagesAfterDelay();
+  }
     },
     generateUUID() {
       let dt = new Date().getTime();
