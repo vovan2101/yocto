@@ -130,6 +130,11 @@
   <!-- Ссылка для инвестора -->
   <a href="#investor-request-input" class="modal-link" @click="toggleInvestorRequestForm">Are you an investor and want to add your form?</a>
 
+  <!-- Появляющийся текст под ссылкой -->
+<p v-if="isInvestorRequestFormVisible" class="instruction-text">
+  (Enter "Need Form" if you'd like us to create one for you.)
+</p>
+
   <!-- Форма запроса от инвестора, которая отображается под вопросом -->
   <div v-show="isInvestorRequestFormVisible" class="request-form">
     <input id="investor-request-input" v-model="investorRequestedFormName" placeholder="Please provide the URL for your submission form." />
@@ -1188,6 +1193,12 @@ html {
   font-size: 28px;
   font-weight: bold;
   transition: color 0.3s ease; /* Плавный переход цвета за 0.3 секунды */
+}
+
+.instruction-text {
+  font-size: 1em;
+  color: #b3afaf;
+  margin-top: 5px;
 }
 
 .close:hover,
