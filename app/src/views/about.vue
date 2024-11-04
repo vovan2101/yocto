@@ -1,13 +1,17 @@
 <template>
     <div class="home-container">
+      <header class="home-header">
+        <header data-thq="thq-navbar" class="home-navbar">
         <router-link to="/" class="home-logo">Yocto</router-link>
+        </header>
+      </header>
     <section class="home-project">
       <div class="home-understand">
         <div class="home-content13">
           <div class="home-heading02">
             <h2 class="home-header07">About us</h2>
             <p class="home-header08">
-                Yocto helps you save valuable time and focus on product development. With Yocto, the process of sending forms to investors is quick and seamless—let Yocto handle the process for you.
+              At Yocto, we’re dedicated to simplifying the fundraising journey for founders and startups. Our platform streamlines the process of connecting with investors, allowing you to focus on what matters most: building your product and scaling your business. With just one form, Yocto efficiently shares your information with lots of investors, saving you valuable time and maximizing your funding opportunities. Let Yocto take care of the details, so you can keep moving forward.
             </p>
           </div>
         </div>
@@ -379,174 +383,110 @@
       </div>
     </section> -->
     <section class="home-faq">
-      <h2 class="home-header25">FAQ</h2>
-      <div class="home-accordion">
-        <div data-role="accordion-container" class="home-element accordion">
-          <div class="home-content16">
-            <span class="home-header26">
-              Lorem ipsum dolor sit ametetur elit?
-            </span>
-            <span data-role="accordion-content" class="home-description05">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
-              <span v-html="rawbgus"></span>
-            </span>
-          </div>
-          <div class="home-icon-container">
-            <svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-closed"
-              class="home-icon10"
-            >
-              <path
-                d="M213.333 554.667h256v256c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-256h256c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-256v-256c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v256h-256c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path></svg
-            ><svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-open"
-              class="home-icon12"
-            >
-              <path
-                d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div data-role="accordion-container" class="home-element1 accordion">
-          <div class="home-content17">
-            <span class="home-header27">
-              Excepteur sint occaecat cupidatat non sunt in culpa qui officia
-              deserunt mollit anim id est laborum?
-            </span>
-            <span data-role="accordion-content" class="home-description06">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
-              <span v-html="rawkqx8"></span>
-            </span>
-          </div>
-          <div class="home-icon-container1">
-            <svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-closed"
-              class="home-icon14"
-            >
-              <path
-                d="M213.333 554.667h256v256c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-256h256c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-256v-256c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v256h-256c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path></svg
-            ><svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-open"
-              class="home-icon16"
-            >
-              <path
-                d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div data-role="accordion-container" class="home-element2 accordion">
-          <div class="home-content18">
-            <span class="home-header28">
-              Tempor incididunt ut labore et dolore magna aliquat enim ad minim?
-            </span>
-            <span data-role="accordion-content" class="home-description07">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
-              <span v-html="rawwfnp"></span>
-            </span>
-          </div>
-          <div class="home-icon-container2">
-            <svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-closed"
-              class="home-icon18"
-            >
-              <path
-                d="M213.333 554.667h256v256c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-256h256c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-256v-256c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v256h-256c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path></svg
-            ><svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-open"
-              class="home-icon20"
-            >
-              <path
-                d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div data-role="accordion-container" class="home-element3 accordion">
-          <div class="home-content19">
-            <span class="home-header29">
-              Lorem ipsum dolor sit ametetur elit?
-            </span>
-            <span data-role="accordion-content" class="home-description08">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
-              <span v-html="rawwvf2"></span>
-            </span>
-          </div>
-          <div class="home-icon-container3">
-            <svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-closed"
-              class="home-icon22"
-            >
-              <path
-                d="M213.333 554.667h256v256c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-256h256c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-256v-256c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v256h-256c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path></svg
-            ><svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-open"
-              class="home-icon24"
-            >
-              <path
-                d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div data-role="accordion-container" class="home-element4 accordion">
-          <div class="home-content20">
-            <span class="home-header30">Incididunt ut labore et dolore?</span>
-            <span data-role="accordion-content" class="home-description09">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo.
-              <span v-html="rawo84v"></span>
-            </span>
-          </div>
-          <div class="home-icon-container4">
-            <svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-closed"
-              class="home-icon26"
-            >
-              <path
-                d="M213.333 554.667h256v256c0 23.552 19.115 42.667 42.667 42.667s42.667-19.115 42.667-42.667v-256h256c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-256v-256c0-23.552-19.115-42.667-42.667-42.667s-42.667 19.115-42.667 42.667v256h-256c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path></svg
-            ><svg
-              viewBox="0 0 1024 1024"
-              data-role="accordion-icon-open"
-              class="home-icon28"
-            >
-              <path
-                d="M213.333 554.667h597.333c23.552 0 42.667-19.115 42.667-42.667s-19.115-42.667-42.667-42.667h-597.333c-23.552 0-42.667 19.115-42.667 42.667s19.115 42.667 42.667 42.667z"
-              ></path>
-            </svg>
-          </div>
-        </div>
+  <h2 class="home-header25">FAQ</h2>
+  <div class="home-accordion">
+    <!-- Первый вопрос -->
+    <div data-role="accordion-container" class="home-element accordion">
+      <div class="home-content16">
+        <span class="home-header26" @click="toggleFaq(0)">
+          What is Yocto, and how can it help me connect with investors?
+        </span>
+        <span v-if="isFaqOpen(0)" data-role="accordion-content" class="home-description05">
+          Yocto is a platform designed to streamline the process of connecting startups with investors. By filling out a single form, you can submit your information to multiple investors, increasing your chances of finding funding more efficiently.
+        </span>
       </div>
-    </section>
+      <div class="home-icon-container" @click="toggleFaq(0)">
+        <svg v-if="!isFaqOpen(0)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon10">
+          <path d="M213.333 554.667h256v256c0 23.552..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon12">
+          <path d="M213.333 554.667h597.333c23.552..."></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Второй вопрос -->
+    <div data-role="accordion-container" class="home-element1 accordion">
+      <div class="home-content17">
+        <span class="home-header27" @click="toggleFaq(1)">
+          Can I save my form progress and continue later?
+        </span>
+        <span v-if="isFaqOpen(1)" data-role="accordion-content" class="home-description06">
+          Yes! Yocto automatically saves your answers as you fill out the form. This allows you to take breaks and continue where you left off at any time.
+        </span>
+      </div>
+      <div class="home-icon-container1" @click="toggleFaq(1)">
+        <svg v-if="!isFaqOpen(1)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon14">
+          <path d="M213.333 554.667h256v256c0 23.552..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon16">
+          <path d="M213.333 554.667h597.333c23.552..."></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Третий вопрос -->
+    <div data-role="accordion-container" class="home-element2 accordion">
+      <div class="home-content18">
+        <span class="home-header28" @click="toggleFaq(2)">
+          Can I see which investors require specific information?
+        </span>
+        <span v-if="isFaqOpen(2)" data-role="accordion-content" class="home-description07">
+          Yes! By clicking on the "Which investors require this information?" link near each question, you can view details on investors who are specifically interested in that information.
+        </span>
+      </div>
+      <div class="home-icon-container2" @click="toggleFaq(2)">
+        <svg v-if="!isFaqOpen(2)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon18">
+          <path d="M213.333 554.667h256v256c0 23.552..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon20">
+          <path d="M213.333 554.667h597.333c23.552..."></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Четвёртый вопрос -->
+    <div data-role="accordion-container" class="home-element3 accordion">
+      <div class="home-content19">
+        <span class="home-header29" @click="toggleFaq(3)">
+          I didn’t find the investor I’m looking for in the list. Can I request to add them?
+        </span>
+        <span v-if="isFaqOpen(3)" data-role="accordion-content" class="home-description08">
+          Yes! If you don’t see an investor’s form, simply use the "Don’t see an investor with a form you are looking for?" option in "see investor list" to submit a request. We’ll add it within the next 48 hours.
+        </span>
+      </div>
+      <div class="home-icon-container3" @click="toggleFaq(3)">
+        <svg v-if="!isFaqOpen(3)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon22">
+          <path d="M213.333 554.667h256v256c0 23.552..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon24">
+          <path d="M213.333 554.667h597.333c23.552..."></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Пятый вопрос -->
+    <div data-role="accordion-container" class="home-element4 accordion">
+      <div class="home-content20">
+        <span class="home-header30" @click="toggleFaq(4)">
+          How long does it take for investors to respond after submission?
+        </span>
+        <span v-if="isFaqOpen(4)" data-role="accordion-content" class="home-description09">
+          Typically, investors respond within a few days. However, response times may vary depending on each investor’s workload and interest in your startup.
+        </span>
+      </div>
+      <div class="home-icon-container4" @click="toggleFaq(4)">
+        <svg v-if="!isFaqOpen(4)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
+          <path d="M213.333 554.667h256v256c0 23.552..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon28">
+          <path d="M213.333 554.667h597.333c23.552..."></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
     <!-- <section class="home-get-yours">
       <div class="home-row2">
         <div class="home-column">
@@ -618,6 +558,13 @@ export default {
             investorErrorMessage: '',
             successMessageTimeout: null,
             errorMessageTimeout: null,
+            faqStates: {
+        0: false, // Первый вопрос закрыт
+        1: false, // Второй вопрос закрыт
+        2: false, // Третий вопрос закрыт
+        3: false, // Четвертый вопрос закрыт
+        4: false, // Пятый вопрос закрыт
+      },
             forms: [
                 { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
                 { name: "Boost Ventures", estimatedTime: 5, questions: 11, url: "https://www.boost.vc/" },
@@ -628,7 +575,7 @@ export default {
                 { name: "Path Ventures", estimatedTime: 5, questions: 10, url: "https://www.path.vc/" },
                 { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/" },
                 { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/" },
-                { name: "Wischoff Ventures", estimatedTime: 4, questions: 9, url: "https://www.wischoff.com/" },
+                { name: "Wischoff Ventures", estimatedTime: 4, questions: 6, url: "https://www.wischoff.com/" },
             ],
         }
     },
@@ -665,6 +612,14 @@ methods: {
       });
     }
   },
+  toggleFaq(index) {
+      // Переключение состояния вопроса
+      this.$set(this.faqStates, index, !this.faqStates[index]);
+    },
+    isFaqOpen(index) {
+      // Проверка состояния вопроса для условного рендеринга
+      return this.faqStates[index];
+    },
 showUserRequestForm() {
     this.isUserRequestFormVisible = true;
     this.isInvestorRequestFormVisible = false;
@@ -920,6 +875,14 @@ clearMessages() {
   margin-bottom: var(--dl-space-space-threeunits);
   justify-content: space-between;
 }
+
+.home-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .home-header01 {
   color: rgb(255, 255, 255);
   font-size: 90px;
@@ -1732,9 +1695,7 @@ clearMessages() {
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  margin-top: 100px;
   padding-bottom: 30px;
-  padding-top: 30px;
 }
 
 .home-content13 {
@@ -2163,13 +2124,12 @@ clearMessages() {
   object-fit: cover;
 }
 .home-faq {
-  gap: var(--dl-space-space-fiveunits);
   display: flex;
   align-items: center;
   padding-left: var(--dl-space-space-fiveunits);
   padding-right: var(--dl-space-space-fiveunits);
   flex-direction: column;
-  padding-bottom: 160px;
+  padding-bottom: 30px;
 }
 .home-header25 {
   color: #ffcf77;
@@ -2673,9 +2633,8 @@ clearMessages() {
 }
 .home-logo {
   color: #ff538c;
-  font-size: 72px;
+  font-size: 52px;
   font-style: normal;
-  margin-top: 80px;
   font-weight: 600;
   text-shadow: 1px 1px 0 #000, 2px 2px 0 #000000, 3px 3px 0 #000000;
 }
