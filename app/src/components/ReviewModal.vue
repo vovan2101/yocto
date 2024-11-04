@@ -304,15 +304,25 @@
           </span>
         </li>
 
-        <li v-if="shouldDisplayQuestion(30, 'pitch_deck_file')">
-          <strong><a @click="goToStep(30)">If you have a pitch deck that you would like to share as an attachment, please attach it here!</a></strong>
-          <span 
-            class="answer" 
-            :class="{ 'required-text': !formData.pitch_deck_file && isRequiredField('pitch_deck_file') }">
-            {{ formData.pitch_deck_file || (isRequiredField('pitch_deck_file') ? 'This question is required' : 'Not answered') }}
-          </span>
-        </li>
+<!-- Pitch Deck URL -->
+<li v-if="shouldDisplayQuestion(29, 'pitch_deck')">
+  <strong><a @click="goToStep(29)">If you have a pitch deck that you would like to share as a link, please share it here!</a></strong>
+  <span 
+    class="answer" 
+    :class="{ 'required-text': !formData.pitch_deck && isRequiredField('pitch_deck') }">
+    {{ formData.pitch_deck || (isRequiredField('pitch_deck') ? 'This question is required' : 'Not answered') }}
+  </span>
+</li>
 
+<!-- Pitch Deck File -->
+<li v-if="shouldDisplayQuestion(30, 'pitch_deck_file')">
+  <strong><a @click="goToStep(30)">If you have a pitch deck that you would like to share as an attachment, please attach it here!</a></strong>
+  <span 
+    class="answer" 
+    :class="{ 'required-text': !formData.pitch_deck_file && isRequiredField('pitch_deck_file') }">
+    {{ formData.pitch_deck_file_name || (isRequiredField('pitch_deck_file') ? 'This question is required' : 'Not answered') }}
+  </span>
+</li>
 
         <!-- Raising Round -->
         <li v-if="shouldDisplayQuestion(31, 'raising_round')">
@@ -529,7 +539,7 @@ export default {
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
   ],
   last_name: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
@@ -540,7 +550,7 @@ export default {
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
   ],
   email: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
@@ -551,6 +561,7 @@ export default {
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   phone_number: [
@@ -564,7 +575,7 @@ export default {
   ],
   company_name: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
+    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
@@ -575,7 +586,7 @@ export default {
   ],
   one_line_description: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
     { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
   ],
   company_description: [
@@ -613,8 +624,8 @@ export default {
   industry: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
@@ -623,18 +634,20 @@ export default {
   ],
   product: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
   ],
   business_model: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
   ],
   company_website: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
-    { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
+    { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
+    { name: 'Precursor Ventures', status: 'Optional', url: 'https://precursorvc.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
   ],
   pitch_deck: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
@@ -642,7 +655,7 @@ export default {
     { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
-    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
   ],
@@ -654,7 +667,7 @@ export default {
   ],
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
-    { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
+    { name: 'Incisive Ventures', status: 'Optional', url: 'https://incisive.vc/' },
     { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   headquartered_precursor: [
@@ -719,11 +732,10 @@ export default {
     { name: 'Boost Ventures', status: 'Required', url: 'https://www.boost.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
-    { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
+    { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
     { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   cto_linkedin: [
     { name: '2048 Ventures', status: 'Optional', url: 'https://www.2048.vc/' },
@@ -762,7 +774,7 @@ export default {
   // Retrieve the list of investors associated with this step
   const stepInvestors = {
     2: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-    3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+    3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
     4: ['Liberty Ventures'],
     5: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
     6: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
@@ -782,7 +794,7 @@ export default {
     20: ['Hustle Fund'],
     21: ['Hustle Fund'],
     22: ['2048 Ventures'],
-    23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+    23: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
     24: ['2048 Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
     25: ['Liberty Ventures'],
     26: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
@@ -801,7 +813,7 @@ export default {
     39: ['Incisive Ventures'],
     40: ['Boost Ventures'],
     41: ['Spatial Capital'],
-    42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Wischoff Ventures'],
+    42: ['Boost Ventures', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', '2048 Ventures', 'Everywhere Ventures', 'Hustle Fund'],
     43: ['2048 Ventures'],
     44: ['2048 Ventures', 'Path Ventures', 'Boost Ventures'],
     45: ['Hustle Fund'],
