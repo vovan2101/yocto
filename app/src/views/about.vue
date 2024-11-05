@@ -3042,7 +3042,7 @@ clearMessages() {
     gap: var(--dl-space-space-threeunits);
     padding-left: var(--dl-space-space-oneandhalfunits);
     padding-right: var(--dl-space-space-oneandhalfunits);
-    padding-bottom: var(--dl-space-space-sixunits);
+    padding-bottom: 0;
   }
   .home-understand {
     gap: var(--dl-space-space-oneandhalfunits);
@@ -3066,7 +3066,7 @@ clearMessages() {
     margin-top: var(--dl-space-space-unit);
   }
   .home-image23 {
-    width: 100%;
+    width: 60%;
   }
   .home-mining {
     gap: var(--dl-space-space-fourunits);

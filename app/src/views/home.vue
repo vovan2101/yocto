@@ -53,8 +53,8 @@
               class="home-nav2"
             >
               <!-- <router-link to="/" class="home-text">Home</router-link> -->
-              <router-link to="/about" class="home-learn button-clean button">About Us</router-link>
               <router-link to="/send-form" class="button">Connect to investors</router-link>
+              <router-link to="/about" class="pink-button">About Us</router-link>
               <!-- <span class="home-text01">About</span>
               <span class="home-text03">Pricing</span>
               <span class="home-text04">Blog</span>
@@ -1715,6 +1715,28 @@ html {
   color: rgb(255, 255, 255);
   text-decoration: underline;
 }
+
+.pink-button {
+  color: var(--dl-color-gray-black); /* Сохраняем цвет текста */
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  box-shadow: 5px 6px 0px 0px #000000; /* Тень для кнопки */
+  font-style: normal;
+  transition: 0.3s;
+  font-weight: 500;
+  padding-top: var(--dl-space-space-unit);
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  padding-left: var(--dl-space-space-oneandhalfunits);
+  border-radius: 0px;
+  padding-right: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-unit);
+  background-color: #ff538c; /* Розовый цвет фона */
+  margin-top: 50px;
+}
+
 .home-description {
   gap: 120px;
   width: 100%;
