@@ -3553,7 +3553,6 @@ body {
   padding: 10px;
   font-size: 1.3rem;
   font-weight: 400;
-  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4877,8 +4876,9 @@ p.if-marketplace {
   align-items: center; /* Увеличим размер шрифта для параграфов */
 }
 
-
-
+.warning-message {
+  font-size: 1.2rem;
+}
 
 .file-upload-container {
   display: flex;
@@ -4945,7 +4945,7 @@ ul {
 
 .home-logo {
   font-size: 30px;
-  top: 10px;
+  top: 45px;
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
@@ -5125,6 +5125,10 @@ p.select-the-investors {
     justify-content: center; /* Центрируем содержимое */
   }
 
+  .warning-message {
+  font-size: 1rem;
+}
+
   .investor-name {
     flex: 1;
     margin-bottom: 0;
@@ -5174,7 +5178,7 @@ p.select-the-investors {
 
   .home-logo {
     font-size: 30px;
-    top: 6px;
+    top: 50px;
     left: 50%; /* Сместить логотип на середину экрана */
     transform: translateX(-50%); /* Смещение на половину ширины логотипа, чтобы он был по центру */
     position: absolute; /* Убедитесь, что логотип всё ещё в абсолютном позиционировании */
