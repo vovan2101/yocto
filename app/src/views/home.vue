@@ -3972,7 +3972,8 @@ html {
     height: 350px;
   }
   .button {
-  font-size: 12px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
 }
 }
 </style>
