@@ -4283,6 +4283,11 @@ h2 {
   text-align: center;
 }
 
+h2.congrats {
+  font-size: 2.2em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
 h3 {
   font-size: 1.9em;
   text-align: center;
@@ -4429,6 +4434,12 @@ h2 {
   font-size: 1.9em;
   text-align: center;
 }
+
+h2.congrats {
+  font-size: 1.9em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
 
 h3 {
   font-size: 1.7em;
@@ -4583,6 +4594,12 @@ h2 {
   font-size: 1.8em;
   text-align: center;
 }
+
+h2.congrats {
+  font-size: 1.8em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
 
 h3 {
   font-size: 1.6em;
@@ -4822,6 +4839,12 @@ h2 {
   text-align: center;
 }
 
+h2.congrats {
+  font-size: 1.6em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
+
 h3 {
   font-size: 1.5em;
   text-align: center;
@@ -5003,6 +5026,12 @@ ul {
     text-align: center;
   }
 
+  h2.congrats {
+  font-size: 1.3em; /* Увеличим размер шрифта для параграфов */
+  text-align: center;
+}
+
+
   h3 {
     font-size: 1.1em;
     text-align: center;
@@ -5058,6 +5087,11 @@ li.welcome-and-congrats {
   text-align: center; /* Центрируем текст внутри контейнера */
 }
 
+.pink-button {
+  padding: 0.5rem 1rem;
+  margin-left: 10px;
+}
+
 .margin-logo {
   margin-top: 80px;
 }
@@ -5103,6 +5137,11 @@ p.select-the-investors {
   .loading-message {
     font-size: 1.5em;
   }
+
+  .link-scroll {
+    margin-top: 0px;
+    font-size: 15px;
+}
 
   .investor-item {
     display: flex;
@@ -5160,7 +5199,7 @@ p.select-the-investors {
   display: flex;
   justify-content: left;
   gap: 10px; /* Увеличим расстояние между кнопками */
-  margin-top: 1.5vh; /* Увеличим отступ сверху */
+  margin-top: 30px; /* Увеличим отступ сверху */
   text-align: center;
 }
 
