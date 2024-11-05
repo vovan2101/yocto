@@ -3,7 +3,7 @@
     <router-link to="/" class="home-logo">Yocto</router-link>
     <div ref="steps">
       <transition name="fade" mode="out-in">
-        <div :key="currentStep">
+        <div class="margin-logo" :key="currentStep">
           <div v-if="warningMessages.length > 0" :class="['warning-message', { 'fade-out': isFadingOut }]">
   <div v-for="(message, index) in warningMessages" :key="index">
     {{ message }}
@@ -3584,7 +3584,7 @@ body {
 .close-button {
   position: absolute;
   top: 5px;
-  right: 15px;
+  right: 5px;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -5069,6 +5069,10 @@ li.welcome-and-congrats {
   text-align: center; /* Центрируем текст внутри контейнера */
 }
 
+.margin-logo {
+  margin-top: 80px;
+}
+
   .choices {
     margin-top: 20px;
     text-align: center;
@@ -5137,7 +5141,7 @@ p.select-the-investors {
   }
 
   .warning-message {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
   .investor-name {
@@ -5188,8 +5192,8 @@ p.select-the-investors {
   }
 
   .home-logo {
-    font-size: 30px;
-    top: 50px;
+    font-size: 25px;
+    top: 55px;
     left: 50%; /* Сместить логотип на середину экрана */
     transform: translateX(-50%); /* Смещение на половину ширины логотипа, чтобы он был по центру */
     position: absolute; /* Убедитесь, что логотип всё ещё в абсолютном позиционировании */
