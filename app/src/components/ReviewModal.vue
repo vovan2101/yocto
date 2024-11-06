@@ -561,8 +561,8 @@ export default {
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://www.wischoff.com/' },
   ],
   phone_number: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
@@ -575,14 +575,14 @@ export default {
   ],
   company_name: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://www.wischoff.com/' },
   ],
   one_line_description: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },

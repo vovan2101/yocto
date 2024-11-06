@@ -2,8 +2,15 @@ function formatFormData(formData) {
   let formattedData = '';
   let questionNumber = 1;
 
+  // Добавляем приветствие с именем
+  if (formData.first_name != null && formData.first_name !== '') {
+    formattedData += `Hi ${formData.first_name},\n\n`;
+  } else {
+    formattedData += `Hi,\n\n`;
+  }
+
   if (Array.isArray(formData.selectedForms) && formData.selectedForms.length > 0) {
-    formattedData += `Your form has been successfully submitted to the following investors: ${formData.selectedForms.join(', ')}.\n\n`;
+    formattedData += `Your form has been successfully submitted to the following investors: ${formData.selectedForms.join(',  ')}.\n\n`;
   } else if (formData.selectedForms != null && formData.selectedForms !== '') {
     formattedData += `Your form has been successfully submitted to the following investors: ${String(formData.selectedForms)}.\n\n`;
   }

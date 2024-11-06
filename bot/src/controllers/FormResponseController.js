@@ -95,33 +95,37 @@ const checkInvestors = async (req, res) => {
       },
     });
 
-    // Проверить, есть ли записи с отправленными формами выбранным инвесторам
-    let formsSentToAllInvestors = false;
+    let alreadySentInvestors = [];
 
     if (existingForms && existingForms.length > 0) {
       for (const form of existingForms) {
         const sentInvestors = form.sent_investors || [];
+        alreadySentInvestors = selected_investors.filter(investor => sentInvestors.includes(investor));
 
-        // Проверяем, были ли формы отправлены всем выбранным инвесторам
-        const allInvestorsSent = selected_investors.every(investor => sentInvestors.includes(investor));
-
-        if (allInvestorsSent) {
-          formsSentToAllInvestors = true;
-          break;
+        // Если форма была отправлена всем выбранным инвесторам
+        if (alreadySentInvestors.length === selected_investors.length) {
+          return res.json({
+            canSubmit: false,
+            message: 'You have already submitted forms to all selected investors.',
+            alreadySentInvestors: [],
+          });
         }
       }
     }
 
-    if (formsSentToAllInvestors) {
-      // Если формы уже были отправлены этой компанией выбранным инвесторам
-      return res.json({ canSubmit: false, message: 'Forms have already been submitted for this company to the selected investors.' });
+    if (alreadySentInvestors.length > 0) {
+      // Если форма была отправлена не всем выбранным инвесторам
+      return res.json({
+        canSubmit: false,
+        message: `Forms have already been submitted to the following investors: ${alreadySentInvestors.join(', ')}. Please remove these investors from your selection and try again.`,
+        alreadySentInvestors,
+      });
     }
 
     // Продолжаем с существующей логикой
     let userForm = await repository.findOne({ where: { device_id } });
 
     if (!userForm) {
-      // Если записи нет, создаем новую
       userForm = repository.create({
         device_id,
         company_name,
@@ -129,29 +133,24 @@ const checkInvestors = async (req, res) => {
         sent_investors: selected_investors,
       });
     } else {
-      // Обновляем поля company_name и company_website в существующей записи
       userForm.company_name = company_name;
       userForm.company_website = company_website;
 
       const sentInvestors = userForm.sent_investors || [];
-
-      // Проверяем, есть ли инвесторы, которым форма еще не была отправлена
-      const investorsToSend = selected_investors.filter(
-        investor => !sentInvestors.includes(investor)
-      );
+      const investorsToSend = selected_investors.filter(investor => !sentInvestors.includes(investor));
 
       if (investorsToSend.length > 0) {
-        // Обновляем sent_investors
         userForm.sent_investors = Array.from(new Set([...sentInvestors, ...investorsToSend]));
       } else {
-        return res.json({ canSubmit: false, message: 'You have already submitted forms to all selected investors.' });
+        return res.json({
+          canSubmit: false,
+          message: 'You have already submitted forms to all selected investors.',
+          alreadySentInvestors: [],
+        });
       }
     }
 
-    // Сохраняем изменения
     await repository.save(userForm);
-
-    // Возвращаем, что можно продолжать отправку формы
     return res.json({ canSubmit: true });
   } catch (error) {
     console.error('Error checking investors:', error);
