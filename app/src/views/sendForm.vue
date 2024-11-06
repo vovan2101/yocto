@@ -1166,26 +1166,28 @@ required
           </div>
 
           <!-- Step 24 -->
-          <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="pitch_deck_file">
-
-            <div class="header-container">
-              <h2 class="long-header">If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
-            </div>
-            <div class="file-upload-container">
-              <label class="custom-file-upload">
-                <input type="file" @change="handlePitchDeckUpload" />
-                Upload File
-              </label>
-              <p v-if="formData.pitch_deck_file" class="file-name">File: {{ formData.pitch_deck_file.name }} uploaded successfully.</p>
-            </div>
-            <div class="button-container">
-              <button class="button" @click="nextStep">Next</button>
-              <p class="enter-text">press Enter ↵</p>
-            </div>
-            <div class="link-left-container">
-              <a @click="openModal('pitch_deck_file')" class="link-scroll">Which investors require this information?</a>
-          </div>
-          </div>
+      <div v-if="currentStep === 30 && hasQuestionsForStep(30)" id="pitch_deck_file">
+        <div class="header-container">
+          <h2 class="long-header">If you have a pitch deck that you would like to share as an attachment, please attach it here!</h2>
+        </div>
+        <div class="file-upload-container">
+          <label class="custom-file-upload">
+            <input type="file" @change="handlePitchDeckUpload" />
+            Upload File
+          </label>
+          <p v-if="fileTooLarge" class="error-message">File size should not exceed 100 MB.</p>
+          <p v-if="formData.pitch_deck_file_name" class="file-name">
+            File: {{ formData.pitch_deck_file_name }} uploaded successfully.
+          </p>
+        </div>
+        <div class="button-container">
+          <button class="button" @click="nextStep">Next</button>
+          <p class="enter-text">press Enter ↵</p>
+        </div>
+        <div class="link-left-container">
+          <a @click="openModal('pitch_deck_file')" class="link-scroll">Which investors require this information?</a>
+        </div>
+      </div>
 
     <div v-if="currentStep === 31 && hasQuestionsForStep(31)" id="raising_round">
 
@@ -1731,7 +1733,7 @@ required
   </div>
   <p class="congrats">You may now review and edit your responses before submitting.</p>
   <ul class="welcome-list">
-  <li>To review your responses, select "Review My Responses"</li>
+  <li>To review your responses, select "Review Responses"</li>
   <li>To submit your responses, select "Submit"</li>
   <li>Once you have submitted your responses, you may request a copy of your responses via email</li>
 </ul>
@@ -1740,7 +1742,7 @@ required
 <button class="pink-button" @click="checkInvestorsBeforeSubmit">Submit</button>
     
     <!-- Кнопка для открытия модального окна с проверкой ответов -->
-    <button class="link-scroll" @click="openReviewModal">Review/Update My responses</button>
+    <button class="link-scroll" @click="openReviewModal">Review/Update Responses</button>
     
         <!-- Кнопка для отображения тестовой формы -->
       <button class="link-scroll" @click="openTestForm">View Yocto.vc Form</button>
@@ -1760,7 +1762,7 @@ required
   @close="closeReviewModal" 
   @go-to-step="goToStep"
 />
-</div>
+  </div>
 
 <!-- Step 50: Submission Success -->
 <div v-if="currentStep === 51" id="submission_success">
@@ -1899,6 +1901,7 @@ export default {
       loadingText: "Prepare to submit data...",
       showLoading: false,
       showInvestors: false,
+      fileTooLarge: false,
       showSuccessMessage: false,
       showTitle: false,
       isModalOpen: false, // Для управления видимостью модального окна
@@ -1936,8 +1939,8 @@ export default {
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
-    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://www.wischoff.com/' },
   ],
   phone_number: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
@@ -1950,14 +1953,14 @@ export default {
   ],
   company_name: [
     { name: '2048 Ventures', status: 'Required', url: 'https://www.2048.vc/' },
-    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://incisive.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://www.wischoff.com/' },
   ],
   one_line_description: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
@@ -2776,14 +2779,20 @@ async checkInvestorsBeforeSubmit() {
       // Переход к отправке формы
       this.submitForm();
     } else {
-      // Показываем ошибку, если отправка невозможна
-      this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+      // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
+      if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
+        const investorsList = data.alreadySentInvestors.join(', ');
+        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
+      } else {
+        this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+      }
     }
   } catch (error) {
     console.error('Error checking investors:', error);
     this.showErrorMessage('An error occurred while checking investors.');
   }
 },
+
 
 validateRequiredFields() {
   // Проверка: если хотя бы одно обязательное поле не заполнено, возвращаем false
@@ -2952,7 +2961,7 @@ closeWarningMessage() {
       setTimeout(() => {
         this.errorMessage = ''; // Сбрасываем сообщение после исчезновения
       }, 800); // Длительность совпадает с transition
-    }, 5000); // Длительность показа сообщения
+    }, 10000); // Длительность показа сообщения
   },
     checkIndustry() {
       if (this.formData.industry !== 'FinTech') {
@@ -2965,12 +2974,21 @@ closeWarningMessage() {
       }
     },
     handlePitchDeckUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
+  const file = event.target.files[0];
+  const maxSize = 100 * 1024 * 1024; // 50 MB в байтах
+
+  if (file) {
+    if (file.size > maxSize) {
+      this.fileTooLarge = true; // Устанавливаем флаг для отображения предупреждения
+      this.formData.pitch_deck_file = null; // Очищаем файл, если он слишком большой
+      this.formData.pitch_deck_file_name = ''; // Очищаем имя файла
+    } else {
+      this.fileTooLarge = false; // Сбрасываем флаг, если размер допустим
       this.formData.pitch_deck_file = file; // Сохраняем объект файла
       this.formData.pitch_deck_file_name = file.name; // Сохраняем имя файла отдельно
     }
-  },
+  }
+},
     validateURL(url) {
     const pattern = new RegExp('^(https?:\\/\\/)?' + // проверка на http или https
       '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // проверка на домен
@@ -3721,7 +3739,7 @@ p.success-message {
 
 .error-container {
   width: 100%; /* или конкретное значение ширины, например 300px */
-  height: 50px; /* высота, достаточная для сообщения */
+  height: 150px; /* высота, достаточная для сообщения */
   margin-top: 20px;
   position: relative;
   overflow: hidden;

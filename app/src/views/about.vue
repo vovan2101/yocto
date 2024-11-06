@@ -11,7 +11,7 @@
           <div class="home-heading02">
             <h2 class="home-header07">About us</h2>
             <p class="home-header08">
-              At Yocto, we’re dedicated to simplifying the fundraising journey for founders and startups. Our platform streamlines the process of connecting with investors, allowing you to focus on what matters most: building your product and scaling your business. With just one form, Yocto efficiently shares your information with lots of investors, saving you valuable time and maximizing your funding opportunities. Let Yocto take care of the details, so you can keep moving forward.
+              We're a team of coders, founders and investors dedicated to simplifying the fundraising journey for founders and startups. Our platform streamlines the process of connecting with investors, allowing you to focus on what matters most: building your product and scaling your business. With just one form, Yocto efficiently shares your information with lots of investors, saving you valuable time and maximizing your funding opportunities. Let Yocto take care of the details, so you can keep building.
             </p>
           </div>
         </div>
@@ -28,7 +28,7 @@
             <div class="home-content01">
               <h2 class="home-header02">Select Your Target Investors</h2>
               <p class="home-description02">
-                Browse our growing list of investors, or select specific ones that match your needs. Currently, Yocto includes 10 forms from seed and pre-seed investors, with more being added soon. Simply answer questions, and Yocto will deliver your responses directly.
+                Browse our growing list of investors, or select specific ones that match your needs. Yocto currently includes 10 application forms from pre-seed and seed investors, with more being added every week. Simply answer questions, and Yocto will deliver your responses directly to the investors you select.
               </p>
             </div>
             <button class="home-learn1 button">
@@ -412,7 +412,7 @@
           Can I save my form progress and continue later?
         </span>
         <span v-if="isFaqOpen(1)" data-role="accordion-content" class="home-description06">
-          Yes! Yocto automatically saves your answers as you fill out the form. This allows you to take breaks and continue where you left off at any time.
+          Yes! Yocto automatically saves your answers as you fill out the form. This allows you to take breaks and continue where you left off at any time. (please note: your answers are saved to the originating browser and device only)
         </span>
       </div>
       <div class="home-icon-container1" @click="toggleFaq(1)">
@@ -1167,7 +1167,7 @@ clearMessages() {
 }
 
 .home-content01 {
-  gap: var(--dl-space-space-unit);
+  gap: 0;
   width: 100%;
   display: flex;
   max-width: 460px;
@@ -1689,13 +1689,12 @@ clearMessages() {
   flex-direction: column;
 }
 .home-understand {
-  gap: var(--dl-space-space-fiveunits);
+  gap: 0;
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
-  padding-bottom: 30px;
 }
 
 .home-content13 {
@@ -1757,6 +1756,7 @@ clearMessages() {
 .home-image23 {
   width: 480px;
   object-fit: cover;
+  padding-top: 200px;
 }
 .home-mining {
   gap: 130px;
@@ -2781,11 +2781,18 @@ clearMessages() {
     max-width: 90%;
     line-height: 70px;
   }
+  .home-image23 {
+    padding-top: 0;
+  }
 }
 
 @media(max-width: 991px) {
   .home-desktop-menu {
     display: none;
+  }
+
+  .home-image23 {
+    padding-top: 0;
   }
   .home-btn-group {
     display: none;
@@ -3067,6 +3074,7 @@ clearMessages() {
   }
   .home-image23 {
     width: 60%;
+    padding-top: 0;
   }
   .home-mining {
     gap: var(--dl-space-space-fourunits);
@@ -3417,6 +3425,10 @@ clearMessages() {
   .button {
   font-size: 12px;
 }
+
+.home-image23 {
+    padding-top: 0;
+  }
 }
 
 </style>

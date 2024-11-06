@@ -53,8 +53,8 @@
     { name: 'Liberty Ventures', status: 'Required', url: 'https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/form' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/startup/' },
-    { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
+    { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
   ],
   phone_number: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9' },
@@ -67,14 +67,14 @@
   ],
   company_name: [
     { name: '2048 Ventures', status: 'Required', url: 'https://airtable.com/appV89PYGo3zN47f9/shr2lijl8JHhvxghK?prefill_Introd+By+Type=Direct&hide_Introd+By+Type=true' },
-    { name: 'Everywhere Ventures', status: 'Optional', url: 'https://everywhere.vc/' },
+    { name: 'Everywhere Ventures', status: 'Required', url: 'https://everywhere.vc/' },
     { name: 'Hustle Fund', status: 'Required', url: 'https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc' },
     { name: 'Incisive Ventures', status: 'Required', url: 'https://airtable.com/appAMCFupamv6Euf8/shrKq915ChZNzweep' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9' },
     { name: 'Path Ventures', status: 'Required', url: 'https://www.path.vc/form' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/startup/' },
     { name: 'Spatial Capital', status: 'Required', url: 'https://www.spatial.capital/application' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
+    { name: 'Wischoff Ventures', status: 'Required', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
   ],
   one_line_description: [
     { name: 'Liberty Ventures', status: 'Required', url: 'https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9' },
