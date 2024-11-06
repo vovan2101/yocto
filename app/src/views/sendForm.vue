@@ -2959,7 +2959,7 @@ closeWarningMessage() {
       setTimeout(() => {
         this.errorMessage = ''; // Сбрасываем сообщение после исчезновения
       }, 800); // Длительность совпадает с transition
-    }, 60000); // Длительность показа сообщения
+    }, 10000); // Длительность показа сообщения
   },
     checkIndustry() {
       if (this.formData.industry !== 'FinTech') {
