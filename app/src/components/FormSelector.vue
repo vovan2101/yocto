@@ -896,8 +896,6 @@ p {
     font-size: 12px;
   }
 
-
-
 }
 
 /* @media (max-width: 480px) */
@@ -908,8 +906,8 @@ p {
   }
 
   .continue-button {
-    margin-top: 10px; /* Уменьшаем отступы для кнопки */
-    margin-bottom: 10px; /* Уменьшаем отступы для кнопки */
+    margin-top: 2px; /* Уменьшаем отступы для кнопки */
+    margin-bottom: 2px; /* Уменьшаем отступы для кнопки */
   }
 
   .table-container {
@@ -923,7 +921,7 @@ p {
 }
 
 .modal-header {
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 1px;
 }
 
@@ -967,7 +965,12 @@ p {
 .investor-table th,
 .investor-table td {
   padding: 2px;
-  font-size: 14px;
+  font-size: 11px;
+}
+
+.total-info p {
+  color: #fff;
+  margin: 2px 0;
 }
 
 .button {
