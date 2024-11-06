@@ -1753,8 +1753,12 @@ required
   :formData="formData" 
   @close="closeTestForm" 
 />
-  </div>
 
+<div v-if="errorMessage" class="error-message-container">
+      <p class="error-message visible">{{ errorMessage }}</p>
+    </div>
+
+  </div>
   <!-- Модальные окна для проверки ответов -->
   <ReviewModal 
   :formData="formData" 
@@ -1818,10 +1822,6 @@ required
     </div>
   </div>
   <EmailModal :formData="formData" :isOpen="isEmailModalOpen" @close="closeEmailModal" />
-</div>
-
-<div class="error-container">
-  <p v-if="errorMessage" class="error-message visible">{{ errorMessage }}</p>
 </div>
 
     </div>
@@ -2792,7 +2792,6 @@ async checkInvestorsBeforeSubmit() {
   }
 },
 
-
 validateRequiredFields() {
   // Проверка: если хотя бы одно обязательное поле не заполнено, возвращаем false
   return Object.keys(this.formData).every(field => {
@@ -2960,7 +2959,7 @@ closeWarningMessage() {
       setTimeout(() => {
         this.errorMessage = ''; // Сбрасываем сообщение после исчезновения
       }, 800); // Длительность совпадает с transition
-    }, 10000); // Длительность показа сообщения
+    }, 60000); // Длительность показа сообщения
   },
     checkIndustry() {
       if (this.formData.industry !== 'FinTech') {
@@ -3737,12 +3736,13 @@ p.success-message {
   text-align: left;
 }
 
-.error-container {
-  width: 100%; /* или конкретное значение ширины, например 300px */
-  height: 150px; /* высота, достаточная для сообщения */
-  margin-top: 20px;
-  position: relative;
-  overflow: hidden;
+.error-message-container {
+  position: absolute;
+  top: 100%; /* Расположить под содержимым контейнера */
+  left: 0;
+  width: 100%;
+  margin-top: 20px; /* Дополнительный отступ сверху, если необходимо */
+  box-sizing: border-box; /* Чтобы padding учитывался в ширине */
 }
 
 p.error-message {
@@ -3751,10 +3751,8 @@ p.error-message {
   font-size: 1.6em;
   text-align: left;
   margin: 0;
-  opacity: 0; /* По умолчанию скрыто */
-  transition: opacity 0.8s ease-in-out; /* Плавный переход для opacity */
-  position: absolute;
-  width: 100%;
+  opacity: 1; /* Убедитесь, что сообщение видно */
+  transition: opacity 0.8s ease-in-out;
 }
 
 p.error-message.visible {
@@ -3859,6 +3857,7 @@ ul.welcome-list {
 }
 
 .button-container-congrats{
+  position: relative;
   display: flex;
   justify-content: left;
   align-items: center;
@@ -4344,6 +4343,10 @@ p.welcome-and-congrats{
   font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
 }
 
+p.error-message {
+  font-size: 1.4em;
+}
+
 p.congrats{
   font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
 }
@@ -4497,6 +4500,11 @@ p.if-marketplace {
 p.welcome-and-congrats {
   font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
 }
+
+p.error-message {
+  font-size: 1.2em;
+}
+
 
 p.congrats {
   font-size: 1.2em; /* Увеличим размер шрифта для параграфов */
@@ -4656,6 +4664,10 @@ p.if-marketplace {
 
 p.welcome-and-congrats {
   font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
+}
+
+p.error-message {
+  font-size: 1.0em;
 }
 
 p.congrats {
@@ -4903,6 +4915,12 @@ p.welcome-and-congrats {
   text-align: center;
 }
 
+p.error-message {
+  font-size: 1.1em;
+  text-align: center;
+}
+
+
 p.congrats {
   font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
   text-align: center;
@@ -5056,7 +5074,7 @@ ul {
   }
 
   h2.congrats {
-  font-size: 1.3em; /* Увеличим размер шрифта для параграфов */
+  font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
   text-align: center;
 }
 
@@ -5075,6 +5093,12 @@ ul {
     padding: 0.3rem 0.6rem; /* Ещё больше уменьшаем отступы */
   }
 
+  .welcome-list li {
+  margin-bottom: 4px; /* Уменьшение расстояния между элементами списка */
+  line-height: 1.2; /* Установка межстрочного расстояния для лучшей читаемости */
+}
+
+
   p {
     font-size: 0.9em;
     text-align: center;
@@ -5091,13 +5115,18 @@ p.if-marketplace {
   font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
 }
 
+p.error-message {
+  font-size: 0.9em;
+}
+
+
 p.congrats {
   font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
 
 }
 
 li.welcome-and-congrats {
-  font-size: 0.9em; /* Увеличим размер шрифта для параграфов */
+  font-size: 0.8em; /* Увеличим размер шрифта для параграфов */
 }
 
 
@@ -5105,6 +5134,11 @@ li.welcome-and-congrats {
     font-size: 1.1em; /* Уменьшаем размер шрифта */
     padding: 5px 10px; /* Уменьшаем отступы */
   }
+
+  #final_step {
+  margin-bottom: 80px;
+}
+
 
 
   .file-upload-container {
@@ -5121,9 +5155,9 @@ li.welcome-and-congrats {
   margin-left: 10px;
 }
 
-.margin-logo {
+/* .margin-logo {
   margin-top: 80px;
-}
+} */
 
   .choices {
     margin-top: 20px;
