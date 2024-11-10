@@ -56,7 +56,7 @@ app.post('/send-forms', upload.fields([
       from: process.env.FROM_GMAIL_EMAIL,
       to: ['pete@hundy.com', 'vladeliseykin2101@gmail.com'], // Укажите ваш email
       subject: 'Your Submitted Answers on Yocto',
-      text: `Here are the answers you submitted on Yocto:\n\n${formattedFormData}`
+      text: `${formattedFormData}`
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
@@ -90,7 +90,7 @@ app.post('/send-email', (req, res) => {
     from: process.env.FROM_GMAIL_EMAIL,
     to: [email], // Отправляем на оба адреса
     subject: 'Your Submitted Answers on Yocto',
-    text: `Here are the answers you submitted on Yocto:\n\n${formattedFormData}`
+    text: `${formattedFormData}`
   };
 
   console.log('GMAIL_EMAIL:', process.env.GMAIL_EMAIL);
