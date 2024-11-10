@@ -10,10 +10,13 @@ function formatFormData(formData) {
   }
 
   if (Array.isArray(formData.selectedForms) && formData.selectedForms.length > 0) {
-    formattedData += `Your form has been successfully submitted to the following investors: ${formData.selectedForms.join(',  ')}.\n\n`;
+    formattedData += `Your responses on Yocto have been successfully submitted to the following investors: ${formData.selectedForms.join(',  ')}.\n\n`;
   } else if (formData.selectedForms != null && formData.selectedForms !== '') {
-    formattedData += `Your form has been successfully submitted to the following investors: ${String(formData.selectedForms)}.\n\n`;
+    formattedData += `Your responses on Yocto have been successfully submitted to the following investors: ${String(formData.selectedForms)}.\n\n`;
   }
+
+    // Добавляем сообщение с кратким описанием ответов
+  formattedData += "Here is a summary of your responses:\n\n";
 
   if ((formData.first_name != null && formData.first_name !== '') || 
       (formData.last_name != null && formData.last_name !== '')) {

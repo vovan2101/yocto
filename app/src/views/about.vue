@@ -484,6 +484,28 @@
         </svg>
       </div>
     </div>
+        <!-- Шестой вопрос -->
+        <div data-role="accordion-container" class="home-element4 accordion">
+  <div class="home-content20">
+    <span class="home-header30" @click="toggleFaq(5)">
+      Who can I contact if I have unresolved questions or technical issues?
+    </span>
+    <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
+  If you have further questions or face any challenges, please don’t hesitate to contact us at 
+  <a href="mailto:help@yocto.vc" class="underline-link">help@yocto.vc</a>.
+</span>
+
+  </div>
+  <div class="home-icon-container4" @click="toggleFaq(5)">
+    <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
+      <path d="..."></path>
+    </svg>
+    <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon28">
+      <path d="..."></path>
+    </svg>
+  </div>
+</div>
+
   </div>
 </section>
 
@@ -564,6 +586,7 @@ export default {
         2: false, // Третий вопрос закрыт
         3: false, // Четвертый вопрос закрыт
         4: false, // Пятый вопрос закрыт
+        5: false, // Пятый вопрос закрыт
       },
             forms: [
                 { name: "2048 Ventures", estimatedTime: 8, questions: 17, url: "https://www.2048.vc/" },
@@ -1713,7 +1736,7 @@ clearMessages() {
   text-transform: uppercase;
 }
 .home-heading02 {
-  gap: var(--dl-space-space-twounits);
+  gap: 0;
   width: 100%;
   display: flex;
   max-width: 640px;
@@ -1722,15 +1745,15 @@ clearMessages() {
 }
 .home-header07 {
   color: rgb(255, 207, 119);
-  font-size: 72px;
+  font-size: 42px;
   font-style: normal;
   font-weight: 500;
   letter-spacing: 1px;
 }
 .home-header08 {
   color: rgb(255, 255, 255);
-  font-size: 30px;
-  line-height: 38px;
+  font-size: 24px;
+  line-height: 40px;
 }
 .home-container {
   width: 100%;
@@ -1756,7 +1779,7 @@ clearMessages() {
 .home-image23 {
   width: 480px;
   object-fit: cover;
-  padding-top: 200px;
+  padding-top: 100px;
 }
 .home-mining {
   gap: 130px;
@@ -1798,7 +1821,7 @@ clearMessages() {
 }
 .home-header09 {
   color: rgb(255, 255, 255);
-  font-size: 72px;
+  font-size: 62px;
   font-style: normal;
   font-weight: 500;
   letter-spacing: 1px;
@@ -2133,7 +2156,7 @@ clearMessages() {
 }
 .home-header25 {
   color: #ffcf77;
-  font-size: 72px;
+  font-size: 62px;
   max-width: 900px;
   font-style: normal;
   text-align: center;
@@ -2170,7 +2193,7 @@ clearMessages() {
   padding-right: var(--dl-space-space-oneandhalfunits);
 }
 .home-description05 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
@@ -2208,7 +2231,7 @@ clearMessages() {
   padding-right: var(--dl-space-space-oneandhalfunits);
 }
 .home-description06 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
@@ -2223,6 +2246,14 @@ clearMessages() {
 }
 .home-icon-container1 {
   padding-top: var(--dl-space-space-halfunit);
+}
+
+.underline-link {
+  text-decoration: underline;
+}
+
+.underline-link:hover {
+  text-decoration: none;
 }
 .home-icon14 {
   fill: #ffffff;
@@ -2254,7 +2285,7 @@ clearMessages() {
   padding-right: var(--dl-space-space-oneandhalfunits);
 }
 .home-description07 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
@@ -2292,7 +2323,7 @@ clearMessages() {
   padding-right: var(--dl-space-space-oneandhalfunits);
 }
 .home-description08 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
@@ -2330,7 +2361,7 @@ clearMessages() {
   padding-right: var(--dl-space-space-oneandhalfunits);
 }
 .home-description09 {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 207, 119);
   font-size: 18px;
   max-width: 800px;
   line-height: 27px;
@@ -2671,7 +2702,7 @@ clearMessages() {
   padding-top: var(--dl-space-space-threeunits);
   padding-left: var(--dl-space-space-fiveunits);
   padding-right: var(--dl-space-space-fiveunits);
-  padding-bottom: var(--dl-space-space-threeunits);
+  padding-bottom: 0;
   justify-content: space-between;
 }
 
@@ -3056,9 +3087,6 @@ clearMessages() {
   }
   .home-content13 {
     gap: var(--dl-space-space-oneandhalfunits);
-  }
-  .home-heading02 {
-    gap: var(--dl-space-space-unit);
   }
   .home-header07 {
     font-size: 32px;

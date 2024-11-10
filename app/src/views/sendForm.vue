@@ -4,12 +4,6 @@
     <div ref="steps">
       <transition name="fade" mode="out-in">
         <div class="margin-logo" :key="currentStep">
-          <div v-if="warningMessages.length > 0" :class="['warning-message', { 'fade-out': isFadingOut }]">
-  <div v-for="(message, index) in warningMessages" :key="index">
-    {{ message }}
-  </div>
-  <button class="close-button" @click="closeWarningMessages">×</button>
-</div>
           <!-- Step 0: Introduction -->
           <div v-if="currentStep === 0">
           <div class="header-container-welcome-and-congrats">
@@ -44,6 +38,10 @@
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
+        <!-- Warning message -->
+<div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
       </div>
       <div class="link-left-container">
         <a @click="openModal('first_name')" class="link-scroll">Which investors require this information?</a>
@@ -51,11 +49,6 @@
     </div>
 
     <!-- Step 3: Email -->
-    <!-- Warning message -->
-    <div v-if="warningMessage" :class="['warning-message', { 'fade-out': isFadingOut }]">
-  <span>{{ warningMessage }}</span>
-  <button class="close-button" @click="closeWarningMessage">×</button>
-</div>
     <div v-if="currentStep === 3 && hasQuestionsForStep(3)" id="email">
       <div class="header-container">
         <h2>What is your e-mail address?</h2>
@@ -70,6 +63,10 @@
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
+        <!-- Warning message -->
+<div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
       </div>
       <div class="link-left-container">
         <a @click="openModal('email')" class="link-scroll">Which investors require this information?</a>
@@ -86,6 +83,10 @@
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
+        <!-- Warning message -->
+<div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
       </div>
       <div class="link-left-container">
         <a @click="openModal('phone_number')" class="link-scroll">Which investors require this information?</a>
@@ -123,6 +124,9 @@
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('specific_location')" class="link-scroll">Which investors require this information?</a>
@@ -139,6 +143,9 @@
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
   <a @click="openModal('company_name')" class="link-scroll">Which investors require this information?</a>
@@ -158,6 +165,9 @@
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
     <a @click="openModal('date_founded')" class="link-scroll">Which investors require this information?</a>
@@ -191,6 +201,9 @@
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
+        <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
       </div>
       <div class="link-left-container">
         <a @click="openModal('relationship')" class="link-scroll">Which investors require this information?</a>
@@ -271,6 +284,9 @@
       <div class="button-container">
         <button class="button" @click="nextStep">Next</button>
         <p class="enter-text">press Enter ↵</p>
+        <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
       </div>
       <div class="link-left-container">
         <a @click="openModal('working_full_time')" class="link-scroll">Which investors require this information?</a>
@@ -289,6 +305,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('one_line_description')" class="link-scroll">Which investors require this information?</a>
@@ -304,6 +323,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('company_description')" class="link-scroll">Which investors require this information?</a>
@@ -320,6 +342,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('company_solution')" class="link-scroll">Which investors require this information?</a>
@@ -335,6 +360,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('pitch_description')" class="link-scroll">Which investors require this information?</a>
@@ -351,6 +379,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('target_customer')" class="link-scroll">Which investors require this information?</a>
@@ -397,6 +428,9 @@
             <div class="button-container">
               <button class="button" @click="prepareCustomerAcquisitionData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('customer_acquisition')" class="link-scroll">Which investors require this information?</a>
@@ -440,6 +474,9 @@
 <div class="button-container">
   <button class="button" @click="prepareProductData(); nextStep()">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('product')" class="link-scroll">Which investors require this information?</a>
@@ -499,6 +536,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('product_status')" class="link-scroll">Which investors require this information?</a>
@@ -536,6 +576,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('active_customers')" class="link-scroll">Which investors require this information?</a>
@@ -632,6 +675,9 @@
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('how_many_users')" class="link-scroll">Which investors require this information?</a>
@@ -675,6 +721,9 @@
 <div class="button-container">
   <button class="button" @click="prepareBusinessModelData(); nextStep()">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('business_model')" class="link-scroll">Which investors require this information?</a>
@@ -800,6 +849,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
   <a @click="openModal('customers_based')" class="link-scroll">Which investors require this information?</a>
@@ -816,6 +868,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
       <a @click="openModal('vision')" class="link-scroll">Which investors require this information?</a>
@@ -831,6 +886,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('company_website')" class="link-scroll">Which investors require this information?</a>
@@ -873,6 +931,9 @@ required
             <div class="button-container">
               <button class="button" @click="prepareIndustryData(); nextStep()">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('industry')" class="link-scroll">Which investors require this information?</a>
@@ -906,6 +967,9 @@ required
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
             <a @click="openModal('liberty_ventures_industry')" class="link-scroll">Which investors require this information?</a>
@@ -1026,6 +1090,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
   <a @click="openModal('headquartered')" class="link-scroll">Which investors require this information?</a>
@@ -1067,6 +1134,9 @@ required
 <div class="button-container">
 <button class="button" @click="nextStep">Next</button>
 <p class="enter-text">press Enter ↵</p>
+<div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('headquartered_precursor')" class="link-scroll">Which investors require this information?</a>
@@ -1143,6 +1213,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
 <a @click="openModal('legal_structure')" class="link-scroll">Which investors require this information?</a>
@@ -1159,6 +1232,9 @@ required
             <div class="button-container">
               <button class="button" @click="nextStep">Next</button>
               <p class="enter-text">press Enter ↵</p>
+              <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
             </div>
             <div class="link-left-container">
               <a @click="openModal('pitch_deck')" class="link-scroll">Which investors require this information?</a>
@@ -1183,6 +1259,9 @@ required
         <div class="button-container">
           <button class="button" @click="nextStep">Next</button>
           <p class="enter-text">press Enter ↵</p>
+          <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
         </div>
         <div class="link-left-container">
           <a @click="openModal('pitch_deck_file')" class="link-scroll">Which investors require this information?</a>
@@ -1278,6 +1357,9 @@ required
         <div class="button-container">
           <button class="button" @click="nextStep">Next</button>
           <p class="enter-text">press Enter ↵</p>
+          <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
         </div>
         <div class="link-left-container">
         <a @click="openModal('raising_round')" class="link-scroll">Which investors require this information?</a>
@@ -1293,6 +1375,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
     <a @click="openModal('raising_amount')" class="link-scroll">Which investors require this information?</a>
@@ -1309,6 +1394,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
     <a @click="openModal('capital_to_raise')" class="link-scroll">Which investors require this information?</a>
@@ -1339,6 +1427,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('earning_revenue')" class="link-scroll">Which investors require this information?</a>
@@ -1384,6 +1475,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('earning_amount')" class="link-scroll">Which investors require this information?</a>
@@ -1446,6 +1540,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('source_of_revenue')" class="link-scroll">Which investors require this information?</a>
@@ -1461,6 +1558,9 @@ required
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
+      <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
     </div>
     <div class="link-left-container">
         <a @click="openModal('pre_money_valuation')" class="link-scroll">Which investors require this information?</a>
@@ -1476,6 +1576,9 @@ required
     <div class="button-container">
       <button class="button" @click="nextStep">Next</button>
       <p class="enter-text">press Enter ↵</p>
+      <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
     </div>
     <div class="link-left-container">
         <a @click="openModal('post_money_valuation')" class="link-scroll">Which investors require this information?</a>
@@ -1520,6 +1623,9 @@ required
 <div class="button-container">
   <button class="button" @click="nextStep">Next</button>
   <p class="enter-text">press Enter ↵</p>
+  <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
 </div>
 <div class="link-left-container">
       <a @click="openModal('prev_experience')" class="link-scroll">Which investors require this information?</a>
@@ -1535,6 +1641,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('team_description')" class="link-scroll">Which investors require this information?</a>
@@ -1550,6 +1659,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('company_linkedin')" class="link-scroll">Which investors require this information?</a>
@@ -1576,6 +1688,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('ceo_linkedin')" class="link-scroll">Which investors require this information?</a>
@@ -1591,6 +1706,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('cto_linkedin')" class="link-scroll">Which investors require this information?</a>
@@ -1607,6 +1725,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('founder_video_url')" class="link-scroll">Which investors require this information?</a>
@@ -1642,6 +1763,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('pitching_live')" class="link-scroll">Which investors require this information?</a>
@@ -1673,6 +1797,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('share_submission')" class="link-scroll">Which investors require this information?</a>
@@ -1688,6 +1815,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('investors_participating')" class="link-scroll">Which investors require this information?</a>
@@ -1703,6 +1833,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('want_us_to_know')" class="link-scroll">Which investors require this information?</a>
@@ -1721,6 +1854,9 @@ required
   <div class="button-container">
     <button class="button" @click="nextStep">Next</button>
     <p class="enter-text">press Enter ↵</p>
+    <div v-if="warningMessage" class="warning-message-container">
+  <p class="warning-message visible">{{ warningMessage }}</p>
+</div>
   </div>
   <div class="link-left-container">
         <a @click="openModal('value_of_team')" class="link-scroll">Which investors require this information?</a>
@@ -1898,9 +2034,11 @@ export default {
       hasReachedEnd: false,
       dynamicDots: "", // Динамические точки
       investorsState: [],
-      loadingText: "Prepare to submit data...",
+      loadingText: "Preparing to submit data...",
       showLoading: false,
       showInvestors: false,
+      warningDisplayed: false,
+      warningMessage: '',
       fileTooLarge: false,
       showSuccessMessage: false,
       showTitle: false,
@@ -2816,9 +2954,13 @@ closeWarningMessage() {
   },
 
   closeWarningMessages() {
-    this.isFadingOut = true;
-    this.warningMessages = [];
-    clearTimeout(this.warningTimeout);
+  this.isFadingOut = true; // Запускаем анимацию исчезновения
+  clearTimeout(this.warningTimeout); // Очищаем таймер, если он установлен
+
+  setTimeout(() => {
+    this.warningMessage = ''; // Очищаем сообщение после завершения анимации
+    this.isFadingOut = false; // Сбрасываем флаг анимации
+  }, 800); // Длительность должна совпадать с временем анимации в CSS
 },
 
   openTestForm() {
@@ -3002,6 +3144,7 @@ closeWarningMessage() {
       this.removeFocus();
       const warnings = []; // Список для сбора предупреждений
       this.warningMessages = []; // Сброс сообщений
+      this.warningMessage = '';
   // Если мы на шаге 0, всегда переходим на шаг 1
   if (this.currentStep === 0) {
     this.currentStep = 1;
@@ -3316,7 +3459,21 @@ if (this.currentStep === 2) {
     await this.saveField('value_of_team', this.formData.value_of_team);
   }
 
-  if (warnings.length > 0) this.displayWarning(warnings.join('\n'));
+  if (warnings.length > 0) {
+    if (!this.warningDisplayed) {
+      this.displayWarning(warnings.join('\n'));
+      this.warningDisplayed = true;
+      return; // Не переходим на следующий шаг
+    } else {
+      // Переходим на следующий шаг и сбрасываем предупреждение
+      this.warningDisplayed = false;
+      this.closeWarningMessages();
+    }
+  } else {
+    // Нет предупреждений, сбрасываем флаг
+    this.warningDisplayed = false;
+    this.closeWarningMessages();
+  }
 }
   // Иначе выполняем стандартную логику для пропуска шагов без вопросов
   let nextValidStep = this.currentStep + 1;
@@ -3358,7 +3515,7 @@ isFieldRequired(fieldName) {
 },
 // Функция для отображения предупреждающего сообщения
 displayWarning(message) {
-  this.warningMessages.push(message); // Добавляем сообщение в массив
+  this.warningMessage = message; // Устанавливаем сообщение
   this.isFadingOut = false;
   clearTimeout(this.warningTimeout);
 
@@ -3440,6 +3597,7 @@ generateUUID() {
   },
   prevStep() {
   this.errorMessage = '';
+  this.warningMessage = '';
   this.removeFocus();
   let prevValidStep = this.currentStep - 1;
 
@@ -3570,24 +3728,31 @@ body {
 }
 
 /* Сообщение */
-.warning-message {
-  position: fixed; /* Фиксированное позиционирование для закрепления сверху */
-  top: 0;
+.warning-message-container {
+  position: absolute;
+  top: 160%; /* Расположить под содержимым контейнера */
   left: 0;
   width: 100%;
-  background-color: rgb(255, 207, 119); /* Полупрозрачный фон */
-  color: #333;
+  margin-top: 20px; /* Дополнительный отступ сверху, если необходимо */
+  box-sizing: border-box; /* Чтобы padding учитывался в ширине */
+}
+
+p.warning-message {
+  color: #f44336; /* Или любой другой цвет на ваш вкус */
+  font-weight: bold;
+  font-size: 1.6em;
   text-align: center;
-  padding: 10px;
-  font-size: 1.3rem;
-  font-weight: 400;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  transform: translateY(-100%);
-  animation: slideDown 0.8s forwards;
+  margin: 0;
+  opacity: 1; /* Убедитесь, что сообщение видно */
+  transition: opacity 0.8s ease-in-out;
+}
+
+p.warning-message.visible {
+  opacity: 1; /* Показать с анимацией */
+}
+
+p.warning-message.hidden {
+  opacity: 0; /* Скрыть с анимацией */
 }
 
 
@@ -3596,25 +3761,6 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #333;
-  cursor: pointer;
-  font-weight: bold;
-}
-.close-button:hover {
-  color: #000;
-}
-
-.warning-message.fade-out {
-  animation: slideUp 0.8s forwards;
 }
 
 @keyframes slideUp {
@@ -3840,6 +3986,7 @@ ul.welcome-list {
 }
 
 .button-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4347,6 +4494,10 @@ p.error-message {
   font-size: 1.4em;
 }
 
+p.warning-message {
+  font-size: 1.4em;
+}
+
 p.congrats{
   font-size: 1.4em; /* Увеличим размер шрифта для параграфов */
 }
@@ -4502,6 +4653,10 @@ p.welcome-and-congrats {
 }
 
 p.error-message {
+  font-size: 1.2em;
+}
+
+p.warning-message {
   font-size: 1.2em;
 }
 
@@ -4669,6 +4824,11 @@ p.welcome-and-congrats {
 p.error-message {
   font-size: 1.0em;
 }
+
+p.warning-message {
+  font-size: 1.0em;
+}
+
 
 p.congrats {
   font-size: 1.0em; /* Увеличим размер шрифта для параграфов */
@@ -4920,6 +5080,11 @@ p.error-message {
   text-align: center;
 }
 
+p.warning-message {
+  font-size: 1.1em;
+  text-align: center;
+}
+
 
 p.congrats {
   font-size: 1.1em; /* Увеличим размер шрифта для параграфов */
@@ -5058,6 +5223,10 @@ ul {
   gap: 8px;
 }
 
+.warning-message-container {
+  top: 190%;
+}
+
 }
 
 @media (max-width: 480px) {
@@ -5116,6 +5285,10 @@ p.if-marketplace {
 }
 
 p.error-message {
+  font-size: 0.9em;
+}
+
+p.warning-message {
   font-size: 0.9em;
 }
 
