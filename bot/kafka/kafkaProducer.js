@@ -13,20 +13,39 @@ producer.on('error', (error) => {
 });
 
 const sendMessage = (message) => {
-    const topics = ['precursorvc-form', 'pathvc-form', 'boost-vc-form', 'ventures-2048', 'everywhere-vc-form', 'wischoff-form', 'incisive-ventures-form', 'hustle-fund-form', 'liberty-ventures-form', 'spatial-capital-form'];
+    // Карта соответствия инвесторов и топиков Kafka
+    const topicMap = {
+        'Precursor Ventures': 'precursorvc-form',
+        'Path Ventures': 'pathvc-form',
+        'Boost Ventures': 'boost-vc-form',
+        '2048 Ventures': 'ventures-2048',
+        'Everywhere Ventures': 'everywhere-vc-form',
+        'Wischoff Ventures': 'wischoff-form',
+        'Incisive Ventures': 'incisive-ventures-form',
+        'Hustle Fund': 'hustle-fund-form',
+        'Liberty Ventures': 'liberty-ventures-form',
+        'Spatial Capital': 'spatial-capital-form'
+    };
 
-    topics.forEach((topic) => {
-        const payloads = [
-            { topic: topic, messages: JSON.stringify(message) }
-        ];
+    const selectedForms = message.selectedForms; // Массив выбранных инвесторов
 
-        producer.send(payloads, (error, result) => {
-            if (error) {
-                console.error('Failed to send message', error);
-            } else {
-                console.log('Message sent successfully to topic', topic, result);
-            }
-        });
+    selectedForms.forEach((investorName) => {
+        const topic = topicMap[investorName];
+        if (topic) {
+            const payloads = [
+                { topic: topic, messages: JSON.stringify(message) }
+            ];
+
+            producer.send(payloads, (error, result) => {
+                if (error) {
+                    console.error('Failed to send message', error);
+                } else {
+                    console.log('Message sent successfully to topic', topic, result);
+                }
+            });
+        } else {
+            console.warn(`No topic found for investor ${investorName}`);
+        }
     });
 };
 

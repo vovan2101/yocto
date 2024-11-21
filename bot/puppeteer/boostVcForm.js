@@ -154,21 +154,31 @@ const fillBoostVcForm = async (formData) => {
         // await page.screenshot({ path: 'boostvc_form_before_submission.png', fullPage: true });
 
         await new Promise(resolve => setTimeout(resolve, 5000));
+        // Нажатие на кнопку отправки формы
         // await page.click('button[data-cy="button-component"]');
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        // await page.screenshot({ path: 'boostvc_form_after_submission.png', fullPage: true });
 
+        // Дополнительное ожидание после отправки
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Ожидание появления сообщения "Thank you for applying"
+        try {
+            await page.waitForSelector('div[data-cy="thank-you-widget"]', { timeout: 10000 });
+            console.log('Boost VC form submitted successfully');
+        } catch (e) {
+            await page.screenshot({ path: 'boostvc_form_error.png', fullPage: true });
+            throw new Error('Boost VC form submission failed: Thank you message not found');
+        }
+        
     } catch (error) {
         console.error('Error while filling the form:', error);
+        throw error; // Пробрасываем ошибку для механизма повторных попыток
     } finally {
         if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+            await browser.close(); // Закрытие браузера
         }
-        page = null;   // Очищаем переменную после использования
+        page = null;   // Очищаем переменную
         browser = null; // Очищаем ссылку на браузер
     }
-
-    console.log('Boost VC form submitted successfully');
 };
 
 module.exports = fillBoostVcForm;

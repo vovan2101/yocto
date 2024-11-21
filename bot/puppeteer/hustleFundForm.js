@@ -66,7 +66,7 @@ const fillhustleFundForm = async (formData) => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Выбор радиокнопки для вопроса "Are you a Delaware C Corp?"
-            const delawareSelector = formData.ormData.legal_structure === 'Delaware C-Corp'
+            const delawareSelector = formData.legal_structure === 'Delaware C-Corp'
                 ? 'div[data-qa="choice-0-readable-element"][aria-label="Yes"]'
                 : 'div[data-qa="choice-1-readable-element"][aria-label="No"]';
             
@@ -430,6 +430,20 @@ const fillhustleFundForm = async (formData) => {
         let missingAcquisitions = []; // Для отслеживания отсутствующих значений
         let isOtherUsed = false; // Флаг для отслеживания использования "Other"
         
+        // Маппинг полей на клавиши
+        const keyMapping = {
+            "Affiliate": "a",
+            "Community Engagement & Referrals": "b",
+            "Content Marketing": "c",
+            "Direct Sales": "d",
+            "Events": "e",
+            "Paid Advertisement": "f",
+            "Partnerships": "g",
+            "SEO": "h",
+            "Social Media": "i",
+            "Other": "j"
+        };
+        
         // Проходим по каждому способу привлечения клиентов
         for (let acquisition of customerAcquisitions) {
             if (acquisition === 'Other') {
@@ -437,57 +451,48 @@ const fillhustleFundForm = async (formData) => {
                 continue;
             }
         
-            const acquisitionSelector = `li[aria-label="${acquisition.trim()}"]`;
-            let acquisitionCheckbox = await page.$(acquisitionSelector);
-        
-            if (!acquisitionCheckbox) {
-                // Если способ привлечения клиентов не найден, добавляем его в список для "Other"
+            const key = keyMapping[acquisition];
+            if (!key) {
+                // Если способ привлечения клиентов не найден в маппинге, добавляем его в список для "Other"
                 missingAcquisitions.push(acquisition);
             } else {
-                // Если найдено, кликаем по элементу
-                await acquisitionCheckbox.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center' }));
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await acquisitionCheckbox.click();
+                // Нажимаем соответствующую клавишу
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Задержка перед нажатием
+                await page.keyboard.press(key); // Нажимаем клавишу, соответствующую полю
             }
         }
         
         // Если есть пропущенные способы привлечения клиентов или "Other" присутствует в formData
         if (missingAcquisitions.length > 0 || customerAcquisitions.includes("Other")) {
-            // Находим и кликаем на поле "Other"
-            const otherSelector = 'div[aria-label="Enter the input field to type your answer. Use \'enter\' to confirm"]';
-            let otherCheckbox = await page.$(otherSelector);
+            // Нажимаем клавишу для "Other"
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await page.keyboard.press(keyMapping["Other"]);
         
-            if (otherCheckbox) {
-                await otherCheckbox.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center' }));
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await otherCheckbox.click();
-        
-                // Собираем все значения для поля "Other"
-                let otherValues = [...missingAcquisitions];
-                if (formData.other_customer_acquisition) {
-                    otherValues.push(formData.other_customer_acquisition); // Добавляем значение из other_customer_acquisition
-                }
-        
-                // Вводим значения в поле "Other"
-                const otherInputSelector = 'div[data-qa="choice-9-readable-element"]';
-                const otherInput = await page.$(otherInputSelector);
-                if (otherInput) {
-                    await otherInput.type(otherValues.join(', ')); // Вписываем все значения через запятую
-                    await new Promise(resolve => setTimeout(resolve, 1000)); // Задержка перед нажатием Enter
-                    await page.keyboard.press('Enter');
-                    isOtherUsed = true; // Устанавливаем флаг для "Other"
-                }
+            // Собираем все значения для поля "Other"
+            let otherValues = [...missingAcquisitions];
+            if (formData.other_customer_acquisition) {
+                otherValues.push(formData.other_customer_acquisition); // Добавляем значение из other_customer_acquisition
             }
-        }    
         
+            // Вводим значения в поле "Other"
+            const otherInputSelector = 'div[data-qa="choice-9-readable-element"]';
+            const otherInput = await page.$(otherInputSelector);
+            if (otherInput) {
+                await otherInput.type(otherValues.join(', ')); // Вписываем все значения через запятую
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Задержка перед нажатием Enter
+                await page.keyboard.press('Enter');
+                isOtherUsed = true; // Устанавливаем флаг для "Other"
+            }
+        }           
         
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
 
         // Заполнение текстового поля для "Short Answer
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.waitForSelector('input[type="url"][placeholder="https://"]');
-        await page.type('input[type="url"][placeholder="https://"]', formData.pitch_deck);
-        await page.keyboard.press('Enter');
+        // Ввод значения с клавиатуры
+        await page.keyboard.type(formData.pitch_deck); // Вводим значение из formData.pitch_deck
+        await page.keyboard.press('Enter'); // Подтверждаем ввод клавишей Enter
         await new Promise(resolve => setTimeout(resolve, 1000)); 
 
             
@@ -510,23 +515,28 @@ const fillhustleFundForm = async (formData) => {
 
         // Заполнение текстового поля для "Short Answer"
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.type('[placeholder="Type your answer here..."]', formData.company_website);
+        await page.keyboard.type(formData.company_website); // Вводим значение из formData.pitch_deck
         await page.keyboard.press('Enter');
 
+
+        const productStatusMapping = {
+            "Idea Stage": "a",
+            "Currently building MVP": "b",
+            "MVP Built": "c",
+            "Full Fledged Product Built": "d"
+        };
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.keyboard.press('Enter');
-
         // Проверяем значение product_status и выбираем соответствующий элемент
         if (formData.product_status === 'Idea/Prototype Stage') {
             formData.product_status = 'Idea Stage';
 
             // Сначала кликаем по "Idea Stage"
-            const statusSelector = `li[aria-label="${formData.product_status}"] div[role="radio"]`;
-            await page.waitForSelector(statusSelector);
-            const statusRadio = await page.$(statusSelector);
-            if (statusRadio) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await statusRadio.click();
+            const productStatusKey = productStatusMapping[formData.product_status];
+            if (productStatusKey) {
+                // Нажимаем соответствующую клавишу для выбора статуса
+                await page.keyboard.press(productStatusKey);
+            } else {
+                console.error(`Unknown product status: ${formData.product_status}`);
             }
 
             // Переходим к вопросу про источник дохода
@@ -556,115 +566,222 @@ const fillhustleFundForm = async (formData) => {
             }
 
             // Кликаем по выбранному статусу продукта
-            const statusSelector = `li[aria-label="${formData.product_status}"] div[role="radio"]`;
-            await page.waitForSelector(statusSelector);
-            const statusRadio = await page.$(statusSelector);
-            if (statusRadio) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await statusRadio.click();
+            const productStatusKey = productStatusMapping[formData.product_status];
+            if (productStatusKey) {
+                // Нажимаем соответствующую клавишу для выбора статуса
+                await page.keyboard.press(productStatusKey);
+            } else {
+                console.error(`Unknown product status: ${formData.product_status}`);
             }
 
+            await new Promise(resolve => setTimeout(resolve, 1000));
             // Вопрос про активных клиентов
-            const activeCustomersSelector = `li[aria-label="${formData.active_customers}"] div[role="radio"]`;
-            await page.waitForSelector(activeCustomersSelector);
-            const activeCustomersRadio = await page.$(activeCustomersSelector);
-            if (activeCustomersRadio) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await activeCustomersRadio.click();
+            const activeCustomersMapping = {
+                "No": "a",
+                "No, but we have a wait list": "b",
+                "Yes": "c"
+            };
+
+            // Проверяем значение active_customers и нажимаем соответствующую клавишу
+            const activeCustomersKey = activeCustomersMapping[formData.active_customers];
+            if (activeCustomersKey) {
+                await page.keyboard.press(activeCustomersKey); // Нажимаем соответствующую клавишу
+            } else {
+                console.error(`Unknown active customers value: ${formData.active_customers}`);
             }
+
+
+            // Маппинг количества пользователей на клавиши
+            const userCountMapping = {
+                "1-5": "a",
+                "6-10": "b",
+                "11-20": "c",
+                "21-50": "d",
+                "51-100": "e",
+                "101-300": "f",
+                "301-500": "g",
+                "501-1k": "h",
+                "1-5k": "i",
+                "5-10k": "j",
+                "10k+": "k"
+            };
 
             // Логика для продолжения в зависимости от ответа на вопрос про активных клиентов
             if (formData.active_customers === 'Yes' || formData.active_customers === 'No, but we have a wait list') {
-                // Если ответ "Yes" или "No, but we have a wait list", задаём следующий вопрос
-                const howManyCustomerSelector = `li[aria-label="${formData.how_many_users}"] div[role="radio"]`;
-                await page.waitForSelector(howManyCustomerSelector);
-                const howManyCustomerRadio = await page.$(howManyCustomerSelector);
-                if (howManyCustomerRadio) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                    await howManyCustomerRadio.click();
+                const userCountKey = userCountMapping[formData.how_many_users];
+                if (userCountKey) {
+                    // Нажимаем соответствующую клавишу для выбора количества пользователей
+                    await page.keyboard.press(userCountKey);
+                } else {
+                    console.error(`Unknown user count: ${formData.how_many_users}`);
                 }
 
+
                 // Переход к вопросу о доходах после выбора количества клиентов
-                const isRevenueSelector = `li[aria-label="${formData.earning_revenue}"] div[role="radio"]`;
+                // Маппинг ответа на вопрос о доходах на клавиши
+                const earningRevenueMapping = {
+                    "Yes": "y",
+                    "No": "n"
+                };
+
+                // Переход к вопросу о доходах после выбора количества клиентов
                 await new Promise(resolve => setTimeout(resolve, 1000));
-                const isRevenueRadio = await page.$(isRevenueSelector);
-                if (isRevenueRadio) {
-                    // Кликаем по "Yes" или "No"
-                    await isRevenueRadio.click();
+                const earningRevenueKey = earningRevenueMapping[formData.earning_revenue];
+                if (earningRevenueKey) {
+                    // Нажимаем соответствующую клавишу для выбора "Yes" или "No"
+                    await page.keyboard.press(earningRevenueKey);
                     await new Promise(resolve => setTimeout(resolve, 1000));
+
             
                     if (formData.earning_revenue === 'Yes') {
+                        // Маппинг суммы доходов на клавиши
+                        const earningAmountMapping = {
+                            "$1-$999": "a",
+                            "$1000-$4,999": "b",
+                            "$5,000-$10,000": "c",
+                            "$10,001+": "d"
+                        };
+                    
                         // Если ответ "Yes", задаём вопрос про сумму доходов
-                        const earningAmountInputSelector = `li[aria-label="${formData.earning_amount}"] div[role="radio"]`;
-                        const earningAmountInput = await page.$(earningAmountInputSelector);
-                        if (earningAmountInput && formData.earning_amount) {
-                            await earningAmountInput.click();
+                        const earningAmountKey = earningAmountMapping[formData.earning_amount];
+                        if (earningAmountKey) {
+                            // Нажимаем соответствующую клавишу для суммы доходов
+                            await page.keyboard.press(earningAmountKey);
                             await new Promise(resolve => setTimeout(resolve, 1000));
+                        } else {
+                            console.error(`Unknown earning amount: ${formData.earning_amount}`);
                         }
                     }
-
+                    const revenueSourceMapping = {
+                        "Ads / Sponsors": "a",
+                        "Affiliate": "b",
+                        "Commission (percentage of sale)": "c",
+                        "Purchases": "d",
+                        "Subscription": "e",
+                        "Other": "f"
+                    };
                     // После вопроса о сумме доходов переходим к вопросу о revenueSource
-                    if (formData.source_of_revenue === 'Other') {
-                        // Если выбрано "Other", кликаем по полю и вводим значение из other_source_of_revenue
-                        const otherRevenueSelector = 'div[data-qa="choice-5-readable-element"]'; // Селектор для "Other"
-                        const otherCheckbox = await page.waitForSelector(otherRevenueSelector);
-                        await otherCheckbox.click();
-
-                        const otherInputSelector = 'div[aria-label="Enter the input field to type your answer. Use \'enter\' to confirm"]';
-                        const otherInput = await page.waitForSelector(otherInputSelector);
-                        await otherInput.type(formData.other_source_of_revenue); // Вводим значение из other_source_of_revenue
-                        await page.keyboard.press('Enter');
+                    const otherKey = revenueSourceMapping["Other"];
+                    if (otherKey) {
+                        // Нажимаем клавишу для выбора "Other"
+                        await page.keyboard.press(otherKey);
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                        // Вводим значение из other_source_of_revenue
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        await page.keyboard.type(formData.other_source_of_revenue); // Вводим значение
+                        await page.keyboard.press('Enter'); // Подтверждаем ввод
                     } else {
-                        // Если выбран другой источник дохода
-                        const revenueSourceSelector = `li[aria-label="${formData.source_of_revenue}"] div[role="radio"]`;
-                        const revenueSourceCheckbox = await page.waitForSelector(revenueSourceSelector);
-                        await revenueSourceCheckbox.click();
+                        console.error(`Mapping for "Other" is missing`);
+                    }
+                } else {
+                    // Если выбран другой источник дохода
+                    const revenueSourceMapping = {
+                        "Ads / Sponsors": "a",
+                        "Affiliate": "b",
+                        "Commission (percentage of sale)": "c",
+                        "Purchases": "d",
+                        "Subscription": "e",
+                        "Other": "f"
+                    };
+                
+                    const revenueSourceKey = revenueSourceMapping[formData.source_of_revenue];
+                    if (revenueSourceKey) {
+                        // Нажимаем соответствующую клавишу для источника дохода
+                        await page.keyboard.press(revenueSourceKey);
+                    } else {
+                        console.error(`Unknown source of revenue: ${formData.source_of_revenue}`);
                     }
                 }
             } else if (formData.active_customers === 'No') {
                 // Вопрос о revenueSource 
                 if (formData.source_of_revenue === 'Other') {
-                    // Если выбрано "Other", кликаем по полю и вводим значение из other_source_of_revenue
-                    const otherRevenueSelector = 'div[data-qa="choice-5-readable-element"]'; // Селектор для "Other"
-                    const otherCheckbox = await page.waitForSelector(otherRevenueSelector);
-                    await otherCheckbox.click();
-
-                    const otherInputSelector = 'div[aria-label="Enter the input field to type your answer. Use \'enter\' to confirm"]';
-                    const otherInput = await page.waitForSelector(otherInputSelector);
-                    await otherInput.type(formData.other_source_of_revenue); // Вводим значение из other_source_of_revenue
-                    await page.keyboard.press('Enter');
+                    // Маппинг источников дохода на клавиши
+                    const revenueSourceMapping = {
+                        "Ads / Sponsors": "a",
+                        "Affiliate": "b",
+                        "Commission (percentage of sale)": "c",
+                        "Purchases": "d",
+                        "Subscription": "e",
+                        "Other": "f"
+                    };
+            
+                    const otherKey = revenueSourceMapping["Other"];
+                    if (otherKey) {
+                        // Нажимаем клавишу для выбора "Other"
+                        await page.keyboard.press(otherKey);
+            
+                        // Сразу вводим значение из other_source_of_revenue
+                        await page.keyboard.type(formData.other_source_of_revenue); // Вводим значение
+                        await page.keyboard.press('Enter'); // Подтверждаем ввод
+                    } else {
+                        console.error(`Mapping for "Other" is missing`);
+                    }
                 } else {
                     // Если выбран другой источник дохода
-                    const revenueSourceSelector = `li[aria-label="${formData.source_of_revenue}"] div[role="radio"]`;
-                    const revenueSourceCheckbox = await page.waitForSelector(revenueSourceSelector);
-                    await revenueSourceCheckbox.click();
-                }
-            }
-        }
+                    const revenueSourceMapping = {
+                        "Ads / Sponsors": "a",
+                        "Affiliate": "b",
+                        "Commission (percentage of sale)": "c",
+                        "Purchases": "d",
+                        "Subscription": "e",
+                        "Other": "f"
+                    };
             
+                    const revenueSourceKey = revenueSourceMapping[formData.source_of_revenue];
+                    if (revenueSourceKey) {
+                        // Нажимаем соответствующую клавишу для источника дохода
+                        await page.keyboard.press(revenueSourceKey);
+                    } else {
+                        console.error(`Unknown source of revenue: ${formData.source_of_revenue}`);
+                    }
+                }
+            }            
+        }   
         
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
 
-    // Ожидание и обработка raising_round
-        let selectedRound = formData.raising_round === 'Beyond Series A' ? 'Series A or Later' : formData.raising_round;
-        let roundSelector = `li[aria-label="${selectedRound}"] div[role="radio"]`;
-        let roundRadio = await page.$(roundSelector);
+        // Ожидание и обработка raising_round
+        // Маппинг раундов на клавиши
+        const raisingRoundMapping = {
+            "Pre-seed": "a",
+            "Seed": "b",
+            "Seed+": "c",
+            "Series A or Later": "d",
+            "Other": "e"
+        };
 
-        if (roundRadio) {
-            await roundRadio.click();
+        // Ожидание и обработка raising_round
+        let selectedRound;
+
+        if (formData.raising_round === "Pre-Seed" || formData.raising_round === "Pre-Seed extension") {
+            selectedRound = "Pre-seed"; // Кнопка A
+        } else if (formData.raising_round === "Seed") {
+            selectedRound = "Seed"; // Кнопка B
+        } else if (formData.raising_round === "Seed extension") {
+            selectedRound = "Seed+"; // Кнопка C
+        } else if (formData.raising_round === "Series A" || formData.raising_round === "Beyond Series A") {
+            selectedRound = "Series A or Later"; // Кнопка D
         } else {
-            const otherSelector = 'div[aria-label="Enter the input field to type your answer. Use \'enter\' to confirm"]';
-            const otherRadio = await page.waitForSelector(otherSelector);
-            await otherRadio.click();
-
-            const otherInputSelector = 'div[aria-label="Enter the input field to type your answer. Use \'enter\' to confirm"]';
-            const otherInput = await page.waitForSelector(otherInputSelector);
-            await otherInput.type(formData.raising_round);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            await page.keyboard.press('Enter');
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            selectedRound = "Other"; // Кнопка E
         }
+
+        const roundKey = raisingRoundMapping[selectedRound];
+
+        if (roundKey) {
+            // Нажимаем клавишу для выбранного раунда
+            await page.keyboard.press(roundKey);
+            if (selectedRound === "Other") {
+                // Если выбран "Other", сразу вводим текст
+                await page.keyboard.type(formData.raising_round); // Вводим текст для "Other"
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                await page.keyboard.press('Enter');
+            }
+        } else {
+            console.error(`Unknown raising round: ${formData.raising_round}`);
+        }
+
 
         // Ожидание и заполнение первого текстового поля
         await new Promise(resolve => setTimeout(resolve, 5000));
@@ -726,9 +843,8 @@ const fillhustleFundForm = async (formData) => {
         await page.keyboard.up('Control');   // Отпускаем клавишу Ctrl
 
         // Ожидание завершения
-        await new Promise(resolve => setTimeout(resolve, 5000));
-
-        // await page.screenshot({ path: 'hustleFund_form_after_submission.png', fullPage: true });
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log('Hustle Fund form submitted successfully');
 
     } catch (error) {
         console.error('Error while filling the form:', error);
@@ -739,8 +855,6 @@ const fillhustleFundForm = async (formData) => {
         page = null;   // Обнуляем страницу
         browser = null; // Обнуляем ссылку на браузер
     }
-
-    console.log('Hustle Fund form submitted successfully');
 };
 
 module.exports = fillhustleFundForm;

@@ -76,7 +76,7 @@
         { name: "Liberty Ventures", estimatedTime: 5, questions: 10, url: "https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9" },
         { name: "Path Ventures", estimatedTime: 4, questions: 9, url: "https://www.path.vc/form" },
         { name: "Precursor Ventures", estimatedTime: 7, questions: 14, url: "https://precursorvc.com/startup/" },
-        { name: "Spatial Capital", estimatedTime: 3, questions: 7, url: "https://www.spatial.capital/application" },
+        { name: "Spatial Capital", estimatedTime: 4, questions: 9, url: "https://www.spatial.capital/application" },
         { name: "Wischoff Ventures", estimatedTime: 3, questions: 6, url: "https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU" }
       ],
       stepInvestors: {

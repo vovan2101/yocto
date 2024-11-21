@@ -284,17 +284,27 @@ const fillIncisiveVenturesForm = async (formData) => {
 
         // await page.screenshot({ path: 'incisive_ventures_form_before_submission.png', fullPage: true });
 
-        const submitButtonSelector = '.formSubmit .submitButton';
-        // Пример кода для нажатия на кнопку, если это потребуется:
-        // await page.waitForSelector(submitButtonSelector);
-        // await page.evaluate((selector) => {
-        //     document.querySelector(selector).click();
-        // }, submitButtonSelector);
-
-        console.log('Incisive Ventures form submitted successfully');
-
+        // const submitButtonSelector = '.formSubmit .submitButton';
+        // await page.click(submitButtonSelector);
+    
+        // Ожидание появления текста "Incisive Ventures" на странице после редиректа
+        try {
+            await page.waitForFunction(() => {
+                return document.body.innerText.includes('Incisive Ventures');
+            }, { timeout: 15000 });
+    
+            console.log('Incisive Ventures form submitted successfully and redirected to the main page.');
+        } catch (e) {
+            console.error('Redirection after submission did not occur as expected:', e);
+    
+            // Снимок экрана для отладки в случае ошибки
+            await page.screenshot({ path: 'incisive_ventures_form_error.png', fullPage: true });
+            throw new Error('Incisive Ventures form submission failed: expected main page text not detected');
+        }
+    
     } catch (error) {
         console.error('Error while filling the form:', error);
+        throw error; // Пробрасываем ошибку для механизма повторных попыток
     } finally {
         if (browser) {
             await browser.close(); // Закрытие браузера в любом случае
@@ -302,6 +312,8 @@ const fillIncisiveVenturesForm = async (formData) => {
         page = null;   // Обнуляем страницу
         browser = null; // Обнуляем ссылку на браузер
     }
+
+
 };
 
 module.exports = fillIncisiveVenturesForm;

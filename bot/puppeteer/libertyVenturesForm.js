@@ -35,7 +35,7 @@ const fillLibertyVenturesForm = async (formData) => {
         // Клик на поле и выбор значения в выпадающем списке (Company Industry)
         await page.click('select[id="0-2/company_industry-input"]');
 
-        // Клик по нужному варианту
+        // Клик по нужному варианту в списке
         await page.evaluate((industry) => {
             const options = Array.from(document.querySelectorAll('select[id="0-2/company_industry-input"] option'));
             const optionToSelect = options.find(option => option.textContent.includes(industry));
@@ -57,12 +57,19 @@ const fillLibertyVenturesForm = async (formData) => {
         await page.select('#how_did_you_find_out_about_us_-input', "Search Engine");
 
         // Нажимаем кнопку Submit (если требуется)
-        // await page.screenshot({ path: 'Liberty_ventures_form_before_submission.png', fullPage: true });
         // await page.click('button[type="submit"]');
 
-        // await page.screenshot({ path: 'Liberty_ventures_form_after_submission.png', fullPage: true });
+        // Ожидание появления подтверждающего сообщения после отправки формы
+        try {
+            await page.waitForFunction(() => {
+                return document.body.innerText.includes('Thanks for submitting the form.');
+            }, { timeout: 10000 });
 
-        console.log('Liberty Ventures form submitted successfully');
+            console.log('Liberty Ventures form submitted successfully');
+        } catch (error) {
+            console.error('Confirmation message not detected:', error);
+            throw new Error('Liberty Ventures form submission failed');
+        }
 
     } catch (error) {
         console.error('Error while filling the form:', error);

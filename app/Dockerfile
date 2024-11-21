@@ -1,5 +1,5 @@
 # Step 1: Build the frontend
-FROM node:alpine as build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN npm install
 COPY . .
 
 # Build the app
-RUN npm run build
+RUN npm run build -- --verbose
 
 # Step 2: Serve the app using Nginx
 FROM nginx:stable-alpine
