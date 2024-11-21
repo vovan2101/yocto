@@ -150,12 +150,12 @@
     { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/form' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/startup/' },
     { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/application' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
   ],
   pitch_deck_file: [
     { name: 'Hustle Fund', status: 'Optional', url: 'https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://share.hsforms.com/1DHSuFcRRQTGI5MLAO8Pa6Aqg7u9' },
     { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/application' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU' },
   ],
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc' },

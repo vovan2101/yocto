@@ -33,61 +33,57 @@ const fillPathvcForm = async (formData) => {
         await page.type('input[name="One-line-Description"]', formData.company_description);
         await page.type('input[name="url"]', formData.company_website);
 
-        const industries = formData.industryString.split('; ');
+        // Установка значения для сектора
+        const industryMapping = {
+            'AI / ML': 'Another option',
+            'Real Estate / Housing': 'Property Tech',
+            'Legal / government / regulation': 'Legal Tech',
+            'Fin Tech': 'Financial Tech'
+        };
 
-        let selectedIndustryValue = 'Other'; // По умолчанию выбираем 'Other'
-
-        // Проверяем каждое значение из списка, пока не найдём совпадение
-        for (let industry of industries) {
-            if (industry === 'AI / ML') {
-                selectedIndustryValue = 'Another option';
-                break;
-            } else if (industry === 'Real Estate / Housing') {
-                selectedIndustryValue = 'Property Tech';
-                break;
-            } else if (industry === 'Legal / government / regulation') {
-                selectedIndustryValue = 'Legal Tech';
-                break;
-            } else if (industry.includes('Fin Tech')) {
-                selectedIndustryValue = 'Financial Tech';
-                break;
-            }
-
-            const matchedValue = await page.evaluate((industry) => {
-                const options = Array.from(document.querySelectorAll('select[name="Sector"] option'));
-                const matched = options.find(option => option.textContent.trim() === industry);
-                return matched ? matched.value : null;
-            }, industry);
-
-            if (matchedValue) {
-                selectedIndustryValue = matchedValue;
+        let selectedIndustryValue = 'Other';
+        for (let industry of formData.industryString.split('; ')) {
+            if (industryMapping[industry]) {
+                selectedIndustryValue = industryMapping[industry];
                 break;
             }
         }
 
-        // Используем значение `value` для выбора в форме
         await page.select('select[name="Sector"]', selectedIndustryValue);
 
         await page.type('input[name="Video-pitch-URL"]', formData.founder_video_url);
         await page.type('input[name="Pitch-Deck-URL"]', formData.pitch_deck);
 
-        // await page.screenshot({ path: 'pathvc_form_before_submission.png', fullPage: true });
-
         // Отправка формы
         // await page.click('input[type="submit"]');
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // await page.screenshot({ path: 'pathvc_form_after_submission.png', fullPage: true });
+        // Ожидание скрытия формы и появления сообщения об успехе
+        try {
+            await page.waitForFunction(() => {
+                const form = document.querySelector('form#wf-form-Entry-Form');
+                const successMessage = document.querySelector('.success-message.w-form-done');
+                return form && successMessage &&
+                       window.getComputedStyle(form).display === 'none' &&
+                       window.getComputedStyle(successMessage).display === 'block';
+            }, { timeout: 5000 });
 
-        console.log('Path VC form submitted successfully');
+            console.log('Форма Path VC успешно отправлена');
+        } catch (e) {
+            console.error('Не удалось определить успешную отправку формы:', e);
+            await page.screenshot({ path: 'pathvc_form_error.png', fullPage: true });
+            throw new Error('Не удалось отправить форму Path VC: сообщение об успехе не отображается');
+        }
+
     } catch (error) {
-        console.error('Error while filling the form:', error);
+        console.error('Ошибка при заполнении формы:', error);
+        throw error; // Пробрасываем ошибку для механизма повторных попыток
     } finally {
         if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+            await browser.close(); // Закрытие браузера
         }
-        page = null;   // Обнуляем страницу
-        browser = null; // Обнуляем ссылку на браузер
+        page = null;
+        browser = null;
     }
 };
 

@@ -141,29 +141,35 @@ const fillSpatialCapitalForm = async (formData) => {
         // Нажатие на кнопку "Continue"
         await new Promise(resolve => setTimeout(resolve, 2000));
         await page.keyboard.press('Enter');
+// Нажатие на кнопку "Submit"
+await new Promise(resolve => setTimeout(resolve, 2000));
+const submitButtonSelector = 'button[data-qa="submit-button deep-purple-submit-button"]';
+await frame.waitForSelector(submitButtonSelector);
+const submitButton = await frame.$(submitButtonSelector);
+await submitButton.click();
 
-        // Нажатие на кнопку "Submit"
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        const submitButtonSelector = 'button[data-qa="submit-button deep-purple-submit-button"]';
-        await frame.waitForSelector(submitButtonSelector);
-        const submitButton = await frame.$(submitButtonSelector);
-        // await page.screenshot({ path: 'spatialCapital_form_before_submission.png', fullPage: true });
-        // await submitButton.click(); 
+try {
+    await frame.waitForFunction(() => {
+        // Проверяем, что кнопка "Submit" исчезла, что указывает на изменение страницы
+        return !document.querySelector('button[data-qa="submit-button deep-purple-submit-button"]');
+    }, { timeout: 4000 });
 
-        // await page.screenshot({ path: 'spatialCapital_form_after_submission.png', fullPage: true });
-        console.log('Spatial Capital form submitted successfully');
-        
+    console.log('Spatial Capital form submitted successfully');
+} catch (error) {
+    console.error('Ошибка после отправки формы:', error);
+    throw new Error('Spatial Capital form submission failed: no changes detected after submission');
+}
 
-    } catch (error) {
-        console.error('Error while filling the form:', error);
-    } finally {
-        if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+        } catch (error) {
+            console.error('Error while filling the form:', error);
+        } finally {
+            if (browser) {
+                await browser.close();
+            }
+            frame = null;  // обнуляем frame даже при ошибке
+            page = null;   // обнуляем page даже при ошибке
+            browser = null; // обнуляем ссылку на браузер после его закрытия
         }
-        frame = null;  // обнуляем frame даже при ошибке
-        page = null;   // обнуляем page даже при ошибке
-        browser = null; // обнуляем ссылку на браузер после его закрытия
-    }
 };
 
 module.exports = fillSpatialCapitalForm;
