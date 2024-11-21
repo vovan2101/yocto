@@ -2160,12 +2160,12 @@ export default {
     { name: 'Path Ventures', status: 'Optional', url: 'https://www.path.vc/' },
     { name: 'Precursor Ventures', status: 'Required', url: 'https://precursorvc.com/' },
     { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
+    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   pitch_deck_file: [
     { name: 'Hustle Fund', status: 'Optional', url: 'https://www.hustlefund.vc/' },
     { name: 'Liberty Ventures', status: 'Required', url: 'https://libertyventures.xyz/' },
     { name: 'Spatial Capital', status: 'Optional', url: 'https://www.spatial.capital/' },
-    { name: 'Wischoff Ventures', status: 'Optional', url: 'https://www.wischoff.com/' },
   ],
   headquartered: [
     { name: 'Hustle Fund', status: 'Required', url: 'https://www.hustlefund.vc/' },
@@ -2499,7 +2499,7 @@ export default {
       ],
       businessModelOptions: [
         { key: 'A', value: 'B2B', label: 'B2B' },
-        { key: 'B', value: 'B2C', label: 'B2C / D2C' },
+        { key: 'B', value: 'B2C / D2C', label: 'B2C / D2C' },
         { key: 'C', value: 'B2G', label: 'B2G' },
         { key: 'D', value: 'B2B2C', label: 'B2B2C' },
         { key: 'E', value: 'C2C', label: 'C2C' },
@@ -2703,7 +2703,7 @@ handleFormSelection(forms) {
       3: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
       4: ['Liberty Ventures'],
       5: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Precursor Ventures'],
-      6: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
+      6: ['2048 Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Liberty Ventures', 'Path Ventures', 'Precursor Ventures','Spatial Capital', 'Wischoff Ventures'],
       7: ['2048 Ventures'],
       8: ['Precursor Ventures'],
       9: ['Hustle Fund'],
@@ -2726,8 +2726,8 @@ handleFormSelection(forms) {
       26: ['Hustle Fund', 'Incisive Ventures', 'Wischoff Ventures'],
       27: ['Precursor Ventures'],
       28: ['Precursor Ventures'],
-      29: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital'],
-      30: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      29: ['2048 Ventures', 'Boost Ventures', 'Everywhere Ventures', 'Hustle Fund', 'Incisive Ventures', 'Path Ventures', 'Precursor Ventures', 'Spatial Capital', 'Wischoff Ventures'],
+      30: ['Hustle Fund', 'Liberty Ventures', 'Spatial Capital'],
       31: ['Hustle Fund', 'Incisive Ventures', 'Precursor Ventures', 'Wischoff Ventures'],
       32: ['2048 Ventures', 'Incisive Ventures', 'Precursor Ventures', 'Spatial Capital'],
       33: ['Hustle Fund', 'Incisive Ventures', '2048 Ventures'],
@@ -3635,7 +3635,12 @@ async submitForm() {
   try {
     const formData = new FormData();
     for (const key in this.formData) {
-      formData.append(key, this.formData[key]);
+      if (Array.isArray(this.formData[key])) {
+        // Преобразуем массив в JSON-строку
+        formData.append(key, JSON.stringify(this.formData[key]));
+      } else {
+        formData.append(key, this.formData[key]);
+      }
     }
 
         const response = await fetch('https://www.yocto.vc/api/send-forms', {

@@ -38,6 +38,15 @@ app.post('/send-forms', upload.fields([
   if (req.files['pitch_deck_file']) {
     formData.pitch_deck_file = req.files['pitch_deck_file'][0].path;
   }
+  // Преобразуем selectedForms обратно в массив
+  if (formData.selectedForms) {
+    try {
+      formData.selectedForms = JSON.parse(formData.selectedForms);
+    } catch (e) {
+      console.error('Error parsing selectedForms:', e);
+      formData.selectedForms = [];
+    }
+  }
   producer(formData, 'form-submissions');
     // Логика отправки email
     const transporter = nodemailer.createTransport({

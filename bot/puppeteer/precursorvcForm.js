@@ -65,7 +65,7 @@ const fillForm = async (formData) => {
         await page.type('#input_2_6', formData.company_website);
         await page.type('#input_2_11', formData.pitch_deck);
 
-        await page.select('#input_2_12', headquartered_precursor);
+        await page.select('#input_2_12', formData.headquartered_precursor);
 
         let locationValue;
         if ([
@@ -113,9 +113,20 @@ const fillForm = async (formData) => {
         // await page.click('#gform_submit_button_2');
         // await page.screenshot({ path: 'precursorvc_form_after_submission.png', fullPage: true });
 
-        console.log('Prescurorvc Form submitted successfully');
+        try {
+            await page.waitForFunction(() => {
+                return document.body.innerText.includes('Thank you');
+            }, { timeout: 5000 });
+
+            console.log('Precursor VC Form submitted successfully');
+        } catch (e) {
+            // Делайте скриншот страницы для отладки
+            // await page.screenshot({ path: 'precursorvc_form_error.png', fullPage: true });
+            throw new Error('Precursor vc form submission failed: "Thank you" message not found');
+        }
     } catch (error) {
         console.error('Error while filling the form:', error);
+        throw error; // Пробрасываем ошибку для механизма повторных попыток
     } finally {
         if (browser) {
             await browser.close(); // Закрытие браузера в любом случае

@@ -122,46 +122,114 @@ const fillWischoffForm = async (formData) => {
         const urlInputSelector = 'input[data-testid="urlInput"]';
         const submitUrlButtonSelector = 'button[data-testid="submitUrlButton"]';
         const uploadButtonSelector = 'button[data-testid="upload-button"]';
+        const closeModalButtonSelector = 'div[aria-label="Close dialog"]'; // Селектор кнопки закрытия окна
+        
 
-        await page.waitForSelector(attachmentSelector);
-        const attachButton = await page.$(attachmentSelector);
-        if (attachButton) {
-            await attachButton.click();
-            await page.waitForSelector(urlButtonSelector, { visible: true });
-            const urlButton = await page.$(urlButtonSelector);
-            if (urlButton) {
-                await urlButton.click();
-                await page.waitForSelector(urlInputSelector, { visible: true });
-                const urlInput = await page.$(urlInputSelector);
-                if (urlInput) {
-                    await urlInput.type(formData.pitch_deck);
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                    const submitUrlButton = await page.$(submitUrlButtonSelector);
-                    if (submitUrlButton) {
-                        await submitUrlButton.click();
+        if (formData.pitch_deck && formData.pitch_deck.trim() !== '') {
+            // Начинаем обработку поля вложения только если есть данные
+            await page.waitForSelector(attachmentSelector);
+            const attachButton = await page.$(attachmentSelector);
+            if (attachButton) {
+                await attachButton.click();
+        
+                // Если есть pitch_deck (URL), используем загрузку по URL
+                await page.waitForSelector(urlButtonSelector, { visible: true });
+                const urlButton = await page.$(urlButtonSelector);
+                if (urlButton) {
+                    await urlButton.click();
+                    await page.waitForSelector(urlInputSelector, { visible: true });
+                    const urlInput = await page.$(urlInputSelector);
+                    if (urlInput) {
+                        await urlInput.type(formData.pitch_deck);
                         await new Promise(resolve => setTimeout(resolve, 2000));
-                        await page.waitForSelector(uploadButtonSelector, { visible: true });
-                        const uploadButton = await page.$(uploadButtonSelector);
-                        if (uploadButton) {
-                            await uploadButton.click();
-                            await new Promise(resolve => setTimeout(resolve, 2000));
+                        const submitUrlButton = await page.$(submitUrlButtonSelector);
+                        if (submitUrlButton) {
+                            await submitUrlButton.click();
+                            await new Promise(resolve => setTimeout(resolve, 5000));
+        
+                            // Проверяем, был ли URL принят
+                            const errorSelector = '.ui-state-error-text';
+                            const isError = await page.$(errorSelector);
+                            if (isError) {
+                                console.log('URL not accepted, closing modal and continuing.');
+                                // Закрываем окно загрузки
+                                const closeModalButton = await page.$(closeModalButtonSelector);
+                                if (closeModalButton) {
+                                    await closeModalButton.click();
+                                }
+                            } else {
+                                // Если URL принят, завершаем загрузку
+                                await page.waitForSelector(uploadButtonSelector, { visible: true });
+                                const uploadButton = await page.$(uploadButtonSelector);
+                                if (uploadButton) {
+                                    await uploadButton.click();
+                                    await new Promise(resolve => setTimeout(resolve, 2000));
+                                }
+                            }
                         }
                     }
                 }
             }
+        } else {
+            console.log('No pitch_deck provided, skipping attachment field.');
         }
 
-        // await page.screenshot({ path: 'wischoff_form_before_submission.png', fullPage: true });
-        console.log('Wischoff form submitted successfully');
-    } catch (error) {
-        console.error('Error while filling the form:', error);
-    } finally {
-        if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
-        }
-        page = null;   // Обнуляем страницу
-        browser = null; // Обнуляем ссылку на браузер
+// После обработки вложения, прокручиваем страницу к кнопке отправки
+const submitButtonSelector = 'input[type="button"].submitButton';
+
+// Ждём, пока кнопка появится в DOM
+await page.waitForSelector(submitButtonSelector);
+
+// Прокручиваем страницу к кнопке отправки
+await page.evaluate((selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+}, submitButtonSelector);
+
+// Ждём, пока кнопка станет видимой и доступной для нажатия
+await page.waitForSelector(submitButtonSelector, { visible: true });
+
+// Дополнительно ждём, пока кнопка не будет перекрыта другими элементами
+await page.waitForFunction((selector) => {
+    const button = document.querySelector(selector);
+    if (!button) return false;
+    const rect = button.getBoundingClientRect();
+    const elementAtPoint = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    return button === elementAtPoint;
+}, {}, submitButtonSelector);
+
+// Теперь можно безопасно нажать на кнопку отправки
+await page.click(submitButtonSelector);
+
+// Ожидание появления текста "You'll be redirected to https://wischoff.com in a few seconds." на странице после отправки формы
+try {
+    await page.waitForFunction(() => {
+        return document.body.innerText.includes("You'll be redirected to https://wischoff.com in a few seconds.");
+    }, { timeout: 5000 });
+
+    console.log('Wischoff form submitted successfully and redirect message detected.');
+} catch (e) {
+    console.error('Expected redirect message not found after form submission:', e);
+    throw new Error('Wischoff form submission failed: expected redirect message not detected');
+}
+
+// --- Конец новых добавленных шагов ---
+
+} catch (error) {
+    console.error('Error while filling the form:', error);
+    throw error; // Пробрасываем ошибку для механизма повторных попыток
+} finally {
+    if (browser) {
+        // Для отладки можно добавить задержку перед закрытием браузера
+        // await new Promise(resolve => setTimeout(resolve, 5000));
+        await browser.close(); // Закрытие браузера в любом случае
+    }
+    page = null;   // Обнуляем страницу
+    browser = null; // Обнуляем ссылку на браузер
+}
+
 };
 
 module.exports = fillWischoffForm;

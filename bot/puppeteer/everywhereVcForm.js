@@ -21,7 +21,10 @@ const fillEverywhereVcForm = async (formData) => {
         page = await browser.newPage();
         await page.goto('https://everywhere.vc', { waitUntil: 'networkidle2' });
 
+        // Даем время странице загрузиться
         await new Promise(resolve => setTimeout(resolve, 9000));
+
+        // Прокручиваем страницу до конца, чтобы загрузить все элементы
         await page.evaluate(async () => {
             await new Promise((resolve, reject) => {
                 let totalHeight = 0;
@@ -39,6 +42,7 @@ const fillEverywhereVcForm = async (formData) => {
             });
         });
 
+        // Кликаем по ссылке для открытия формы
         await page.evaluate(() => {
             const link = document.querySelector('[data-open-contacts]');
             if (link) {
@@ -48,17 +52,23 @@ const fillEverywhereVcForm = async (formData) => {
             }
         });
 
+        // Ждем открытия формы
         await new Promise(resolve => setTimeout(resolve, 5000));
 
+        // Закрываем окно с куки (если есть)
         const cookieCloseButtonSelector = '.cookie-consent-close';
         const cookieCloseButton = await page.$(cookieCloseButtonSelector);
         if (cookieCloseButton) {
             await cookieCloseButton.click();
         }
 
-        // Переключение на iframe
+        // Переключение на iframe с формой
         const frameHandle = await page.$('iframe[data-tally-src]');
         frame = await frameHandle.contentFrame();
+
+        if (!frame) {
+            throw new Error('Form frame not found');
+        }
 
         // Список селекторов для полей ввода
         const inputSelectors = [
@@ -116,6 +126,8 @@ const fillEverywhereVcForm = async (formData) => {
                         value = 'Toronto, Canada';
                     } else if (formData.specific_location === 'Montreal') {
                         value = 'Montreal, Canada';
+                    } else {
+                        value = formData.specific_location;
                     }
                     break;
                 case 4:
@@ -135,23 +147,31 @@ const fillEverywhereVcForm = async (formData) => {
             }
         }
 
-        // await page.screenshot({ path: 'everywhere_vc_form_before_submission.png', fullPage: false });
-        // await frame.click('button[type="submit"]');
-        await new Promise(resolve => setTimeout(resolve, 6000));
-        // await page.screenshot({ path: 'everywhere_vc_form_after_submission.png', fullPage: false });
+        // Ожидание перед отправкой формы (если необходимо)
+        await new Promise(resolve => setTimeout(resolve, 3000));
 
+        // Нажатие на кнопку отправки формы
+        // await frame.click('button[type="submit"]');
+
+        // Ожидание появления текста "Thank you" внутри фрейма
+        try {
+            await frame.waitForFunction(() => {
+                return document.body.innerText.includes("Thanks for completing this typeform");
+            }, { timeout: 5000 });
+        
+            console.log("Spatial Capital form submitted successfully");
+        } catch (error) {
+            console.error('Ошибка при отправке формы:', error);
+            throw new Error('Spatial Capital form submission failed: "Thanks for completing this typeform" message not found');
+        }
     } catch (error) {
         console.error('Error while filling the form:', error);
+        throw error; // Пробрасываем ошибку для механизма повторных попыток
     } finally {
         if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+            await browser.close();
         }
-        page = null;   // Обнуляем страницу
-        frame = null;  // Обнуляем фрейм
-        browser = null; // Обнуляем ссылку на браузер
     }
-
-    console.log('Everywhere VC form submitted successfully');
 };
 
 module.exports = fillEverywhereVcForm;

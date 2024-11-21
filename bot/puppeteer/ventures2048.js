@@ -33,20 +33,19 @@ const fillVentures2048 = async (formData) => {
 
         await page.waitForSelector('.formFieldAndSubmitContainer');
 
+        // Заполнение остальных полей формы
         const inputSelectors = [
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(2) input', // your_name
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(3) input', // your_email
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(4) input', // company_name
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(6) input', // company_website
-            '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(7) .contentEditableTextbox', // twitter_description
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(8) input', // deck_link
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(9) input', // ceo_linkedin
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(10) input', // cto_linkedin
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(11) input', // founder_video
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(12) input', // date_founded
-            '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(13) .contentEditableTextbox', // vision
             '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(15) input', // capital_raised
-            '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(16) input', // capital_to_raise
+            '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(16) input'  // capital_to_raise
         ];
 
         const inputFields = await Promise.all(inputSelectors.map(selector => page.$(selector)));
@@ -69,34 +68,28 @@ const fillVentures2048 = async (formData) => {
                     value = formData.company_website;
                     break;
                 case 4:
-                    value = formData.company_description;
-                    break;
-                case 5:
                     value = formData.pitch_deck;
                     break;
-                case 6:
+                case 5:
                     value = formData.ceo_linkedin;
                     break;
-                case 7:
+                case 6:
                     value = formData.cto_linkedin;
                     break;
-                case 8:
+                case 7:
                     value = formData.founder_video_url;
                     break;
-                case 9:
+                case 8:
                     value = formData.date_founded;
                     if (value) {
                         const [year, month, day] = value.split('-');
-                        value = `${day}.${month}.${year}`;
+                        value = `${month}.${day}.${year}`;  // Месяц, день, год
                     }
                     break;
-                case 10:
-                    value = formData.vision;
-                    break;
-                case 11:
+                case 9:
                     value = formData.raising_amount;
                     break;
-                case 12:
+                case 10:
                     value = formData.capital_to_raise;
                     break;
             }
@@ -178,18 +171,43 @@ const fillVentures2048 = async (formData) => {
             }
         }
 
-        // await page.screenshot({ path: '2048_ventures_form_before_submission.png', fullPage: true });
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        // await page.screenshot({ path: '2048_ventures_form_after_submission.png', fullPage: true });
+       // Ввод данных в `company_description` и `vision` с помощью focus() и keyboard.type()
+       const companyDescriptionSelector = '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(7) .contentEditableTextbox';
+       const visionSelector = '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(13) .contentEditableTextbox';
+
+       // Устанавливаем фокус на поле `company_description` и вводим текст
+       await page.focus(companyDescriptionSelector);
+       await page.keyboard.type(formData.company_description);
+       await new Promise(resolve => setTimeout(resolve, 500));
+
+       // Устанавливаем фокус на поле `vision` и вводим текст
+       await page.focus(visionSelector);
+       await page.keyboard.type(formData.vision);
+       await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Задержка перед отправкой формы
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        // Нажатие на кнопку отправки формы только после полного заполнения всех полей
+        // const submitButtonSelector = '.formSubmit .submitButton[type="button"]';
+        // await page.click(submitButtonSelector);
+        
+        // Ожидание подтверждающего сообщения после отправки формы
+        await page.waitForFunction(() => {
+            return document.body.innerText.includes('Thank you for submitting');
+        }, { timeout: 10000 });
+
         console.log('2048 Ventures form submitted successfully');
     } catch (error) {
         console.error('Error while filling the form:', error);
+
+        // Снимок экрана для отладки в случае ошибки
+        // await page.screenshot({ path: '2048_ventures_form_error.png', fullPage: true });
+        throw new Error('2048 Ventures form submission failed');
     } finally {
         if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+            await browser.close();
         }
-        page = null;   // Обнуляем страницу
-        browser = null; // Обнуляем ссылку на браузер
     }
 };
 
