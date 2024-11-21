@@ -2897,38 +2897,38 @@ async checkInvestorsBeforeSubmit() {
     return; // Останавливаем дальнейшую отправку
   }
 
-  try {
-    const response = await fetch('http://localhost:3002/form-response/check-investors', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        device_id: localStorage.getItem('device_id'),
-        selected_investors: this.formData.selectedForms,
-        company_name: this.formData.company_name,
-        company_website: this.formData.company_website,
-      }),
-    });
+  // try {
+  //   const response = await fetch('http://localhost:3002/form-response/check-investors', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       device_id: localStorage.getItem('device_id'),
+  //       selected_investors: this.formData.selectedForms,
+  //       company_name: this.formData.company_name,
+  //       company_website: this.formData.company_website,
+  //     }),
+  //   });
 
-    const data = await response.json();
+  //   const data = await response.json();
 
-    if (data.canSubmit) {
-      // Переход к отправке формы
+  //   if (data.canSubmit) {
+  //     // Переход к отправке формы
       this.submitForm();
-    } else {
-      // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
-      if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
-        const investorsList = data.alreadySentInvestors.join(', ');
-        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
-      } else {
-        this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
-      }
-    }
-  } catch (error) {
-    console.error('Error checking investors:', error);
-    this.showErrorMessage('An error occurred while checking investors.');
-  }
+  //   } else {
+  //     // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
+  //     if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
+  //       const investorsList = data.alreadySentInvestors.join(', ');
+  //       this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
+  //     } else {
+  //       this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error('Error checking investors:', error);
+  //   this.showErrorMessage('An error occurred while checking investors.');
+  // }
 },
 
 validateRequiredFields() {
