@@ -838,9 +838,9 @@ const fillhustleFundForm = async (formData) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Нажатие на кнопку "Submit"
-        await page.keyboard.down('Control'); // Нажимаем и удерживаем клавишу Ctrl
-        await page.keyboard.press('Enter');  // Нажимаем клавишу Enter
-        await page.keyboard.up('Control');   // Отпускаем клавишу Ctrl
+        // await page.keyboard.down('Control'); // Нажимаем и удерживаем клавишу Ctrl
+        // await page.keyboard.press('Enter');  // Нажимаем клавишу Enter
+        // await page.keyboard.up('Control');   // Отпускаем клавишу Ctrl
 
         // Ожидание завершения
         await new Promise(resolve => setTimeout(resolve, 1000));
