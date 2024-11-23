@@ -2613,13 +2613,6 @@ export default {
       isReviewModalOpen: false, // Управляет отображением окна обзора
     };
   },
-  watch: {
-    currentStep(newStep) {
-      if (newStep === 51) {
-        this.startAnimation();
-      }
-    }
-  },
   methods: {
     getStepId(stepNumber) {
   const stepIds = {
@@ -2758,8 +2751,12 @@ handleFormSelection(forms) {
     name,
     visible: false,
     status: "preparing form",
+    baseStatus: "preparing form",
     statusClass: "",
-    pulseClass: ""
+    pulseClass: "",
+    attempts: 0,
+    isFinalized: false, // Добавляем флаг
+    dotCount: 0, // Добавляем счетчик точек
   }));
   this.showLoading = true;
   this.showInvestors = true;
@@ -2780,36 +2777,69 @@ showInvestorList() {
 
 startDynamicDots() {
   this.dotInterval = setInterval(() => {
-    this.dynamicDots = this.dynamicDots.length < 3 ? this.dynamicDots + "." : "";
+    this.investorsState.forEach((investor) => {
+      if (!investor.isFinalized) {
+        // Определяем, нужно ли добавлять точки для текущего статуса
+        const statusesWithDots = [
+          'preparing form',
+          'submitting form',
+          'awaiting response',
+          'Retrying to send the form'
+        ];
+
+        if (statusesWithDots.includes(investor.baseStatus)) {
+          // Инициализируем dotCount, если он не определён
+          if (typeof investor.dotCount === 'undefined') {
+            investor.dotCount = 0;
+          }
+          // Увеличиваем dotCount и сбрасываем после 3
+          investor.dotCount = (investor.dotCount % 3) + 1;
+          // Обновляем статус инвестора с нужным количеством точек
+          investor.status = investor.baseStatus + '.'.repeat(investor.dotCount);
+        } else {
+          // Если статус не предполагает точки, устанавливаем статус без точек
+          investor.status = investor.baseStatus;
+        }
+      }
+    });
   }, 500);
 },
 
+
 updateInvestorStatus(investor) {
-  const statuses = ["preparing form", "submitting form", "awaiting response", "received"];
+  const statuses = ["preparing form", "submitting form", "awaiting response"];
   let statusIndex = 0;
 
   const changeStatus = () => {
+    // Проверяем, не завершён ли инвестор
+    if (investor.isFinalized) {
+      // Если инвестор завершён, останавливаем обновление статуса
+      return;
+    }
+
     // Применяем класс fade-out перед сменой статуса
     investor.statusClass = "fade-out";
 
     setTimeout(() => {
-      investor.status = statuses[statusIndex];
-      investor.statusClass = ""; // Убираем класс после смены статуса
-
-      // Пульсация при статусе "sent"
-      if (investor.status === "received") {
-        investor.pulseClass = "pulse";
-        setTimeout(() => (investor.pulseClass = ""), 2000); // Длительность совпадает с анимацией
+      // Проверяем ещё раз перед обновлением статуса
+      if (investor.isFinalized) {
+        return;
       }
 
-      if (statusIndex === statuses.length - 1) {
-        // Последний статус достигнут, проверяем всех инвесторов
-        this.checkAllSent();
-      } else {
+      investor.baseStatus = statuses[statusIndex]; // Обновляем baseStatus
+      investor.dotCount = 0; // Сбрасываем счётчик точек
+      investor.status = investor.baseStatus; // Обновляем статус
+
+      investor.statusClass = ""; // Убираем класс после смены статуса
+
+      if (statusIndex < statuses.length - 1) {
         statusIndex++;
         // Рандомная задержка от 1 до 3 секунд
-        const randomDelay = Math.random() * 3000 + 1000; // От 1000 до 3000 мс
+        const randomDelay = Math.random() * 3000 + 1000; // От 1000 до 4000 мс
         investor.statusTimeout = setTimeout(changeStatus, randomDelay);
+      } else {
+        // После достижения последнего искусственного статуса ждем обновления от бэкенда
+        // Ничего не делаем, ждем сообщение через WebSocket
       }
     }, 500); // Задержка для плавного перехода
   };
@@ -2818,12 +2848,17 @@ updateInvestorStatus(investor) {
   changeStatus();
 },
 
+
 checkAllSent() {
-  if (this.investorsState.every(investor => investor.status === "received")) {
+  if (this.investorsState.every(investor =>
+    investor.status === 'received' ||
+    (investor.status.startsWith('An error occurred') && investor.attempts >= 3)
+  )) {
     clearInterval(this.dotInterval);
-    setTimeout(this.endLoadingAndShowSuccess, 1000);
+    setTimeout(this.endLoadingAndShowSuccess, 4000);
   }
 },
+
     endLoadingAndShowSuccess() {
       this.showLoading = false;
       this.showInvestors = false;
@@ -3649,9 +3684,11 @@ async submitForm() {
     });
 
     if (response.ok) {
+      this.initWebSocket();
       this.currentStep++;
       this.successMessage = 'Form submitted successfully!';
       this.errorMessage = ''; // Очищаем предыдущее сообщение об ошибке
+      this.startAnimation();
     } else {
       this.showErrorMessage('Failed to submit form.');
       this.successMessage = '';
@@ -3668,7 +3705,67 @@ async submitForm() {
   if (event.key === 'Enter') {
     this.nextStep();
   }
-}
+},
+initWebSocket() {
+    // Подключаемся к WebSocket серверу
+    this.socket = new WebSocket(`ws://www.yocto.vc/api/ws`);
+
+    this.socket.onopen = () => {
+      console.log('WebSocket соединение установлено.');
+    };
+
+        // Закрываем соединение через 3 минуты
+        setTimeout(() => {
+      this.socket.close();
+      console.log('WebSocket соединение закрыто после 3 минут.');
+    }, 260000);
+
+    this.socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.handleWebSocketMessage(data);
+    };
+
+    this.socket.onclose = () => {
+      console.log('WebSocket соединение закрыто.');
+    };
+  },
+  handleWebSocketMessage(data) {
+  const investor = this.investorsState.find(
+    (inv) => inv.name === data.investor
+  );
+
+  if (investor) {
+    // Если инвестор уже завершён, не обновляем его статус
+    if (investor.isFinalized) {
+      return;
+    }
+
+    if (data.status === 'received') {
+      investor.status = 'received';
+      investor.baseStatus = 'received';
+      investor.statusClass = 'status-received';
+      investor.pulseClass = 'pulse';
+      investor.isFinalized = true; // Помечаем инвестора как завершённого
+      setTimeout(() => (investor.pulseClass = ''), 2000);
+    } else if (data.status === 'error') {
+      investor.status = 'An error occurred while sending the form';
+      investor.baseStatus = 'An error occurred while sending the form';
+      investor.statusClass = 'status-error';
+      investor.attempts = data.attempt || 1;
+      if (investor.attempts >= 3) {
+        investor.isFinalized = true; // Помечаем после максимальных попыток
+      }
+    } else if (data.status === 'retrying') {
+      investor.status = 'Retrying to send the form';
+      investor.baseStatus = 'Retrying to send the form';
+      investor.statusClass = 'status-retrying';
+      investor.dotCount = 0; // Сбрасываем счётчик точек
+    }
+
+    this.checkAllSent();
+  }
+},
+
   },
   mounted() {
   console.log('Компонент смонтирован. Проверка наличия device_id.');
@@ -4392,6 +4489,15 @@ button:focus {
   display: inline-block;
   transition: opacity 0.5s ease;
 }
+
+.status-error {
+  color: red;
+}
+
+.status-retrying {
+  color: orange;
+}
+
 
 .status-text.fade-out {
   opacity: 0;

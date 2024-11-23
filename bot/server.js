@@ -1,4 +1,4 @@
-const app = require('./src/app');
+const {app, server} = require('./src/app');
 const { AppDataSource } = require('./src/config/data-source'); // Импорт DataSource
 
 const PORT = process.env.PORT || 3002;
@@ -9,7 +9,7 @@ AppDataSource.initialize()
     console.log('Data Source has been initialized!');
 
     // Запуск сервера
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });
   })
