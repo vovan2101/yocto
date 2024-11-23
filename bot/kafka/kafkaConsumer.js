@@ -29,15 +29,11 @@ const kafka = require('kafka-node');
             { topic: 'hustle-fund-form', partition: 0 },
             { topic: 'liberty-ventures-form', partition: 0 },
             { topic: 'spatial-capital-form', partition: 0 },
-            // Добавьте дополнительные топики, если нужно
-            // { topic: 'another-topic', partition: 0 },
         ],
         { autoCommit: true }
     );
 
     const queue = new PQueue({ concurrency: 5 }); // Устанавливаем одновременную обработку до 5 задач
-
-    const MAX_RETRIES = 3; // Максимальное количество попыток
 
     consumer.on('message', (message) => {
         console.log('Raw message received:', message);
@@ -53,49 +49,36 @@ const kafka = require('kafka-node');
 
         if (formData) {
             queue.add(async () => {
-                let success = false;
-                let attempt = 0;
-
-                while (!success && attempt < MAX_RETRIES) {
-                    attempt++;
-                    try {
-                        if (message.topic === 'precursorvc-form') {
-                            await precursorvcForm(formData);
-                        } else if (message.topic === 'pathvc-form') {
-                            await pathvcForm(formData);
-                        } else if (message.topic === 'boost-vc-form') {
-                            await boostVcForm(formData);
-                        } else if (message.topic === 'ventures-2048') {
-                            await ventures2048(formData);
-                        } else if (message.topic === 'everywhere-vc-form') {
-                            await everywhereVcForm(formData);
-                        } else if (message.topic === 'wischoff-form') {
-                            await wischoffForm(formData);
-                        } else if (message.topic === 'incisive-ventures-form') {
-                            await incisiveVenturesForm(formData);
-                        } else if (message.topic === 'hustle-fund-form') {
-                            await hustleFundForm(formData);
-                        } else if (message.topic === 'liberty-ventures-form') {
-                            await libertyVenturesForm(formData);
-                        } else if (message.topic === 'spatial-capital-form') {
-                            await spatialCapitalForm(formData);
-                        } else {
-                            console.error(`Unknown topic: ${message.topic}`);
-                            break; // Прерываем попытки, если топик неизвестен
-                        }
-
-                        success = true; // Успешное выполнение
-                    } catch (error) {
-                        console.error(`Error filling form for topic ${message.topic}, attempt ${attempt}:`, error);
-                        if (attempt < MAX_RETRIES) {
-                            // Добавляем задержку перед повторной попыткой
-                            const delay = attempt * 1000; // Задержка увеличивается с каждой попыткой
-                            console.log(`Retrying in ${delay / 1000} seconds...`);
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                        } else {
-                            console.error(`Max retries reached for topic ${message.topic}`);
-                        }
+                try {
+                    if (message.topic === 'precursorvc-form') {
+                        await precursorvcForm(formData);
+                    } else if (message.topic === 'pathvc-form') {
+                        await pathvcForm(formData);
+                    } else if (message.topic === 'boost-vc-form') {
+                        await boostVcForm(formData);
+                    } else if (message.topic === 'ventures-2048') {
+                        await ventures2048(formData);
+                    } else if (message.topic === 'everywhere-vc-form') {
+                        await everywhereVcForm(formData);
+                    } else if (message.topic === 'wischoff-form') {
+                        await wischoffForm(formData);
+                    } else if (message.topic === 'incisive-ventures-form') {
+                        await incisiveVenturesForm(formData);
+                    } else if (message.topic === 'hustle-fund-form') {
+                        await hustleFundForm(formData);
+                    } else if (message.topic === 'liberty-ventures-form') {
+                        await libertyVenturesForm(formData);
+                    } else if (message.topic === 'spatial-capital-form') {
+                        await spatialCapitalForm(formData);
+                    } else {
+                        console.error(`Unknown topic: ${message.topic}`);
+                        return; // Выходим из функции, если топик неизвестен
                     }
+
+                    // Успешное выполнение
+                } catch (error) {
+                    console.error(`Error filling form for topic ${message.topic}:`, error);
+                    // Повторные попытки теперь обрабатываются внутри функций форм
                 }
             }).catch(error => {
                 console.error('Error adding task to queue:', error);
