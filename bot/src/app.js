@@ -24,7 +24,7 @@ const wss = new WebSocket.Server({ noServer: true });
 server.on('upgrade', (request, socket, head) => {
   const pathname = request.url;
 
-  if (pathname === '/api/send-form/ws') {
+  if (pathname === '/ws') {
     wss.handleUpgrade(request, socket, head, (ws) => {
       wss.emit('connection', ws, request);
     });
