@@ -3722,7 +3722,7 @@ async submitForm() {
 },
 initWebSocket() {
     // Подключаемся к WebSocket серверу
-    this.socket = new WebSocket(`ws://test.yocto.vc/ws`);
+    this.socket = new WebSocket(`ws://test.yocto.vc/api/ws`);
 
     this.socket.onopen = () => {
       console.log('WebSocket соединение установлено.');
