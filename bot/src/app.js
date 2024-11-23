@@ -8,11 +8,52 @@ const nodemailer = require('nodemailer');
 const formatFormData = require('./utils/formatFormData');
 const dotenv = require('dotenv');
 const { AppDataSource} = require('./config/data-source'); // Импортируем DataSource
+const WebSocket = require('ws');
+const http = require('http'); // Добавляем этот импорт
 
 dotenv.config(); // Загружаем переменные окружения из .env
 
 const app = express();
 const upload = multer({ dest: 'uploads/' });
+
+// Создаем HTTP сервер для работы с WebSocket
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ noServer: true });
+
+// Обработка апгрейда соединения для WebSocket на пути /ws
+server.on('upgrade', (request, socket, head) => {
+  const pathname = request.url;
+
+  if (pathname === '/ws') {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      wss.emit('connection', ws, request);
+    });
+  } else {
+    socket.destroy();
+  }
+});
+
+// Настройка WebSocket сервера
+wss.on('connection', (ws) => {
+  console.log('Клиент подключился к WebSocket серверу.');
+
+  ws.on('message', (message) => {
+    console.log(`Получено сообщение от клиента: ${message}`);
+  });
+
+  ws.on('close', () => {
+    console.log('Клиент отключился от WebSocket сервера.');
+  });
+});
+
+// Функция для отправки сообщений всем подключенным клиентам
+function broadcast(data) {
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+}
 
 // Настройка CORS для локальной разработки
 const corsOptions = {
@@ -118,4 +159,4 @@ app.post('/send-email', (req, res) => {
 
 
 // Экспортируем приложение
-module.exports = app;
+module.exports = { broadcast, app, server};
