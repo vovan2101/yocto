@@ -2895,7 +2895,8 @@ checkAllSent() {
       }
     },
 
-  async saveField(fieldName, fieldValue) {
+      // Метод для сохранения текущего поля формы
+      async saveField(fieldName, fieldValue) {
   const formData = {
     device_id: localStorage.getItem('device_id'), // Используем только device_id
     [fieldName]: fieldValue, // Сохраняем только указанное поле
@@ -2904,7 +2905,7 @@ checkAllSent() {
   console.log('Сохранение поля формы:', { fieldName, fieldValue, formData });
 
   try {
-    const response = await fetch('http://test.yocto.vc/api/form-response', {
+    const response = await fetch('http://localhost:3002/form-response', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -2931,38 +2932,38 @@ async checkInvestorsBeforeSubmit() {
     return; // Останавливаем дальнейшую отправку
   }
 
-  try {
-    const response = await fetch('http://test.yocto.vc/api/form-response/check-investors', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        device_id: localStorage.getItem('device_id'),
-        selected_investors: this.formData.selectedForms,
-        company_name: this.formData.company_name,
-        company_website: this.formData.company_website,
-      }),
-    });
+  // try {
+  //   const response = await fetch('http://localhost:3002/form-response/check-investors', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       device_id: localStorage.getItem('device_id'),
+  //       selected_investors: this.formData.selectedForms,
+  //       company_name: this.formData.company_name,
+  //       company_website: this.formData.company_website,
+  //     }),
+  //   });
 
-    const data = await response.json();
+  //   const data = await response.json();
 
-    if (data.canSubmit) {
-      // Переход к отправке формы
+  //   if (data.canSubmit) {
+  //     // Переход к отправке формы
       this.submitForm();
-    } else {
-      // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
-      if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
-        const investorsList = data.alreadySentInvestors.join(', ');
-        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
-      } else {
-        this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
-      }
-    }
-  } catch (error) {
-    console.error('Error checking investors:', error);
-    this.showErrorMessage('An error occurred while checking investors.');
-  }
+  //   } else {
+  //     // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
+  //     if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
+  //       const investorsList = data.alreadySentInvestors.join(', ');
+  //       this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
+  //     } else {
+  //       this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error('Error checking investors:', error);
+  //   this.showErrorMessage('An error occurred while checking investors.');
+  // }
 },
 
 validateRequiredFields() {
@@ -3493,7 +3494,6 @@ if (this.currentStep === 2) {
     await this.saveField('value_of_team', this.formData.value_of_team);
   }
 
-
   if (warnings.length > 0) {
     if (!this.warningDisplayed) {
       this.displayWarning(warnings.join('\n'));
@@ -3584,7 +3584,7 @@ generateUUID() {
   }
 
   try {
-    const response = await fetch(`http://test.yocto.vc/api/form-response/device/${device_id}`, {
+    const response = await fetch(`http://localhost:3002/form-response/device/${device_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -3692,9 +3692,9 @@ async submitForm() {
       }
     }
 
-        const response = await fetch('http://test.yocto.vc/api/send-forms', {
-          method: 'POST',
-          body: formData
+    const response = await fetch('http://localhost:3002/send-forms', {
+      method: 'POST',
+      body: formData,
     });
 
     if (response.ok) {
@@ -3722,7 +3722,8 @@ async submitForm() {
 },
 initWebSocket() {
     // Подключаемся к WebSocket серверу
-    this.socket = new WebSocket(`ws://test.yocto.vc/ws`);
+    this.socket = new WebSocket('ws://localhost:3002/ws');
+
 
     this.socket.onopen = () => {
       console.log('WebSocket соединение установлено.');
