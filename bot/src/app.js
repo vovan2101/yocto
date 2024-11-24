@@ -57,7 +57,7 @@ function broadcast(data) {
 
 // Настройка CORS для локальной разработки
 const corsOptions = {
-  origin: 'http://test.yocto.vc',
+  origin: 'http://localhost:3001',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Origin', 'Content-Type', 'Accept'],
   optionsSuccessStatus: 200
