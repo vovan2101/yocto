@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
+const { broadcast } = require('../src/app'); // Убедитесь, что путь корректен
 
 const fillhustleFundForm = async (formData) => {
     if (!formData) {
@@ -7,25 +8,41 @@ const fillhustleFundForm = async (formData) => {
         return;
     }
 
-    console.log('Filling Hustle Fund form with data:', formData);
-
+    const MAX_ATTEMPTS = 3;
+    let attempt = 0;
+    let success = false;
     let browser;
     let page;
 
-    try {
-        browser = await puppeteer.launch({
-            headless: true,
-            args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            executablePath: '/usr/bin/google-chrome-stable'
-        });
+    while (!success && attempt < MAX_ATTEMPTS) {
+        attempt++;
 
-        page = await browser.newPage();
-        await page.setViewport({
-            width: 1920,
-            height: 1080,
-            deviceScaleFactor: 1,
-        });
-        await page.goto('https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc', { waitUntil: 'networkidle2' });
+        if (attempt > 1) {
+            // Отправляем сообщение о повторной попытке
+            broadcast({
+                investor: 'Hustle Fund',
+                status: 'retrying',
+                attempt: attempt,
+            });
+        }
+
+        try {
+            console.log(`Filling Hustle Fund form with data (Attempt ${attempt}):`, formData);
+
+            browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                executablePath: '/usr/bin/google-chrome-stable'
+            });
+
+            page = await browser.newPage();
+            await page.setViewport({
+                width: 1920,
+                height: 1080,
+                deviceScaleFactor: 1,
+            });
+            await page.goto('https://hustlefund.typeform.com/to/UGTnIt?typeform-source=www.hustlefund.vc', { waitUntil: 'networkidle2' });
+
 
         // Нажатие на кнопку "Let's go!"
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -838,24 +855,44 @@ const fillhustleFundForm = async (formData) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Нажатие на кнопку "Submit"
-        // await page.keyboard.down('Control'); // Нажимаем и удерживаем клавишу Ctrl
-        // await page.keyboard.press('Enter');  // Нажимаем клавишу Enter
-        // await page.keyboard.up('Control');   // Отпускаем клавишу Ctrl
+        await page.keyboard.down('Control'); // Нажимаем и удерживаем клавишу Ctrl
+        await page.keyboard.press('Enter');  // Нажимаем клавишу Enter
+        await page.keyboard.up('Control');   // Отпускаем клавишу Ctrl
 
-        // Ожидание завершения
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log('Hustle Fund form submitted successfully');
+            // Ожидание завершения
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log('Hustle Fund form submitted successfully');
 
-    } catch (error) {
-        console.error('Error while filling the form:', error);
-    } finally {
-        if (browser) {
-            await browser.close(); // Закрытие браузера в любом случае
+            broadcast({
+                investor: 'Hustle Fund',
+                status: 'received',
+            });
+            success = true;
+        } catch (error) {
+            console.error(`Ошибка при заполнении формы на попытке ${attempt}:`, error.message);
+
+            broadcast({
+                investor: 'Hustle Fund',
+                status: 'error',
+                message: 'An error occurred while sending the form',
+                attempt: attempt,
+            });
+
+            if (attempt >= MAX_ATTEMPTS) {
+                console.error('Достигнуто максимальное количество попыток.');
+            } else {
+                const delay = attempt * 1000;
+                console.log(`Повторная попытка через ${delay / 1000} секунд...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        } finally {
+            if (browser) {
+                await browser.close();
+            }
+            page = null;
+            browser = null;
         }
-        page = null;   // Обнуляем страницу
-        browser = null; // Обнуляем ссылку на браузер
     }
 };
 
 module.exports = fillhustleFundForm;
-
