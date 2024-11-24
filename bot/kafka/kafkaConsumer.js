@@ -50,8 +50,14 @@ const kafka = require('kafka-node');
         if (formData) {
             queue.add(async () => {
                 try {
-                    if (message.topic === 'precursorvc-form') {
+                    if (message.topic === 'wischoff-form') {
                         await precursorvcForm(formData);
+                    } else if (message.topic === 'hustle-fund-form') {
+                        await hustleFundForm(formData);
+                    } else if (message.topic === 'incisive-ventures-form') {
+                        await incisiveVenturesForm(formData);
+                    } else if (message.topic === 'liberty-ventures-form') {
+                        await spatialCapitalForm(formData);
                     } else if (message.topic === 'pathvc-form') {
                         await pathvcForm(formData);
                     } else if (message.topic === 'boost-vc-form') {
@@ -60,16 +66,10 @@ const kafka = require('kafka-node');
                         await ventures2048(formData);
                     } else if (message.topic === 'everywhere-vc-form') {
                         await everywhereVcForm(formData);
-                    } else if (message.topic === 'wischoff-form') {
+                    } else if (message.topic === 'precursorvc-form') {
                         await wischoffForm(formData);
-                    } else if (message.topic === 'incisive-ventures-form') {
-                        await incisiveVenturesForm(formData);
-                    } else if (message.topic === 'hustle-fund-form') {
-                        await hustleFundForm(formData);
-                    } else if (message.topic === 'liberty-ventures-form') {
-                        await libertyVenturesForm(formData);
                     } else if (message.topic === 'spatial-capital-form') {
-                        await spatialCapitalForm(formData);
+                        await libertyVenturesForm(formData);
                     } else {
                         console.error(`Unknown topic: ${message.topic}`);
                         return; // Выходим из функции, если топик неизвестен
