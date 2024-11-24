@@ -298,10 +298,10 @@ const fillIncisiveVenturesForm = async (formData) => {
             const submitButtonSelector = '.formSubmit .submitButton';
             const currentUrl = page.url(); // Сохраняем текущий URL
 
-            await Promise.all([
-                page.click(submitButtonSelector),
-                page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 15000 }),
-            ]);
+            // await Promise.all([
+            //     page.click(submitButtonSelector),
+            //     page.waitForNavigation({ waitUntil: 'networkidle2', timeout: 15000 }),
+            // ]);
 
             const newUrl = page.url(); // Получаем новый URL после навигации
 

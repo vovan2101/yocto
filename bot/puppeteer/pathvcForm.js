@@ -73,7 +73,7 @@ const fillPathvcForm = async (formData) => {
             await page.type('input[name="Pitch-Deck-URL"]', formData.pitch_deck);
 
             // Отправка формы
-            await page.click('input[type="submit"]');
+            // await page.click('input[type="submit"]');
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Ожидание скрытия формы и появления сообщения об успехе
