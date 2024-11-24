@@ -162,11 +162,11 @@ const fillSpatialCapitalForm = async (formData) => {
             await page.keyboard.press('Enter');
 
             // Нажатие на кнопку "Submit"
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            const submitButtonSelector = 'button[data-qa="submit-button deep-purple-submit-button"]';
-            await frame.waitForSelector(submitButtonSelector);
-            const submitButton = await frame.$(submitButtonSelector);
-            await submitButton.click();
+            // await new Promise(resolve => setTimeout(resolve, 2000));
+            // const submitButtonSelector = 'button[data-qa="submit-button deep-purple-submit-button"]';
+            // await frame.waitForSelector(submitButtonSelector);
+            // const submitButton = await frame.$(submitButtonSelector);
+            // await submitButton.click();
 
             try {
                 await frame.waitForFunction(() => {

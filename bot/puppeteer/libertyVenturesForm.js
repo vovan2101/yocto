@@ -70,7 +70,7 @@ const fillLibertyVenturesForm = async (formData) => {
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Нажимаем кнопку Submit
-            await page.click('button[type="submit"]');
+            // await page.click('button[type="submit"]');
 
             // Ожидание появления подтверждающего сообщения после отправки формы
             try {

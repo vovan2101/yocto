@@ -207,7 +207,7 @@ const fillWischoffForm = async (formData) => {
             }, {}, submitButtonSelector);
 
             // Теперь можно безопасно нажать на кнопку отправки
-            await page.click(submitButtonSelector);
+            // await page.click(submitButtonSelector);
 
             // Ожидание появления текста после отправки формы
             try {
