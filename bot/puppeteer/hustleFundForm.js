@@ -45,33 +45,33 @@ const fillhustleFundForm = async (formData) => {
 
 
         // Нажатие на кнопку "Let's go!"
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.click('.ButtonWrapper-sc-__sc-1qu8p4z-0.kHbkoT');
 
         // Нажатие на кнопку "Continue"
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.click('.ButtonWrapper-sc-__sc-1qu8p4z-0.jOFcNH');
 
         // Заполнение первого текстового поля
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.type('input[type="text"][placeholder="Type your answer here..."]', `${formData.first_name} ${formData.last_name}`);
         await page.keyboard.press('Enter');
         
         // Заполнение поля Email
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.type('input[type="email"][placeholder="name@example.com"]', formData.email);
         await page.keyboard.press('Enter');
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.type('input[type="url"][placeholder="https://"]', formData.ceo_linkedin);
         await page.keyboard.press('Enter');
 
         // Заполнение текстового поля
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.type('input[type="text"][placeholder="Type your answer here..."]', formData.company_name);
         await page.keyboard.press('Enter');
 
         // Выбор радиокнопки ("Yes")
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.click('div[data-value-string="436ea0f1-7dd8-49c4-8d2a-fe23f9aa4275-yes"]');
 
             // Выбор радиокнопки для "Where is your business incorporated?"
@@ -124,7 +124,7 @@ const fillhustleFundForm = async (formData) => {
         
         } else if (formData.customers_based === 'Other') {
             // Если выбран 'Other', кликаем по полю, затем вводим значение и нажимаем Enter
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await page.keyboard.press('m');
             await new Promise(resolve => setTimeout(resolve, 1000));
             await page.keyboard.type(formData.other_customers_based);
@@ -177,7 +177,7 @@ const fillhustleFundForm = async (formData) => {
             }
         }
         
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Выбор радиокнопки для "Are you working full time?"
         if (formData.working_full_time === 'Yes') {
@@ -186,7 +186,7 @@ const fillhustleFundForm = async (formData) => {
             await yesRadio.click();
         
             // Ожидание загрузки следующего вопроса
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 1000));
         
             // Клик на выбранный вариант для "How long have you been working on this full-time?"
             const durationSelector = `li[aria-label="${formData.full_time_duration}"] div[role="radio"]`;
@@ -813,15 +813,15 @@ const fillhustleFundForm = async (formData) => {
         await page.keyboard.press('Enter');
 
         // Добавляем паузу перед нажатием Enter
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
 
 
         // Выбор значения "Research/Search - Google, etc"
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('h');
 
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
 
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -842,11 +842,11 @@ const fillhustleFundForm = async (formData) => {
             // Нажимаем кнопку 'b'
             await page.keyboard.press('b');
         }
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
     
     // Заполнение второго поля
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
         await new Promise(resolve => setTimeout(resolve, 1000));
 
