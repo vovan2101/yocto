@@ -33,7 +33,7 @@ const kafka = require('kafka-node');
         { autoCommit: true }
     );
 
-    const queue = new PQueue({ concurrency: 5 }); // Устанавливаем одновременную обработку до 5 задач
+    const queue = new PQueue({ concurrency: 3 }); // Устанавливаем одновременную обработку до 5 задач
 
     consumer.on('message', (message) => {
         console.log('Raw message received:', message);
@@ -50,7 +50,7 @@ const kafka = require('kafka-node');
         if (formData) {
             queue.add(async () => {
                 try {
-                    if (message.topic === 'wischoff-form') {
+                    if (message.topic === 'spatial-capital-form') {
                         await precursorvcForm(formData);
                     } else if (message.topic === 'hustle-fund-form') {
                         await hustleFundForm(formData);
@@ -58,7 +58,7 @@ const kafka = require('kafka-node');
                         await incisiveVenturesForm(formData);
                     } else if (message.topic === 'liberty-ventures-form') {
                         await spatialCapitalForm(formData);
-                    } else if (message.topic === 'pathvc-form') {
+                    } else if (message.topic === 'wischoff-form') {
                         await pathvcForm(formData);
                     } else if (message.topic === 'boost-vc-form') {
                         await boostVcForm(formData);
@@ -68,7 +68,7 @@ const kafka = require('kafka-node');
                         await everywhereVcForm(formData);
                     } else if (message.topic === 'precursorvc-form') {
                         await wischoffForm(formData);
-                    } else if (message.topic === 'spatial-capital-form') {
+                    } else if (message.topic === 'pathvc-form') {
                         await libertyVenturesForm(formData);
                     } else {
                         console.error(`Unknown topic: ${message.topic}`);
