@@ -117,13 +117,13 @@ const fillIncisiveVenturesForm = async (formData) => {
                 '.sharedFormField:nth-of-type(22) .ql-editor',              // Investors participating
                 '.sharedFormField:nth-of-type(25) .contentEditableTextbox'  // Anything else you want us to know
             ];
-
+            
             const contentEditableFields = await Promise.all(contentEditableSelectors.map(selector => page.$(selector)));
-
+            
             for (let i = 0; i < contentEditableFields.length; i++) {
                 const field = contentEditableFields[i];
                 let value;
-
+            
                 switch (i) {
                     case 0:
                         value = formData.pitch_description;
@@ -141,12 +141,20 @@ const fillIncisiveVenturesForm = async (formData) => {
                         value = formData.want_us_to_know;
                         break;
                 }
-
+            
                 if (field && value) {
                     await field.click();
-                    await field.type(value);
+                    // Очистка поля перед вводом
+                    await page.keyboard.down('Control');
+                    await page.keyboard.press('A');
+                    await page.keyboard.up('Control');
+                    await page.keyboard.press('Backspace');
+            
+                    // Ввод текста
+                    await field.type(value, { delay: 100 });
                 }
             }
+            
 
             // Выпадающие списки
             const dropdownSelectors = [

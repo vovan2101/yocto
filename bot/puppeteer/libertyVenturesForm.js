@@ -73,10 +73,11 @@ const fillLibertyVenturesForm = async (formData) => {
             await page.click('button[type="submit"]');
 
             // Ожидание появления подтверждающего сообщения после отправки формы
+            await new Promise(resolve => setTimeout(resolve, 1000));
             try {
                 await page.waitForFunction(() => {
                     return document.body.innerText.includes('Thanks for submitting the form.');
-                }, { timeout: 10000 });
+                }, { timeout: 5000 });
 
                 console.log('Liberty Ventures form submitted successfully');
                 broadcast({

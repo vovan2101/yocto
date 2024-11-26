@@ -3079,9 +3079,13 @@ closeWarningMessage() {
         }
     },
     prepareProductData() {
-        // Формируем строку из выбранных значений перед отправкой на сервер
-        this.formData.productString = this.formData.product.join('; ');
-    },
+    // Формируем строку из выбранных значений перед отправкой на сервер
+    this.formData.productString = this.formData.product.map(item => {
+        // Заменяем запятые на точку с запятой только вне скобок
+        return item.replace(/, (?=(?:[^()]*\([^()]*\))*[^()]*$)/g, '; ');
+    }).join('; ');
+},
+
     prepareBusinessModelData() {
         this.formData.businessModelString = this.formData.business_model.join('; ');
     },
