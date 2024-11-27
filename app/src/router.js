@@ -16,7 +16,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '*',
+      path: '/',
       name: 'ComingSoon',
       component: ComingSoon, // Отображаем только этот компонент для всех маршрутов
     },
@@ -30,11 +30,11 @@ export default new Router({
     //   name: 'FindInvestors',
     //   component: FindInvestors
     // },
-    // {
-    //   path: '/send-form',
-    //   name: 'sendForm',
-    //   component: sendForm,
-    // },
+    {
+      path: '/send-form',
+      name: 'sendForm',
+      component: sendForm,
+    },
     // {
     //   path: '/about',
     //   name: 'about',
