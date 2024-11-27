@@ -3192,29 +3192,30 @@ closeWarningMessage() {
   }
 
 // Сохраняем данные текущего шага перед переходом на следующий шаг
+// Сохраняем данные текущего шага перед переходом на следующий шаг
 if (this.currentStep === 2) {
     // Проверяем, заполнены ли оба поля first_name и last_name
     if ((!this.formData.first_name || !this.formData.last_name) && 
         (this.isFieldRequired('first_name') || this.isFieldRequired('last_name'))) {
-      warnings.push('Full name is required by indicated investors.');
+      warnings.push('Full name is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('first_name', this.formData.first_name);
     await this.saveField('last_name', this.formData.last_name);
   } else if (this.currentStep === 3) {
     if (!this.formData.email && this.isFieldRequired('email')) {
-      warnings.push('Email is required by indicated investors.');
+      warnings.push('Email is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     } else if (!this.validateEmail(this.formData.email)) {
       warnings.push('Please enter a valid email address.');
     }
     await this.saveField('email', this.formData.email);
   } else if (this.currentStep === 4) {
     if (!this.formData.phone_number && this.isFieldRequired('phone_number')) {
-      warnings.push('Phone number is required by indicated investors.');
+      warnings.push('Phone number is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('phone_number', this.formData.phone_number);
   } else if (this.currentStep === 5) {
     if (!this.formData.specific_location && this.isFieldRequired('specific_location')) {
-      warnings.push('Specific location is required by indicated investors.');
+      warnings.push('Specific location is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('specific_location', this.formData.specific_location);
     if (this.formData.specific_location === 'Other') {
@@ -3222,17 +3223,17 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 6) {
     if (!this.formData.company_name && this.isFieldRequired('company_name')) {
-      warnings.push('Company name is required by indicated investors.');
+      warnings.push('Company name is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('company_name', this.formData.company_name);
   } else if (this.currentStep === 7) {
     if (!this.formData.date_founded && this.isFieldRequired('date_founded')) {
-      warnings.push('Date founded is required by indicated investors.');
+      warnings.push('Date founded is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('date_founded', this.formData.date_founded);
   } else if (this.currentStep === 8) {
     if (!this.formData.relationship && this.isFieldRequired('relationship')) {
-      warnings.push('Relationship to company is required by indicated investors.');
+      warnings.push('Relationship to company is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('relationship', this.formData.relationship);
     if (this.formData.relationship === 'Other') {
@@ -3240,7 +3241,7 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 9) {
     if (!this.formData.working_full_time && this.isFieldRequired('working_full_time')) {
-      warnings.push('Working full time status is required by indicated investors.');
+      warnings.push('Working full time status is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('working_full_time', this.formData.working_full_time);
     if (this.formData.working_full_time === 'Yes') {
@@ -3248,32 +3249,32 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 10) {
     if (!this.formData.one_line_description && this.isFieldRequired('one_line_description')) {
-      warnings.push('One-line description is required by indicated investors.');
+      warnings.push('One-line description is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('one_line_description', this.formData.one_line_description);
   } else if (this.currentStep === 11) {
     if (!this.formData.company_description && this.isFieldRequired('company_description')) {
-      warnings.push('Company description is required by indicated investors.');
+      warnings.push('Company description is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('company_description', this.formData.company_description);
   } else if (this.currentStep === 12) {
     if (!this.formData.company_solution && this.isFieldRequired('company_solution')) {
-      warnings.push('Company solution is required by indicated investors.');
+      warnings.push('Company solution is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('company_solution', this.formData.company_solution);
   } else if (this.currentStep === 13) {
     if (!this.formData.pitch_description && this.isFieldRequired('pitch_description')) {
-      warnings.push('Pitch description is required by indicated investors.');
+      warnings.push('Pitch description is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('pitch_description', this.formData.pitch_description);
   } else if (this.currentStep === 14) {
     if (!this.formData.target_customer && this.isFieldRequired('target_customer')) {
-      warnings.push('Target customer information is required by indicated investors.');
+      warnings.push('Target customer information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('target_customer', this.formData.target_customer);
   } else if (this.currentStep === 15) {
     if (Array.isArray(this.formData.customer_acquisition) && this.formData.customer_acquisition.length === 0 && this.isFieldRequired('customer_acquisition')) {
-      warnings.push('Customer acquisition details are required by indicated investors.');
+      warnings.push('Customer acquisition details are required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     this.prepareCustomerAcquisitionData();
     await this.saveField('customer_acquisition', this.formData.customer_acquisition);
@@ -3282,7 +3283,7 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 16) {
     if (Array.isArray(this.formData.product) && this.formData.product.length === 0 && this.isFieldRequired('product')) {
-      warnings.push('Product information is required by indicated investors.');
+      warnings.push('Product information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     this.prepareProductData();
     await this.saveField('product', this.formData.product);
@@ -3291,12 +3292,12 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 17) {
     if (!this.formData.product_status && this.isFieldRequired('product_status')) {
-      warnings.push('Product status is required by indicated investors.');
+      warnings.push('Product status is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('product_status', this.formData.product_status);
   } else if (this.currentStep === 18) {
     if (!this.formData.active_customers && this.isFieldRequired('active_customers')) {
-      warnings.push('Active customer information is required by indicated investors.');
+      warnings.push('Active customer information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('active_customers', this.formData.active_customers);
     if (this.formData.active_customers === 'No') {
@@ -3306,12 +3307,12 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 19) {
     if (!this.formData.how_many_users && this.isFieldRequired('how_many_users')) {
-      warnings.push('Number of users is required by indicated investors.');
+      warnings.push('Number of users is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('how_many_users', this.formData.how_many_users);
   } else if (this.currentStep === 20) {
     if (Array.isArray(this.formData.business_model) && this.formData.business_model.length === 0 && this.isFieldRequired('business_model')) {
-      warnings.push('Business model is required by indicated investors.');
+      warnings.push('Business model is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     this.prepareBusinessModelData();
     await this.saveField('business_model', this.formData.business_model);
@@ -3320,7 +3321,7 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 21) {
     if (!this.formData.customers_based && this.isFieldRequired('customers_based')) {
-      warnings.push('Customers based information is required by indicated investors.');
+      warnings.push('Customers based information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('customers_based', this.formData.customers_based);
     if (this.formData.customers_based === 'Other') {
@@ -3328,19 +3329,19 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 22) {
     if (!this.formData.vision && this.isFieldRequired('vision')) {
-      warnings.push('Vision is required by indicated investors.');
+      warnings.push('Vision is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('vision', this.formData.vision);
   } else if (this.currentStep === 23) {
       if (!this.formData.company_website && this.isFieldRequired('company_website')) {
-        warnings.push('Company website is required by indicated investors.');
+        warnings.push('Company website is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.company_website && !this.validateURL(this.formData.company_website)) {
         warnings.push('Please enter a valid company website URL.');
       }
       await this.saveField('company_website', this.formData.company_website);
   } else if (this.currentStep === 24) {
     if (Array.isArray(this.formData.industry) && this.formData.industry.length === 0 && this.isFieldRequired('industry')) {
-      warnings.push('Industry information is required by indicated investors.');
+      warnings.push('Industry information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     this.prepareIndustryData();
     await this.saveField('industry', this.formData.industry);
@@ -3349,22 +3350,22 @@ if (this.currentStep === 2) {
     }
 } { if (this.currentStep === 25) {
     if (!this.formData.liberty_ventures_industry && this.isFieldRequired('liberty_ventures_industry')) {
-      warnings.push('Liberty Ventures industry is required by indicated investors.');
+      warnings.push('Liberty Ventures industry is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('liberty_ventures_industry', this.formData.liberty_ventures_industry);
   } else if (this.currentStep === 26) {
     if (!this.formData.headquartered && this.isFieldRequired('headquartered')) {
-      warnings.push('Business Incorporation information is required by indicated investors.');
+      warnings.push('Business Incorporation information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('headquartered', this.formData.headquartered);
   } else if (this.currentStep === 27) {
     if (!this.formData.headquartered_precursor && this.isFieldRequired('headquartered_precursor')) {
-      warnings.push('Headquartered information is required by indicated investors.');
+      warnings.push('Headquartered information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('headquartered_precursor', this.formData.headquartered_precursor);
   } else if (this.currentStep === 28) {
     if (!this.formData.legal_structure && this.isFieldRequired('legal_structure')) {
-      warnings.push('Legal structure is required by indicated investors.');
+      warnings.push('Legal structure is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('legal_structure', this.formData.legal_structure);
     if (this.formData.legal_structure === 'Other') {
@@ -3372,19 +3373,19 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 29) {
       if (!this.formData.pitch_deck && this.isFieldRequired('pitch_deck')) {
-        warnings.push('Pitch deck is required by indicated investors.');
+        warnings.push('Pitch deck is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.pitch_deck && !this.validateURL(this.formData.pitch_deck)) {
         warnings.push('Please enter a valid pitch deck URL.');
       }
       await this.saveField('pitch_deck', this.formData.pitch_deck);
   } else if (this.currentStep === 30) {
     if (!this.formData.pitch_deck_file && this.isFieldRequired('pitch_deck_file')) {
-      warnings.push('Pitch deck file is required by indicated investors.');
+      warnings.push('Pitch deck file is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('pitch_deck_file', this.formData.pitch_deck_file);
   } else if (this.currentStep === 31) {
     if (!this.formData.raising_round && this.isFieldRequired('raising_round')) {
-      warnings.push('Raising round information is required by indicated investors.');
+      warnings.push('Raising round information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('raising_round', this.formData.raising_round);
     if (this.formData.raising_round === 'Beyond Series A') {
@@ -3392,17 +3393,17 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 32) {
     if (!this.formData.raising_amount && this.isFieldRequired('raising_amount')) {
-      warnings.push('Raising amount is required by indicated investors.');
+      warnings.push('Raising amount is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('raising_amount', this.formData.raising_amount);
   } else if (this.currentStep === 33) {
     if (!this.formData.capital_to_raise && this.isFieldRequired('capital_to_raise')) {
-      warnings.push('Capital to raise is required by indicated investors.');
+      warnings.push('Capital to raise is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('capital_to_raise', this.formData.capital_to_raise);
   } else if (this.currentStep === 34) {
     if (!this.formData.earning_revenue && this.isFieldRequired('earning_revenue')) {
-      warnings.push('Earning revenue status is required by indicated investors.');
+      warnings.push('Earning revenue status is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('earning_revenue', this.formData.earning_revenue);
     if (this.formData.earning_revenue === 'No') {
@@ -3414,12 +3415,12 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 35) {
     if (!this.formData.earning_amount && this.isFieldRequired('earning_amount')) {
-      warnings.push('Earning amount is required by indicated investors.');
+      warnings.push('Earning amount is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('earning_amount', this.formData.earning_amount);
   } else if (this.currentStep === 36) {
     if (!this.formData.source_of_revenue && this.isFieldRequired('source_of_revenue')) {
-      warnings.push('Source of revenue is required by indicated investors.');
+      warnings.push('Source of revenue is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('source_of_revenue', this.formData.source_of_revenue);
     if (this.formData.source_of_revenue === 'Other') {
@@ -3427,32 +3428,32 @@ if (this.currentStep === 2) {
     }
   } else if (this.currentStep === 37) {
     if (!this.formData.pre_money_valuation && this.isFieldRequired('pre_money_valuation')) {
-      warnings.push('Pre-money valuation is required by indicated investors.');
+      warnings.push('Pre-money valuation is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('pre_money_valuation', this.formData.pre_money_valuation);
   } else if (this.currentStep === 38) {
     if (!this.formData.post_money_valuation && this.isFieldRequired('post_money_valuation')) {
-      warnings.push('Post-money valuation is required by indicated investors.');
+      warnings.push('Post-money valuation is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('post_money_valuation', this.formData.post_money_valuation);
   } else if (this.currentStep === 39) {
     if (!this.formData.prev_experience && this.isFieldRequired('prev_experience')) {
-      warnings.push('Previous experience is required by indicated investors.');
+      warnings.push('Previous experience is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('prev_experience', this.formData.prev_experience);
   } else if (this.currentStep === 40) {
     if (!this.formData.team_description && this.isFieldRequired('team_description')) {
-      warnings.push('Team description is required by indicated investors.');
+      warnings.push('Team description is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('team_description', this.formData.team_description);
   } else if (this.currentStep === 41) {
     if (!this.formData.company_linkedin && this.isFieldRequired('company_linkedin')) {
-      warnings.push('Company LinkedIn is required by indicated investors.');
+      warnings.push('Company LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('company_linkedin', this.formData.company_linkedin);
   } else if (this.currentStep === 42) {
       if (!this.formData.ceo_linkedin && this.isFieldRequired('ceo_linkedin')) {
-        warnings.push('CEO LinkedIn is required by indicated investors.');
+        warnings.push('CEO LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.ceo_linkedin && !this.validateURL(this.formData.ceo_linkedin)) {
         warnings.push('Please enter a valid LinkedIn URL.');
       }
@@ -3461,39 +3462,39 @@ if (this.currentStep === 2) {
     await this.saveField('founder3_linkedin', this.formData.founder3_linkedin);
   } else if (this.currentStep === 43) {
     if (!this.formData.cto_linkedin && this.isFieldRequired('cto_linkedin')) {
-      warnings.push('CTO LinkedIn is required by indicated investors.');
+      warnings.push('CTO LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('cto_linkedin', this.formData.cto_linkedin);
   } else if (this.currentStep === 44) {
     if (!this.formData.founder_video_url && this.isFieldRequired('founder_video_url')) {
-      warnings.push('Founder video URL is required by indicated investors.');
+      warnings.push('Founder video URL is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     } else if (this.formData.founder_video_url && !this.validateURL(this.formData.founder_video_url)) {
         warnings.push('Please enter a valid founder video URL.');
       }
     await this.saveField('founder_video_url', this.formData.founder_video_url);
   } else if (this.currentStep === 45) {
     if (!this.formData.pitching_live && this.isFieldRequired('pitching_live')) {
-      warnings.push('Pitching live status is required by indicated investors.');
+      warnings.push('Pitching live status is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('pitching_live', this.formData.pitching_live);
   } else if (this.currentStep === 46) {
     if (!this.formData.share_submission && this.isFieldRequired('share_submission')) {
-      warnings.push('Share submission information is required by indicated investors.');
+      warnings.push('Share submission information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('share_submission', this.formData.share_submission);
   } else if (this.currentStep === 47) {
     if (!this.formData.investors_participating && this.isFieldRequired('investors_participating')) {
-      warnings.push('Investors participating information is required by indicated investors.');
+      warnings.push('Investors participating information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('investors_participating', this.formData.investors_participating);
   } else if (this.currentStep === 48) {
     if (!this.formData.want_us_to_know && this.isFieldRequired('want_us_to_know')) {
-      warnings.push('Additional information is required by indicated investors.');
+      warnings.push('Additional information is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('want_us_to_know', this.formData.want_us_to_know);
   } else if (this.currentStep === 49) {
     if (!this.formData.value_of_team && this.isFieldRequired('value_of_team')) {
-      warnings.push('Value of team is required by indicated investors.');
+      warnings.push('Value of team is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     }
     await this.saveField('value_of_team', this.formData.value_of_team);
   }
