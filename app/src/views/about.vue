@@ -11,7 +11,7 @@
           <div class="home-heading02">
             <h2 class="home-header07">About us</h2>
             <p class="home-header08">
-              We're a team of coders, founders and investors dedicated to simplifying the fundraising journey for founders and startups. Our platform streamlines the process of connecting with investors, allowing you to focus on what matters most: building your product and scaling your business. With just one form, Yocto efficiently shares your information with lots of investors, saving you valuable time and maximizing your funding opportunities. Let Yocto take care of the details, so you can keep building.
+              We're a team of coders, founders and investors dedicated to simplifying the fundraising journey for enterpreneurs and startups. Our platform streamlines the process of connecting with investors, allowing you to focus on what matters most: building your product and scaling your business. With just one form, Yocto efficiently shares your information with lots of investors, saving you valuable time and maximizing your funding opportunities. Let Yocto take care of the details, so you can keep building.
             </p>
           </div>
         </div>
