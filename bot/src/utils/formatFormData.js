@@ -45,9 +45,14 @@ function formatFormData(formData) {
   }
 
   if (formData.date_founded != null && formData.date_founded !== '' && formData.date_founded !== 'null') {
-    formattedData += `${questionNumber}. Date Founded?\n${formData.date_founded}\n\n`;
+    // Преобразуем дату в формат US (MM/DD/YYYY)
+    const [year, month, day] = formData.date_founded.split('-'); // Разбиваем дату на компоненты
+    const usFormattedDate = `${month}/${day}/${year}`; // Формируем дату в формате MM/DD/YYYY
+
+    formattedData += `${questionNumber}. Date Founded?\n${usFormattedDate}\n\n`;
     questionNumber++;
-  }
+}
+
 
   if (formData.relationship != null && formData.relationship !== '') {
     formattedData += `${questionNumber}. What is your relationship to the company?\n${formData.relationship}\n\n`;
