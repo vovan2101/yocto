@@ -167,7 +167,7 @@ const fillEverywhereVcForm = async (formData) => {
             await new Promise(resolve => setTimeout(resolve, 3000));
 
             // Нажатие на кнопку отправки формы
-            // await frame.click('button[type="submit"]');
+            await frame.click('button[type="submit"]');
 
             // Ожидание появления текста "Thank you" внутри фрейма
             try {

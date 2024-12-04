@@ -169,7 +169,7 @@ const fillBoostVcForm = async (formData) => {
             await page.type('input[data-cy="input-component"][aria-label="How did you hear about us?"]', "Networking events");
 
             await new Promise(resolve => setTimeout(resolve, 5000));
-            // await page.click('button[data-cy="button-component"]');
+            await page.click('button[data-cy="button-component"]');
 
             await new Promise(resolve => setTimeout(resolve, 2000));
 

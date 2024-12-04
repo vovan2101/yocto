@@ -204,7 +204,7 @@ const fillVentures2048 = async (formData) => {
 
             // Нажатие на кнопку отправки формы
             const submitButtonSelector = '.formSubmit .submitButton[type="button"]';
-            // await page.click(submitButtonSelector);
+            await page.click(submitButtonSelector);
 
             // Ожидание подтверждающего сообщения после отправки формы
             await page.waitForFunction(() => {
