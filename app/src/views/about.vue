@@ -486,14 +486,57 @@
     </div>
         <!-- Шестой вопрос -->
         <div data-role="accordion-container" class="home-element4 accordion">
-  <div class="home-content20">
-    <span class="home-header30" @click="toggleFaq(5)">
-      Who can I contact if I have unresolved questions or technical issues?
-    </span>
-    <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
-  If you have further questions or face any challenges, please don’t hesitate to contact us at 
-  <a href="mailto:help@yocto.vc" class="underline-link">help@yocto.vc</a>.
-</span>
+    <div class="home-content20">
+      <span class="home-header30" @click="toggleFaq(5)">
+        How long does it take for investors to respond after submission?
+      </span>
+      <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
+        If you have further questions or face any challenges, please don’t hesitate to contact us at 
+        <a href="#" class="underline-link" @click.prevent="openModal">vlad@yocto.vc</a>.
+      </span>
+    </div>
+
+    <!-- Модальное окно -->
+    <div v-if="isModalOpen" class="modal" @click.self="closeModal">
+      <div class="modal-content" @click.stop>
+        <span class="close" @click="closeModal">&times;</span>
+        <h2 class="modal-header">Contact Support</h2>
+        <p class="email">If you do not receive a response, please check your spam folder.</p>
+
+        <!-- Поле для ввода email -->
+        <input
+          id="userEmail"
+          type="email"
+          v-model="userEmail"
+          class="email-input"
+          placeholder="Enter your email"
+          required
+        />
+
+        <!-- Поле для ввода сообщения -->
+        <textarea
+          id="userMessage"
+          v-model="userMessage"
+          class="email-input"
+          placeholder="Write your message here"
+          required
+        ></textarea>
+
+        <!-- Кнопка для отправки -->
+        <button
+          @click="sendEmail"
+          class="send-button"
+          :disabled="isSendingDisabled"
+        >
+          Send
+        </button>
+
+        <!-- Сообщение об успешной отправке -->
+        <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+
+        <!-- Сообщение об ошибке -->
+        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+      </div>
 
   </div>
   <div class="home-icon-container4" @click="toggleFaq(5)">
@@ -567,6 +610,8 @@ export default {
             rawdf0n: ' ',
             rawfwya: ' ',
             rawopgq: ' ',
+            userEmail: '', // Email пользователя
+            userMessage: '', // Сообщение пользователя
             isModalOpen: false, // для управления состоянием модального окна
             isUserRequestFormVisible: false,
             isInvestorRequestFormVisible: false,
@@ -674,6 +719,62 @@ clearMessages() {
         this.clearMessages();
       }, 5000); // Сообщение исчезает через 5 секунд
     },
+    async sendEmail() {
+  const currentTime = new Date().getTime();
+
+  // Проверка на отправку не чаще, чем раз в минуту
+  if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
+    this.errorMessage = 'You can only send one email per minute. Please wait.';
+    this.successMessage = '';
+    return;
+  }
+
+  // Проверка на наличие email и сообщения
+  if (!this.userEmail || !this.userMessage) {
+    this.errorMessage = 'Please fill out both fields before sending.';
+    this.successMessage = '';
+    return;
+  }
+
+  try {
+    const response = await fetch('http://test.yocto.vc/api/send-help-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userEmail: this.userEmail,
+        userMessage: this.userMessage,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to send email');
+    }
+
+    // Сообщение об успешной отправке
+    this.successMessage = 'Message successfully sent to support.';
+    this.errorMessage = '';
+    this.lastSentTime = currentTime;
+    this.isSendingDisabled = true;
+
+    // Разблокируем кнопку через минуту
+    setTimeout(() => {
+      this.isSendingDisabled = false;
+    }, 60000);
+
+    // Закрываем модал через короткую задержку, чтобы было видно успех
+    setTimeout(() => {
+      this.closeModal();
+    }, 2000);
+
+  } catch (error) {
+    console.error('Error sending email:', error);
+    this.errorMessage = 'An error occurred while sending the email.';
+    this.successMessage = '';
+  }
+},
+
 
     async submitInvestorRequest() {
       if (this.investorRequestedFormName.trim() !== '') {
@@ -799,10 +900,69 @@ clearMessages() {
   flex-grow: 1; /* Растягиваем таблицу, чтобы она занимала все доступное пространство */
 }
 
+.email-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #888;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.email-input::placeholder {
+  color: #ccc;
+}
+
 .investor-number {
   font-weight: bold;
   margin-right: 7px;
   color: #ffffff;
+}
+
+
+.send-button {
+  color: var(--dl-color-gray-black);
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 18px;
+  box-shadow: 5px 6px 0px 0px #000000;
+  font-style: normal;
+  transition: 0.3s;
+  font-weight: 500;
+  padding-top: var(--dl-space-space-unit);
+  border: 1px solid var(--dl-color-gray-black);
+  border-radius: 0;
+  padding-left: var(--dl-space-space-oneandhalfunits);
+  padding-right: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-unit);
+  background-color: #ff538c;
+}
+
+.send-button:hover {
+  background-color: #c43d6e;
+}
+
+.send-button:focus {
+  outline: none;
+}
+
+.success-message {
+  color: #4caf50;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.error-message {
+  color: #f44336;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+p.email{
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .modal-link {
