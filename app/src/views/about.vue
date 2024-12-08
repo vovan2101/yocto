@@ -510,7 +510,7 @@
       <div class="modal-content" @click.stop>
         <span class="close" @click="closeModalEmail">&times;</span>
         <h2 class="modal-header">Contact Support</h2>
-        <p>If you do not receive a response, please check your spam folder.</p>
+        <p class="email">If you do not receive a response, please check your spam folder.</p>
 
         <!-- Поле для ввода email -->
         <input
@@ -541,10 +541,10 @@
         </button>
 
         <!-- Сообщение об успешной отправке -->
-        <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+        <p v-if="successMessage" class="success-message-email">{{ successMessage }}</p>
 
         <!-- Сообщение об ошибке -->
-        <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <p v-if="errorMessage" class="error-message-email">{{ errorMessage }}</p>
       </div>
   <div class="home-icon-container4" @click="toggleFaq(5)">
     <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
@@ -728,45 +728,43 @@ clearMessages() {
       }, 5000); // Сообщение исчезает через 5 секунд
     },
     async sendEmail() {
-  const currentTime = new Date().getTime();
+    const currentTime = Date.now();
 
-  // Проверка на отправку не чаще, чем раз в минуту
-  if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
-    this.errorMessage = 'You can only send one email per minute. Please wait.';
-    this.successMessage = '';
-    return;
-  }
+    // Проверка на отправку не чаще одного раза в минуту
+    if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
+      // Если прошло меньше минуты, просто не отправляем повторно.
+      // Не выводим никаких сообщений пользователю.
+      return;
+    }
 
-  // Проверка на наличие email и сообщения
-  if (!this.userEmail || !this.userMessage) {
-    this.errorMessage = 'Please fill out both fields before sending.';
-    this.successMessage = '';
-    return;
-  }
+    try {
+      const response = await fetch('http://test.yocto.vc/api/send-help-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userEmail: this.userEmail,
+          userMessage: this.userMessage,
+        }),
+      });
 
-  try {
-    const response = await fetch('http://test.yocto.vc/api/send-help-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userEmail: this.userEmail,
-        userMessage: this.userMessage,
-      }),
-    });
-
-        if (!response.ok) {
-          throw new Error('Failed to send email');
-        }
-
-
-        this.closeModal(); // Закрыть модальное окно после успешной отправки
-      } catch (error) {
-        console.error('Error sending email:', error);
-        alert('Failed to send your message. Please try again.');
+      if (!response.ok) {
+        throw new Error('Failed to send email');
       }
-    },
+
+      // Если отправка успешна
+      this.lastSentTime = currentTime;
+      this.successMessage = 'Email successfully sent!';
+      this.errorMessage = '';
+      this.isSendingDisabled = true;
+
+    } catch (error) {
+      console.error('Error sending email:', error);
+      this.errorMessage = 'An error occurred while sending the email.';
+      this.successMessage = '';
+    }
+  },
 
     async submitInvestorRequest() {
       if (this.investorRequestedFormName.trim() !== '') {
@@ -960,8 +958,23 @@ clearMessages() {
   margin-top: 15px;
 }
 
-p {
+.success-message-email {
+  color: #4caf50;
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.error-message-email {
+  color: #f44336;
+  font-weight: bold;
+  margin-top: 15px;
+  text-align: center;
+}
+
+p.email {
   margin-bottom: 15px;
+  text-align: center;
 }
 
 .modal-link {
