@@ -157,6 +157,37 @@ app.post('/send-email', (req, res) => {
   });
 });
 
+app.post('/send-help-email', (req, res) => {
+  const { userEmail, userMessage } = req.body; // Получаем email и сообщение от пользователя
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.GMAIL_EMAIL,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: userEmail, // Используем email пользователя как отправителя
+    to: 'vlad@yocto.vc', // Основной получатель
+    bcc: 'pete@hundy.com', // Скрытая копия
+    subject: `Help Request from ${userEmail}`, // Указываем, от кого запрос
+    text: `Message from ${userEmail}:\n\n${userMessage}`, // Тело письма с email и сообщением
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Ошибка при отправке email:', error);
+      return res.status(500).send('Error sending email');
+    }
+    console.log('Email отправлен: ' + info.response);
+    res.send('Email sent successfully');
+  });
+});
+
 
 // Экспортируем приложение
 module.exports = { broadcast, app, server};
