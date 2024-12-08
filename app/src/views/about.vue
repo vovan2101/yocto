@@ -728,6 +728,12 @@ clearMessages() {
       }, 5000); // Сообщение исчезает через 5 секунд
     },
     async sendEmail() {
+
+      if (!this.userEmail.trim() || !this.userMessage.trim()) {
+    this.errorMessage = 'Please fill out all the fields before sending.';
+    this.successMessage = '';
+    return;
+  }
     const currentTime = Date.now();
 
     // Проверка на отправку не чаще одного раза в минуту
