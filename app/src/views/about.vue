@@ -484,24 +484,33 @@
         </svg>
       </div>
     </div>
-        <!-- Шестой вопрос -->
-        <div data-role="accordion-container" class="home-element4 accordion">
-    <div class="home-content20">
-      <span class="home-header30" @click="toggleFaq(5)">
-        How long does it take for investors to respond after submission?
-      </span>
-      <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
-        If you have further questions or face any challenges, please don’t hesitate to contact us at 
-        <a href="#" class="underline-link" @click.prevent="openModal">vlad@yocto.vc</a>.
-      </span>
+    <!-- Шестой вопрос -->
+    <div data-role="accordion-container" class="home-element4 accordion">
+      <div class="home-content20">
+        <span class="home-header30" @click="toggleFaq(5)">
+          Who can I contact if I have unresolved questions or technical issues?
+        </span>
+        <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
+          If you have further questions or face any challenges, please don’t hesitate to contact us at 
+          <a href="#" class="underline-link" @click.prevent="openModalEmail">vlad@yocto.vc</a>.
+        </span>
+      </div>
+      <div class="home-icon-container4" @click="toggleFaq(5)">
+        <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
+          <path d="..."></path>
+        </svg>
+        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon28">
+          <path d="..."></path>
+        </svg>
+      </div>
     </div>
 
-    <!-- Модальное окно -->
-    <div v-if="isModalOpen" class="modal" @click.self="closeModal">
+    <!-- Модальное окно (одно для всей страницы) -->
+    <div v-if="isModalOpenEmail" class="modal" @click.self="closeModalEmail">
       <div class="modal-content" @click.stop>
-        <span class="close" @click="closeModal">&times;</span>
+        <span class="close" @click="closeModalEmail">&times;</span>
         <h2 class="modal-header">Contact Support</h2>
-        <p class="email">If you do not receive a response, please check your spam folder.</p>
+        <p>If you do not receive a response, please check your spam folder.</p>
 
         <!-- Поле для ввода email -->
         <input
@@ -537,8 +546,6 @@
         <!-- Сообщение об ошибке -->
         <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
       </div>
-
-  </div>
   <div class="home-icon-container4" @click="toggleFaq(5)">
     <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
       <path d="..."></path>
@@ -613,6 +620,7 @@ export default {
             userEmail: '', // Email пользователя
             userMessage: '', // Сообщение пользователя
             isModalOpen: false, // для управления состоянием модального окна
+            isModalOpenEmail: false,
             isUserRequestFormVisible: false,
             isInvestorRequestFormVisible: false,
             userRequestedFormName: '',
@@ -720,61 +728,30 @@ clearMessages() {
       }, 5000); // Сообщение исчезает через 5 секунд
     },
     async sendEmail() {
-  const currentTime = new Date().getTime();
+      try {
+        // Здесь можно отправить email через API
+        const response = await fetch('http://localhost:3002/send-help-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userEmail: this.userEmail,
+            userMessage: this.userMessage,
+          }),
+        });
 
-  // Проверка на отправку не чаще, чем раз в минуту
-  if (this.lastSentTime && currentTime - this.lastSentTime < 60000) {
-    this.errorMessage = 'You can only send one email per minute. Please wait.';
-    this.successMessage = '';
-    return;
-  }
+        if (!response.ok) {
+          throw new Error('Failed to send email');
+        }
 
-  // Проверка на наличие email и сообщения
-  if (!this.userEmail || !this.userMessage) {
-    this.errorMessage = 'Please fill out both fields before sending.';
-    this.successMessage = '';
-    return;
-  }
 
-  try {
-    const response = await fetch('http://localhost:3002/send-help-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userEmail: this.userEmail,
-        userMessage: this.userMessage,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to send email');
-    }
-
-    // Сообщение об успешной отправке
-    this.successMessage = 'Message successfully sent to support.';
-    this.errorMessage = '';
-    this.lastSentTime = currentTime;
-    this.isSendingDisabled = true;
-
-    // Разблокируем кнопку через минуту
-    setTimeout(() => {
-      this.isSendingDisabled = false;
-    }, 60000);
-
-    // Закрываем модал через короткую задержку, чтобы было видно успех
-    setTimeout(() => {
-      this.closeModal();
-    }, 2000);
-
-  } catch (error) {
-    console.error('Error sending email:', error);
-    this.errorMessage = 'An error occurred while sending the email.';
-    this.successMessage = '';
-  }
-},
-
+        this.closeModal(); // Закрыть модальное окно после успешной отправки
+      } catch (error) {
+        console.error('Error sending email:', error);
+        alert('Failed to send your message. Please try again.');
+      }
+    },
 
     async submitInvestorRequest() {
       if (this.investorRequestedFormName.trim() !== '') {
@@ -816,6 +793,14 @@ clearMessages() {
     },
     closeModal() {
       this.isModalOpen = false;
+      document.body.classList.remove('modal-open');
+    },
+    openModalEmail() {
+      this.isModalOpenEmail = true;
+      document.body.classList.add('modal-open');
+    },
+    closeModalEmail() {
+      this.isModalOpenEmail = false;
       document.body.classList.remove('modal-open');
     },
     outsideClick(event) {
@@ -960,9 +945,8 @@ clearMessages() {
   margin-top: 15px;
 }
 
-p.email{
+p {
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .modal-link {
