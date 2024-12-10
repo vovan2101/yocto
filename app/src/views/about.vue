@@ -487,65 +487,15 @@
     <!-- Шестой вопрос -->
     <div data-role="accordion-container" class="home-element4 accordion">
       <div class="home-content20">
-        <span class="home-header30" @click="toggleFaq(5)">
-          Who can I contact if I have unresolved questions or technical issues?
-        </span>
-        <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
-          If you have further questions or face any challenges, please don’t hesitate to contact us at 
-          <a href="#" class="underline-link" @click.prevent="openModalEmail">vlad@yocto.vc</a>.
-        </span>
-      </div>
-      <div class="home-icon-container4" @click="toggleFaq(5)">
-        <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
-          <path d="..."></path>
-        </svg>
-        <svg v-else viewBox="0 0 1024 1024" data-role="accordion-icon-open" class="home-icon28">
-          <path d="..."></path>
-        </svg>
+    <span class="home-header30" @click="toggleFaq(5)">
+      Who can I contact if I have unresolved questions or technical issues?
+    </span>
+    <span v-if="isFaqOpen(5)" data-role="accordion-content" class="home-description09">
+  If you have further questions or face any challenges, please don’t hesitate to contact us at 
+  <a href="mailto:help@yocto.vc" class="underline-link">help@yocto.vc</a>.
+</span>
       </div>
     </div>
-
-    <!-- Модальное окно (одно для всей страницы) -->
-    <div v-if="isModalOpenEmail" class="modal" @click.self="closeModalEmail">
-      <div class="modal-content" @click.stop>
-        <span class="close" @click="closeModalEmail">&times;</span>
-        <h2 class="modal-header">Contact Support</h2>
-        <p class="email">If you do not receive a response, please check your spam folder.</p>
-
-        <!-- Поле для ввода email -->
-        <input
-          id="userEmail"
-          type="email"
-          v-model="userEmail"
-          class="email-input"
-          placeholder="Enter your email"
-          required
-        />
-
-        <!-- Поле для ввода сообщения -->
-        <textarea
-          id="userMessage"
-          v-model="userMessage"
-          class="email-input"
-          placeholder="Write your message here"
-          required
-        ></textarea>
-
-        <!-- Кнопка для отправки -->
-        <button
-          @click="sendEmail"
-          class="send-button"
-          :disabled="isSendingDisabled"
-        >
-          Send
-        </button>
-
-        <!-- Сообщение об успешной отправке -->
-        <p v-if="successMessage" class="success-message-email">{{ successMessage }}</p>
-
-        <!-- Сообщение об ошибке -->
-        <p v-if="errorMessage" class="error-message-email">{{ errorMessage }}</p>
-      </div>
   <div class="home-icon-container4" @click="toggleFaq(5)">
     <svg v-if="!isFaqOpen(5)" viewBox="0 0 1024 1024" data-role="accordion-icon-closed" class="home-icon26">
       <path d="..."></path>
@@ -555,8 +505,6 @@
     </svg>
   </div>
 </div>
-
-  </div>
 </section>
 
     <!-- <section class="home-get-yours">
