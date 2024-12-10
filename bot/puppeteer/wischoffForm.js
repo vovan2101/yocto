@@ -140,6 +140,7 @@ const fillWischoffForm = async (formData) => {
             const uploadButtonSelector = 'button[data-testid="upload-button"]';
             const closeModalButtonSelector = 'div[aria-label="Close dialog"]';
 
+            await new Promise(resolve => setTimeout(resolve, 4000));
             if (formData.pitch_deck && formData.pitch_deck.trim() !== '') {
                 await page.waitForSelector(attachmentSelector);
                 const attachButton = await page.$(attachmentSelector);

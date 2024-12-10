@@ -50,16 +50,16 @@ const kafka = require('kafka-node');
         if (formData) {
             queue.add(async () => {
                 try {
-                    if (message.topic === 'spatial-capital-form') {
-                        await precursorvcForm(formData);
-                    } else if (message.topic === 'hustle-fund-form') {
+                    if (message.topic === 'hustle-fund-form') {
                         await hustleFundForm(formData);
+                    } else if (message.topic === 'spatial-capital-form') {
+                        await spatialCapitalForm(formData);
                     } else if (message.topic === 'incisive-ventures-form') {
                         await incisiveVenturesForm(formData);
                     } else if (message.topic === 'liberty-ventures-form') {
-                        await spatialCapitalForm(formData);
+                        await libertyVenturesForm(formData);
                     } else if (message.topic === 'wischoff-form') {
-                        await pathvcForm(formData);
+                        await wischoffForm(formData);
                     } else if (message.topic === 'boost-vc-form') {
                         await boostVcForm(formData);
                     } else if (message.topic === 'ventures-2048') {
@@ -67,9 +67,9 @@ const kafka = require('kafka-node');
                     } else if (message.topic === 'everywhere-vc-form') {
                         await everywhereVcForm(formData);
                     } else if (message.topic === 'precursorvc-form') {
-                        await wischoffForm(formData);
+                        await precursorvcForm(formData);
                     } else if (message.topic === 'pathvc-form') {
-                        await libertyVenturesForm(formData);
+                        await pathvcForm(formData);
                     } else {
                         console.error(`Unknown topic: ${message.topic}`);
                         return; // Выходим из функции, если топик неизвестен

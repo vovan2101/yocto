@@ -45,29 +45,29 @@ const fillhustleFundForm = async (formData) => {
 
 
         // Нажатие на кнопку "Let's go!"
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.click('.ButtonWrapper-sc-__sc-1qu8p4z-0.kHbkoT');
+        await new Promise(resolve => setTimeout(resolve, 8000));
+        await page.keyboard.press('Enter');
 
         // Нажатие на кнопку "Continue"
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.click('.ButtonWrapper-sc-__sc-1qu8p4z-0.jOFcNH');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await page.keyboard.press('Enter');
 
-        // Заполнение первого текстового поля
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.type('input[type="text"][placeholder="Type your answer here..."]', `${formData.first_name} ${formData.last_name}`);
+        await page.keyboard.type(`${formData.first_name} ${formData.last_name}`);
         await page.keyboard.press('Enter');
         
         // Заполнение поля Email
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.type('input[type="email"][placeholder="name@example.com"]', formData.email);
+        await page.keyboard.type(formData.email);
         await page.keyboard.press('Enter');
+
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.type('input[type="url"][placeholder="https://"]', formData.ceo_linkedin);
+        await page.keyboard.type(formData.ceo_linkedin);
         await page.keyboard.press('Enter');
 
         // Заполнение текстового поля
         await new Promise(resolve => setTimeout(resolve, 1000));
-        await page.type('input[type="text"][placeholder="Type your answer here..."]', formData.company_name);
+        await page.keyboard.type(formData.company_name);
         await page.keyboard.press('Enter');
 
         // Выбор радиокнопки ("Yes")
@@ -223,19 +223,24 @@ const fillhustleFundForm = async (formData) => {
         await page.keyboard.press('Enter');
 
 
+        // Убираем пробелы вокруг слэша, если значение соответствует "Software - Marketplace / Network"
+        if (formData.productString.includes('Software - Marketplace / Network')) {
+            formData.productString = formData.productString.replace('Software - Marketplace / Network', 'Software - Marketplace/Network');
+        }
+
         const products = formData.productString.split('; ').filter(Boolean); // Разделяем строку по ';' и удаляем пустые строки
         let missingProducts = []; // Для отслеживания отсутствующих продуктов
-        
+
         // Проходим по каждому продукту
         for (let product of products) {
             if (product === 'Other') {
                 // Пропускаем слово "Other", но продолжаем проверку на наличие other_product
                 continue;
             }
-        
+
             const productSelector = `li[aria-label="${product.trim()}"]`;
             let productCheckbox = await page.$(productSelector);
-        
+
             if (!productCheckbox) {
                 // Если продукт не найден, добавляем его в список для "Other"
                 missingProducts.push(product);
@@ -245,24 +250,24 @@ const fillhustleFundForm = async (formData) => {
                 await productCheckbox.click();
             }
         }
-        
+
         // Если есть пропущенные продукты или "Other" присутствует в formData
         if (missingProducts.length > 0 || products.includes("Other")) {
             // Находим и кликаем на поле "Other"
             const otherSelector = 'div[data-qa="choice"][data-qa-index="8"]'; // Новый селектор для "Other"
             let otherCheckbox = await page.$(otherSelector);
-        
+
             if (otherCheckbox) {
                 await otherCheckbox.evaluate(el => el.scrollIntoView({ block: 'center', inline: 'center' }));
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 await otherCheckbox.click();
-        
+
                 // Собираем все значения для поля "Other"
                 let otherValues = [...missingProducts];
                 if (formData.other_product) {
                     otherValues.push(formData.other_product); // Добавляем значение из other_product
                 }
-        
+
                 // Вводим значения в поле "Other"
                 const otherInputSelector = 'div[data-qa="choice-8-readable-element"]';
                 const otherInput = await page.$(otherInputSelector);
@@ -273,9 +278,8 @@ const fillhustleFundForm = async (formData) => {
                 }
             }
         }
+                
         
-        
-
         await new Promise(resolve => setTimeout(resolve, 1000));
         await page.keyboard.press('Enter');
 
