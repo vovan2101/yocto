@@ -3168,15 +3168,16 @@ closeWarningMessage() {
     }
   }
 },
-    validateURL(url) {
-    const pattern = new RegExp('^(https?:\\/\\/)?' + // проверка на http или https
-      '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // проверка на домен
-      '((\\d{1,3}\\.){3}\\d{1,3}))' + // проверка на IP-адрес
-      '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // проверка на порт и путь
-      '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // проверка на строку запроса
-      '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // проверка на хеш
-    return !!pattern.test(url);
-  },
+validateURL(url) {
+  const pattern = new RegExp('^(https?:\\/\\/)' + // проверка на http или https (обязательно)
+    '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // проверка на домен
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // проверка на IP-адрес
+    '(\\:\\d+)?' + // проверка на порт (опционально)
+    '(\\/[-a-zA-Z\\d%_.~+]*)?' + // путь (опционально)
+    '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // строка запроса (опционально)
+    '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // хеш (опционально)
+  return !!pattern.test(url);
+},
     async nextStep() {
       this.errorMessage = '';
       this.removeFocus();
@@ -3448,7 +3449,9 @@ if (this.currentStep === 2) {
   } else if (this.currentStep === 41) {
     if (!this.formData.company_linkedin && this.isFieldRequired('company_linkedin')) {
       warnings.push('Company LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
-    }
+    } else if (this.formData.company_linkedin && !this.validateURL(this.formData.company_linkedin)) {
+        warnings.push('Please enter a valid company LinkedIn URL.');
+      }
     await this.saveField('company_linkedin', this.formData.company_linkedin);
   } else if (this.currentStep === 42) {
       if (!this.formData.ceo_linkedin && this.isFieldRequired('ceo_linkedin')) {

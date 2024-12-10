@@ -123,7 +123,7 @@ const fillForm = async (formData) => {
             await page.type('#input_2_16', formData.pre_money_valuation);
 
             // Небольшая задержка перед отправкой формы
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
             // Отправка формы
             // await page.click('#gform_submit_button_2');
