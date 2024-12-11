@@ -93,8 +93,6 @@ const checkInvestors = async (req, res) => {
       },
     });
 
-    let alreadySentInvestors = [];
-    let failedInvestors = [];
     let investorsToSubmit = [...selected_investors];
 
     if (existingForms && existingForms.length > 0) {
@@ -102,53 +100,35 @@ const checkInvestors = async (req, res) => {
         const sentInvestors = form.sent_investors || [];
         const statuses = form.status || {};
 
-        for (const investor of selected_investors) {
+        investorsToSubmit = investorsToSubmit.filter((investor) => {
           if (sentInvestors.includes(investor)) {
-            if (statuses[investor] === 'error') {
-              failedInvestors.push(investor); // Добавляем инвестора с ошибкой
-            } else if (statuses[investor] === 'success') {
-              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
-              investorsToSubmit = investorsToSubmit.filter(i => i !== investor); // Убираем из списка отправки
-            }
+            return statuses[investor] === 'error'; // Оставляем только тех, у кого была ошибка
           }
-        }
+          return true; // Остальные ещё не были отправлены
+        });
       }
     }
 
-    // Если есть инвесторы для отправки
-    if (investorsToSubmit.length > 0) {
-      const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
-
-      // Обновляем список отправленных инвесторов
-      form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
-
-      // Обновляем статус для новых отправок
-      form.status = {
-        ...(form.status || {}),
-        ...investorsToSubmit.reduce((acc, investor) => {
-          acc[investor] = 'success'; // Помечаем как успешно отправленных
-          return acc;
-        }, {}),
-      };
-
-      await repository.save(form);
-
-      return res.json({
-        canSubmit: true,
-        message: investorsToSubmit.length === 1
-          ? `Form has been successfully submitted to the investor: ${investorsToSubmit[0]}.`
-          : `Forms have been successfully submitted to the selected investors.`,
-      });
+    // Если нет инвесторов для отправки
+    if (investorsToSubmit.length === 0) {
+      return res.json({ canSubmit: false });
     }
-    
-    // Если формы уже отправлены всем выбранным инвесторам
-    if (alreadySentInvestors.length === selected_investors.length) {
-      return res.json({
-        canSubmit: false,
-        message: 'You have already submitted forms to all selected investors.',
-        alreadySentInvestors,
-      });
-    }
+
+    const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
+
+    // Обновляем список отправленных инвесторов
+    form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
+
+    // Устанавливаем начальный статус для новых отправок
+    form.status = {
+      ...(form.status || {}),
+      ...investorsToSubmit.reduce((acc, investor) => {
+        acc[investor] = 'pending'; // Изначально статус "pending"
+        return acc;
+      }, {}),
+    };
+
+    await repository.save(form);
 
     return res.json({ canSubmit: true });
   } catch (error) {
@@ -156,6 +136,7 @@ const checkInvestors = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const checkAndUpdateFormStatus = async (req, res) => {
   try {
@@ -181,12 +162,11 @@ const checkAndUpdateFormStatus = async (req, res) => {
 
     const statuses = form.status || {};
 
-    // Проверяем статусы всех инвесторов
+    // Обновляем только статусы с "pending"
     const updatedStatuses = { ...statuses };
     for (const investor in statuses) {
       if (statuses[investor] === 'pending') {
-        // Имитация проверки статуса (заменить реальной проверкой)
-        const newStatus = await simulateStatusUpdate(investor);
+        const newStatus = await checkRealStatusUpdate(investor); // Замените на реальный вызов API
         updatedStatuses[investor] = newStatus || 'error';
       }
     }
@@ -194,12 +174,13 @@ const checkAndUpdateFormStatus = async (req, res) => {
     form.status = updatedStatuses;
     await repository.save(form);
 
-    return res.json({ status: updatedStatuses });
+    return res.status(200).json({ status: 'updated' });
   } catch (error) {
     console.error('Error checking and updating form status:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const checkRealStatusUpdate = async (investor) => {
   try {

@@ -2949,10 +2949,10 @@ async checkInvestorsBeforeSubmit() {
     if (data.canSubmit) {
       this.submitForm();
 
-      // Запускаем отложенную проверку через 5 минут
+      // Используем стрелочную функцию для сохранения контекста this
       setTimeout(() => {
         this.checkAndUpdateStatuses();
-      }, 2 * 60 * 1000);
+      }, 2 * 60 * 1000); // 2 минуты
     } else {
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
         const investorsList = data.alreadySentInvestors.join(', ');
