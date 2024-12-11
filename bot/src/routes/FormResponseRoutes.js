@@ -14,6 +14,9 @@ router.get('/device/:device_id', getFormResponse);
 // Проверить инвесторов перед отправкой формы
 router.post('/check-investors', checkInvestors);
 
+// Роут для проверки и обновления статусов инвесторов
+router.post('/check-status', checkAndUpdateFormStatus);
+
 // Route for deleting user data
 router.delete('/delete-data', deleteUserData);
 

@@ -2952,7 +2952,7 @@ async checkInvestorsBeforeSubmit() {
       // Запускаем отложенную проверку через 5 минут
       setTimeout(() => {
         this.checkAndUpdateStatuses();
-      }, 3 * 60 * 1000); // 5 минут
+      }, 2 * 60 * 1000);
     } else {
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
         const investorsList = data.alreadySentInvestors.join(', ');

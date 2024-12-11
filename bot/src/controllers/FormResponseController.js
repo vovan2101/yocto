@@ -135,11 +135,13 @@ const checkInvestors = async (req, res) => {
 
       return res.json({
         canSubmit: true,
-        investorsToSubmit,
-        message: `Forms have been successfully submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
+        message: investorsToSubmit.length === 1
+          ? `Form has been successfully submitted to the investor: ${investorsToSubmit[0]}.`
+          : `Forms have been successfully submitted to the selected investors.`,
       });
     }
-
+    
+    // Если формы уже отправлены всем выбранным инвесторам
     if (alreadySentInvestors.length === selected_investors.length) {
       return res.json({
         canSubmit: false,
