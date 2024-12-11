@@ -1,5 +1,5 @@
 const express = require('express');
-const { saveFormResponse, getFormResponse, checkInvestors, deleteUserData } = require('../controllers/FormResponseController');
+const { saveFormResponse, getFormResponse, checkInvestors, deleteUserData, checkAndUpdateFormStatus } = require('../controllers/FormResponseController');
 
 const router = express.Router();
 
