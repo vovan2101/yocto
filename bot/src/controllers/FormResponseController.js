@@ -76,6 +76,7 @@ const saveFormResponse = async (req, res) => {
   }
 };
 
+// Проверить, отправлял ли пользователь формы выбранным инвесторам
 const checkInvestors = async (req, res) => {
   try {
     const { device_id, selected_investors, company_name, company_website } = req.body;
@@ -86,6 +87,7 @@ const checkInvestors = async (req, res) => {
 
     const repository = AppDataSource.getRepository(FormResponse);
 
+    // Найти все записи с таким же company_name и company_website (независимо от регистра)
     const existingForms = await repository.find({
       where: {
         company_name: ILike(company_name),
@@ -94,66 +96,68 @@ const checkInvestors = async (req, res) => {
     });
 
     let alreadySentInvestors = [];
-    let failedInvestors = [];
-    let investorsToSubmit = [...selected_investors];
 
     if (existingForms && existingForms.length > 0) {
       for (const form of existingForms) {
         const sentInvestors = form.sent_investors || [];
-        const statuses = form.status || {};
+        alreadySentInvestors = selected_investors.filter(investor => sentInvestors.includes(investor));
 
-        for (const investor of selected_investors) {
-          if (sentInvestors.includes(investor)) {
-            if (statuses[investor] === 'error') {
-              failedInvestors.push(investor); // Добавляем инвестора с ошибкой
-            } else if (statuses[investor] === 'success') {
-              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
-              investorsToSubmit = investorsToSubmit.filter(i => i !== investor); // Убираем из списка отправки
-            }
-          }
+        // Если форма была отправлена всем выбранным инвесторам
+        if (alreadySentInvestors.length === selected_investors.length) {
+          return res.json({
+            canSubmit: false,
+            message: 'You have already submitted forms to all selected investors.',
+            alreadySentInvestors: [],
+          });
         }
       }
     }
 
-    // Если есть инвесторы для отправки
-    if (investorsToSubmit.length > 0) {
-      const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
-
-      // Обновляем список отправленных инвесторов
-      form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
-
-      // Обновляем статус для новых отправок
-      form.status = {
-        ...(form.status || {}),
-        ...investorsToSubmit.reduce((acc, investor) => {
-          acc[investor] = 'success'; // Помечаем как успешно отправленных
-          return acc;
-        }, {}),
-      };
-
-      await repository.save(form);
-
-      return res.json({
-        canSubmit: true,
-        investorsToSubmit,
-        message: `Forms have been successfully submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
-      });
-    }
-
-    if (alreadySentInvestors.length === selected_investors.length) {
+    if (alreadySentInvestors.length > 0) {
+      // Если форма была отправлена не всем выбранным инвесторам
       return res.json({
         canSubmit: false,
-        message: 'You have already submitted forms to all selected investors.',
+        message: `Forms have already been submitted to the following investors: ${alreadySentInvestors.join(', ')}. Please remove these investors from your selection and try again.`,
         alreadySentInvestors,
       });
     }
 
+    // Продолжаем с существующей логикой
+    let userForm = await repository.findOne({ where: { device_id } });
+
+    if (!userForm) {
+      userForm = repository.create({
+        device_id,
+        company_name,
+        company_website,
+        sent_investors: selected_investors,
+      });
+    } else {
+      userForm.company_name = company_name;
+      userForm.company_website = company_website;
+
+      const sentInvestors = userForm.sent_investors || [];
+      const investorsToSend = selected_investors.filter(investor => !sentInvestors.includes(investor));
+
+      if (investorsToSend.length > 0) {
+        userForm.sent_investors = Array.from(new Set([...sentInvestors, ...investorsToSend]));
+      } else {
+        return res.json({
+          canSubmit: false,
+          message: 'You have already submitted forms to all selected investors.',
+          alreadySentInvestors: [],
+        });
+      }
+    }
+
+    await repository.save(userForm);
     return res.json({ canSubmit: true });
   } catch (error) {
     console.error('Error checking investors:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const deleteUserData = async (req, res) => {
   try {
