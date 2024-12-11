@@ -2947,10 +2947,12 @@ async checkInvestorsBeforeSubmit() {
     const data = await response.json();
 
     if (data.canSubmit) {
-      if (data.investorsToSubmit && data.investorsToSubmit.length > 0) {
-        this.formData.selectedForms = data.investorsToSubmit; // Обновляем список инвесторов
-      }
       this.submitForm();
+
+      // Запускаем отложенную проверку через 5 минут
+      setTimeout(() => {
+        this.checkAndUpdateStatuses();
+      }, 3 * 60 * 1000); // 5 минут
     } else {
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
         const investorsList = data.alreadySentInvestors.join(', ');
@@ -2964,6 +2966,41 @@ async checkInvestorsBeforeSubmit() {
     this.showErrorMessage('An error occurred while checking investors.');
   }
 },
+
+async checkAndUpdateStatuses() {
+  try {
+    const response = await fetch('http://test.yocto.vc/api/form-response/check-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        device_id: localStorage.getItem('device_id'),
+        company_name: this.formData.company_name,
+        company_website: this.formData.company_website,
+      }),
+    });
+
+    const data = await response.json();
+    console.log('Updated statuses:', data.status);
+
+    // Дополнительно: уведомление пользователя о статусе
+    if (data.status) {
+      const failedInvestors = Object.keys(data.status).filter(
+        (investor) => data.status[investor] === 'error'
+      );
+      if (failedInvestors.length > 0) {
+        this.showErrorMessage(
+          `Forms failed to send to the following investors: ${failedInvestors.join(', ')}. Please try again.`
+        );
+      } else {
+        this.showSuccessMessage('Forms have been successfully processed for all investors.');
+      }
+    }
+  } catch (error) {
+    console.error('Error checking and updating statuses:', error);
+    this.showErrorMessage('An error occurred while checking form statuses.');
+  }
+},
+
 
 validateRequiredFields() {
   // Проверка: обязательное поле должно быть заполнено и валидно

@@ -155,6 +155,72 @@ const checkInvestors = async (req, res) => {
   }
 };
 
+const checkAndUpdateFormStatus = async (req, res) => {
+  try {
+    const { device_id, company_name, company_website } = req.body;
+
+    if (!device_id || !company_name || !company_website) {
+      return res.status(400).json({ message: 'Invalid parameters' });
+    }
+
+    const repository = AppDataSource.getRepository(FormResponse);
+
+    const form = await repository.findOne({
+      where: {
+        company_name: ILike(company_name),
+        company_website: ILike(company_website),
+        device_id,
+      },
+    });
+
+    if (!form) {
+      return res.status(404).json({ message: 'Form not found' });
+    }
+
+    const statuses = form.status || {};
+
+    // Проверяем статусы всех инвесторов
+    const updatedStatuses = { ...statuses };
+    for (const investor in statuses) {
+      if (statuses[investor] === 'pending') {
+        // Имитация проверки статуса (заменить реальной проверкой)
+        const newStatus = await simulateStatusUpdate(investor);
+        updatedStatuses[investor] = newStatus || 'error';
+      }
+    }
+
+    form.status = updatedStatuses;
+    await repository.save(form);
+
+    return res.json({ status: updatedStatuses });
+  } catch (error) {
+    console.error('Error checking and updating form status:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const checkRealStatusUpdate = async (investor) => {
+  try {
+    // Реальный запрос к API для проверки статуса
+    const response = await fetch(`https://api.investors.com/status/${investor}`, {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${process.env.API_TOKEN}` },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch status');
+    }
+
+    const data = await response.json();
+    return data.status; // Предполагается, что API возвращает "success" или "error"
+  } catch (error) {
+    console.error(`Error checking status for investor ${investor}:`, error);
+    return 'error'; // В случае ошибки возвращаем статус "error"
+  }
+};
+
+
+
 const deleteUserData = async (req, res) => {
   try {
     const { device_id } = req.body;
@@ -183,4 +249,6 @@ module.exports = {
   getFormResponse,
   checkInvestors,
   deleteUserData,
+  checkAndUpdateFormStatus,
+  checkRealStatusUpdate
 };
