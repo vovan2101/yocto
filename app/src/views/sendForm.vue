@@ -2925,10 +2925,9 @@ checkAllSent() {
 },
 
 async checkInvestorsBeforeSubmit() {
-  // Проверка обязательных полей перед отправкой
   if (!this.validateRequiredFields()) {
     this.showErrorMessage('Please complete all required fields before submitting.');
-    return; // Останавливаем дальнейшую отправку
+    return;
   }
 
   try {
@@ -2948,13 +2947,19 @@ async checkInvestorsBeforeSubmit() {
     const data = await response.json();
 
     if (data.canSubmit) {
-      // Переход к отправке формы
+      // Продолжаем с отправкой формы
       this.submitForm();
     } else {
-      // Показываем ошибку с указанием инвесторов, которым уже была отправлена форма
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
-        const investorsList = data.alreadySentInvestors.join(', ');
-        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
+        const remainingInvestors = this.formData.selectedForms.filter(
+          investor => !data.alreadySentInvestors.includes(investor)
+        );
+        if (remainingInvestors.length > 0) {
+          this.formData.selectedForms = remainingInvestors; // Оставляем только тех, кому можно отправить
+          this.submitForm(); // Отправляем форму для оставшихся
+        } else {
+          this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+        }
       } else {
         this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
       }
