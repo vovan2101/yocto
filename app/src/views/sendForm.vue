@@ -2966,11 +2966,22 @@ async checkInvestorsBeforeSubmit() {
 },
 
 validateRequiredFields() {
-  // Проверка: если хотя бы одно обязательное поле не заполнено, возвращаем false
+  // Проверка: обязательное поле должно быть заполнено и валидно
   return Object.keys(this.formData).every(field => {
-    return !this.isFieldRequired(field) || this.formData[field];
+    if (this.isFieldRequired(field)) {
+      const value = this.formData[field];
+      
+      // Проверяем, если поле типа URL
+      if (field.includes('url') || field.includes('website') || field.includes('linkedin') || field === 'pitch_deck' || field === 'founder_video_url') {
+        return value && this.validateURL(value); // Поле должно быть заполнено и валидно
+      }
+      
+      return !!value; // Для остальных полей просто проверяем, что они заполнены
+    }
+    return true; // Поля, которые не обязательны
   });
 },
+
 
 validateEmail(email) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -3336,7 +3347,8 @@ if (this.currentStep === 2) {
       if (!this.formData.company_website && this.isFieldRequired('company_website')) {
         warnings.push('Company website is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.company_website && !this.validateURL(this.formData.company_website)) {
-        warnings.push('Please enter a valid company website URL.');
+        this.formData.company_website = 'https://';
+        warnings.push('Please enter a valid company website URL. You must start with https://');
       }
       await this.saveField('company_website', this.formData.company_website);
   } else if (this.currentStep === 24) {
@@ -3375,7 +3387,9 @@ if (this.currentStep === 2) {
       if (!this.formData.pitch_deck && this.isFieldRequired('pitch_deck')) {
         warnings.push('Pitch deck is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.pitch_deck && !this.validateURL(this.formData.pitch_deck)) {
-        warnings.push('Please enter a valid pitch deck URL.');
+        this.formData.pitch_deck = 'https://';
+        warnings.push('Please enter a valid pitch deck URL. You must start with https://');
+
       }
       await this.saveField('pitch_deck', this.formData.pitch_deck);
   } else if (this.currentStep === 30) {
@@ -3450,14 +3464,22 @@ if (this.currentStep === 2) {
     if (!this.formData.company_linkedin && this.isFieldRequired('company_linkedin')) {
       warnings.push('Company LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     } else if (this.formData.company_linkedin && !this.validateURL(this.formData.company_linkedin)) {
-        warnings.push('Please enter a valid company LinkedIn URL.');
+        warnings.push('Please enter a valid company LinkedIn URL. You must start with https://');
+        this.formData.company_linkedin = 'https://';
       }
     await this.saveField('company_linkedin', this.formData.company_linkedin);
   } else if (this.currentStep === 42) {
       if (!this.formData.ceo_linkedin && this.isFieldRequired('ceo_linkedin')) {
         warnings.push('CEO LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
       } else if (this.formData.ceo_linkedin && !this.validateURL(this.formData.ceo_linkedin)) {
-        warnings.push('Please enter a valid LinkedIn URL.');
+        this.formData.ceo_linkedin = 'https://';
+        warnings.push('Please enter a valid LinkedIn URL. You must start with https://');
+      } else if (this.formData.founder2_linkedin && !this.validateURL(this.formData.founder2_linkedin)) {
+        this.formData.founder2_linkedin = 'https://';
+        warnings.push('Please enter a valid LinkedIn URL. You must start with https://');
+      } else if (this.formData.founder3_linkedin && !this.validateURL(this.formData.founder3_linkedin)) {
+        this.formData.founder3_linkedin = 'https://';
+        warnings.push('Please enter a valid LinkedIn URL. You must start with https://');
       }
     await this.saveField('ceo_linkedin', this.formData.ceo_linkedin);
     await this.saveField('founder2_linkedin', this.formData.founder2_linkedin);
@@ -3465,13 +3487,17 @@ if (this.currentStep === 2) {
   } else if (this.currentStep === 43) {
     if (!this.formData.cto_linkedin && this.isFieldRequired('cto_linkedin')) {
       warnings.push('CTO LinkedIn is required by indicated investors. You may skip this for now, but it will be required before finishing.');
-    }
+    } else if (this.formData.cto_linkedin && !this.validateURL(this.formData.cto_linkedin)) {
+      this.formData.cto_linkedin = 'https://';
+        warnings.push('Please enter a valid CTO Linkedin URL. You must start with https://');
+      }
     await this.saveField('cto_linkedin', this.formData.cto_linkedin);
   } else if (this.currentStep === 44) {
     if (!this.formData.founder_video_url && this.isFieldRequired('founder_video_url')) {
       warnings.push('Founder video URL is required by indicated investors. You may skip this for now, but it will be required before finishing.');
     } else if (this.formData.founder_video_url && !this.validateURL(this.formData.founder_video_url)) {
-        warnings.push('Please enter a valid founder video URL.');
+      this.formData.founder_video_url = 'https://';
+        warnings.push('Please enter a valid founder video URL. You must start with https://');
       }
     await this.saveField('founder_video_url', this.formData.founder_video_url);
   } else if (this.currentStep === 45) {
