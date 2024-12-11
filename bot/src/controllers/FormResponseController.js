@@ -104,28 +104,26 @@ const checkInvestors = async (req, res) => {
         for (const investor of selected_investors) {
           if (sentInvestors.includes(investor)) {
             if (statuses[investor] === 'error') {
-              // Если была ошибка, добавляем в список для повторной отправки
-              failedInvestors.push(investor);
-            } else {
-              // Если успешно отправлено, добавляем в список уже отправленных
-              alreadySentInvestors.push(investor);
+              failedInvestors.push(investor); // Добавляем инвестора с ошибкой
+            } else if (statuses[investor] === 'success') {
+              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
             }
           }
         }
       }
 
-      const canRetryInvestors = selected_investors.filter(investor => failedInvestors.includes(investor));
+      const canRetryInvestors = selected_investors.filter(
+        investor => failedInvestors.includes(investor) || !alreadySentInvestors.includes(investor)
+      );
 
-      // Если есть инвесторы для повторной отправки
       if (canRetryInvestors.length > 0) {
         return res.json({
           canSubmit: true,
           retryInvestors: canRetryInvestors,
-          message: `You can retry submitting forms to the following investors: ${canRetryInvestors.join(', ')}.`,
+          message: `Forms can be submitted to the following investors: ${canRetryInvestors.join(', ')}.`,
         });
       }
 
-      // Если форма была отправлена всем выбранным инвесторам успешно
       if (alreadySentInvestors.length === selected_investors.length) {
         return res.json({
           canSubmit: false,
