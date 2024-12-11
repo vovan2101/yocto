@@ -95,6 +95,7 @@ const checkInvestors = async (req, res) => {
 
     let alreadySentInvestors = [];
     let failedInvestors = [];
+    let investorsToSubmit = [...selected_investors];
 
     if (existingForms && existingForms.length > 0) {
       for (const form of existingForms) {
@@ -105,32 +106,46 @@ const checkInvestors = async (req, res) => {
           if (sentInvestors.includes(investor)) {
             if (statuses[investor] === 'error') {
               failedInvestors.push(investor); // Добавляем инвестора с ошибкой
-            } else if (statuses[investor] === 'success' || statuses[investor] === undefined) {
-              alreadySentInvestors.push(investor); // Добавляем успешно отправленного или неопределённого инвестора
+            } else if (statuses[investor] === 'success') {
+              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
+              investorsToSubmit = investorsToSubmit.filter(i => i !== investor); // Убираем из списка отправки
             }
           }
         }
       }
+    }
 
-      const investorsToSubmit = selected_investors.filter(
-        investor => !alreadySentInvestors.includes(investor)
-      );
+    // Если есть инвесторы для отправки
+    if (investorsToSubmit.length > 0) {
+      const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
 
-      if (investorsToSubmit.length > 0) {
-        return res.json({
-          canSubmit: true,
-          investorsToSubmit,
-          message: `Forms can be submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
-        });
-      }
+      // Обновляем список отправленных инвесторов
+      form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
 
-      if (alreadySentInvestors.length === selected_investors.length) {
-        return res.json({
-          canSubmit: false,
-          message: 'You have already submitted forms to all selected investors.',
-          alreadySentInvestors,
-        });
-      }
+      // Обновляем статус для новых отправок
+      form.status = {
+        ...(form.status || {}),
+        ...investorsToSubmit.reduce((acc, investor) => {
+          acc[investor] = 'success'; // Помечаем как успешно отправленных
+          return acc;
+        }, {}),
+      };
+
+      await repository.save(form);
+
+      return res.json({
+        canSubmit: true,
+        investorsToSubmit,
+        message: `Forms have been successfully submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
+      });
+    }
+
+    if (alreadySentInvestors.length === selected_investors.length) {
+      return res.json({
+        canSubmit: false,
+        message: 'You have already submitted forms to all selected investors.',
+        alreadySentInvestors,
+      });
     }
 
     return res.json({ canSubmit: true });
@@ -139,7 +154,6 @@ const checkInvestors = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
 
 const deleteUserData = async (req, res) => {
   try {
