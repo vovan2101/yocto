@@ -2947,16 +2947,19 @@ async checkInvestorsBeforeSubmit() {
     const data = await response.json();
 
     if (data.canSubmit) {
+      // Продолжаем с отправкой формы
       this.submitForm();
-
-      // Используем стрелочную функцию для сохранения контекста this
-      setTimeout(() => {
-        this.checkAndUpdateStatuses();
-      }, 2 * 60 * 1000); // 2 минуты
     } else {
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
-        const investorsList = data.alreadySentInvestors.join(', ');
-        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
+        const remainingInvestors = this.formData.selectedForms.filter(
+          investor => !data.alreadySentInvestors.includes(investor)
+        );
+        if (remainingInvestors.length > 0) {
+          this.formData.selectedForms = remainingInvestors; // Оставляем только тех, кому можно отправить
+          this.submitForm(); // Отправляем форму для оставшихся
+        } else {
+          this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
+        }
       } else {
         this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
       }
@@ -2966,41 +2969,6 @@ async checkInvestorsBeforeSubmit() {
     this.showErrorMessage('An error occurred while checking investors.');
   }
 },
-
-async checkAndUpdateStatuses() {
-  try {
-    const response = await fetch('http://test.yocto.vc/api/form-response/check-status', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        device_id: localStorage.getItem('device_id'),
-        company_name: this.formData.company_name,
-        company_website: this.formData.company_website,
-      }),
-    });
-
-    const data = await response.json();
-    console.log('Updated statuses:', data.status);
-
-    // Дополнительно: уведомление пользователя о статусе
-    if (data.status) {
-      const failedInvestors = Object.keys(data.status).filter(
-        (investor) => data.status[investor] === 'error'
-      );
-      if (failedInvestors.length > 0) {
-        this.showErrorMessage(
-          `Forms failed to send to the following investors: ${failedInvestors.join(', ')}. Please try again.`
-        );
-      } else {
-        this.showSuccessMessage('Forms have been successfully processed for all investors.');
-      }
-    }
-  } catch (error) {
-    console.error('Error checking and updating statuses:', error);
-    this.showErrorMessage('An error occurred while checking form statuses.');
-  }
-},
-
 
 validateRequiredFields() {
   // Проверка: обязательное поле должно быть заполнено и валидно

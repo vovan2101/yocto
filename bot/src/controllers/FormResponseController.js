@@ -93,6 +93,8 @@ const checkInvestors = async (req, res) => {
       },
     });
 
+    let alreadySentInvestors = [];
+    let failedInvestors = [];
     let investorsToSubmit = [...selected_investors];
 
     if (existingForms && existingForms.length > 0) {
@@ -100,35 +102,51 @@ const checkInvestors = async (req, res) => {
         const sentInvestors = form.sent_investors || [];
         const statuses = form.status || {};
 
-        investorsToSubmit = investorsToSubmit.filter((investor) => {
+        for (const investor of selected_investors) {
           if (sentInvestors.includes(investor)) {
-            return statuses[investor] === 'error'; // Оставляем только тех, у кого была ошибка
+            if (statuses[investor] === 'error') {
+              failedInvestors.push(investor); // Добавляем инвестора с ошибкой
+            } else if (statuses[investor] === 'success') {
+              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
+              investorsToSubmit = investorsToSubmit.filter(i => i !== investor); // Убираем из списка отправки
+            }
           }
-          return true; // Остальные ещё не были отправлены
-        });
+        }
       }
     }
 
-    // Если нет инвесторов для отправки
-    if (investorsToSubmit.length === 0) {
-      return res.json({ canSubmit: false });
+    // Если есть инвесторы для отправки
+    if (investorsToSubmit.length > 0) {
+      const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
+
+      // Обновляем список отправленных инвесторов
+      form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
+
+      // Обновляем статус для новых отправок
+      form.status = {
+        ...(form.status || {}),
+        ...investorsToSubmit.reduce((acc, investor) => {
+          acc[investor] = 'success'; // Помечаем как успешно отправленных
+          return acc;
+        }, {}),
+      };
+
+      await repository.save(form);
+
+      return res.json({
+        canSubmit: true,
+        investorsToSubmit,
+        message: `Forms have been successfully submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
+      });
     }
 
-    const form = existingForms[0] || repository.create({ device_id, company_name, company_website });
-
-    // Обновляем список отправленных инвесторов
-    form.sent_investors = Array.from(new Set([...(form.sent_investors || []), ...investorsToSubmit]));
-
-    // Устанавливаем начальный статус для новых отправок
-    form.status = {
-      ...(form.status || {}),
-      ...investorsToSubmit.reduce((acc, investor) => {
-        acc[investor] = 'pending'; // Изначально статус "pending"
-        return acc;
-      }, {}),
-    };
-
-    await repository.save(form);
+    if (alreadySentInvestors.length === selected_investors.length) {
+      return res.json({
+        canSubmit: false,
+        message: 'You have already submitted forms to all selected investors.',
+        alreadySentInvestors,
+      });
+    }
 
     return res.json({ canSubmit: true });
   } catch (error) {
@@ -136,73 +154,6 @@ const checkInvestors = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
-
-const checkAndUpdateFormStatus = async (req, res) => {
-  try {
-    const { device_id, company_name, company_website } = req.body;
-
-    if (!device_id || !company_name || !company_website) {
-      return res.status(400).json({ message: 'Invalid parameters' });
-    }
-
-    const repository = AppDataSource.getRepository(FormResponse);
-
-    const form = await repository.findOne({
-      where: {
-        company_name: ILike(company_name),
-        company_website: ILike(company_website),
-        device_id,
-      },
-    });
-
-    if (!form) {
-      return res.status(404).json({ message: 'Form not found' });
-    }
-
-    const statuses = form.status || {};
-
-    // Обновляем только статусы с "pending"
-    const updatedStatuses = { ...statuses };
-    for (const investor in statuses) {
-      if (statuses[investor] === 'pending') {
-        const newStatus = await checkRealStatusUpdate(investor); // Замените на реальный вызов API
-        updatedStatuses[investor] = newStatus || 'error';
-      }
-    }
-
-    form.status = updatedStatuses;
-    await repository.save(form);
-
-    return res.status(200).json({ status: 'updated' });
-  } catch (error) {
-    console.error('Error checking and updating form status:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-
-const checkRealStatusUpdate = async (investor) => {
-  try {
-    // Реальный запрос к API для проверки статуса
-    const response = await fetch(`https://api.investors.com/status/${investor}`, {
-      method: 'GET',
-      headers: { 'Authorization': `Bearer ${process.env.API_TOKEN}` },
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch status');
-    }
-
-    const data = await response.json();
-    return data.status; // Предполагается, что API возвращает "success" или "error"
-  } catch (error) {
-    console.error(`Error checking status for investor ${investor}:`, error);
-    return 'error'; // В случае ошибки возвращаем статус "error"
-  }
-};
-
-
 
 const deleteUserData = async (req, res) => {
   try {
@@ -232,6 +183,4 @@ module.exports = {
   getFormResponse,
   checkInvestors,
   deleteUserData,
-  checkAndUpdateFormStatus,
-  checkRealStatusUpdate
 };

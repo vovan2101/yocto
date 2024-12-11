@@ -118,15 +118,15 @@ const fillForm = async (formData) => {
                 }
             }
 
-            // await page.select('#input_2_13', formData.raising_round);
-            // await page.type('#input_2_15', formData.raising_amount);
-            // await page.type('#input_2_16', formData.pre_money_valuation);
+            await page.select('#input_2_13', formData.raising_round);
+            await page.type('#input_2_15', formData.raising_amount);
+            await page.type('#input_2_16', formData.pre_money_valuation);
 
             // Небольшая задержка перед отправкой формы
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             // Отправка формы
-            await page.click('#gform_submit_button_2');
+            // await page.click('#gform_submit_button_2');
 
             // Ожидание сообщения об успехе
             try {

@@ -22,10 +22,6 @@ module.exports = new EntitySchema({
       type: 'simple-array',
       nullable: true,
     },
-    status: {
-      type: 'simple-json',
-      nullable: true,
-    },
     first_name: {
       type: 'text',
       nullable: true,
