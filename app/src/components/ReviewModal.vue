@@ -230,15 +230,16 @@
           </span>
         </li>
 
-        <!-- Company Website -->
-        <li v-if="shouldDisplayQuestion(23, 'company_website')">
-          <strong><a @click="goToStep(23)">What is your company website?</a></strong>
-          <span 
-            class="answer" 
-            :class="{ 'required-text': !formData.company_website && isRequiredField('company_website') }">
-            {{ formData.company_website || (isRequiredField('company_website') ? 'This question is required' : 'Not answered') }}
-          </span>
-        </li>
+<!-- Company Website -->
+<li v-if="shouldDisplayQuestion(23, 'company_website')">
+  <strong><a @click="goToStep(23)">What is your company website?</a></strong>
+  <span 
+    class="answer" 
+    :class="{ 'required-text': (!formData.company_website || !isValidURL(formData.company_website)) && isRequiredField('company_website') }">
+    {{ (!formData.company_website || !isValidURL(formData.company_website)) ? getQuestionStatus('company_website') : formData.company_website }}
+  </span>
+</li>
+
 
       <!-- Industry Selection -->
       <li v-if="shouldDisplayQuestion(24, 'industry')">
@@ -294,25 +295,16 @@
           </span>
         </li>
 
-        <!-- Pitch Deck URL -->
-        <li v-if="shouldDisplayQuestion(29, 'pitch_deck')">
-          <strong><a @click="goToStep(29)">If you have a pitch deck that you would like to share as a link, please share it here!</a></strong>
-          <span 
-            class="answer" 
-            :class="{ 'required-text': !formData.pitch_deck && isRequiredField('pitch_deck') }">
-            {{ formData.pitch_deck || (isRequiredField('pitch_deck') ? 'This question is required' : 'Not answered') }}
-          </span>
-        </li>
-
 <!-- Pitch Deck URL -->
 <li v-if="shouldDisplayQuestion(29, 'pitch_deck')">
   <strong><a @click="goToStep(29)">If you have a pitch deck that you would like to share as a link, please share it here!</a></strong>
   <span 
     class="answer" 
-    :class="{ 'required-text': !formData.pitch_deck && isRequiredField('pitch_deck') }">
-    {{ formData.pitch_deck || (isRequiredField('pitch_deck') ? 'This question is required' : 'Not answered') }}
+    :class="{ 'required-text': (!formData.pitch_deck || !isValidURL(formData.pitch_deck)) && isRequiredField('pitch_deck') }">
+    {{ (!formData.pitch_deck || !isValidURL(formData.pitch_deck)) ? (isRequiredField('pitch_deck') ? 'This question is required' : 'Not answered') : formData.pitch_deck }}
   </span>
 </li>
+
 
 <!-- Pitch Deck File -->
 <li v-if="shouldDisplayQuestion(30, 'pitch_deck_file')">
@@ -429,38 +421,41 @@
   <strong><a @click="goToStep(41)">What's your company's LinkedIn?</a></strong>
   <span 
     class="answer" 
-    :class="{ 'required-text': !formData.company_linkedin && isRequiredField('company_linkedin') }">
-    {{ formData.company_linkedin || (isRequiredField('company_linkedin') ? 'This question is required' : 'Not answered') }}
+    :class="{ 'required-text': (!formData.company_linkedin || !isValidURL(formData.company_linkedin)) && isRequiredField('company_linkedin') }">
+    {{ (!formData.company_linkedin || !isValidURL(formData.company_linkedin)) ? (isRequiredField('company_linkedin') ? 'This question is required' : 'Not answered') : formData.company_linkedin }}
   </span>
 </li>
+
 
 <!-- CEO LinkedIn -->
 <li v-if="shouldDisplayQuestion(42, 'ceo_linkedin')">
   <strong><a @click="goToStep(42)">Founder LinkedIn?</a></strong>
   <span 
     class="answer" 
-    :class="{ 'required-text': !formData.ceo_linkedin && isRequiredField('ceo_linkedin') }">
-    {{ formData.ceo_linkedin || (isRequiredField('ceo_linkedin') ? 'This question is required' : 'Not answered') }}
+    :class="{ 'required-text': (!formData.ceo_linkedin || !isValidURL(formData.ceo_linkedin)) && isRequiredField('ceo_linkedin') }">
+    {{ (!formData.ceo_linkedin || !isValidURL(formData.ceo_linkedin)) ? (isRequiredField('ceo_linkedin') ? 'This question is required' : 'Not answered') : formData.ceo_linkedin }}
   </span>
 </li>
+
 
 <!-- CTO LinkedIn -->
 <li v-if="shouldDisplayQuestion(43, 'cto_linkedin')">
   <strong><a @click="goToStep(43)">CTO LinkedIn? (Leave blank if not applicable)</a></strong>
   <span 
     class="answer" 
-    :class="{ 'required-text': !formData.cto_linkedin && isRequiredField('cto_linkedin') }">
-    {{ formData.cto_linkedin || (isRequiredField('cto_linkedin') ? 'This question is required' : 'Not answered') }}
+    :class="{ 'required-text': (!formData.cto_linkedin || !isValidURL(formData.cto_linkedin)) && isRequiredField('cto_linkedin') }">
+    {{ (!formData.cto_linkedin || !isValidURL(formData.cto_linkedin)) ? (isRequiredField('cto_linkedin') ? 'This question is required' : 'Not answered') : formData.cto_linkedin }}
   </span>
 </li>
+
 
 <!-- Founder Video URL -->
 <li v-if="shouldDisplayQuestion(44, 'founder_video_url')">
   <strong><a @click="goToStep(44)">Founder video URL?</a></strong>
   <span 
     class="answer" 
-    :class="{ 'required-text': !formData.founder_video_url && isRequiredField('founder_video_url') }">
-    {{ formData.founder_video_url || (isRequiredField('founder_video_url') ? 'This question is required' : 'Not answered') }}
+    :class="{ 'required-text': (!formData.founder_video_url || !isValidURL(formData.founder_video_url)) && isRequiredField('founder_video_url') }">
+    {{ (!formData.founder_video_url || !isValidURL(formData.founder_video_url)) ? (isRequiredField('founder_video_url') ? 'This question is required' : 'Not answered') : formData.founder_video_url }}
   </span>
 </li>
 
@@ -837,16 +832,32 @@ export default {
   },
 
   getQuestionStatus(fieldKey) {
-    // Return specific messages based on the field status
-    if (!this.formData[fieldKey]) {
-      if (this.isRequiredField(fieldKey)) {
-        return 'This question is required';
-      } else {
-        return 'Not answered';
-      }
+  const urlValue = this.formData[fieldKey];
+  
+  // Если поле пустое или URL невалидный
+  if (!urlValue || !this.isValidURL(urlValue)) {
+    if (this.isRequiredField(fieldKey)) {
+      return 'This question is required';
+    } else {
+      return 'Not answered';
     }
-    return '';
-    }, // No message if answered
+  }
+
+  return ''; // Сообщение отсутствует, если всё в порядке
+},
+
+isValidURL(url) {
+  const pattern = new RegExp('^(https?:\\/\\/)' + // проверка на http или https (обязательно)
+    '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // проверка на домен
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // проверка на IP-адрес
+    '(\\:\\d+)?' + // проверка на порт (опционально)
+    '(\\/[-a-zA-Z\\d%_.~+]*)?' + // путь (опционально)
+    '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // строка запроса (опционально)
+    '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // хеш (опционально)
+  return !!pattern.test(url);
+},
+
+ // No message if answered
     // Закрыть основное модальное окно
     closeModal() {
       this.$emit('close');
