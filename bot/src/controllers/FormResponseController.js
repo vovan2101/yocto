@@ -85,6 +85,13 @@ const checkInvestors = async (req, res) => {
       return res.status(400).json({ message: 'Selected investors are required' });
     }
 
+    const specialDeviceId = 'aa20d0ba-ee7b-433f-bfd2-174b284be8f2';
+
+    // Если это особый device_id, пропускаем проверки
+    if (device_id === specialDeviceId) {
+      return res.json({ canSubmit: true });
+    }
+
     const repository = AppDataSource.getRepository(FormResponse);
 
     // Найти все записи с таким же company_name и company_website (независимо от регистра)
