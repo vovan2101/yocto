@@ -105,22 +105,22 @@ const checkInvestors = async (req, res) => {
           if (sentInvestors.includes(investor)) {
             if (statuses[investor] === 'error') {
               failedInvestors.push(investor); // Добавляем инвестора с ошибкой
-            } else if (statuses[investor] === 'success') {
-              alreadySentInvestors.push(investor); // Добавляем успешно отправленного инвестора
+            } else if (statuses[investor] === 'success' || statuses[investor] === undefined) {
+              alreadySentInvestors.push(investor); // Добавляем успешно отправленного или неопределённого инвестора
             }
           }
         }
       }
 
-      const canRetryInvestors = selected_investors.filter(
-        investor => failedInvestors.includes(investor) || !alreadySentInvestors.includes(investor)
+      const investorsToSubmit = selected_investors.filter(
+        investor => !alreadySentInvestors.includes(investor)
       );
 
-      if (canRetryInvestors.length > 0) {
+      if (investorsToSubmit.length > 0) {
         return res.json({
           canSubmit: true,
-          retryInvestors: canRetryInvestors,
-          message: `Forms can be submitted to the following investors: ${canRetryInvestors.join(', ')}.`,
+          investorsToSubmit,
+          message: `Forms can be submitted to the following investors: ${investorsToSubmit.join(', ')}.`,
         });
       }
 
@@ -139,6 +139,7 @@ const checkInvestors = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const deleteUserData = async (req, res) => {
   try {

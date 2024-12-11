@@ -2947,19 +2947,14 @@ async checkInvestorsBeforeSubmit() {
     const data = await response.json();
 
     if (data.canSubmit) {
-      // Продолжаем с отправкой формы
+      if (data.investorsToSubmit && data.investorsToSubmit.length > 0) {
+        this.formData.selectedForms = data.investorsToSubmit; // Обновляем список инвесторов
+      }
       this.submitForm();
     } else {
       if (data.alreadySentInvestors && data.alreadySentInvestors.length > 0) {
-        const remainingInvestors = this.formData.selectedForms.filter(
-          investor => !data.alreadySentInvestors.includes(investor)
-        );
-        if (remainingInvestors.length > 0) {
-          this.formData.selectedForms = remainingInvestors; // Оставляем только тех, кому можно отправить
-          this.submitForm(); // Отправляем форму для оставшихся
-        } else {
-          this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
-        }
+        const investorsList = data.alreadySentInvestors.join(', ');
+        this.showErrorMessage(`Forms have already been submitted to the following investors: ${investorsList}. Please remove these investors from your selection and try again.`);
       } else {
         this.showErrorMessage(data.message || 'You have already submitted forms to all selected investors.');
       }
