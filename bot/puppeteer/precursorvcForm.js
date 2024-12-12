@@ -126,39 +126,23 @@ const fillForm = async (formData) => {
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             // Отправка формы
-            await page.click('#gform_submit_button_2');
+            // await page.click('#gform_submit_button_2');
 
             // Ожидание сообщения об успехе
             try {
                 await page.waitForFunction(() => {
                     return document.body.innerText.includes('Thank you');
-                }, { timeout: 5000 });
+                }, { timeout: 15000 });
 
-                console.log('Precursor Ventures form submitted successfully (First Check)');
+                console.log('Precursor Ventures form submitted successfully');
                 broadcast({
                     investor: 'Precursor Ventures',
                     status: 'received',
                 });
                 success = true; // Успешно отправлено, выходим из цикла
             } catch (e) {
-                console.error('Не удалось определить успешную отправку формы на первой проверке:', e);
-
-                // Дополнительная проверка через 15 секунд
-                try {
-                    await page.waitForFunction(() => {
-                        return document.body.innerText.includes('Thank you');
-                    }, { timeout: 5000 });
-
-                    console.log('Precursor Ventures form submitted successfully (Second Check)');
-                    broadcast({
-                        investor: 'Precursor Ventures',
-                        status: 'received',
-                    });
-                    success = true; // Успешно отправлено, выходим из цикла
-                } catch (e2) {
-                    console.error('Не удалось определить успешную отправку формы на второй проверке:', e2);
-                    throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
-                }
+                console.error('Не удалось определить успешную отправку формы:', e);
+                throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
             }
         } catch (error) {
             console.error(`Ошибка при заполнении формы на попытке ${attempt}:`, error.message);
@@ -190,4 +174,5 @@ const fillForm = async (formData) => {
         }
     }
 };
+
 module.exports = fillForm;
