@@ -1,5 +1,5 @@
 # Используем официальный образ Puppeteer
-FROM ghcr.io/puppeteer/puppeteer:latest
+FROM ghcr.io/puppeteer/puppeteer:v19.11.1 AS build
 
 WORKDIR /app
 
