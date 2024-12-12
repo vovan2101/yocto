@@ -33,7 +33,7 @@ const kafka = require('kafka-node');
         { autoCommit: true }
     );
 
-    const queue = new PQueue({ concurrency: 3 }); // Устанавливаем одновременную обработку до 5 задач
+    const queue = new PQueue({ concurrency: 4 });
 
     consumer.on('message', (message) => {
         console.log('Raw message received:', message);
@@ -52,6 +52,8 @@ const kafka = require('kafka-node');
                 try {
                     if (message.topic === 'hustle-fund-form') {
                         await hustleFundForm(formData);
+                    } else if (message.topic === 'precursorvc-form') {
+                        await precursorvcForm(formData);
                     } else if (message.topic === 'spatial-capital-form') {
                         await spatialCapitalForm(formData);
                     } else if (message.topic === 'incisive-ventures-form') {
@@ -66,8 +68,6 @@ const kafka = require('kafka-node');
                         await ventures2048(formData);
                     } else if (message.topic === 'everywhere-vc-form') {
                         await everywhereVcForm(formData);
-                    } else if (message.topic === 'precursorvc-form') {
-                        await precursorvcForm(formData);
                     } else if (message.topic === 'pathvc-form') {
                         await pathvcForm(formData);
                     } else {
