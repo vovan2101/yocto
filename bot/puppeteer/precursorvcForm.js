@@ -132,7 +132,7 @@ const fillForm = async (formData) => {
             try {
                 await page.waitForFunction(() => {
                     return document.body.innerText.includes('Thank you');
-                }, { timeout: 5000 });
+                }, { timeout: 15000 });
 
                 console.log('Precursor Ventures form submitted successfully');
                 broadcast({
