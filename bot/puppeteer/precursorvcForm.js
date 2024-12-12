@@ -127,6 +127,7 @@ const fillForm = async (formData) => {
 
             // Отправка формы
             await page.click('#gform_submit_button_2');
+            await new Promise(resolve => setTimeout(resolve, 3000));
 
             // Ожидание сообщения об успехе
             try {
