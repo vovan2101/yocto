@@ -132,17 +132,33 @@ const fillForm = async (formData) => {
             try {
                 await page.waitForFunction(() => {
                     return document.body.innerText.includes('Thank you');
-                }, { timeout: 15000 });
+                }, { timeout: 5000 });
 
-                console.log('Precursor Ventures form submitted successfully');
+                console.log('Precursor Ventures form submitted successfully (First Check)');
                 broadcast({
                     investor: 'Precursor Ventures',
                     status: 'received',
                 });
                 success = true; // Успешно отправлено, выходим из цикла
             } catch (e) {
-                console.error('Не удалось определить успешную отправку формы:', e);
-                throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
+                console.error('Не удалось определить успешную отправку формы на первой проверке:', e);
+
+                // Дополнительная проверка через 15 секунд
+                try {
+                    await page.waitForFunction(() => {
+                        return document.body.innerText.includes('Thank you');
+                    }, { timeout: 5000 });
+
+                    console.log('Precursor Ventures form submitted successfully (Second Check)');
+                    broadcast({
+                        investor: 'Precursor Ventures',
+                        status: 'received',
+                    });
+                    success = true; // Успешно отправлено, выходим из цикла
+                } catch (e2) {
+                    console.error('Не удалось определить успешную отправку формы на второй проверке:', e2);
+                    throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
+                }
             }
         } catch (error) {
             console.error(`Ошибка при заполнении формы на попытке ${attempt}:`, error.message);
@@ -174,5 +190,4 @@ const fillForm = async (formData) => {
         }
     }
 };
-
 module.exports = fillForm;
