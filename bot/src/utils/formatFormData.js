@@ -95,15 +95,25 @@ formattedData += `${questionNumber}. How do you plan on acquiring your customers
 questionNumber++;
 }
 
-if ((Array.isArray(formData.industry) && formData.industry.length > 0) ||
-(typeof formData.industry=== 'string' && formData.industry.trim() !== '')) {
-formattedData += `${questionNumber}. What industry are you in?\n${Array.isArray(formData.industry) ? formData.industry.join(', ') : formData.industry}\n\n`;
-questionNumber++;
-}
-
 if ((Array.isArray(formData.product) && formData.product.length > 0) ||
     (typeof formData.product === 'string' && formData.product.trim() !== '')) {
   formattedData += `${questionNumber}. What is the primary product your company is providing?\n${Array.isArray(formData.product) ? formData.product.join(', ') : formData.product}\n\n`;
+  questionNumber++;
+}
+
+if (formData.product_status != null && formData.product_status !== '') {
+  formattedData += `${questionNumber}. What is the status of your product?\n${formData.product_status}\n\n`;
+  questionNumber++;
+}
+
+
+if (formData.active_customers != null && formData.active_customers !== '') {
+  formattedData += `${questionNumber}. Does your product have active users or customers?\n${formData.active_customers}\n\n`;
+  questionNumber++;
+}
+
+if (formData.how_many_users != null && formData.how_many_users !== '') {
+  formattedData += `${questionNumber}. How many users do you have?\n${formData.how_many_users}\n\n`;
   questionNumber++;
 }
 
@@ -113,36 +123,28 @@ if ((Array.isArray(formData.business_model) && formData.business_model.length > 
   questionNumber++;
 }
 
+if (formData.customers_based != null && formData.customers_based !== '') {
+  formattedData += `${questionNumber}. Where are your main customers based?\n${formData.customers_based}\n\n`;
+  questionNumber++;
+}
 
-  if (formData.product_status != null && formData.product_status !== '') {
-    formattedData += `${questionNumber}. What is the status of your product?\n${formData.product_status}\n\n`;
-    questionNumber++;
-  }
+if (formData.vision != null && formData.vision !== '') {
+  formattedData += `${questionNumber}. What is your big vision for the company?\n${formData.vision}\n\n`;
+  questionNumber++;
+}
 
-  if (formData.active_customers != null && formData.active_customers !== '') {
-    formattedData += `${questionNumber}. Does your product have active users or customers?\n${formData.active_customers}\n\n`;
-    questionNumber++;
-  }
+if (formData.company_website != null && formData.company_website !== '') {
+  formattedData += `${questionNumber}. What is your company website?\n${formData.company_website}\n\n`;
+  questionNumber++;
+}
 
-  if (formData.how_many_users != null && formData.how_many_users !== '') {
-    formattedData += `${questionNumber}. How many users do you have?\n${formData.how_many_users}\n\n`;
-    questionNumber++;
-  }
 
-  if (formData.customers_based != null && formData.customers_based !== '') {
-    formattedData += `${questionNumber}. Where are your main customers based?\n${formData.customers_based}\n\n`;
-    questionNumber++;
-  }
+if ((Array.isArray(formData.industry) && formData.industry.length > 0) ||
+(typeof formData.industry=== 'string' && formData.industry.trim() !== '')) {
+formattedData += `${questionNumber}. What industry are you in?\n${Array.isArray(formData.industry) ? formData.industry.join(', ') : formData.industry}\n\n`;
+questionNumber++;
+}
 
-  if (formData.vision != null && formData.vision !== '') {
-    formattedData += `${questionNumber}. What is your big vision for the company?\n${formData.vision}\n\n`;
-    questionNumber++;
-  }
-
-  if (formData.company_website != null && formData.company_website !== '') {
-    formattedData += `${questionNumber}. What is your company website?\n${formData.company_website}\n\n`;
-    questionNumber++;
-  }
 
   if (formData.liberty_ventures_industry != null && formData.liberty_ventures_industry !== '') {
     formattedData += `${questionNumber}. What industry are you in (Liberty Ventures)?\n${formData.liberty_ventures_industry}\n\n`;
