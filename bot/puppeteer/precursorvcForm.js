@@ -128,22 +128,28 @@ const fillForm = async (formData) => {
             // Отправка формы
             // await page.click('#gform_submit_button_2');
 
-            // Ожидание сообщения об успехе
+            // Ожидание изменения URL
             try {
-                await page.waitForFunction(() => {
-                    return document.body.innerText.includes('Thank you');
-                }, { timeout: 15000 });
+                await new Promise(resolve => setTimeout(resolve, 7000));
 
-                console.log('Precursor Ventures form submitted successfully');
-                broadcast({
-                    investor: 'Precursor Ventures',
-                    status: 'received',
-                });
-                success = true; // Успешно отправлено, выходим из цикла
+                // Проверка изменения URL
+                const currentURL = page.url();
+                if (currentURL === 'https://precursorvc.com/startup/thank-you/') {
+                    console.log(`Precursor Ventures form submitted successfully: ${currentURL}`);
+                    broadcast({
+                        investor: 'Precursor Ventures',
+                        status: 'received',
+                    });
+                    success = true; // Успешно отправлено, выходим из цикла
+                } else {
+                    console.error(`URL после отправки формы не совпадает с ожидаемым. Текущий URL: ${currentURL}`);
+                    throw new Error('Precursor Ventures form submission failed: URL did not change to "thank-you" page');
+                }
             } catch (e) {
                 console.error('Не удалось определить успешную отправку формы:', e);
-                throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
+                throw new Error('Precursor Ventures form submission failed: Navigation to "thank-you" page not occurred');
             }
+
         } catch (error) {
             console.error(`Ошибка при заполнении формы на попытке ${attempt}:`, error.message);
 

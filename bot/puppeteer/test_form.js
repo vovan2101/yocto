@@ -90,6 +90,6 @@ selectedForms: [
         
     
 
-fillhustleFundForm(testFormData)
+fillForm(testFormData)
     .then(() => console.log('Test completed successfully'))
     .catch(error => console.error('Test encountered an error:', error));
