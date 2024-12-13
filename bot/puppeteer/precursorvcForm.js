@@ -142,6 +142,25 @@ const fillForm = async (formData) => {
                 success = true; // Успешно отправлено, выходим из цикла
             } catch (e) {
                 console.error('Не удалось определить успешную отправку формы:', e);
+
+                // Получение части HTML страницы для отладки
+                const partialHTML = await page.evaluate(() => {
+                    const elements = document.querySelectorAll('body *');
+                    let htmlSnippet = '';
+                    elements.forEach(element => {
+                        if (element.innerText.includes('error') || element.innerText.includes('invalid') || element.innerText.includes('required')) {
+                            htmlSnippet += element.outerHTML + '\n';
+                        }
+                    });
+                    return htmlSnippet || 'No relevant error messages found.';
+                });
+
+                console.log('Часть HTML страницы для отладки:', partialHTML);
+
+                // Захват полного HTML страницы (опционально, может быть слишком объемным)
+                // const fullHTML = await page.content();
+                // console.log('Полный HTML страницы:', fullHTML);
+
                 throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
             }
         } catch (error) {
