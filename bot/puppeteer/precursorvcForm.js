@@ -158,8 +158,8 @@ const fillForm = async (formData) => {
                 console.log('Часть HTML страницы для отладки:', partialHTML);
 
                 // Захват полного HTML страницы (опционально, может быть слишком объемным)
-                // const fullHTML = await page.content();
-                // console.log('Полный HTML страницы:', fullHTML);
+                const fullHTML = await page.content();
+                console.log('Полный HTML страницы:', fullHTML);
 
                 throw new Error('Precursor Ventures form submission failed: "Thank you" message not found');
             }
