@@ -8,7 +8,7 @@ const fillhustleFundForm = async (formData) => {
         return;
     }
 
-    const MAX_ATTEMPTS = 3;
+    const MAX_ATTEMPTS = 6;
     let attempt = 0;
     let success = false;
     let browser;
