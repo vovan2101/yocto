@@ -3767,7 +3767,7 @@ initWebSocket() {
         setTimeout(() => {
       this.socket.close();
       console.log('WebSocket соединение закрыто после 3 минут.');
-    }, 260000);
+    }, 360000);
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
