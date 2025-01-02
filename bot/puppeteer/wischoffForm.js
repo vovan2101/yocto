@@ -37,21 +37,26 @@ const fillWischoffForm = async (formData) => {
             page = await browser.newPage();
             await page.goto('https://airtable.com/appl0n7pzw0060tns/shr28rdgNSzNC7ioU', { waitUntil: 'networkidle2' });
 
+            // Закрываем куки-баннер, если он есть
             const cookieCloseButtonSelector = '.onetrust-close-btn-handler';
             const cookieCloseButton = await page.$(cookieCloseButtonSelector);
             if (cookieCloseButton) {
                 await cookieCloseButton.click();
             }
 
+            // Дожидаемся появления основной формы
             await page.waitForSelector('.formFieldAndSubmitContainer');
 
+            // Массив селекторов для полей ввода (input)
             const inputSelectors = [
                 '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(1) input', // company_name
                 '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(6) input', // email
             ];
 
+            // Ищем поля ввода
             const inputFields = await Promise.all(inputSelectors.map(selector => page.$(selector)));
 
+            // Заполняем поля ввода
             for (let i = 0; i < inputFields.length; i++) {
                 const field = inputFields[i];
                 let value;
@@ -86,9 +91,9 @@ const fillWischoffForm = async (formData) => {
 
                 switch (i) {
                     case 0:
-                        value = 'Other'; // По умолчанию выбираем 'Other'
+                        // Логика по выбору industry
+                        value = 'Other'; // По умолчанию
                         const industries = formData.industryString.split('; ');
-
                         for (let industry of industries) {
                             if (industry === 'FinTech') {
                                 value = formData.fintech_type;
@@ -96,17 +101,26 @@ const fillWischoffForm = async (formData) => {
                             } else if (industry === 'Cloudtech and DevOps') {
                                 value = 'Cloud infrastructure';
                                 break;
-                            } else if (['Enterprise', 'Consumer', 'Vertical Saas', 'Cloud Infrastructure', 'B2B Marketplace', 'Healthcare'].includes(industry)) {
+                            } else if ([
+                                'Enterprise',
+                                'Consumer',
+                                'Vertical Saas',
+                                'Cloud Infrastructure',
+                                'B2B Marketplace',
+                                'Healthcare'
+                            ].includes(industry)) {
                                 value = industry;
                                 break;
                             }
                         }
                         break;
                     case 1:
+                        // Локация (headquartered)
                         value = formData.headquartered;
                         value = value === 'US' ? 'US' : 'International';
                         break;
                     case 2:
+                        // Стадия (raising_round)
                         value = formData.raising_round;
                         if (value === 'Pre-Seed' || value === 'Pre-Seed extension') {
                             value = 'Pre-seed';
@@ -133,6 +147,7 @@ const fillWischoffForm = async (formData) => {
                 }
             }
 
+            // Селекторы для работы с вложением (pitch_deck)
             const attachmentSelector = '.formFieldAndSubmitContainer .sharedFormField:nth-of-type(5) [role="button"]';
             const urlButtonSelector = '#uppy-uploader-sidenav-child-url';
             const urlInputSelector = 'input[data-testid="urlInput"]';
@@ -140,45 +155,104 @@ const fillWischoffForm = async (formData) => {
             const uploadButtonSelector = 'button[data-testid="upload-button"]';
             const closeModalButtonSelector = 'div[aria-label="Close dialog"]';
 
+            // Немного ждем перед обработкой вложения
             await new Promise(resolve => setTimeout(resolve, 4000));
+
+            // Если есть pitch_deck
             if (formData.pitch_deck && formData.pitch_deck.trim() !== '') {
-                await page.waitForSelector(attachmentSelector);
+                try {
+                    // Пытаемся дождаться появления кнопки для прикрепления (attachmentSelector)
+                    await page.waitForSelector(attachmentSelector, { timeout: 5000 });
+                } catch (err) {
+                    console.log('Attachment button not found. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                    // Если нужно пропустить только эту часть и продолжить отправку — просто делаем return из этого блока
+                    // Но здесь вернёмся в общий поток (не выходим из функции), т.к. логика дальше может продолжаться
+                }
+
+                // Проверяем, действительно ли нашли кнопку
                 const attachButton = await page.$(attachmentSelector);
                 if (attachButton) {
                     await attachButton.click();
+                } else {
+                    console.log('attachButton is null. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
 
-                    await page.waitForSelector(urlButtonSelector, { visible: true });
-                    const urlButton = await page.$(urlButtonSelector);
-                    if (urlButton) {
-                        await urlButton.click();
-                        await page.waitForSelector(urlInputSelector, { visible: true });
-                        const urlInput = await page.$(urlInputSelector);
-                        if (urlInput) {
-                            await urlInput.type(formData.pitch_deck);
-                            await new Promise(resolve => setTimeout(resolve, 2000));
-                            const submitUrlButton = await page.$(submitUrlButtonSelector);
-                            if (submitUrlButton) {
-                                await submitUrlButton.click();
-                                await new Promise(resolve => setTimeout(resolve, 5000));
+                try {
+                    await page.waitForSelector(urlButtonSelector, { visible: true, timeout: 5000 });
+                } catch (err) {
+                    console.log('URL button not found. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
 
-                                const errorSelector = '.ui-state-error-text';
-                                const isError = await page.$(errorSelector);
-                                if (isError) {
-                                    console.log('URL not accepted, closing modal and continuing.');
-                                    const closeModalButton = await page.$(closeModalButtonSelector);
-                                    if (closeModalButton) {
-                                        await closeModalButton.click();
-                                    }
-                                } else {
-                                    await page.waitForSelector(uploadButtonSelector, { visible: true });
-                                    const uploadButton = await page.$(uploadButtonSelector);
-                                    if (uploadButton) {
-                                        await uploadButton.click();
-                                        await new Promise(resolve => setTimeout(resolve, 2000));
-                                    }
-                                }
-                            }
-                        }
+                const urlButton = await page.$(urlButtonSelector);
+                if (urlButton) {
+                    await urlButton.click();
+                } else {
+                    console.log('URL button element is null. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
+
+                try {
+                    await page.waitForSelector(urlInputSelector, { visible: true, timeout: 5000 });
+                } catch (err) {
+                    console.log('URL input not found. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
+
+                const urlInput = await page.$(urlInputSelector);
+                if (urlInput) {
+                    await urlInput.type(formData.pitch_deck);
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                } else {
+                    console.log('URL input element is null. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
+
+                try {
+                    await page.waitForSelector(submitUrlButtonSelector, { timeout: 5000 });
+                } catch (err) {
+                    console.log('Submit URL button not found. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
+
+                const submitUrlButton = await page.$(submitUrlButtonSelector);
+                if (submitUrlButton) {
+                    await submitUrlButton.click();
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                } else {
+                    console.log('Submit URL button is null. Pressing Escape and continuing...');
+                    await page.keyboard.press('Escape');
+                }
+
+                // Проверяем наличие ошибки
+                const errorSelector = '.ui-state-error-text';
+                const isError = await page.$(errorSelector);
+                if (isError) {
+                    console.log('URL not accepted, closing modal and continuing.');
+                    const closeModalButton = await page.$(closeModalButtonSelector);
+                    if (closeModalButton) {
+                        await closeModalButton.click();
+                    } else {
+                        await page.keyboard.press('Escape');
+                    }
+                } else {
+                    // Если ошибки нет — ждем кнопку Upload
+                    try {
+                        await page.waitForSelector(uploadButtonSelector, { visible: true, timeout: 5000 });
+                    } catch (err) {
+                        console.log('Upload button not found. Pressing Escape and continuing...');
+                        await page.keyboard.press('Escape');
+                    }
+
+                    const uploadButton = await page.$(uploadButtonSelector);
+                    if (uploadButton) {
+                        await uploadButton.click();
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                    } else {
+                        console.log('Upload button is null. Pressing Escape and continuing...');
+                        await page.keyboard.press('Escape');
                     }
                 }
             } else {
@@ -187,9 +261,9 @@ const fillWischoffForm = async (formData) => {
 
             // После обработки вложения, прокручиваем страницу к кнопке отправки
             const submitButtonSelector = 'input[type="button"].submitButton';
-
             await page.waitForSelector(submitButtonSelector);
 
+            // Скроллим к кнопке отправки
             await page.evaluate((selector) => {
                 const element = document.querySelector(selector);
                 if (element) {
@@ -199,11 +273,15 @@ const fillWischoffForm = async (formData) => {
 
             await page.waitForSelector(submitButtonSelector, { visible: true });
 
+            // Убеждаемся, что кнопка видима и кликабельна
             await page.waitForFunction((selector) => {
                 const button = document.querySelector(selector);
                 if (!button) return false;
                 const rect = button.getBoundingClientRect();
-                const elementAtPoint = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                const elementAtPoint = document.elementFromPoint(
+                    rect.left + rect.width / 2,
+                    rect.top + rect.height / 2
+                );
                 return button === elementAtPoint;
             }, {}, submitButtonSelector);
 
@@ -213,7 +291,9 @@ const fillWischoffForm = async (formData) => {
             // Ожидание появления текста после отправки формы
             try {
                 await page.waitForFunction(() => {
-                    return document.body.innerText.includes("You'll be redirected to https://wischoff.com in a few seconds.");
+                    return document.body.innerText.includes(
+                        "You'll be redirected to https://wischoff.com in a few seconds."
+                    );
                 }, { timeout: 5000 });
 
                 console.log('Wischoff Ventures form submitted successfully and redirect message detected.');
