@@ -86,9 +86,10 @@ const checkInvestors = async (req, res) => {
     }
 
     const specialDeviceId = 'aa20d0ba-ee7b-433f-bfd2-174b284be8f2';
+    const anotherSpecialDeviceId = 'a9c0edce-df09-4d22-9f5b-768c6d075900';
 
     // Если это особый device_id, пропускаем проверки
-    if (device_id === specialDeviceId) {
+    if (device_id === specialDeviceId || anotherSpecialDeviceId) {
       return res.json({ canSubmit: true });
     }
 
