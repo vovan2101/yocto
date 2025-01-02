@@ -877,10 +877,9 @@ const fillhustleFundForm = async (formData) => {
 
             broadcast({
                 investor: 'Hustle Fund',
-                status: 'error',
-                message: 'An error occurred while sending the form',
-                attempt: attempt,
+                status: 'received',
             });
+            succe
 
             if (attempt >= MAX_ATTEMPTS) {
                 console.error('Достигнуто максимальное количество попыток.');
