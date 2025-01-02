@@ -3166,15 +3166,10 @@ closeWarningMessage() {
   }
 },
 validateURL(url) {
-  const pattern = new RegExp('^(https?:\\/\\/)' + // проверка на http или https (обязательно)
-    '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // проверка на домен
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // проверка на IP-адрес
-    '(\\:\\d+)?' + // проверка на порт (опционально)
-    '(\\/[-a-zA-Z\\d%_.~+]*)?' + // путь (опционально)
-    '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // строка запроса (опционально)
-    '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // хеш (опционально)
-  return !!pattern.test(url);
+  const pattern = new RegExp('^https?:\\/\\/.*', 'i');
+  return pattern.test(url);
 },
+
     async nextStep() {
       this.errorMessage = '';
       this.removeFocus();
